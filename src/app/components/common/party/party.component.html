@@ -1,0 +1,145 @@
+<div
+    class="partyResponseBean d-flex flex-wrap"
+    [formGroup]="party"
+    [ngClass]="rowClass ? 'row':''"
+>
+    <div [ngClass]="inputTabClass ? 'tab_0':bankClassResponsive">
+        <div class="mb-2">
+            <div class="input-group ">
+                <span class="input-group-text leftform_lbl preinput_radius font500 text-dark1 font12">Bank</span>
+                <app-f1
+                    maxlength="50"
+                    class="form-control w_20 border-start-0 border-end-0 post_input_field text-center-child font500 text-dark1 font12"
+                    [formControlName]="'payeebankcode1'"
+                    placeholder
+                    titleValue="{{_bankTable?.mainheader}}"
+                    [tableData]="_bankTable?.dataSet"
+                    [colHeader]="_bankColHead"
+                    (updatedSelectedValue)="updateListControl($event,party.get('parPayeebankcode1Name'))"
+                    [inputBBC]="_bankTable?.bringBackColumn"
+                    [dynaPopId]="'PAYEEBANKS'"
+                    [queryConditon]="''"
+                    (sendFieldValueChange)="inputFieldValueChange()"
+                    (change)="fieldValueChange()"
+                    [errorMessage]="'Please Enter Payee Bank Code Proper'"
+                ></app-f1>
+
+                <span class="position-relative span_divider"></span>
+                <input
+                    type="text"
+                    class="flex-60 form-control w-50 border-start-0 post_input_field font500 text-dark1 font12"
+                    id="bankName"
+                    formControlName="parPayeebankcode1Name"
+                    readonly
+                    tabindex="-1"
+                >
+            </div>
+        </div>
+    </div>
+    <div [ngClass]="inputTabClass ? 'tab1':branchClassResponsive">
+        <div class="mb-2">
+            <div class="input-group ">
+                <span class="input-group-text leftform_lbl preinput_radius font500 text-dark1 font12">Branch</span>
+                <input
+                    type="text"
+                    class="form-control  border-start-0 post_input_field font500 text-dark1 font12"
+                    id="branch"
+                    formControlName="payeeBranch1"
+                    (change)="fieldValueChange()"
+                    maxlength="50"
+                >
+            </div>
+        </div>
+    </div>
+    <div [ngClass]="inputTabClass ? 'tab2':partClassResponsive">
+        <div class="mb-2">
+            <div class="input-group ">
+                <span class="input-group-text leftform_lbl preinput_radius font500 text-dark1 font12">Account Number</span>
+                <input
+                    type="text"
+                    class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                    id="accNo"
+                    formControlName="payeeacNum1"
+                    (change)="fieldValueChange()"
+                    maxlength="20"
+                    oninput="this.value=this.value.replace(/[^0-9]/g,'');"
+                >
+            </div>
+        </div>
+    </div>
+
+    <div [ngClass]="inputTabClass ? 'tab_0':partClassResponsive">
+        <div class="mb-2">
+            <div class="input-group "  [class.is-invalid]="
+            party.controls['payeeIfsc1'].invalid &&
+            party.controls['payeeIfsc1'].touched
+          ">
+                <span class="input-group-text leftform_lbl preinput_radius font500 text-dark1 font12">IFSC</span>
+                <input
+                    type="text"
+                    class="form-control border-start-0 post_input_field font500 text-dark1 font12 text-uppercase"
+                    id="ifsc"
+                    formControlName="payeeIfsc1"
+                    (change)="fieldValueChange()" maxlength="11"
+                >
+            </div>
+            <div *ngIf="
+                        party.controls['payeeIfsc1'].invalid &&
+                        party.controls['payeeIfsc1'].touched
+                      ">
+                <div
+                    *ngIf="party.controls['payeeIfsc1'].errors?.['pattern']"
+                    class="errorField common_color_txt font12 font500"
+                >
+                   Invalid IFSC 
+                </div>
+                <div
+                    *ngIf="party.controls['payeeIfsc1'].errors?.['ifscInValid']"
+                    class="errorField common_color_txt font12 font500"
+                >
+                   Bank Code is not matching with IFSC
+                </div>
+                <div
+                *ngIf="party.controls['payeeIfsc1'].errors?.['bankInValid']"
+                class="errorField common_color_txt font12 font500"
+            >
+              Please Enter Proper Bank Code
+            </div>
+            </div>
+
+        </div>
+    </div>
+    <div [ngClass]="inputTabClass ? 'tab1':partClassResponsive">
+        <div class="mb-2">
+            <div class="input-group "  [class.is-invalid]="
+            party.controls['aadharno'].invalid &&
+            party.controls['aadharno'].touched
+          ">
+                <span class="input-group-text leftform_lbl preinput_radius font500 text-dark1 font12">Aadhar No.</span>
+                <input
+                    type="text"
+                    class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                    id="adharno"
+                    formControlName="aadharno"
+                    (change)="fieldValueChange()"
+                    maxlength="16"
+                    oninput="this.value=this.value.replace(/[^0-9]/g,'');"
+                >
+            </div>
+            <div *ngIf="
+                        party.controls['aadharno'].invalid &&
+                        party.controls['aadharno'].touched
+                      ">
+
+                <div
+                    class="errorField common_color_txt font12 font500"
+                    *ngIf="party.controls['aadharno'].errors?.['maxlength'] ||party.controls['aadharno'].errors?.['minlength']"
+                >
+                    *Aadhar no. should be 12 Character. Current is
+                        {{ party.controls['aadharno'].errors?.['maxlength']?.actualLength || party.controls['aadharno'].errors?.['minlength']?.actualLength }}
+                        characters.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

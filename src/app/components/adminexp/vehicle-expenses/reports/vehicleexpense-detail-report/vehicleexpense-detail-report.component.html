@@ -1,0 +1,81 @@
+<section class="container">
+  <div class="col-md-6">
+    <form [formGroup]="VehnumSelectionform" #formDirective="ngForm">
+      <div class="col-sm-12" formGroupName="reportParameters">
+        <div
+          class="input-group"
+          [class.is-invalid]="
+            VehnumSelectionform.controls['reportParameters'].controls[
+              'TxtVehicleNo'
+            ].invalid &&
+            (VehnumSelectionform.controls['reportParameters'].controls[
+              'TxtVehicleNo'
+            ].touched ||
+              VehnumSelectionform.controls['reportParameters'].controls[
+                'TxtVehicleNo'
+              ].dirty)
+          "
+        >
+          <span class="input-group-text leftform_lbl font500 font12">
+            <span class="req_field common_color_txt fontBold font14">*</span
+            >Vehicle</span
+          >
+          <app-f1
+            id="vehtype"
+            [formControlName]="'TxtVehicleNo'"
+            name="VehicleType"
+            class="form-control post_input_field border-end-0 d-flex"
+            titleValue="{{ VehnumF1List?.mainheader }}"
+            [tableData]="VehnumF1List?.dataSet"
+            [colHeader]="VehnumColHeadings"
+            [inputBBC]="VehnumF1Bbc"
+            (updatedSelectedValue)="getDescForVehnumdesc($event)"
+            [dynaPopId]="'VEHNUM'"
+            [errorMessage]="'Invalid Vehicle Num'"
+          >
+          </app-f1>
+          <span class="position-relative span_divider"></span>
+          <input
+            type="text"
+            formControlName="vehownerdesc"
+            tabindex="-1"
+            class="form-control post_input_field border-start-0 d-flex w-50"
+          />
+        </div>
+        <div
+          *ngIf="
+            VehnumSelectionform.controls['reportParameters'].controls[
+              'TxtVehicleNo'
+            ].invalid &&
+            (VehnumSelectionform.controls['reportParameters'].controls[
+              'TxtVehicleNo'
+            ].touched ||
+              VehnumSelectionform.controls['reportParameters'].controls[
+                'TxtVehicleNo'
+              ].dirty)
+          "
+        >
+          <div
+            class="errorField common_color_txt font12 font500"
+            *ngIf="VehnumSelectionform.controls['reportParameters'].controls['TxtVehicleNo'].errors && VehnumSelectionform.controls['reportParameters'].controls['TxtVehicleNo'].errors?.['required']"
+          >
+            * Vehicle Workwise Code is required
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+<app-loader *ngIf="loaderToggle"></app-loader>
+  <section class="action_section position-fixed w-100">
+    <div class="container">
+        <div class="action_conatiner text-center bg-white br-10 w-100">
+            <div class="flex justify-content-between">
+              <button type="submit" class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone" accesskey="w" (click)="getReport(false)">Do<span class="text-decoration-underline">w</span>nload</button>
+              <button type="submit" class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white"  (click)="getReport(true)"  accesskey="p">Print</button>
+              <!-- <button type="submit" class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white" [disabled]="true" accesskey="p" >Preview</button> -->
+              <button type="submit" class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"  accesskey="x" (click)="handleExitClick()">E<span class="text-decoration-underline">x</span>it</button>
+            </div>
+        </div>
+    </div>
+</section>

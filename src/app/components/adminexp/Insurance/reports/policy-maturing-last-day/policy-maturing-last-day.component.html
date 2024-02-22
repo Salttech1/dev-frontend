@@ -1,0 +1,94 @@
+<section class="container">
+  <div class="col-md-6">
+    <form [formGroup]="Policymaturinglastdayform" #formDirective="ngForm">
+      <div class="col-sm-12" formGroupName="reportParameters">
+        <div
+          class="input-group"
+          appMonthyear
+          [class.is-invalid]="
+          Policymaturinglastdayform.controls['reportParameters']
+              .controls['fromDate'].invalid &&
+              Policymaturinglastdayform.controls['reportParameters']
+              .controls['fromDate'].touched
+          "
+        >
+          <span
+            class="input-group-text leftform_lbl font500 text-dark1 font12"
+            >Month</span
+          >
+          <input
+            type="text"
+            [matDatepicker]="pickerYearSelection"
+            class="form-control border-start-0 post_input_field"
+            formControlName="fromDate"
+            id="fromDate"
+          />
+          <div
+            class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+          >
+            <span class="input-group-addon">
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="pickerYearSelection"
+              ></mat-datepicker-toggle>
+              <mat-datepicker
+                #pickerYearSelection
+                startView="multi-year"
+              ></mat-datepicker>
+            </span>
+          </div>
+        </div>
+        <div
+          class="disInl me-2"
+          *ngIf="
+          Policymaturinglastdayform.controls['reportParameters']
+              .controls['fromDate'].invalid &&
+              Policymaturinglastdayform.controls['reportParameters']
+              .controls['fromDate'].touched
+          "
+        >
+          <div
+            class="errorField common_color_txt font12 font500 disInl"
+            *ngIf="Policymaturinglastdayform.controls['reportParameters'].controls['fromDate'].errors && Admrpinsmaturingpolicytodayform.controls['reportParameters'].controls['fromDate'].errors?.['required']"
+          >
+            Month is required
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+<app-loader *ngIf="loaderToggle"></app-loader>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner text-center bg-white br-10 w-100">
+      <div class="flex justify-content-between">
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+          accesskey="w"
+          (click)="getReport(false)"
+        >
+          Do<span class="text-decoration-underline">w</span>nload
+        </button>
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white"
+          (click)="getReport(true)"
+          accesskey="p"
+        >
+          Print
+        </button>
+        <!-- <button type="submit" class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white" [disabled]="true" accesskey="p" >Preview</button> -->
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+          accesskey="x"
+          (click)="handleExitClick()"
+        >
+          E<span class="text-decoration-underline">x</span>it
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

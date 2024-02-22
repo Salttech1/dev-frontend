@@ -1,0 +1,440 @@
+<section>
+  <div class="row">
+    <div class="col-md-12">
+      <form [formGroup]="queryForm">
+        <div class="row g-3">
+          <div class="col-md-4">
+            <div class="row g-3">
+              <div class="col-md-12">
+                <div class="br-10 group_panel p-3 position-relative">
+                  <p
+                    class="bg-white font600 group_title mb-0 position-absolute"
+                  >
+                    <ng-container
+                      *ngIf="
+                        url == 'purchasebillsoutstanding';
+                        else supplierAgingTxt
+                      "
+                      >Bill Outstanding Report</ng-container
+                    >
+                    <ng-template #supplierAgingTxt>Ageing Report</ng-template>
+                  </p>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input position-relative"
+                      type="radio"
+                      name="name"
+                      id="billRadioDefault1"
+                      value="CoyWise"
+                      formControlName="name"
+                    />
+                    <label class="form-check-label" for="billRadioDefault1">
+                      Company wise
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input position-relative"
+                      type="radio"
+                      name="name"
+                      id="billRadio2"
+                      value="SupplierWise"
+                      formControlName="name"
+                    />
+                    <label class="form-check-label" for="billRadio2">
+                      Supplier wise
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input position-relative"
+                      type="radio"
+                      name="name"
+                      id="billRadio3"
+                      value="MaterialWise"
+                      formControlName="name"
+                    />
+                    <label class="form-check-label" for="billRadio3">
+                      Material wise
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input position-relative"
+                      type="radio"
+                      name="name"
+                      id="billRadio4"
+                      value="Bldgwise"
+                      formControlName="name"
+                    />
+                    <label class="form-check-label" for="billRadio4">
+                      Building wise
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input position-relative"
+                      type="radio"
+                      name="name"
+                      id="billRadio5"
+                      value="BldgMatwise"
+                      formControlName="name"
+                    />
+                    <label class="form-check-label" for="billRadio5">
+                      Bldg Mat wise
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <ng-container *ngIf="url == 'purchasebillsoutstanding'">
+                <div class="col-md-12">
+                  <div class="br-10 group_panel p-3 position-relative">
+                    <p
+                      class="bg-white font600 group_title mb-0 position-absolute"
+                    >
+                      Report Type
+                    </p>
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input position-relative"
+                        type="radio"
+                        name="report"
+                        id="flexRadioDefault1"
+                        value="Detail"
+                        formControlName="report"
+                      />
+                      <label class="form-check-label" for="flexRadioDefault1">
+                        Detail
+                      </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input position-relative"
+                        type="radio"
+                        name="report"
+                        id="flexRadioDefault2"
+                        value="Summ"
+                        formControlName="report"
+                      />
+                      <label class="form-check-label" for="flexRadioDefault2">
+                        Summary
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="row g-3 h-100">
+              <div class="col-md-12 h-100">
+                <div class="br-10 group_panel p-3 position-relative h-100">
+                  <p
+                    class="bg-white font600 group_title mb-0 position-absolute"
+                  >
+                    Other Code
+                  </p>
+                  <div class="row g-2 h-100">
+                    <div class="col-md-12">
+                      <div
+                        class="input-group has-validation"
+                        [class.is-invalid]="
+                      queryForm.controls['coyCode'].touched &&
+                      queryForm.controls['matGroup'].touched && 
+                      queryForm.controls['bldgCode'].touched &&
+                      queryForm.controls['partyCode'].touched &&
+                      queryForm?.errors?.['atLeastOneFilter']
+                    "
+                      >
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Supplier Code</span
+                        >
+                        <input
+                          appCommonAutoFocus
+                          type="text"
+                          id="party123"
+                          class="form-control border-start-0"
+                          formControlName="partyCode"
+                          [f1]="{
+                            id: 'PARTYCODE',
+                            subId: party_condition,
+                            multi: true
+                          }"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div
+                        class="input-group has-validation"
+                        [class.is-invalid]="
+                      queryForm.controls['coyCode'].touched &&
+                      queryForm.controls['matGroup'].touched && 
+                      queryForm.controls['bldgCode'].touched &&
+                      queryForm.controls['partyCode'].touched &&
+                      queryForm?.errors?.['atLeastOneFilter']
+                    "
+                      >
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                        >
+                          Company Code</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0"
+                          formControlName="coyCode"
+                          [f1]="{ id: 'COMPANY', multi: true }"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div
+                        class="input-group has-validation"
+                        [class.is-invalid]="
+                      queryForm.controls['coyCode'].touched &&
+                      queryForm.controls['matGroup'].touched && 
+                      queryForm.controls['bldgCode'].touched &&
+                      queryForm.controls['partyCode'].touched &&
+                      queryForm?.errors?.['atLeastOneFilter']
+                    "
+                      >
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Building Code</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0"
+                          formControlName="bldgCode"
+                          [f1]="{ id: 'BUILDINGS', multi: true }"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div
+                        class="input-group has-validation"
+                        [class.is-invalid]="
+                      queryForm.controls['coyCode'].touched &&
+                      queryForm.controls['matGroup'].touched && 
+                      queryForm.controls['bldgCode'].touched &&
+                      queryForm.controls['partyCode'].touched &&
+                      queryForm?.errors?.['atLeastOneFilter']
+                    "
+                      >
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Material Code</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0"
+                          formControlName="matGroup"
+                          [f1]="{ id: 'MATGROUPS', multi: true }"
+                        />
+                      </div>
+                      <div
+                        *ngIf="queryForm?.errors?.['atLeastOneFilter']"
+                        class="form-text"
+                        [class.text-danger]="queryForm.controls['coyCode'].touched &&
+                        queryForm.controls['matGroup'].touched && 
+                        queryForm.controls['bldgCode'].touched &&
+                        queryForm.controls['partyCode'].touched &&
+                        queryForm?.errors?.['atLeastOneFilter']"
+                      >
+                        Please select atleast one code to get data
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div
+                        class="input-group flex-nowrap"
+                        appDate1
+                        [class.is-invalid]="
+                          (queryForm.get('range')?.controls['suppBillFromDate']
+                            ?.invalid &&
+                            queryForm.get('range')?.controls['suppBillFromDate']
+                              ?.touched) ||
+                          (queryForm.get('range')?.controls['suppBillToDate']
+                            ?.invalid &&
+                            queryForm.get('range')?.controls['suppBillToDate']
+                              ?.touched)
+                        "
+                      >
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1"
+                          >Bill Range</span
+                        >
+                        <div
+                          class="bg-white datepicker_field post_input_field flex-grow-1"
+                          [class.is-invalid]="
+                            (queryForm.get('range')?.controls[
+                              'suppBillFromDate'
+                            ]?.invalid &&
+                              queryForm.get('range')?.controls[
+                                'suppBillFromDate'
+                              ]?.touched) ||
+                            (queryForm.get('range')?.controls['suppBillToDate']
+                              ?.invalid &&
+                              queryForm.get('range')?.controls['suppBillToDate']
+                                ?.touched)
+                          "
+                        >
+                          <span class="input-group-addon">
+                            <div
+                              mat-form-field
+                              appearance="fill"
+                              class="matForm"
+                            >
+                              <mat-date-range-input
+                                [formGroup]="this.queryForm.controls['range']"
+                                [rangePicker]="picker"
+                              >
+                                <input
+                                  matStartDate
+                                  formControlName="suppBillFromDate"
+                                  placeholder="Start date"
+                                />
+                                <input
+                                  matEndDate
+                                  formControlName="suppBillToDate"
+                                  placeholder="End date"
+                                />
+                              </mat-date-range-input>
+                              <mat-datepicker-toggle
+                                matSuffix
+                                [for]="picker"
+                              ></mat-datepicker-toggle>
+                              <mat-date-range-picker
+                                #picker
+                              ></mat-date-range-picker>
+                            </div>
+                          </span>
+                        </div>
+                      </div>
+                      <div
+                        *ngIf="
+                          queryForm.controls['range'].invalid &&
+                          queryForm.controls['range'].touched
+                        "
+                      >
+                        <div
+                          class="invalid-feedback d-block"
+                          *ngIf="
+                            (queryForm.get('range').controls['suppBillFromDate']
+                              ?.invalid &&
+                              queryForm.get('range').controls['suppBillFromDate']
+                                ?.touched) ||
+                            (queryForm.get('range').controls['suppBillToDate']?.invalid &&
+                              queryForm.get('range').controls['suppBillToDate']?.touched)
+                          "
+                        >
+                          Proper Date is required
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="input-group">
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Remark</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0"
+                          formControlName="Remarks"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-sm-12" *ngIf="_service.getAccess('Export')">
+                      <p class="bg-white font600 group_title mb-1">
+                        Export Type
+                      </p>
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input position-relative"
+                          type="radio"
+                          name="exportType"
+                          id="exTy1"
+                          value="PDF"
+                          formControlName="exportType"
+                        />
+                        <label class="form-check-label" for="exTy1">
+                          PDF
+                        </label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input position-relative"
+                          type="radio"
+                          name="exportType"
+                          id="exTy2"
+                          value="EXCEL_REPORT_DATA_FORMAT"
+                          formControlName="exportType"
+                        />
+                        <label class="form-check-label" for="exTy2">
+                          Excel (Report - Data Format)
+                        </label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input position-relative"
+                          type="radio"
+                          name="exportType"
+                          id="exTy3"
+                          value="EXCEL_TEMPLATE_FORMAT"
+                          formControlName="exportType"
+                        />
+                        <label class="form-check-label" for="exTy3">
+                          Excel (Template Format)
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner bg-white br-10 d-flex justify-content-center">
+      <button
+        *ngIf="_service.getAccess('Export')"
+        type="submit"
+        class="bg_common_red common_action_btn br-10 first_letter_textdecorationone"
+        [attr.accesskey]="loaderToggle == true ? '' : 'w'"
+        (click)="getReport(false)"
+      >
+        Do<u>w</u>nload
+      </button>
+      <button *ngIf="_service.getAccess('Print')"
+        type="submit"
+        class="bg_common_red common_action_btn br-10"
+        (click)="getReport(true)"
+        [attr.accesskey]="loaderToggle == true ? '' : 'p'"
+      >
+        Print
+      </button>
+      <button
+      type="submit"
+      (click)="resetForm()"
+      class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone"
+      accesskey="t"
+    >
+      Rese<span class="text-decoration-underline">t</span>
+    </button>
+      <a
+        class="bg_common_red border-0 common_action_btn text-white br-10 first_letter_textdecorationone text-decoration-none"
+        [attr.accesskey]="loaderToggle == true ? '' : 'x'"
+        routerLink="/dashboard"
+      >
+        E<u>x</u>it
+      </a>
+    </div>
+  </div>
+</section>
+<app-loader *ngIf="loaderToggle"></app-loader>

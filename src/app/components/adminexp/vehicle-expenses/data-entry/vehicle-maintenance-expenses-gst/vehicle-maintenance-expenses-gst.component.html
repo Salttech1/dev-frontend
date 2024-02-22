@@ -1,0 +1,1239 @@
+<section>
+  <div class="container">
+    <form [formGroup]="vehicleExpSelectionsForm">
+      <div class="row g-2">
+        <div class="col-lg-4 col-md-6">
+          <div
+            class="input-group"
+            [class.is-invalid]="
+              vehicleExpSelectionsForm.controls['vehnum'].invalid &&
+              vehicleExpSelectionsForm.controls['vehnum'].touched
+            "
+          >
+            <span class="input-group-text leftform_lbl font500 font12"
+              >Vehicle No
+            </span>
+            <input
+              type="text"
+              formControlName="vehnum"
+              id="vehnum"
+              class="form-control w-50 border-start-0 post_input_field font500 font12"
+              appCommonAutoFocus
+              autocomplete="off"
+              [f1]="{ id: 'VEHNUM', subId: vehcondition }"
+            />
+          </div>
+          <div
+            class="errorField common_color_txt font12 font500"
+            *ngIf="
+              vehicleExpSelectionsForm.controls['vehnum'].invalid &&
+              vehicleExpSelectionsForm.controls['vehnum'].touched
+            "
+          >
+            <div
+              class="errorField common_color_txt font12 font500"
+              *ngIf="vehicleExpSelectionsForm.controls['vehnum'].errors?.['required']"
+            >
+              * Vehicle No is required
+            </div>
+            * No Record for this Vehicle or Vehicle disposed
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div
+            class="input-group"
+            [class.is-invalid]="
+              vehicleExpSelectionsForm.controls['certnumsel'].invalid &&
+              vehicleExpSelectionsForm.controls['certnumsel'].touched
+            "
+          >
+            <span class="input-group-text leftform_lbl font500 font12"
+              >Certificate No
+            </span>
+            <input
+              type="text"
+              formControlName="certnumsel"
+              id="certnum"
+              autocomplete="off"
+              class="form-control w-50 border-start-0 post_input_field font500 font12"
+              [f1]="{ id: 'ADMNUM', subId: vehSubid }"
+            />
+          </div>
+          <div
+            *ngIf="
+              vehicleExpSelectionsForm.controls['certnumsel'].invalid &&
+              vehicleExpSelectionsForm.controls['certnumsel'].touched
+            "
+          >
+            <div
+              class="errorField common_color_txt font12 font500"
+              *ngIf="vehicleExpSelectionsForm.controls['certnumsel'].errors?.['required']"
+            >
+              * Certificate No. is required
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="input-group">
+            <span class="input-group-text leftform_lbl font500 font12"
+              >Bill No
+            </span>
+            <input
+              type="text"
+              formControlName="billnum"
+              tabindex="-1"
+              class="form-control w-50 border-start-0 post_input_field font500 font12"
+            />
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <form [formGroup]="vehicleExpForm" *ngIf="initialMode">
+      <div class="row g-2 mt-2">
+        <div class="col-lg-8 col-md-12">
+          <div
+            class="group_panel br-10 form_common_bg p-3 pt-3 position-relative"
+          >
+            <p class="bg-white font600 group_title mb-0 position-absolute">
+              Vehicle & Bill Details
+            </p>
+            <div class="row g-2">
+              <div class="input-group has-validation">
+                <span class="input-group-text leftform_lbl font500 font12"
+                  >Vehicle Type</span
+                >
+                <span class="position-relative span_divider"></span>
+                <input
+                  type="text"
+                  tabindex="-1"
+                  formControlName="eqpVehtypeDesc"
+                  class="form-control post_input_field border-start-0 d-flex w-50"
+                />
+              </div>
+              <div
+                class="input-group has-validation"
+                [class.is-invalid]="
+                  vehicleExpForm.controls['allottedto'].invalid &&
+                  (vehicleExpForm.controls['allottedto'].touched ||
+                    vehicleExpForm.controls['allottedto'].dirty)
+                "
+              >
+                <span class="input-group-text leftform_lbl font500 font12"
+                  >Allotted To</span
+                >
+                <input
+                  type="text"
+                  formControlName="allottedto"
+                  class="form-control post_input_field border-start-0 d-flex"
+                />
+              </div>
+              <div class="row g-1">
+                <div class="col-lg-8 col-md-12">
+                  <div class="input-group">
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      >Company</span
+                    >
+                    <input
+                      type="text"
+                      formControlName="coy"
+                      tabindex="-1"
+                      class="form-control post_input_field border-end-0 d-flex"
+                    />
+
+                    <span class="position-relative span_divider"></span>
+                    <input
+                      type="text"
+                      formControlName="CoyName"
+                      tabindex="-1"
+                      class="form-control post_input_field border-start-0 d-flex w-50"
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                  <div class="input-group has-validation">
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      >GST No</span
+                    >
+                    <span class="position-relative span_divider"></span>
+                    <input
+                      type="text"
+                      tabindex="-1"
+                      formControlName="coygst"
+                      class="form-control post_input_field border-start-0 d-flex w-50"
+                    />
+                  </div>
+                </div>
+              </div>
+              <!-- Propritor -->
+              <div class="input-group">
+                <span class="input-group-text leftform_lbl font500 font12"
+                  >Proprietor</span
+                >
+                <input
+                  type="text"
+                  formControlName="prop"
+                  tabindex="-1"
+                  class="form-control post_input_field border-end-0 d-flex"
+                />
+
+                <span class="position-relative span_divider"></span>
+                <input
+                  type="text"
+                  formControlName="propDesc"
+                  tabindex="-1"
+                  class="form-control post_input_field border-start-0 d-flex w-50"
+                />
+              </div>
+              <!--Partycode -- Start -->
+              <div class="row g-1">
+                <div class="col-lg-8 col-md-12">
+                  <div
+                    class="input-group has-validation"
+                    [class.is-invalid]="
+                      vehicleExpForm.controls['partycode'].invalid &&
+                      (vehicleExpForm.controls['partycode'].touched ||
+                        vehicleExpForm.controls['partycode'].dirty)
+                    "
+                  >
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      ><span class="req_field common_color_txt fontBold font14"
+                        >*</span
+                      >PartyCode</span
+                    >
+                    <input
+                      id="partycode"
+                      type="text"
+                      autocomplete="off"
+                      oninput="this.value = this.value.toUpperCase()"
+                      formControlName="partycode"
+                      class="form-control border-end-0 d-flex font500 font12"
+                      [f1]="{
+                        id: 'PARTYCODE',
+                        subId: partySubid,
+                        err: false
+                      }"
+                      (blur)="SetPartyDetails()"
+                    />
+                    <input
+                      type="text"
+                      formControlName="partyDesc"
+                      class="form-control post_input_field border-start-0 d-flex w-50"
+                    />
+                  </div>
+                  <div
+                    class="disInl me-2"
+                    *ngIf="
+                      vehicleExpForm.controls['partycode'].invalid &&
+                      (vehicleExpForm.controls['partycode'].touched ||
+                        vehicleExpForm.controls['partycode'].dirty)
+                    "
+                  >
+                    <div
+                      class="errorField common_color_txt font12 font500 disInl"
+                      *ngIf="vehicleExpForm.controls['partycode'].errors?.min || vehicleExpForm.controls['partycode'].errors?.['required']"
+                    >
+                      Party Code is required
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                  <div class="input-group has-validation">
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      >GST No</span
+                    >
+                    <span class="position-relative span_divider"></span>
+                    <input
+                      type="text"
+                      tabindex="-1"
+                      formControlName="partygst"
+                      class="form-control post_input_field border-start-0 d-flex w-50"
+                    />
+                  </div>
+                </div>
+              </div>
+              <!--Partycode -- End -->
+              <!-- ADMH_REMARKS -- Start  -->
+              <div class="col-md-12">
+                <div class="input-group">
+                  <span
+                    class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                    >Remarks</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0 post_input_field font500 font12"
+                    formControlName="remarks"
+                    maxlength="50"
+                  />
+                </div>
+              </div>
+              <!-- ADMH_REMARKS -- End   -->
+              <!-- ADMH_PARTYBILLREF -- Start  -->
+              <div class="col-md-6">
+                <div
+                  class="input-group has-validation"
+                  [class.is-invalid]="
+                    vehicleExpForm.controls['partybillref'].invalid &&
+                    (vehicleExpForm.controls['partybillref'].touched ||
+                      vehicleExpForm.controls['partybillref'].dirty)
+                  "
+                >
+                  <span
+                    class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                    ><span class="req_field common_color_txt fontBold font14"
+                      >*</span
+                    >Party Bill Ref</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0 post_input_field font500 font12"
+                    formControlName="partybillref"
+                  />
+                </div>
+                <div
+                  class="disInl me-2"
+                  *ngIf="
+                    vehicleExpForm.controls['partybillref'].invalid &&
+                    (vehicleExpForm.controls['partybillref'].touched ||
+                      vehicleExpForm.controls['partybillref'].dirty)
+                  "
+                >
+                  <div
+                    class="errorField common_color_txt font12 font500 disInl"
+                    *ngIf="vehicleExpForm.controls['partybillref'].errors?.min || vehicleExpForm.controls['partybillref'].errors?.['required']"
+                  >
+                    Party bill no is required
+                  </div>
+                  <div
+                    class="errorField common_color_txt font12 font500 disInl"
+                    *ngIf="vehicleExpForm.controls['partybillref'].errors?.['maxlength']?.actualLength"
+                  >
+                    Max 16 Character allowed. Current is
+                    {{vehicleExpForm.controls['partybillref'].errors?.['maxlength']?.actualLength}}
+                    characters.
+                  </div>
+                </div>
+              </div>
+              <!-- ADMH_PARTYBILLREF -- End   -->
+              <!-- ADMH_PARTYBILLDATE -- Start  -->
+              <div class="col-md-6">
+                <div
+                  class="input-group"
+                  appDate1
+                  class="input-group has-validation"
+                  [class.is-invalid]="
+                    vehicleExpForm.controls['partybilldate'].invalid &&
+                    (vehicleExpForm.controls['partybilldate'].touched ||
+                      vehicleExpForm.controls['partybilldate'].dirty)
+                  "
+                >
+                  <span
+                    class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                    ><span class="req_field common_color_txt fontBold font14"
+                      >*</span
+                    >Bill date</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0 post_input_field font500 font12 squareinput-radius"
+                    formControlName="partybilldate"
+                    matInput
+                    autocomplete="off"
+                    [matDatepicker]="partybilldate"
+                    id="partybilldate"
+                    (dateChange)="billDateValidation($event.target.value)"
+                  />
+                  <div
+                    class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                  >
+                    <span class="input-group-addon">
+                      <mat-datepicker-toggle
+                        matSuffix
+                        [for]="partybilldate"
+                        tabindex="-1"
+                      ></mat-datepicker-toggle>
+                      <mat-datepicker #partybilldate></mat-datepicker>
+                    </span>
+                  </div>
+                </div>
+                <div
+                  class="disInl me-2"
+                  *ngIf="
+                    vehicleExpForm.controls['partybilldate'].invalid &&
+                    (vehicleExpForm.controls['partybilldate'].touched ||
+                      vehicleExpForm.controls['partybilldate'].dirty)
+                  "
+                >
+                  <div
+                    class="errorField common_color_txt font12 font500 disInl"
+                    *ngIf="vehicleExpForm.controls['partybilldate'].errors?.min || vehicleExpForm.controls['partybilldate'].errors?.['required']"
+                  >
+                    Party bill date is required
+                  </div>
+                </div>
+              </div>
+              <!-- ADMH_PARTYBILLDATE -- End   -->
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-8">
+          <div class="row g-2">
+            <div class="input-group">
+              <div class="form-check d-flex align-items-center">
+                <input
+                  type="radio"
+                  class="form-check-input font12 font500 position-relative"
+                  id="radio1"
+                  name="WkCode"
+                  value="petrol"
+                  formControlName="WkCode"
+                  (change)="optionSelect($event.target)"
+                />
+                <label class="form-check-label" for="radio1">Petrol    </label>
+              </div>
+
+              <div class="form-check d-flex align-items-center">
+                <input
+                  type="radio"
+                  class="form-check-input font12 font500 position-relative"
+                  id="radio2"
+                  name="WkCode"
+                  value="others"
+                  formControlName="WkCode"
+                  (change)="optionSelect($event.target)"
+                />
+                <label class="form-check-label" for="radio2">Others</label>
+              </div>
+            </div>
+            <div
+              class="group_panel br-10 form_common_bg p-3 pt-3 position-relative"
+              *ngIf="radioPetrol"
+            >
+              <p class="bg-white font600 group_title mb-0 position-absolute">
+                Meter & Fuel Details
+              </p>
+              <div class="row g-2">
+                <!-- ADMH_SMETERRED -- Start  -->
+                <div class="col-md-12">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                      >St Meter Reading</span
+                    >
+                    <input
+                      type="number"
+                      class="form-control border-start-0 post_input_field font500 font12 text-end"
+                      formControlName="smeterred"
+                      maxlength="22"
+                    />
+                  </div>
+                </div>
+                <!-- ADMH_SMETERRED -- End   -->
+                <!-- ADMH_EMETERRED -- Start  -->
+                <div class="col-md-12">
+                  <div
+                    class="input-group has-validation"
+                    [class.is-invalid]="
+                      vehicleExpForm.controls['emeterred'].invalid &&
+                      (vehicleExpForm.controls['emeterred'].touched ||
+                        vehicleExpForm.controls['emeterred'].dirty)
+                    "
+                  >
+                    <span
+                      class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                      >End Meter Reading</span
+                    >
+                    <input
+                      type="number"
+                      class="form-control border-start-0 post_input_field font500 font12 text-end"
+                      formControlName="emeterred"
+                      id="emeterred"
+                      maxlength="22"
+                      (blur)="getEndMeterReading()"
+                    />
+                  </div>
+                  <div
+                    class="disInl me-2"
+                    *ngIf="
+                      vehicleExpForm.controls['emeterred'].invalid &&
+                      (vehicleExpForm.controls['emeterred'].touched ||
+                        vehicleExpForm.controls['emeterred'].dirty)
+                    "
+                  >
+                    <div
+                      class="errorField common_color_txt font12 font500 disInl"
+                      *ngIf="vehicleExpForm.controls['emeterred'].errors?.min || vehicleExpForm.controls['emeterred'].errors?.['required']"
+                    >
+                      End Meter is required
+                    </div>
+                  </div>
+                </div>
+                <!-- ADMH_EMETERRED -- End   -->
+                <!-- Kms Used -- Start  -->
+                <div
+                  class="input-group has-validation"
+                  [class.is-invalid]="
+                    vehicleExpForm.controls['kmsused'].invalid &&
+                    (vehicleExpForm.controls['kmsused'].touched ||
+                      vehicleExpForm.controls['kmsused'].dirty)
+                  "
+                >
+                  <span class="input-group-text leftform_lbl font500 font12"
+                    >Kms Used</span
+                  >
+                  <input
+                    type="text"
+                    formControlName="kmsused"
+                    class="form-control border-start-0 post_input_field font500 font12 text-end"
+                  />
+                </div>
+                <!-- Kms Used -- End  -->
+                <!-- ADMH_ESTIMATEDKM -- Start  -->
+                <div class="col-md-12">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                      >Estimated Kms Used</span
+                    >
+                    <input
+                      type="number"
+                      class="form-control border-start-0 post_input_field font500 font12 text-end"
+                      formControlName="estimatedkm"
+                      maxlength="22"
+                      (blur)="setAverage()"
+                    />
+                  </div>
+                </div>
+                <!-- ADMH_ESTIMATEDKM -- End   -->
+                <!-- ADMH_GASQTY -- Start  -->
+                <div class="col-md-12">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                      >Fuel Qty</span
+                    >
+                    <input
+                      type="number"
+                      class="form-control border-start-0 post_input_field font500 font12 text-end"
+                      formControlName="gasqty"
+                      maxlength="22"
+                      (blur)="setAverage()"
+                    />
+                  </div>
+                </div>
+                <!-- ADMH_GASQTY -- End   -->
+                <!-- Average Used -- Start  -->
+                <div
+                  class="input-group has-validation"
+                  [class.is-invalid]="
+                    vehicleExpForm.controls['Averageused'].invalid &&
+                    (vehicleExpForm.controls['Averageused'].touched ||
+                      vehicleExpForm.controls['Averageused'].dirty)
+                  "
+                >
+                  <span class="input-group-text leftform_lbl font500 font12"
+                    >Average</span
+                  >
+                  <input
+                    type="text"
+                    formControlName="Averageused"
+                    class="form-control border-start-0 post_input_field font500 font12 text-end"
+                  />
+                </div>
+                <!-- Average Used -- End  -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Grid Start -->
+        <div class="admexpdDetailsSection">
+          <div class="table-responsive">
+            <div class="view" formArrayName="admexpdDetailsBreakUp">
+              <div class="wrapper">
+                <table
+                  class="table table-bordered datatable table w-100 mb-0 admExpTbl"
+                  style="width: 100%"
+                  datatable
+                  dt-instance="dtInstance"
+                >
+                  <thead class="table_head_position_sticky">
+                    <tr tabindex="-1">
+                      <th class="fontBold font12 text-dark1">
+                        <span class="req_field common_color_txt fontBold font14"
+                          >*</span
+                        >Workcode
+                      </th>
+                      <th class="fontBold font12 text-dark1">
+                        <span class="req_field common_color_txt fontBold font14"
+                          >*</span
+                        >BillAmount
+                      </th>
+                      <th class="fontBold font12 text-dark1">
+                        <span class="req_field common_color_txt fontBold font14"
+                          >*</span
+                        >FromDt
+                      </th>
+                      <th class="fontBold font12 text-dark1">
+                        <span class="req_field common_color_txt fontBold font14"
+                          >*</span
+                        >ToDt
+                      </th>
+                      <th class="fontBold font12 text-dark1">
+                        <span class="req_field common_color_txt fontBold font14"
+                          >*</span
+                        >HSMScode
+                      </th>
+                      <th class="fontBold font12 text-dark1">SGST %</th>
+                      <th class="fontBold font12 text-dark1">SGST</th>
+                      <th class="fontBold font12 text-dark1">CGST %</th>
+                      <th class="fontBold font12 text-dark1">CGST</th>
+                      <th class="fontBold font12 text-dark1">IGST %</th>
+                      <th class="fontBold font12 text-dark1">IGST</th>
+                      <th class="fontBold font12 text-dark1">UGST %</th>
+                      <th class="fontBold font12 text-dark1">UGST</th>
+                      <th class="fontBold font12 text-dark1">TDS %</th>
+                      <th class="fontBold font12 text-dark1">TDS</th>
+                      <th class="fontBold font12 text-dark1">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      *ngFor="let item of vehicleExpForm.controls?.['admexpdDetailsBreakUp'].controls;let index = index"
+                      [formGroupName]="index"
+                    >
+                      <!-- ADMD_WORKCODE -- Start  -->
+                      <td>
+                        <div
+                          class="input-group has-validation"
+                          [class.is-invalid]="
+                            vehicleExpForm.controls.admexpdDetailsBreakUp
+                              .controls[index].controls['workcode'].invalid &&
+                            (vehicleExpForm.controls.admexpdDetailsBreakUp
+                              .controls[index].controls['workcode'].touched ||
+                              vehicleExpForm.controls.admexpdDetailsBreakUp
+                                .controls[index].controls['workcode'].dirty)
+                          "
+                        >
+                          <input
+                            class="border-0 form-control input_control form-control font500 text-dark1 font12"
+                            type="text"
+                            formControlName="workcode"
+                            oninput="this.value = this.value.toUpperCase()"
+                            [readonly]="!editable"
+                            id="{{ 'workcode' + index }}"
+                            (blur)="
+                              setCode($event.target.value, index, 'workcode')
+                            "
+                            [f1]="{
+                              id: 'VEHWORK',
+                              subId: wSubid,
+                              search: false
+                            }"
+                          />
+                        </div>
+                        <div
+                          class="disInl me-2"
+                          *ngIf="
+                            vehicleExpForm.controls.admexpdDetailsBreakUp
+                              .controls[index].controls['workcode'].invalid &&
+                            (vehicleExpForm.controls.admexpdDetailsBreakUp
+                              .controls[index].controls['workcode'].touched ||
+                              vehicleExpForm.controls.admexpdDetailsBreakUp
+                                .controls[index].controls['workcode'].dirty)
+                          "
+                        >
+                          <div
+                            class="errorField common_color_txt font12 font500"
+                            *ngIf="vehicleExpForm.controls.admexpdDetailsBreakUp.controls[index].controls['workcode'].errors?.['required']"
+                          >
+                            Workcode is required
+                          </div>
+                        </div>
+                      </td>
+                      <!-- ADMD_WORKCODE -- End   -->
+
+                      <!-- ADMD_BILLAMOUNT -- Start  -->
+                      <td>
+                        <div
+                          class="input-group has-validation"
+                          [class.is-invalid]="
+                            vehicleExpForm.controls.admexpdDetailsBreakUp
+                              .controls[index].controls['billamount'].invalid &&
+                            (vehicleExpForm.controls.admexpdDetailsBreakUp
+                              .controls[index].controls['billamount'].touched ||
+                              vehicleExpForm.controls.admexpdDetailsBreakUp
+                                .controls[index].controls['billamount'].dirty)
+                          "
+                        >
+                          <input
+                            class="text-end border-0 form-control input_control form-control font500 text-dark1 font12 itemDesc_input"
+                            type="text"
+                            [decimalPoint]="{
+                              decPlaces: '2',
+                              isNegative: true
+                            }"
+                            formControlName="billamount"
+                            (blur)="valreq(index); calcGST(index); findCertamount();"
+                          />
+                        </div>
+                        <div
+                          class="disInl me-2"
+                          *ngIf="
+                            vehicleExpForm.controls.admexpdDetailsBreakUp
+                              .controls[index].controls['billamount'].invalid &&
+                            (vehicleExpForm.controls.admexpdDetailsBreakUp
+                              .controls[index].controls['billamount'].touched ||
+                              vehicleExpForm.controls.admexpdDetailsBreakUp
+                                .controls[index].controls['billamount'].dirty)
+                          "
+                        >
+                          <div
+                            class="errorField common_color_txt font12 font500"
+                            *ngIf="
+                              vehicleExpForm.controls.admexpdDetailsBreakUp
+                                .controls[index].controls['billamount'].errors
+                                ?.pattern
+                            "
+                          >
+                            Only 2 Decimals allowed
+                          </div>
+                          <div
+                            class="errorField common_color_txt font12 font500"
+                            *ngIf="vehicleExpForm.controls.admexpdDetailsBreakUp.controls[index].controls['billamount'].errors?.['required']"
+                          >
+                            BillAmount is required
+                          </div>
+                        </div>
+                      </td>
+                      <!-- ADMD_BILLAMOUNT -- End   -->
+
+                      <!-- ADMD_DURATIONFROM -- Start  -->
+                      <td>
+                        <div
+                          class="input-group has-validation"
+                          [class.is-invalid]="
+                            vehicleExpForm.controls.admexpdDetailsBreakUp
+                              .controls[index].controls['durationfrom']
+                              .invalid &&
+                            (vehicleExpForm.controls.admexpdDetailsBreakUp
+                              .controls[index].controls['durationfrom']
+                              .touched ||
+                              vehicleExpForm.controls.admexpdDetailsBreakUp
+                                .controls[index].controls['durationfrom'].dirty)
+                          "
+                        >
+                          <div
+                            class="input-group tbl_datepicker flex-nowrap"
+                            appDate1
+                          >
+                            <input
+                              type="text"
+                              style="width: 90px; height: 25px"
+                              class="preinput_radius date_container form-control post_input_field text-dark1 font12 border-0"
+                              matInput
+                              formControlName="durationfrom"
+                              [matDatepicker]="durationfromPicker"
+                            />
+                            <div
+                              class="datepicker_input_cutsom_icon input-group-append bg-white post_input_field datepicker_field border-0"
+                            >
+                              <span class="input-group-addon">
+                                <mat-datepicker-toggle
+                                  matSuffix
+                                  [for]="durationfromPicker"
+                                  tabindex="-1"
+                                ></mat-datepicker-toggle>
+                                <mat-datepicker
+                                  #durationfromPicker
+                                ></mat-datepicker>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="disInl me-2"
+                          *ngIf="
+                            vehicleExpForm.controls.admexpdDetailsBreakUp
+                              .controls[index].controls['durationfrom']
+                              .invalid &&
+                            (vehicleExpForm.controls.admexpdDetailsBreakUp
+                              .controls[index].controls['durationfrom']
+                              .touched ||
+                              vehicleExpForm.controls.admexpdDetailsBreakUp
+                                .controls[index].controls['durationfrom'].dirty)
+                          "
+                        >
+                          <div
+                            class="errorField common_color_txt font12 font500"
+                            *ngIf="vehicleExpForm.controls.admexpdDetailsBreakUp.controls[index].controls['durationfrom'].errors?.['required']"
+                          >
+                            FromDT is required
+                          </div>
+                        </div>
+                      </td>
+                      <!-- ADMD_DURATIONFROM -- End   -->
+
+                      <!-- ADMD_DURATIONUPTO -- Start  -->
+                      <td>
+                        <div
+                          class="input-group tbl_datepicker flex-nowrap"
+                          appDate1
+                          [class.is-invalid]="
+                            vehicleExpForm.controls.admexpdDetailsBreakUp
+                              .controls[index].controls['durationupto']
+                              .invalid &&
+                            (vehicleExpForm.controls.admexpdDetailsBreakUp
+                              .controls[index].controls['durationupto']
+                              .touched ||
+                              vehicleExpForm.controls.admexpdDetailsBreakUp
+                                .controls[index].controls['durationupto'].dirty)
+                          "
+                        >
+                          <input
+                            type="text"
+                            style="width: 90px; height: 25px"
+                            class="preinput_radius date_container form-control post_input_field text-dark1 font12 border-0"
+                            matInput
+                            formControlName="durationupto"
+                            [matDatepicker]="durationuptoPicker"
+                          />
+                          <div
+                            class="datepicker_input_cutsom_icon input-group-append bg-white post_input_field datepicker_field border-0"
+                          >
+                            <span class="input-group-addon">
+                              <mat-datepicker-toggle
+                                matSuffix
+                                [for]="durationuptoPicker"
+                                tabindex="-1"
+                              ></mat-datepicker-toggle>
+                              <mat-datepicker
+                                #durationuptoPicker
+                              ></mat-datepicker>
+                            </span>
+                          </div>
+                        </div>
+                        <div
+                          class="disInl me-2"
+                          *ngIf="
+                            vehicleExpForm.controls.admexpdDetailsBreakUp
+                              .controls[index].controls['durationupto']
+                              .invalid &&
+                            (vehicleExpForm.controls.admexpdDetailsBreakUp
+                              .controls[index].controls['durationupto']
+                              .touched ||
+                              vehicleExpForm.controls.admexpdDetailsBreakUp
+                                .controls[index].controls['durationupto'].dirty)
+                          "
+                        >
+                          <div
+                            class="errorField common_color_txt font12 font500"
+                            *ngIf="vehicleExpForm.controls.admexpdDetailsBreakUp.controls[index].controls['durationupto'].errors?.['required']"
+                          >
+                            ToDT is required
+                          </div>
+                        </div>
+                      </td>
+                      <!-- ADMD_DURATIONUPTO -- End   -->
+
+                      <!-- ADMD_HSMSCODE -- Start  -->
+                      <td>
+                        <div
+                          class="input-group tbl_datepicker flex-nowrap"
+                          appDate1
+                          [class.is-invalid]="
+                            vehicleExpForm.controls.admexpdDetailsBreakUp
+                              .controls[index].controls['hsmscode'].invalid &&
+                            (vehicleExpForm.controls.admexpdDetailsBreakUp
+                              .controls[index].controls['hsmscode'].touched ||
+                              vehicleExpForm.controls.admexpdDetailsBreakUp
+                                .controls[index].controls['hsmscode'].dirty)
+                          "
+                        >
+                          <input
+                            class="border-0 form-control input_control form-control font500 text-dark1 font12"
+                            type="text"
+                            formControlName="hsmscode"
+                            oninput="this.value = this.value.toUpperCase()"
+                            [readonly]="!editable"
+                            (blur)="
+                              sethsnCode($event.target.value, index, 'hsmscode')
+                            "
+                            [f1]="{ id: 'HSNSAC', search: false }"
+                          />
+                        </div>
+                        <div
+                          class="disInl me-2"
+                          *ngIf="
+                            vehicleExpForm.controls.admexpdDetailsBreakUp
+                              .controls[index].controls['hsmscode'].invalid &&
+                            (vehicleExpForm.controls.admexpdDetailsBreakUp
+                              .controls[index].controls['hsmscode'].touched ||
+                              vehicleExpForm.controls.admexpdDetailsBreakUp
+                                .controls[index].controls['hsmscode'].dirty)
+                          "
+                        >
+                          <div
+                            class="errorField common_color_txt font12 font500"
+                            *ngIf="vehicleExpForm.controls.admexpdDetailsBreakUp.controls[index].controls['hsmscode'].errors?.['required']"
+                          >
+                            HSMS is required
+                          </div>
+                        </div>
+                      </td>
+                      <!-- ADMD_HSMSCODE -- End   -->
+
+                      <!-- ADMD_SGSTPERC -- Start  -->
+                      <td>
+                        <input
+                          class="text-end border-0 form-control input_control form-control font500 text-dark1 font12 itemDesc_input"
+                          type="text"
+                          appPercentageDirective
+                          formControlName="sgstperc"
+                          (change)="calcGST(index); findCertamount()"
+                        />
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="vehicleExpForm.controls.admexpdDetailsBreakUp.controls[index].controls['sgstperc'].errors?.['maxlength']?.actualLength"
+                        >
+                          Max 5 Character allowed. Current is{{vehicleExpForm.controls.admexpdDetailsBreakUp.controls[index].controls['sgstperc'].errors?.['maxlength']?.actualLength}}
+                          characters.
+                        </div>
+                      </td>
+                      <!-- ADMD_SGSTPERC -- End   -->
+                      <!-- ADMD_SGST -- Start  -->
+                      <td>
+                        <input
+                          class="text-end border-0 form-control input_control form-control font500 text-dark1 font12 itemDesc_input"
+                          type="text"
+                          [decimalPoint]="{ decPlaces: '2' }"
+                          formControlName="sgst"
+                          (blur)="
+                            sgstTot = totamount('sgst');
+                            certamt = findCertamount()
+                          "
+                        />
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="vehicleExpForm.controls.admexpdDetailsBreakUp.controls[index].controls['sgst'].errors?.['maxlength']?.actualLength"
+                        >
+                          Max 22 Character allowed. Current is{{vehicleExpForm.controls.admexpdDetailsBreakUp.controls[index].controls['sgst'].errors?.['maxlength']?.actualLength}}
+                          characters.
+                        </div>
+                      </td>
+                      <!-- ADMD_SGST -- End   -->
+
+                      <!-- ADMD_CGSTPERC -- Start  -->
+                      <td>
+                        <input
+                          class="text-end border-0 form-control input_control form-control font500 text-dark1 font12 itemDesc_input"
+                          type="text"
+                          appPercentageDirective
+                          formControlName="cgstperc"
+                          (change)="calcGST(index); findCertamount()"
+                        />
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="vehicleExpForm.controls.admexpdDetailsBreakUp.controls[index].controls['cgstperc'].errors?.['maxlength']?.actualLength"
+                        >
+                          Max 5 Character allowed. Current is{{vehicleExpForm.controls.admexpdDetailsBreakUp.controls[index].controls['cgstperc'].errors?.['maxlength']?.actualLength}}
+                          characters.
+                        </div>
+                      </td>
+                      <!-- ADMD_CGSTPERC -- End   -->
+
+                      <!-- ADMD_CGST -- Start  -->
+                      <td>
+                        <input
+                          class="text-end border-0 form-control input_control form-control font500 text-dark1 font12 itemDesc_input"
+                          type="text"
+                          [decimalPoint]="{ decPlaces: '2' }"
+                          formControlName="cgst"
+                          (blur)="
+                            cgstTot = totamount('cgst');
+                            certamt = findCertamount()
+                          "
+                        />
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="vehicleExpForm.controls.admexpdDetailsBreakUp.controls[index].controls['cgst'].errors?.['maxlength']?.actualLength"
+                        >
+                          Max 22 Character allowed. Current is{{vehicleExpForm.controls.admexpdDetailsBreakUp.controls[index].controls['cgst'].errors?.['maxlength']?.actualLength}}
+                          characters.
+                        </div>
+                      </td>
+                      <!-- ADMD_CGST -- End   -->
+
+                      <!-- ADMD_IGSTPERC -- Start  -->
+                      <td>
+                        <input
+                          class="text-end border-0 form-control input_control form-control font500 text-dark1 font12 itemDesc_input"
+                          type="text"
+                          appPercentageDirective
+                          formControlName="igstperc"
+                          (change)="calcGST(index); findCertamount()"
+                        />
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="vehicleExpForm.controls.admexpdDetailsBreakUp.controls[index].controls['igstperc'].errors?.['maxlength']?.actualLength"
+                        >
+                          Max 5 Character allowed. Current is{{vehicleExpForm.controls.admexpdDetailsBreakUp.controls[index].controls['igstperc'].errors?.['maxlength']?.actualLength}}
+                          characters.
+                        </div>
+                      </td>
+                      <!-- ADMD_IGSTPERC -- End   -->
+
+                      <!-- ADMD_IGST -- Start  -->
+                      <td>
+                        <input
+                          class="text-end border-0 form-control input_control form-control font500 text-dark1 font12 itemDesc_input"
+                          type="text"
+                          [decimalPoint]="{ decPlaces: '2' }"
+                          formControlName="igst"
+                          (blur)="
+                            igstTot = totamount('igst');
+                            certamt = findCertamount()
+                          "
+                        />
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="vehicleExpForm.controls.admexpdDetailsBreakUp.controls[index].controls['igst'].errors?.['maxlength']?.actualLength"
+                        >
+                          Max 22 Character allowed. Current is{{vehicleExpForm.controls.admexpdDetailsBreakUp.controls[index].controls['igst'].errors?.['maxlength']?.actualLength}}
+                          characters.
+                        </div>
+                      </td>
+                      <!-- ADMD_IGST -- End   -->
+
+                      <!-- ADMD_UGSTPERC -- Start  -->
+                      <td>
+                        <input
+                          class="text-end border-0 form-control input_control form-control font500 text-dark1 font12 itemDesc_input"
+                          type="text"
+                          appPercentageDirective
+                          formControlName="ugstperc"
+                          (change)="calcGST(index); findCertamount()"
+                        />
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="vehicleExpForm.controls.admexpdDetailsBreakUp.controls[index].controls['ugstperc'].errors?.['maxlength']?.actualLength"
+                        >
+                          Max 5 Character allowed. Current is{{vehicleExpForm.controls.admexpdDetailsBreakUp.controls[index].controls['ugstperc'].errors?.['maxlength']?.actualLength}}
+                          characters.
+                        </div>
+                      </td>
+                      <!-- ADMD_UGSTPERC -- End   -->
+
+                      <!-- ADMD_UGST -- Start  -->
+                      <td>
+                        <input
+                          class="text-end border-0 form-control input_control form-control font500 text-dark1 font12 itemDesc_input"
+                          type="text"
+                          [decimalPoint]="{ decPlaces: '2' }"
+                          formControlName="ugst"
+                          (blur)="
+                            ugstTot = totamount('ugst');
+                            certamt = findCertamount()
+                          "
+                        />
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="vehicleExpForm.controls.admexpdDetailsBreakUp.controls[index].controls['ugst'].errors?.['maxlength']?.actualLength"
+                        >
+                          Max 22 Character allowed. Current is{{vehicleExpForm.controls.admexpdDetailsBreakUp.controls[index].controls['ugst'].errors?.['maxlength']?.actualLength}}
+                          characters.
+                        </div>
+                      </td>
+                      <!-- ADMD_UGST -- End   -->
+
+                      <!-- ADMD_TDSPERC -- Start  -->
+                      <td>
+                        <input
+                          class="text-end border-0 form-control input_control form-control font500 text-dark1 font12 itemDesc_input"
+                          type="text"
+                          appPercentageDirective
+                          formControlName="tdsperc"
+                          (change)="calcGST(index); findCertamount()"
+                        />
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="vehicleExpForm.controls.admexpdDetailsBreakUp.controls[index].controls['tdsperc'].errors?.['maxlength']?.actualLength"
+                        >
+                          Max 5 Character allowed. Current is{{vehicleExpForm.controls.admexpdDetailsBreakUp.controls[index].controls['tdsperc'].errors?.['maxlength']?.actualLength}}
+                          characters.
+                        </div>
+                      </td>
+                      <!-- ADMD_TDSPERC -- End   -->
+
+                      <!-- ADMD_TDS -- Start  -->
+                      <td>
+                        <input
+                          class="text-end border-0 form-control input_control form-control font500 text-dark1 font12 itemDesc_input"
+                          type="text"
+                          [decimalPoint]="{ decPlaces: '2' }"
+                          formControlName="tds"
+                          (blur)="
+                            tdsTot = totamount('tds');
+                            certamt = findCertamount()
+                          "
+                        />
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="vehicleExpForm.controls.admexpdDetailsBreakUp.controls[index].controls['tds'].errors?.['maxlength']?.actualLength"
+                        >
+                          Max 22 Character allowed. Current is{{vehicleExpForm.controls.admexpdDetailsBreakUp.controls[index].controls['tds'].errors?.['maxlength']?.actualLength}}
+                          characters.
+                        </div>
+                      </td>
+                      <!-- ADMD_TDS -- End   -->
+
+                      <td>
+                        <div class="action_panel d-flex justify-content-center">
+                          <button
+                            type="button"
+                            class="btn action_btn d-flex bg_common_red"
+                            (click)="addAdmexpdRow(index)"
+                          >
+                            <img
+                              src="assets/images/add.svg"
+                              alt="add"
+                              class="add_img"
+                            />
+                          </button>
+                          <button
+                            type="button"
+                            class="btn action_btn d-flex bg_common_red ms-1"
+                            (click)="deleteAdmexpdRow(index)"
+                          >
+                            <img
+                              src="assets/images/trash.svg"
+                              alt="remove"
+                              class="delete_img"
+                            />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr class="total_tr">
+                      <td class="font600 text-black">Total</td>
+                      <td class="text-end font600 text-black">
+                        {{ billAmtTot }}
+                      </td>
+                      <td colspan="3"></td>
+                      <td colspan="2" class="text-end font600 text-black">
+                        {{ sgstTot }}
+                      </td>
+                      <td colspan="2" class="text-end font600 text-black">
+                        {{ cgstTot }}
+                      </td>
+                      <td colspan="2" class="text-end font600 text-black">
+                        {{ igstTot }}
+                      </td>
+                      <td colspan="2" class="text-end font600 text-black">
+                        {{ ugstTot }}
+                      </td>
+                      <td colspan="2" class="text-end font600 text-black">
+                        {{ tdsTot }}
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Grid End -->
+        <div class="col-lg-4 col-md-8">
+          <div class="input-group">
+            <span
+              class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+              >Cert Amount</span
+            >
+            <span
+              class="form-control post_input_field border-start-0 d-flex w-50"
+              >{{ certamt }}</span
+            >
+            <!-- <input
+              type="text"
+              class="form-control border-start-0 post_input_field font500 font12"
+              formControlName="certamount"
+              disabled="true"
+              /> -->
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-8">
+          <div class="input-group">
+            <span
+              class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+              >Pay Amount</span
+            >
+            <span
+              class="form-control post_input_field border-start-0 d-flex w-50"
+              >{{ certamt }}</span
+            >
+            <!-- <input
+              type="text"
+              class="form-control border-start-0 post_input_field font500 font12"
+              formControlName="payamount"
+              disabled="true"
+            /> -->
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+<app-loader *ngIf="loaderToggle"></app-loader>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner bg-white br-10 d-flex justify-content-center">
+      <button
+        type="submit"
+        class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+        accesskey="a"
+        (click)="addAdmexphDetails()"
+        [disabled]="initialMode"
+      >
+        Add
+      </button>
+      <button
+        type="submit"
+        class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+        accesskey="r"
+        (click)="retrieveAdmexphDetails()"
+        [disabled]="initialMode"
+      >
+        Retrieve
+      </button>
+      <button
+        type="submit"
+        class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+        accesskey="p"
+        (click)="passCert()"
+        [disabled]="!initialMode"
+      >
+        Passed
+      </button>
+      <button
+        type="submit"
+        class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+        accesskey="s"
+        (click)="saveAdmexph()"
+        [disabled]="disableSave"
+      >
+        Save
+      </button>
+      <button
+        type="submit"
+        class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+        accesskey="b"
+        (click)="handleBackClick()"
+        [disabled]="!initialMode"
+      >
+        Back
+      </button>
+    </div>
+  </div>
+</section>

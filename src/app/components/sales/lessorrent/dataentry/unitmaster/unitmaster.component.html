@@ -1,0 +1,1201 @@
+<section>
+  <div>
+    <div class="row">
+      <div class="col-md-12">
+        <form [formGroup]="unitSelectionsForm">
+          <div class="row">
+            <div class="col-md-3">
+              <div
+                class="input-group"
+                [class.is-invalid]="
+                    (unitSelectionsForm
+                      .get('propcode')
+                      ?.hasError('required') &&
+                      unitSelectionsForm.controls['propcode'].touched) || unitSelectionsForm.get('propcode')?.errors?.['notFound'] "
+              >
+                <span class="input-group-text leftform_lbl font500 font12"
+                  ><b class="text-danger">*</b>Property
+                </span>
+                <input
+                  type="text"
+                  id="propertyCode"
+                  formControlName="propcode"
+                  class="form-control post_input_field border-start-0 font500 font12"
+                  [f1]="{
+                    id: 'LESSORPROP',
+                    isSingleValue: true
+                  }"
+                />
+                <span class="position-relative span_divider"></span>
+              </div>
+
+              <div
+                class="invalid-feedback d-block"
+                *ngIf="
+                    (unitSelectionsForm.get('propcode')?.touched &&
+                    unitSelectionsForm.get('propcode')?.invalid) && !unitSelectionsForm.get('propcode')?.errors?.['notFound']
+                  "
+              >
+                Property code required.
+              </div>
+              <div
+                class="invalid-feedback d-block"
+                *ngIf="unitSelectionsForm.get('propcode')?.errors?.['notFound']"
+              >
+                Property Code not valid.
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div
+                class="input-group"
+                [class.is-invalid]="
+                    (unitSelectionsForm
+                      .get('unitid')
+                      ?.hasError('required') &&
+                      unitSelectionsForm.controls['unitid'].touched) || unitSelectionsForm.get('unitid')?.errors?.['notFound'] "
+              >
+                <span class="input-group-text leftform_lbl font500 font12"
+                  ><b class="text-danger">*</b>Unit ID
+                </span>
+                <input
+                  type="text"
+                  id="unitId"
+                  formControlName="unitid"
+                  class="form-control post_input_field border-start-0 font500 font12"
+                  [f1]="{
+                    id: 'LESSORUNITDETAILS',
+                    subId: filters.unitid ? filters.unitid : '',
+                    isSingleValue: true
+                  }"
+                  (focusout)="onLeaveunitid($event.target.value)"
+                />
+                <span class="position-relative span_divider"></span>
+              </div>
+
+              <div
+                class="invalid-feedback d-block"
+                *ngIf="
+                    (unitSelectionsForm.get('unitid')?.touched &&
+                    unitSelectionsForm.get('unitid')?.invalid) && !unitSelectionsForm.get('unitid')?.errors?.['notFound']
+                  "
+              >
+                UNIT ID required.
+              </div>
+              <div
+                class="invalid-feedback d-block"
+                *ngIf="unitSelectionsForm.get('unitid')?.errors?.['notFound']"
+              >
+                UNIT ID not valid.
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div
+                class="input-group"
+                [class.is-invalid]="
+                  (unitSelectionsForm
+                    .get('unitno')
+                    ?.hasError('required') &&
+                    unitSelectionsForm.controls['unitno'].touched) || unitSelectionsForm.get('unitno')?.errors?.['notFound'] "
+              >
+                <span class="input-group-text leftform_lbl font500 font12"
+                  ><b class="text-danger">*</b>Owner No.
+                </span>
+                <input
+                  type="text"
+                  id="unitNo"
+                  formControlName="unitno"
+                  class="form-control post_input_field border-start-0 font500 font12"
+                  [f1]="{
+                    id: 'LESSORUNITNO',
+                    isSingleValue: true
+                  }"
+                />
+                <span class="position-relative span_divider"></span>
+              </div>
+
+              <div
+                class="invalid-feedback d-block"
+                *ngIf="
+                  (unitSelectionsForm.get('unitno')?.touched &&
+                  unitSelectionsForm.get('unitno')?.invalid) && !unitSelectionsForm.get('unitno')?.errors?.['notFound']
+                "
+              >
+                Owner Number required.
+              </div>
+              <div
+                class="invalid-feedback d-block"
+                *ngIf="unitSelectionsForm.get('unitno')?.errors?.['notFound']"
+              >
+                Owner Number not valid.
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- *ngIf="initialMode" -->
+    <div class="row mt-3">
+      <form [formGroup]="unitForm">
+        <div class="col-md-12">
+          <div
+            class="group_panel br-10 form_common_bg p-3 pt-4 position-relative"
+          >
+            <p class="bg-white font600 group_title mb-0 position-absolute">
+              UNIT DETAILS
+            </p>
+            
+            <div class="row g-2">
+              <div class="col-md-6">
+                <div
+                  class="input-group"
+                  [class.is-invalid]="
+                    (unitForm
+                      .get('propcode')
+                      ?.hasError('required') &&
+                      unitForm.controls['propcode'].touched) || unitForm.get('propcode')?.errors?.['notFound'] "
+                >
+                  <span class="input-group-text leftform_lbl font500 font12"
+                    ><b class="text-danger">*</b>Property
+                  </span>
+                  <input
+                    type="text"
+                    id="propertyCode"
+                    formControlName="propcode"
+                    class="form-control post_input_field border-start-0 font500 font12"
+                    [f1]="{
+                      id: 'LESSORPROP',
+                      formData: unitForm.get('propertyName'),
+                      isSingleValue: true
+                    }"
+                  />
+                  <span class="position-relative span_divider"></span>
+
+                  <input
+                    type="text"
+                    formControlName="propertyName"
+                    class="form-control w-50 border-start-0 post_input_field font500 font12"
+                  />
+                </div>
+
+                <div
+                  class="invalid-feedback d-block"
+                  *ngIf="
+                    (unitForm.get('propcode')?.touched &&
+                    unitForm.get('propcode')?.invalid) && !unitForm.get('propcode')?.errors?.['notFound']
+                  "
+                >
+                  Property Code is required.
+                </div>
+                <div
+                  class="invalid-feedback d-block"
+                  *ngIf="unitForm.get('propcode')?.errors?.['notFound']"
+                >
+                  Property Code is not valid.
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div
+                  class="input-group"
+                  [class.is-invalid]="
+                    (unitForm
+                      .get('unitid')
+                      ?.hasError('required') &&
+                      unitForm.controls['unitid'].touched) || unitForm.get('unitid')?.errors?.['notFound'] "
+                >
+                  <span class="input-group-text leftform_lbl font500 font12"
+                    ><b class="text-danger">*</b>Unit ID
+                  </span>
+                  <input
+                    type="text"
+                    id="unitid"
+                    formControlName="unitid"
+                    class="form-control post_input_field border-start-0 font500 font12"
+                    [f1]="{
+                      id: 'LESSORUNITDETAILS',
+                      formData: unitForm.get('unitname'),
+                      isSingleValue: true
+                    }"
+                  />
+                  <span class="position-relative span_divider"></span>
+
+                  <input
+                    type="text"
+                    formControlName="unitname"
+                    class="form-control w-50 border-start-0 post_input_field font500 font12"
+                  />
+                </div>
+
+                <div
+                  class="invalid-feedback d-block"
+                  *ngIf="
+                    (unitForm.get('unitid')?.touched &&
+                    unitForm.get('unitid')?.invalid) && !unitForm.get('prounitidcode')?.errors?.['notFound']
+                  "
+                >
+                  Unit ID is required.
+                </div>
+                <div
+                  class="invalid-feedback d-block"
+                  *ngIf="unitForm.get('unitid')?.errors?.['notFound']"
+                >
+                  UNIT ID is not valid.
+                </div>
+              </div>
+              <!-- <div class="col-md-6">
+              <div
+                class="input-group"
+                [class.is-invalid]="
+                    (unitForm
+                      .get('unitid')
+                      ?.hasError('required') &&
+                      unitForm.controls['unitid'].touched) || unitForm.get('unitid')?.errors?.['notFound'] "
+              >
+                <span class="input-group-text leftform_lbl font500 font12"
+                  ><b class="text-danger">*</b>Unit ID
+                </span>
+                <input
+                  type="text"
+                  id="unitId"
+                  formControlName="unitid"
+                  class="form-control post_input_field border-start-0 font500 font12"
+                  [f1]="{
+                    id: 'LESSORUNITDETAILS',
+                    subId: filters.unitid ? filters.unitid : '',
+                    isSingleValue: true
+                  }"
+                />
+                <span class="position-relative span_divider"></span>
+              </div>
+
+              <div
+                class="invalid-feedback d-block"
+                *ngIf="
+                    (unitForm.get('unitid')?.touched &&
+                    unitForm.get('unitid')?.invalid) && !unitForm.get('unitid')?.errors?.['notFound']
+                  "
+              >
+                UNIT ID required.
+              </div>
+              <div
+                class="invalid-feedback d-block"
+                *ngIf="unitForm.get('unitid')?.errors?.['notFound']"
+              >
+                UNIT ID not valid.
+              </div>
+            </div> -->
+
+              <div class="col-md-12">
+                <form [formGroup]="unitForm">
+                  <div class="row g-2">
+                    <!--Unit Group START-->
+                    <div class="col-md-3">
+                      <div
+                        class="input-group"
+                        [class.is-invalid]="
+                      (unitForm
+                        .get('unitgroup')
+                        ?.hasError('required') &&
+                        unitForm.controls['unitgroup'].touched) || unitForm.get('unitgroup')?.errors?.['notFound'] "
+                      >
+                        <span
+                          class="input-group-text leftform_lbl font500 font12"
+                          ><b class="text-danger">*</b>Unit Group</span
+                        >
+                        <input
+                          type="text"
+                          id="unitgroup"
+                          appCommonAutoFocus
+                          formControlName="unitgroup"
+                          class="form-control post_input_field border-start-0 font500 font12"
+                          [f1]="{
+                            id: 'LESSORUNITDETAILS',
+                            isSingleValue: true
+                          }"
+                        />
+                      </div>
+
+                      <div
+                        class="invalid-feedback d-block"
+                        *ngIf="
+                      (unitForm.get('unitgroup')?.touched &&
+                      unitForm.get('unitgroup')?.invalid) && !unitForm.get('unitgroup')?.errors?.['notFound']
+                    "
+                      >
+                        Unit Group required.
+                      </div>
+                      <div
+                        class="invalid-feedback d-block"
+                        *ngIf="unitForm.get('unitgroup')?.errors?.['notFound']"
+                      >
+                        Unit Group not valid.
+                      </div>
+                    </div>
+                    <!--Unit Group END-->
+                    <!--Unit Type START-->
+                    <div class="col-md-3">
+                      <div
+                        class="input-group"
+                        [class.is-invalid]="
+                      (unitForm
+                        .get('unittype')
+                        ?.hasError('required') &&
+                        unitForm.controls['unittype'].touched) || unitForm.get('unittype')?.errors?.['notFound'] "
+                      >
+                        <span
+                          class="input-group-text leftform_lbl font500 font12"
+                          ><b class="text-danger">*</b>Unit Type</span
+                        >
+                        <input
+                          type="text"
+                          id="unittype"
+                          appCommonAutoFocus
+                          formControlName="unittype"
+                          class="form-control post_input_field border-start-0 font500 font12"
+                          [f1]="{
+                            id: 'LSUNITFLATTYPE',
+                            isSingleValue: true
+                          }"
+                        />
+                      </div>
+
+                      <div
+                        class="invalid-feedback d-block"
+                        *ngIf="
+                      (unitForm.get('unittype')?.touched &&
+                      unitForm.get('unittype')?.invalid) && !unitForm.get('unittype')?.errors?.['notFound']
+                    "
+                      >
+                        Unit Type required.
+                      </div>
+                      <div
+                        class="invalid-feedback d-block"
+                        *ngIf="unitForm.get('unittype')?.errors?.['notFound']"
+                      >
+                        Unit Type not valid.
+                      </div>
+                    </div>
+                    <!--Unit Type END-->
+                    <!--Unit Status START-->
+                    <div class="col-md-3">
+                      <div
+                        class="input-group"
+                        [class.is-invalid]="
+                      (unitForm
+                        .get('unitstatus')
+                        ?.hasError('required') &&
+                        unitForm.controls['unitstatus'].touched) || unitForm.get('unitstatus')?.errors?.['notFound'] "
+                      >
+                        <span
+                          class="input-group-text leftform_lbl font500 font12"
+                          ><b class="text-danger">*</b>Unit Status</span
+                        >
+                        <select
+                          class="border-0 form-control input_control form-control font500 text-dark1 font12"
+                          formControlName="unitstatus"
+                        >
+                          <option value="1">Active</option>
+                          <option value="2">Close</option>
+                        </select>
+                      </div>
+
+                      <div
+                        class="invalid-feedback d-block"
+                        *ngIf="
+                      (unitForm.get('unitstatus')?.touched &&
+                      unitForm.get('unitstatus')?.invalid) && !unitForm.get('unitstatus')?.errors?.['notFound']
+                    "
+                      >
+                        Unit Status required.
+                      </div>
+                      <div
+                        class="invalid-feedback d-block"
+                        *ngIf="unitForm.get('unitstatus')?.errors?.['notFound']"
+                      >
+                        Unit Status not valid.
+                      </div>
+                    </div>
+                    <!--Unit Status END-->
+
+                    <div class="col-md-3">
+                      <div
+                        class="input-group"
+                        appDate1
+                        [class.is-invalid]="
+                          unitForm.get('flatclosedate')?.hasError('required') &&
+                          unitForm.controls['flatclosedate'].touched
+                        "
+                      >
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Close Date
+                        </span>
+                        <input
+                          type="text"
+                          [autocomplete]="'off'"
+                          class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                          matInput
+                          required
+                          formControlName="flatclosedate"
+                          [matDatepicker]="pickerFrom"
+                          name="flatclosedate"
+                        />
+                        <div
+                          class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                        >
+                          <span class="input-group-addon">
+                            <mat-datepicker-toggle
+                              matSuffix
+                              [for]="pickerFrom"
+                            ></mat-datepicker-toggle>
+                            <mat-datepicker #pickerFrom></mat-datepicker>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <div class="col-md-4">
+                      <div
+                        class="input-group"
+                        appDate1
+                        [class.is-invalid]="
+                          unitForm.get('constartdate')?.hasError('required') &&
+                          unitForm.controls['constartdate'].touched
+                        "
+                      >
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Cont.Start Date
+                        </span>
+                        <input
+                          type="text"
+                          [autocomplete]="'off'"
+                          class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                          matInput
+                          required
+                          formControlName="constartdate"
+                          [matDatepicker]="pickerFrom1"
+                          name="constartdate"
+                        />
+                        <div
+                          class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                        >
+                          <span class="input-group-addon">
+                            <mat-datepicker-toggle
+                              matSuffix
+                              [for]="pickerFrom1"
+                            ></mat-datepicker-toggle>
+                            <mat-datepicker #pickerFrom1></mat-datepicker>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div
+                        class="input-group"
+                        appDate1
+                        [class.is-invalid]="
+                          unitForm.get('conenddate')?.hasError('required') &&
+                          unitForm.controls['conenddate'].touched
+                        "
+                      >
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Cont.End Date
+                        </span>
+                        <input
+                          type="text"
+                          [autocomplete]="'off'"
+                          class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                          matInput
+                          required
+                          formControlName="conenddate"
+                          [matDatepicker]="pickerFrom2"
+                          name="conenddate"
+                        />
+                        <div
+                          class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                        >
+                          <span class="input-group-addon">
+                            <mat-datepicker-toggle
+                              matSuffix
+                              [for]="pickerFrom2"
+                            ></mat-datepicker-toggle>
+                            <mat-datepicker #pickerFrom2></mat-datepicker>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div
+                        class="input-group"
+                        appDate1
+                        [class.is-invalid]="
+                          unitForm.get('paystartdate')?.hasError('required') &&
+                          unitForm.controls['paystartdate'].touched
+                        "
+                      >
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Payment Start Date
+                        </span>
+                        <input
+                          type="text"
+                          [autocomplete]="'off'"
+                          class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                          matInput
+                          required
+                          formControlName="paystartdate"
+                          [matDatepicker]="pickerFrom3"
+                          name="paystartdate"
+                        />
+                        <div
+                          class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                        >
+                          <span class="input-group-addon">
+                            <mat-datepicker-toggle
+                              matSuffix
+                              [for]="pickerFrom3"
+                            ></mat-datepicker-toggle>
+                            <mat-datepicker #pickerFrom3></mat-datepicker>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div
+                        class="input-group"
+                        appDate1
+                        [class.is-invalid]="
+                          unitForm.get('lockfromdate')?.hasError('required') &&
+                          unitForm.controls['lockfromdate'].touched
+                        "
+                      >
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Lock From Date
+                        </span>
+                        <input
+                          type="text"
+                          [autocomplete]="'off'"
+                          class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                          matInput
+                          required
+                          formControlName="lockfromdate"
+                          [matDatepicker]="pickerFrom4"
+                          name="lockfromdate"
+                        />
+                        <div
+                          class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                        >
+                          <span class="input-group-addon">
+                            <mat-datepicker-toggle
+                              matSuffix
+                              [for]="pickerFrom4"
+                            ></mat-datepicker-toggle>
+                            <mat-datepicker #pickerFrom4></mat-datepicker>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div
+                        class="input-group"
+                        appDate1
+                        [class.is-invalid]="
+                          unitForm.get('locktodate')?.hasError('required') &&
+                          unitForm.controls['locktodate'].touched
+                        "
+                      >
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Lock To Date
+                        </span>
+                        <input
+                          type="text"
+                          [autocomplete]="'off'"
+                          class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                          matInput
+                          required
+                          formControlName="locktodate"
+                          [matDatepicker]="pickerFrom5"
+                          name="locktodate"
+                        />
+                        <div
+                          class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                        >
+                          <span class="input-group-addon">
+                            <mat-datepicker-toggle
+                              matSuffix
+                              [for]="pickerFrom5"
+                            ></mat-datepicker-toggle>
+                            <mat-datepicker #pickerFrom5></mat-datepicker>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <!--Pay Cycle START-->
+                    <div class="col-md-4">
+                      <div
+                        class="input-group"
+                        [class.is-invalid]="
+                      (unitForm
+                        .get('paycycle')
+                        ?.hasError('required') &&
+                        unitForm.controls['paycycle'].touched) || unitForm.get('paycycle')?.errors?.['notFound'] "
+                      >
+                        <span
+                          class="input-group-text leftform_lbl font500 font12"
+                          ><b class="text-danger">*</b>Pay Cycle</span
+                        >
+                        <input
+                          type="text"
+                          id="paycycle"
+                          appCommonAutoFocus
+                          formControlName="paycycle"
+                          class="form-control post_input_field border-start-0 font500 font12"
+                          [f1]="{
+                            id: 'LESERPAYCYL',
+                            isSingleValue: true
+                          }"
+                        />
+                      </div>
+
+                      <div
+                        class="invalid-feedback d-block"
+                        *ngIf="
+                      (unitForm.get('paycycle')?.touched &&
+                      unitForm.get('paycycle')?.invalid) && !unitForm.get('paycycle')?.errors?.['notFound']
+                    "
+                      >
+                        Pay Cycle required.
+                      </div>
+                      <div
+                        class="invalid-feedback d-block"
+                        *ngIf="unitForm.get('paycycle')?.errors?.['notFound']"
+                      >
+                        Pay Cycle not valid.
+                      </div>
+                    </div>
+                    <!--Pay Cycle END-->
+                    <!--paysendingmode START-->
+                    <div class="col-md-4">
+                      <div
+                        class="input-group"
+                        [class.is-invalid]="
+                      (unitForm
+                        .get('paysendingmode')
+                        ?.hasError('required') &&
+                        unitForm.controls['paysendingmode'].touched) || unitForm.get('paysendingmode')?.errors?.['notFound'] "
+                      >
+                        <span
+                          class="input-group-text leftform_lbl font500 font12"
+                          ><b class="text-danger">*</b>Dispatch
+                          Instruction</span
+                        >
+                        <select
+                          class="border-0 form-control input_control form-control font500 text-dark1 font12"
+                          formControlName="paysendingmode"
+                        >
+                          <option value="01">Speed Post AD</option>
+                          <option value="02">Hand Delivery</option>
+                          <option value="03">Hand Delivery & speed Post</option>
+                          <option value="04">Courier</option>
+                          <option value="05">Registerd Id</option>
+                        </select>
+                      </div>
+
+                      <div
+                        class="invalid-feedback d-block"
+                        *ngIf="
+                      (unitForm.get('paysendingmode')?.touched &&
+                      unitForm.get('paysendingmode')?.invalid) && !unitForm.get('paysendingmode')?.errors?.['notFound']
+                    "
+                      >
+                        Dispatch Instruction required.
+                      </div>
+                      <div
+                        class="invalid-feedback d-block"
+                        *ngIf="unitForm.get('paysendingmode')?.errors?.['notFound']"
+                      >
+                        Dispatch Instruction not valid.
+                      </div>
+                    </div>
+                    <!--paysendingmode END-->
+                    <!--Contact person START-->
+                    <div class="col-md-8">
+                      <div
+                        class="input-group has-validation"
+                        [class.is-invalid]="
+                          unitForm.controls['contactperson'].invalid &&
+                          unitForm.controls['contactperson'].touched
+                        "
+                      >
+                        <span
+                          class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                          ><b>*</b>Contact Name</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0 post_input_field font500 font12"
+                          formControlName="contactperson"
+                        />
+                      </div>
+                      <div
+                        *ngIf="
+                          unitForm.controls['contactperson'].invalid &&
+                          unitForm.controls['contactperson'].touched
+                        "
+                      >
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="unitForm.controls['contactperson'].errors && unitForm.controls['contactperson'].errors?.['required']"
+                        >
+                          Contact Person is required
+                        </div>
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="unitForm.controls['contactperson'].errors?.['maxlength']?.actualLength"
+                        >
+                          Max 50 Character allowed. Current is
+                          {{unitForm.controls['contactperson'].errors?.['maxlength']?.actualLength}}
+                          characters.
+                        </div>
+                      </div>
+                    </div>
+
+                    <!--Flat/Unit Area Start-->
+                    <div class="col-md-4">
+                      <div class="input-group">
+                        <span
+                          class="input-group-text leftform_lbl font500 font12 req"
+                          ><span class="text-danger">* </span>
+                          Flat/Unit Area
+                        </span>
+                        <input
+                          type="text"
+                          maxlength="126"
+                          oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                          formControlName="unitarea"
+                          class="form-control border-start-0 post_input_field font500 font12"
+                        />
+                      </div>
+                    </div>
+                    <!--Flat/Unit Area End-->
+                    <!--TDS % Start-->
+                    <div class="col-md-4">
+                      <div class="input-group">
+                        <span
+                          class="input-group-text leftform_lbl font500 font12 req"
+                          ><span class="text-danger">* </span>
+                          TDS %
+                        </span>
+
+                        <input
+                          type="text"
+                          maxlength="126"
+                          oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                          formControlName="tds"
+                          class="form-control border-start-0 post_input_field font500 font12"
+                        />
+                      </div>
+                    </div>
+                    <!--TDS % End-->
+                    <!--Contact person END-->
+                    
+
+                    <!--Serv.Tax Start-->
+                    <div class="col-md-4">
+                      <div class="input-group">
+                        <span
+                          class="input-group-text leftform_lbl font500 font12 req"
+                          ><span class="text-danger">* </span>
+                          Serv.Tax
+                        </span>
+
+                        <input
+                          type="text"
+                          maxlength="126"
+                          oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                          formControlName="servtax"
+                          class="form-control border-start-0 post_input_field font500 font12"
+                        />
+                      </div>
+                    </div>
+                    <!--Serv.Tax End-->
+                    <!--Deposit Amt. Start-->
+                    <div class="col-md-4">
+                      <div class="input-group">
+                        <span
+                          class="input-group-text leftform_lbl font500 font12 req"
+                          ><span class="text-danger">* </span>
+                          Deposit Amt
+                        </span>
+
+                        <input
+                          type="text"
+                          maxlength="126"
+                          oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                          formControlName="depositeamt"
+                          class="form-control border-start-0 post_input_field font500 font12"
+                        />
+                      </div>
+                    </div>
+                    <!--Deposit Amt. End-->
+                    <!--Payment Status START-->
+                    <div class="col-md-4">
+                      <div
+                        class="input-group"
+                        [class.is-invalid]="
+                      (unitForm
+                        .get('paystatus')
+                        ?.hasError('required') &&
+                        unitForm.controls['paystatus'].touched) || unitForm.get('paystatus')?.errors?.['notFound'] "
+                      >
+                        <span
+                          class="input-group-text leftform_lbl font500 font12"
+                          ><b class="text-danger">*</b>Payment Status</span
+                        >
+                        <input
+                          type="text"
+                          id="paystatus"
+                          appCommonAutoFocus
+                          formControlName="paystatus"
+                          class="form-control post_input_field border-start-0 font500 font12"
+                          [f1]="{
+                            id: 'LSPAYSTATUS',
+                            isSingleValue: true
+                          }"
+                        />
+                      </div>
+
+                      <div
+                        class="invalid-feedback d-block"
+                        *ngIf="
+                      (unitForm.get('paystatus')?.touched &&
+                      unitForm.get('paystatus')?.invalid) && !unitForm.get('paystatus')?.errors?.['notFound']
+                    "
+                      >
+                        Payment Status required.
+                      </div>
+                      <div
+                        class="invalid-feedback d-block"
+                        *ngIf="unitForm.get('paystatus')?.errors?.['notFound']"
+                      >
+                        Paymeny Status not valid.
+                      </div>
+                    </div>
+                    <!--Payment Status END-->
+                    <!--Contract Tenure START-->
+                    <div class="col-md-4">
+                      <div
+                        class="input-group has-validation"
+                        [class.is-invalid]="
+                          unitForm.controls['conttenuare'].invalid &&
+                          unitForm.controls['conttenuare'].touched
+                        "
+                      >
+                        <span
+                          class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                          ><b>*</b>Contract Tenure</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0 post_input_field font500 font12"
+                          formControlName="conttenuare"
+                        />
+                      </div>
+                      <div
+                        *ngIf="
+                          unitForm.controls['conttenuare'].invalid &&
+                          unitForm.controls['conttenuare'].touched
+                        "
+                      >
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="unitForm.controls['conttenuare'].errors && unitForm.controls['conttenuare'].errors?.['required']"
+                        >
+                          Contract Tenure is required
+                        </div>
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="unitForm.controls['conttenuare'].errors?.['maxlength']?.actualLength"
+                        >
+                          Max 50 Character allowed. Current is
+                          {{unitForm.controls['conttenuare'].errors?.['maxlength']?.actualLength}}
+                          characters.
+                        </div>
+                      </div>
+                    </div>
+                    <!--Contract Tenure END-->
+                    <!--Person Sending Payment START-->
+                    <div class="col-md-6">
+                      <div
+                        class="input-group has-validation"
+                        [class.is-invalid]="
+                          unitForm.controls['person_pay'].invalid &&
+                          unitForm.controls['person_pay'].touched
+                        "
+                      >
+                        <span
+                          class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                          ><b>*</b>Person Sending Payment</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0 post_input_field font500 font12"
+                          formControlName="person_pay"
+                        />
+                      </div>
+                      <div
+                        *ngIf="
+                          unitForm.controls['person_pay'].invalid &&
+                          unitForm.controls['person_pay'].touched
+                        "
+                      >
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="unitForm.controls['person_pay'].errors && unitForm.controls['person_pay'].errors?.['required']"
+                        >
+                          Person Sending Payment is required
+                        </div>
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="unitForm.controls['person_pay'].errors?.['maxlength']?.actualLength"
+                        >
+                          Max 100 Character allowed. Current is
+                          {{unitForm.controls['person_pay'].errors?.['maxlength']?.actualLength}}
+                          characters.
+                        </div>
+                      </div>
+                    </div>
+                    <!--Person Sending Payment END-->
+                    <!--Person Receiving Payment START-->
+                    <div class="col-md-6">
+                      <div
+                        class="input-group has-validation"
+                        [class.is-invalid]="
+                          unitForm.controls['person_rec'].invalid &&
+                          unitForm.controls['person_rec'].touched
+                        "
+                      >
+                        <span
+                          class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                          ><b>*</b>Person Receiving Payment</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0 post_input_field font500 font12"
+                          formControlName="person_rec"
+                        />
+                      </div>
+                      <div
+                        *ngIf="
+                          unitForm.controls['person_rec'].invalid &&
+                          unitForm.controls['person_rec'].touched
+                        "
+                      >
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="unitForm.controls['person_rec'].errors && unitForm.controls['person_rec'].errors?.['required']"
+                        >
+                          Person Receiving Payment is required
+                        </div>
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="unitForm.controls['person_rec'].errors?.['maxlength']?.actualLength"
+                        >
+                          Max 100 Character allowed. Current is
+                          {{unitForm.controls['person_rec'].errors?.['maxlength']?.actualLength}}
+                          characters.
+                        </div>
+                      </div>
+                    </div>
+                    <!--Person Receiving Payment END-->
+                    <!--amenity START-->
+                    <div class="col-md-6">
+                      <div
+                        class="input-group has-validation"
+                        [class.is-invalid]="
+                          unitForm.controls['amenity'].invalid &&
+                          unitForm.controls['amenity'].touched
+                        "
+                      >
+                        <span
+                          class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                          ><b>*</b>Amenity</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0 post_input_field font500 font12"
+                          formControlName="amenity"
+                        />
+                      </div>
+                      <div
+                        *ngIf="
+                          unitForm.controls['amenity'].invalid &&
+                          unitForm.controls['amenity'].touched
+                        "
+                      >
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="unitForm.controls['amenity'].errors && unitForm.controls['amenity'].errors?.['required']"
+                        >
+                          amenity is required
+                        </div>
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="unitForm.controls['amenity'].errors?.['maxlength']?.actualLength"
+                        >
+                          Max 100 Character allowed. Current is
+                          {{unitForm.controls['amenity'].errors?.['maxlength']?.actualLength}}
+                          characters.
+                        </div>
+                      </div>
+                    </div>
+                    <!--amenity END-->
+                    <!--furniture START-->
+                    <div class="col-md-6">
+                      <div
+                        class="input-group has-validation"
+                        [class.is-invalid]="
+                          unitForm.controls['furniture'].invalid &&
+                          unitForm.controls['furniture'].touched
+                        "
+                      >
+                        <span
+                          class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                          ><b>*</b>Furniture</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0 post_input_field font500 font12"
+                          formControlName="furniture"
+                        />
+                      </div>
+                      <div
+                        *ngIf="
+                          unitForm.controls['furniture'].invalid &&
+                          unitForm.controls['furniture'].touched
+                        "
+                      >
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="unitForm.controls['furniture'].errors && unitForm.controls['furniture'].errors?.['required']"
+                        >
+                          Furniture is required
+                        </div>
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="unitForm.controls['furniture'].errors?.['maxlength']?.actualLength"
+                        >
+                          Max 100 Character allowed. Current is
+                          {{unitForm.controls['furniture'].errors?.['maxlength']?.actualLength}}
+                          characters.
+                        </div>
+                      </div>
+                    </div>
+                    <!--Furniture END-->
+                    <!--remark  START-->
+                    <div class="col-md-12">
+                      <div
+                        class="input-group has-validation"
+                        [class.is-invalid]="
+                          unitForm.controls['remarks'].invalid &&
+                          unitForm.controls['remarks'].touched
+                        "
+                      >
+                        <span
+                          class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                          ><b>*</b>Remarks</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0 post_input_field font500 font12"
+                          formControlName="remarks"
+                        />
+                      </div>
+                      <div
+                        *ngIf="
+                          unitForm.controls['remarks'].invalid &&
+                          unitForm.controls['remarks'].touched
+                        "
+                      >
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="unitForm.controls['remarks'].errors && unitForm.controls['remarks'].errors?.['required']"
+                        >
+                          Remarks is required
+                        </div>
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="unitForm.controls['remarks'].errors?.['maxlength']?.actualLength"
+                        >
+                          Max 400 Character allowed. Current is
+                          {{unitForm.controls['remarks'].errors?.['maxlength']?.actualLength}}
+                          characters.
+                        </div>
+                      </div>
+                    </div>
+                    <!--remark  END-->
+                    <!--unitflatstatus START-->
+                    <div class="col-md-6">
+                      <div
+                        class="input-group"
+                        [class.is-invalid]="
+                      (unitForm
+                        .get('unitflatstatus')
+                        ?.hasError('required') &&
+                        unitForm.controls['unitflatstatus'].touched) || unitForm.get('unitflatstatus')?.errors?.['notFound'] "
+                      >
+                        <span
+                          class="input-group-text leftform_lbl font500 font12"
+                          ><b class="text-danger">*</b>Unit/Flat Status</span
+                        >
+                        <input
+                          type="text"
+                          id="unitflatstatus"
+                          appCommonAutoFocus
+                          formControlName="unitflatstatus"
+                          class="form-control post_input_field border-start-0 font500 font12"
+                          [f1]="{
+                            id: 'LESSORSTATUS',
+                            isSingleValue: true
+                          }"
+                        />
+                      </div>
+
+                      <div
+                        class="invalid-feedback d-block"
+                        *ngIf="
+                      (unitForm.get('unitflatstatus')?.touched &&
+                      unitForm.get('unitflatstatus')?.invalid) && !unitForm.get('unitflatstatus')?.errors?.['notFound']
+                    "
+                      >
+                        Unit/Flat Status required.
+                      </div>
+                      <div
+                        class="invalid-feedback d-block"
+                        *ngIf="unitForm.get('unitflatstatus')?.errors?.['notFound']"
+                      >
+                        Unit/Flat Status not valid.
+                      </div>
+                    </div>
+                    <!--unitflatstatus END-->
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Bottom button start -->
+<app-buttons
+  [buttonsList]="buttonsList"
+  (eventTrigger)="buttonAction($event)"
+></app-buttons>
+<!-- Bottom button end -->

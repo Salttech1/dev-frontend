@@ -1,0 +1,172 @@
+<!--HTML for Broker Entry-->
+<section>
+  <div class="container">
+    <div class="row mb-3 justify-content-center">
+      <div class="col-md-12">
+        <form [formGroup]="locationSelection">
+          <div class="row justify-content-center">
+            <div class="col-md-3">
+              <div class="input-group">
+                <span class="input-group-text leftform_lbl font500 font12"
+                  >location</span
+                >
+                <app-f1
+                  id="location"
+                  [formControlName]="'location'"
+                  name="Bill Type"
+                  class="form-control post_input_field border-start-0 d-flex"
+                  titleValue="{{ locationF1List?.mainheader }}"
+                  [tableData]="locationF1List?.dataSet"
+                  [colHeader]="locationColHeadings"
+                  [inputBBC]="locationF1abc"
+                  [dynaPopId]="'CONSITE'"
+                  [queryConditon]="''"
+                  maxlength="4"
+                  [errorMessage]="'Invalid Location'"
+                >
+                </app-f1>
+              </div>
+              <div
+                class="invalid-feedback d-block"
+                *ngIf="
+                  locationSelection.get('location')?.invalid &&
+                  locationSelection.get('location')?.touched
+                "
+              >
+                <div
+                  class="errorField common_color_txt font12 font500"
+                  *ngIf="locationSelection.get('location')?.errors && locationSelection.get('location')?.errors?.['required']"
+                >
+                  *Please Enter Location Code
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-3" *ngIf="visibleformcontrol">
+    <div class="col-md-12">
+      <div class="br-10 form_common_bg group_panel p-3 position-relative pt-4">
+        <p class="bg-white font600 group_title mb-0 position-absolute">
+          Location Details
+        </p>
+        <form [formGroup]="locationform">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="input-group">
+                <span class="input-group-text leftform_lbl font500 font12"
+                  >Location Name</span
+                >
+                <input
+                  type="text"
+                  formControlName="locationName"
+                  maxlength="50"
+                  class="form-control w-10 border-start-0 post_input_field font500 font20"
+                />
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="input-group has-validation">
+                <span class="input-group-text leftform_lbl font500 font12"
+                  >Building code</span
+                >
+                <input
+                  type="text"
+                  formControlName="bldgcode"
+                  [f1]="{ id: 'BUILDINGS', fill: 1 }"
+                  maxlength="4"
+                  class="form-control w-10 border-start-0 post_input_field font500 font20 text-uppercase"
+                  ng-blur="callMyFunction($event)"
+                />
+              </div>
+              <div
+                *ngIf="
+                  locationform.controls['bldgcode'].invalid &&
+                  locationform.controls['bldgcode'].touched
+                "
+              >
+                <div
+                  *ngIf="locationform.controls['bldgcode'].errors?.['notFound']"
+                >
+                  * Invalid Building code
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="form-check">
+                <input
+                  formControlName="duefromsociety"
+                  class="form-check-input"
+                  type="checkbox"
+                  (change)="getduefromsocietyflag($event)"
+                />
+                <label class="form-check-label" for="flexCheckDefault">
+                  Due From Society
+                </label>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner text-center bg-white br-10">
+      <div class="flex justify-content-between">
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="a"
+          [disabled]="disabledFlagAdd"
+          (click)="addLocation()"
+        >
+          Add
+        </button>
+
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="r"
+          (click)="retriveLocationDetail()"
+          [disabled]="disabledFlagRetrieve"
+        >
+          Retrieve
+        </button>
+
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="s"
+          (click)="saveLocationData()"
+          [disabled]="disabledFlagSave"
+        >
+          Save
+        </button>
+
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="b"
+          (click)="back()"
+          [disabled]="disabledFlagBack"
+        >
+          Back
+        </button>
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+          accesskey="x"
+          (click)="handleExitClick()"
+        >
+          E<span class="text-decoration-underline">x</span>it
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

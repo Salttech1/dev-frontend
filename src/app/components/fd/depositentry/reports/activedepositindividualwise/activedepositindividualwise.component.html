@@ -1,0 +1,117 @@
+<section>
+    <div class="reports_detail_container">
+      <form [formGroup]="activeDepositIndividualwiseReport">
+        <div class="row" formGroupName="reportParameters">
+              <div class="mb-3 col-md-12 col-lg-6 col-xl-6 col-xxl-5">
+                    <div class="">
+                        <div class="">
+                          <div class="input-group" [class.is-invalid]="
+                          activeDepositIndividualwiseReport.controls['reportParameters'].controls['CompanyCode'].invalid &&
+                          activeDepositIndividualwiseReport.controls['reportParameters'].controls['CompanyCode'].touched">
+                            <span class="input-group-text leftform_lbl font500 text-dark1 font12">Company</span>
+                            <app-f1 [formControlName]="'CompanyCode'" placeholder="" class="form-control post_input_field  border-end-0 border-start-0 d-flex" titleValue="{{tableData?.mainheader}}" [tableData]="tableData?.dataSet" [colHeader]="columnHeader"  [inputBBC]="bringBackColumn" (updatedSelectedValue)="updateCompanyList($event)" [dynaPopId]="'COMPANY'" [queryConditon]=coy_condition id="companyCode" [errorMessage]="'Invalid Company Code'" (change)="updateOnChangeCompanyList($event)"></app-f1>
+                            <span class="position-relative span_divider"></span>
+                            <input
+                            type="text"
+                            class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500 disabled_cls"
+                            id
+                            formControlName="CompanyName" tabindex="-1"
+                            readonly
+                        >
+                          </div>
+                          <div
+                            *ngIf="activeDepositIndividualwiseReport.controls['reportParameters'].controls['CompanyCode'].invalid && activeDepositIndividualwiseReport.controls['reportParameters'].controls['CompanyCode'].touched">
+                            <div class="errorField common_color_txt font12 font500"
+                                *ngIf="activeDepositIndividualwiseReport.controls['reportParameters'].controls['CompanyCode'].errors && activeDepositIndividualwiseReport.controls['reportParameters'].controls['CompanyCode'].errors?.['required']">
+                                * Company Code is required
+                          </div>
+                          </div>
+                        </div>
+              
+                    </div>
+              </div>
+             <div class="mb-3 col-md-12 col-lg-6 col-xl-6 col-xxl-5">
+               <div class="">
+                  <div class="input-group" [class.is-invalid]="
+                  activeDepositIndividualwiseReport.controls['reportParameters'].controls['Depositor'].invalid &&
+                  activeDepositIndividualwiseReport.controls['reportParameters'].controls['Depositor'].touched">
+                      <span class="input-group-text leftform_lbl font500 text-dark1 font12">Depositor</span>
+                      <app-f1 [formControlName]="'Depositor'" type="text" placeholder="" class="form-control post_input_field  border-end-0 border-start-0 d-flex" (updatedSelectedValue)="updateListControl($event,activeDepositIndividualwiseReport.get('reportParameters.DepositorName'))" titleValue="{{depositorTableData?.mainheader}}"   [tableData]="depositorTableData?.dataSet" [colHeader]="deptColumnHeader"  [inputBBC]="depositorTableData?.bringBackColumn" [dynaPopId]="'DEPOSITORS'" [queryConditon]=deptDyanPop id="depositorCode" [errorMessage]="'Invalid Depositor Code'" (click)="updateDepositorList()" (change)="updateDepositorOnChange($event)"></app-f1>
+                      <span class="position-relative span_divider"></span>
+                      <input
+                      type="text"
+                      class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500 disabled_cls"
+                      id
+                      formControlName="DepositorName" tabindex="-1"
+                      readonly
+                  >
+                    </div>
+                  <div
+                    *ngIf="activeDepositIndividualwiseReport.controls['reportParameters'].controls['Depositor'].invalid && activeDepositIndividualwiseReport.controls['reportParameters'].controls['Depositor'].touched">
+                    <div class="errorField common_color_txt font12 font500"
+                        *ngIf="activeDepositIndividualwiseReport.controls['reportParameters'].controls['Depositor'].errors && activeDepositIndividualwiseReport.controls['reportParameters'].controls['Depositor'].errors?.['required']">
+                        * Depositor Id is required
+                    </div>
+                 </div>
+                </div>
+            </div>
+            <div class="mb-3 col-md-6 col-lg-4 col-xl-3 col-xxl-3">
+              <div class="">
+                  <div class="">
+                    <div class="input-group" [class.is-invalid]="
+                    activeDepositIndividualwiseReport.controls['reportParameters'].controls['activeUpToDate'].invalid &&
+                    activeDepositIndividualwiseReport.controls['reportParameters'].controls['activeUpToDate'].touched">
+                      <span class="input-group-text leftform_lbl font500 text-dark1 font12">As on Date</span>
+                      <!-- <input type="text" class="form-control border-start-0 post_input_field" id="receiptCode" onclick="showmodal()"> -->
+                      <input  class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                      formControlName="activeUpToDate" matInput [matDatepicker]="pickerFrom"  name="" ng-change="changeEvent($event)" (dateInput)="updateCalcs($event)"
+                      id="asOnDate"
+                      >
+                  <div class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0">
+                      <span class="input-group-addon">
+                          <mat-datepicker-toggle matSuffix [for]="pickerFrom" tabindex="-1"></mat-datepicker-toggle>
+                          <mat-datepicker #pickerFrom></mat-datepicker>
+                      </span>
+                  </div>
+                    </div>
+                    <div
+                    *ngIf="activeDepositIndividualwiseReport.controls['reportParameters'].controls['activeUpToDate'].invalid && activeDepositIndividualwiseReport.controls['reportParameters'].controls['activeUpToDate'].touched">
+                    <div class="errorField common_color_txt font12 font500"
+                        *ngIf="activeDepositIndividualwiseReport.controls['reportParameters'].controls['activeUpToDate'].errors && activeDepositIndividualwiseReport.controls['reportParameters'].controls['activeUpToDate'].errors?.['required']">
+                        * From Date is required
+                    </div>
+                  </div>
+                  </div>
+              </div>
+          </div>
+        <div class="mb-3 col-md-12 col-lg-8 col-xl-12 col-xxl-9">
+            <div class="input-group">
+                    <span class="input-group-text leftform_lbl bg-transparent border-0 font500 text-dark1 font12 ps-0 font600">Report Option</span>
+                    <div class="form-check d-flex align-items-center">
+                      <input type="radio" class="form-check-input font12 font500 position-relative" id="radio1" name="reportOption" value="activeDeposit" formControlName="reportOption"  (change)="optionSelect($event.target)">
+                      <label class="form-check-label" for="radio1" >Active Deposit</label>
+                    </div>
+                    <div class="form-check d-flex align-items-center">
+                      <input type="radio" class="form-check-input font12 font500  position-relative" id="radio2" name="reportOption" value="activeDepositWithJointOwnerDetails" formControlName="reportOption"  (change)="optionSelect($event.target)">
+                      <label class="form-check-label" for="radio2">Active Deposit With Joint Owner Details</label>
+                    </div>
+            </div>
+        </div>
+        </div>
+      </form>
+    </div>
+    <app-loader *ngIf="loaderToggle"></app-loader>
+    <section class="action_section position-fixed w-100">
+      <div class="container">
+          <div class="action_conatiner text-center bg-white br-10">
+              <div class="flex justify-content-between">
+                  <button type="submit" class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white exportcls first_letter_textdecorationone" (click)="getReport(false)" accesskey="w">Do<span class="text-decoration-underline">w</span>nload</button>
+                  <button type="submit" class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white exportcls" (click)="getReport(true)" accesskey="p">Print</button>
+                  <button type="submit" class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone"  accesskey="x" (click)="handleExit()">E<span class="text-decoration-underline">x</span>it</button>
+              </div>
+          </div>
+      </div>
+  </section>
+    <!-- <app-actionpanel [exportFormGroup]="activeDepositIndividualwiseReport" (sendLoaderFlag)="updateLoaderFlag($event)" [printFormGroup]="activeDepositIndividualwiseReport"></app-actionpanel> -->
+</section>
+<!-- [exportFormGroup]="activeDepositIndividualwiseReport" (sendLoaderFlag)="updateLoaderFlag($event)" -->

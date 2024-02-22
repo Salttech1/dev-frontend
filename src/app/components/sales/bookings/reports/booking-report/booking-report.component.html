@@ -1,0 +1,275 @@
+<section class="container">
+  <section class="form-section-wrapper">
+    <form [formGroup]="ReportCriteria">
+      <div class="row">
+        <div class="col-md-4"></div>
+
+        <!-- Booking date -->
+        <div class="col-md-4">
+          <div
+            class="input-group flex-nowrap"
+            appDate1
+            [class.is-invalid]="
+              (ReportCriteria.get('bookingDate')?.controls['fromDate']
+                ?.invalid &&
+                ReportCriteria.get('bookingDate')?.controls['fromDate']
+                  ?.touched) ||
+              (ReportCriteria.get('bookingDate')?.controls['toDate']?.invalid &&
+                ReportCriteria.get('bookingDate')?.controls['toDate']?.touched)
+            "
+          >
+            <span
+              class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+              ><b>*</b>Booking Date</span
+            >
+            <div class="bg-white datepicker_field post_input_field">
+              <span class="input-group-addon">
+                <div mat-form-field appearance="fill" class="matForm">
+                  <mat-date-range-input
+                    [formGroup]="ReportCriteria.controls['bookingDate']"
+                    [rangePicker]="picker"
+                  >
+                    <input
+                      class="font12"
+                      matStartDate
+                      formControlName="fromDate"
+                      placeholder="From date"
+                    />
+                    <input
+                      class="font12"
+                      matEndDate
+                      formControlName="toDate"
+                      placeholder="To date"
+                     />
+                  </mat-date-range-input>
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker"
+                  ></mat-datepicker-toggle>
+                  <mat-date-range-picker #picker></mat-date-range-picker>
+                </div>
+              </span>
+            </div>
+          </div>
+          <div class="invalid-feedback">
+            Date Invalid/Empty. Future date not allowed
+          </div>
+
+          <!-- Report Type -->
+          <div class="input-group mt-4">
+            <div class="input-group justify-content-center">
+              <div class="form-check form-check-inline">
+                <input
+                  type="radio"
+                  class="form-check-input position-relative"
+                  formControlName="reportType"
+                  value="detail"
+                />
+                <label class="form-check-label" for="radio1"
+                  >Detail Report</label
+                >
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  type="radio"
+                  class="form-check-input position-relative"
+                  formControlName="reportType"
+                  value="concise"
+                />
+                <label class="form-check-label" for="radio2"
+                  >Concise Report</label
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="input-group mt-4">
+            <div class="input-group justify-content-center">
+            <div class="form-check form-check-inline">
+            <input
+              type="checkbox"
+              formControlName="custType"
+              id="onlyNRI"
+              class="form-check-input position-relative"
+            />
+            <label for="onlyNRI" class="form-check-label"> Only NRI</label>
+          </div>
+        </div>
+        </div>
+        </div>
+      </div>
+    </form>
+  </section>
+</section>
+
+<app-buttons
+  [buttonsList]="buttonsList"
+  (eventTrigger)="buttonAction($event)"
+></app-buttons>
+
+<app-loader *ngIf="config.isLoading"></app-loader>
+
+<!-- <section class="container">
+  <div class="col-md-6">
+    <form [formGroup]="BookingSelectionForm" #formDirective="ngForm">
+      <div class="row mb-3">
+        <div class="col-sm-12">
+          <div formGroupName="reportParameters">
+            <div class="row">
+              <div class="col-md-6 mb-2">
+                <div
+                  class="input-group flex-nowrap"
+                  appDate1
+                  [class.is-invalid]="
+                    (BookingSelectionForm.get('period')?.controls['fromdate']
+                      ?.invalid &&
+                      BookingSelectionForm.get('period')?.controls['fromdate']
+                        ?.touched) ||
+                    (BookingSelectionForm.get('period')?.controls[
+                      'maturitydate'
+                    ]?.invalid &&
+                      BookingSelectionForm.get('period')?.controls[
+                        'maturitydate'
+                      ]?.touched)
+                  "
+                >
+                  <span
+                    class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                    ><b>*</b>Period</span
+                  >
+                  <div class="bg-white datepicker_field post_input_field">
+                    <span class="input-group-addon">
+                      <div mat-form-field appearance="fill" class="matForm">
+                        <mat-date-range-input
+                          [formGroup]="BookingSelectionForm.controls['period']"
+                          [rangePicker]="picker"
+                        >
+                          <input
+                            class="font12"
+                            matStartDate
+                            formControlName="fromdate"
+                            placeholder="From date"
+                            name="start"
+                          />
+                          <input
+                            class="font12"
+                            matEndDate
+                            formControlName="maturitydate"
+                            placeholder="To date"
+                            name="end"
+                          />
+                        </mat-date-range-input>
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="picker"
+                        ></mat-datepicker-toggle>
+                        <mat-date-range-picker #picker></mat-date-range-picker>
+                      </div>
+                    </span>
+                  </div>
+                </div>
+                <div class="invalid-feedback">
+                  Date Invalid/Empty. Future date not allowed
+                </div>
+              </div>
+
+              <div class="col-md-9">
+                <div class="br-10 group_panel p-3 position-relative">
+                  <p
+                    class="bg-white font600 group_title mb-0 position-absolute"
+                  >
+                    Type
+                  </p>
+                  <div class="form-check form-check-inline">
+                    <input
+                      type="radio"
+                      class="form-check-input position-relative"
+                      name=""
+                      value=""
+                      formControlName=""
+                      checked
+                    />
+                    <label class="form-check-label" for="radio1"
+                      >Detail Report</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      type="radio"
+                      class="form-check-input position-relative"
+                      name=""
+                      formControlName=""
+                      value=""
+                    />
+                    <label class="form-check-label" for="radio2"
+                      >Concise Report</label
+                    >
+                  </div>
+
+                  <div class="form-check form-check-inline">
+                    <input
+                      type="checkbox"
+                      class="form-check-input position-relative"
+                      name=""
+                      formControlName=""
+                      value=""
+                    />
+                    <label class="form-check-label" for="radio2"
+                      >Reqd. Booking Area</label
+                    >
+                  </div>
+
+                  <div class="form-check form-check-inline">
+                    <input
+                      type="checkbox"
+                      class="form-check-input position-relative"
+                      name=""
+                      formControlName=""
+                      value=""
+                    />
+                    <label class="form-check-label" for="radio2"
+                      >Only NRI</label
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+<app-loader *ngIf="loaderToggle"></app-loader>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner text-center bg-white br-10 w-100">
+      <div class="flex justify-content-between">
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+          accesskey="w"
+          (click)="getReport(false)"
+        >
+          Do<span class="text-decoration-underline">w</span>nload
+        </button>
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white"
+          (click)="getReport(true)"
+          accesskey="p"
+        >
+          Print
+        </button>
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+          accesskey="x"
+          (click)="handleExitClick()"
+        >
+          E<span class="text-decoration-underline">x</span>it
+        </button>
+      </div>
+    </div>
+  </div>
+</section> -->

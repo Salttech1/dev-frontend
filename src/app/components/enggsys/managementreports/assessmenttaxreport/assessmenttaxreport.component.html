@@ -1,0 +1,162 @@
+<section>
+  <form [formGroup]="qf">
+    <div class="row g-3 justify-content-center">
+        <div class="col-sm-7">
+            <div
+              class="input-group flex-nowrap"
+              appDate1
+              [class.is-invalid]="
+                (qf.get('range')?.invalid && qf.get('range')?.touched) || qf.errors?.['atLeastOneFilter'] 
+              "
+            >
+              <span class="input-group-text leftform_lbl font500 text-dark1"
+                >Period From</span
+              >
+              <div
+                class="bg-white datepicker_field post_input_field flex-grow-1"
+                [class.is-invalid]="
+                  (qf.get('range')?.invalid && qf.get('range')?.touched) ||  qf.errors?.['atLeastOneFilter']"
+              >
+                <span class="input-group-addon">
+                  <div mat-form-field appearance="fill" class="matForm">
+                    <mat-date-range-input
+                      [formGroup]="this.qf.controls['range']"
+                      [rangePicker]="picker"
+                    >
+                      <input
+                        class="text-capitalize font12"
+                        matStartDate
+                        formControlName="TxtFrom"
+                        placeholder=" TxtFrom"
+                      />
+                      <input
+                        matEndDate
+                        formControlName="TxtTo"
+                        placeholder="TxtTo"
+                        class="text-capitalize font12"
+                      />
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="picker"
+                    ></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                  </div>
+                </span>
+              </div>
+            </div>
+            <div
+              *ngIf="qf.controls['range'].invalid && qf.controls['range'].touched"
+            >
+              <div
+                class="invalid-feedback d-block"
+                *ngIf="qf.get('range')?.errors?.['properDate']"
+              >
+                Proper Date is required
+              </div>
+            </div>
+          </div>
+      <div class="col-sm-7">
+        <div
+          class="input-group"
+          [class.is-invalid]="qf?.invalid && qf?.touched && qf.errors?.['atLeastOneFilter'] "
+        >
+          <span class="input-group-text leftform_lbl font500 text-dark1 font12"
+            >Company Code</span
+          >
+          <input
+            appCommonAutoFocus
+            type="text"
+            class="form-control border-start-0 br-9"
+            formControlName="coy"
+            [f1]="{ id: 'COMPANY', multi: true }"
+          />
+        </div>
+      </div>
+      <div class="col-sm-7">
+        <div
+          class="input-group"
+          [class.is-invalid]="qf?.invalid && qf?.touched && qf.errors?.['atLeastOneFilter'] "
+        >
+          <span class="input-group-text leftform_lbl font500 text-dark1 font12"
+            >Building Code</span
+          >
+          <input
+            type="text"
+            class="form-control border-start-0 br-9"
+            formControlName="bldgCode"
+            [f1]="{ id: 'BUILDINGS', multi: true }"
+          />
+        </div>
+      </div>
+
+      <div class="col-sm-7">
+        <div
+          class="input-group"
+          [class.is-invalid]="qf?.invalid && qf?.touched && qf.errors?.['atLeastOneFilter'] "
+        >
+          <span class="input-group-text leftform_lbl font500 text-dark1 font12"
+            >MIS Building</span
+          >
+          <input
+            type="text"
+            class="form-control border-start-0 br-9"
+            formControlName="MISBldg"
+            [f1]="{
+              id: 'MISPROJECT',
+              multi: true
+            }"
+          />
+        </div>
+      </div>
+
+      <div class="col-sm-7">
+        <div
+          class="input-group"
+          [class.is-invalid]="qf?.invalid && qf?.touched && qf.errors?.['atLeastOneFilter'] "
+        >
+          <span class="input-group-text leftform_lbl font500 text-dark1 font12"
+            >City</span
+          >
+          <input
+            type="text"
+            class="form-control border-start-0 br-9"
+            formControlName="City"
+            [f1]="{ id: 'BLDGREGION', multi: true }"
+          />
+        </div>
+      </div>
+    </div>
+  </form>
+</section>
+<app-loader *ngIf="loaderToggle"></app-loader>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner text-center bg-white br-10 w-100">
+      <div class="flex justify-content-between">
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+          [attr.accesskey]="loaderToggle == true ? '' : 'w'"
+          (click)="getReport(false)"
+        >
+          Do<u>w</u>nload
+        </button>
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white"
+          (click)="getReport(true)"
+          [attr.accesskey]="loaderToggle == true ? '' : 'p'"
+        >
+          Print
+        </button>
+        <a
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white text-decoration-none first_letter_textdecorationone"
+          [attr.accesskey]="loaderToggle == true ? '' : 'x'"
+          routerLink="/dashboard"
+          >E<u>x</u>it
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,29 @@
+.allocationform_months_col1_lbl {
+    padding: 6px 17px;
+    background: #f7f7fa;
+    border-radius: 9px 9px 9px 9px;
+    border: 1px solid #ced4da;
+    
+  }
+
+  .allocationform_months_col1_input {
+    /*padding: 4px 17px;*/
+    border-radius: 9px 9px 9px 9px;
+    width:100%;
+    box-sizing: border-box;
+    width: 100%;border: solid #ced4da 10px;
+    padding: 1px;
+    background: #f7f7fa;
+  }
+
+  .redhighlighter{
+    color:red;
+  }
+
+  .post_input_field_for_col1_of_allocation {
+    border-radius: 9px 9px 9px 9px;
+  }
+
+  .txt_align_center_for_col1_of_allocation{
+    text-align: center;
+  }

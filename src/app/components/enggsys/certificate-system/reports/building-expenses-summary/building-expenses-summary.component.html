@@ -1,0 +1,185 @@
+<section>
+  <form [formGroup]="qf">
+    <div class="row g-3 justify-content-center">
+      <div class="col-sm-7">
+        <div class="input-group">
+          <span class="input-group-text leftform_lbl font500 text-dark1 font12"
+            >Buildings</span
+          >
+          <input
+            appCommonAutoFocus
+            type="text"
+            class="form-control border-start-0 br-9"
+            formControlName="bldgCode"
+            [f1]="{ id: 'ENGGBUILDINGS', subId: bldgSQ, multi: true }"
+          />
+        </div>
+      </div>
+      <div class="col-sm-7">
+        <div class="input-group">
+          <span class="input-group-text leftform_lbl font500 text-dark1 font12"
+            >Group Codes</span
+          >
+          <input
+            type="text"
+            class="form-control border-start-0 br-9"
+            formControlName="groupCode"
+            [f1]="{ id: 'MISPROJECT', multi: true }"
+          />
+        </div>
+      </div>
+      <div class="col-sm-7">
+        <div
+          class="input-group"
+          appDate1
+          [class.is-invalid]="
+            qf.controls['asOnDate'].invalid && qf.controls['asOnDate'].touched
+          "
+        >
+          <span class="input-group-text leftform_lbl font500 text-dark1 font12"
+            ><span class="text-danger font500 font12">*</span>As on Date</span
+          >
+          <input
+            class="form-control border-start-0 borer-end-0 post_input_field font500 text-dark1 font12"
+            id="formDateField"
+            matInput
+            [matDatepicker]="pickerFrom"
+            formControlName="asOnDate"
+          />
+          <div
+            class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+          >
+            <span class="input-group-addon">
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="pickerFrom"
+                tabindex="-1"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #pickerFrom></mat-datepicker>
+            </span>
+          </div>
+        </div>
+        <div
+          *ngIf="
+            qf.controls['asOnDate'].invalid && qf.controls['asOnDate'].touched
+          "
+        >
+          <div
+            class="invalid-feedback d-block font12 font500"
+            *ngIf="qf.get('asOnDate')?.errors?.['selectDate']"
+          >
+            Specify Either Date Range or As on date
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-7">
+        <div
+          class="input-group flex-nowrap"
+          appDate1
+          [class.is-invalid]="
+            (qf.get('range')?.invalid && qf.get('range')?.touched) ||
+            (qf.get('range')?.invalid && qf.get('range')?.touched)
+          "
+        >
+          <span class="input-group-text leftform_lbl font500 text-dark1"
+            >Period From</span
+          >
+          <div
+            class="bg-white datepicker_field post_input_field flex-grow-1"
+            [class.is-invalid]="
+              (qf.get('range')?.invalid && qf.get('range')?.touched) ||
+              (qf.get('range')?.invalid && qf.get('range')?.touched)
+            "
+          >
+            <span class="input-group-addon">
+              <div mat-form-field appearance="fill" class="matForm">
+                <mat-date-range-input
+                  [formGroup]="this.qf.controls['range']"
+                  [rangePicker]="picker"
+                >
+                  <input
+                    class="text-capitalize font12"
+                    matStartDate
+                    formControlName="fromDate"
+                    placeholder=" From date"
+                  />
+                  <input
+                    matEndDate
+                    formControlName="toDate"
+                    placeholder="To date"
+                    class="text-capitalize font12"
+                  />
+                </mat-date-range-input>
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker"
+                ></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+              </div>
+            </span>
+          </div>
+        </div>
+        <div
+          *ngIf="qf.controls['range'].invalid && qf.controls['range'].touched"
+        >
+          <div
+            class="invalid-feedback d-block"
+            *ngIf="qf.get('range')?.errors?.['properDate']"
+          >
+            Proper Date is required
+          </div>
+          <div
+            class="invalid-feedback d-block font12 font500"
+            *ngIf="qf.get('range')?.errors?.['selectDate']"
+          >
+            Specify Either Date Range or As on date
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-7">
+        <div class="input-group">
+          <span class="input-group-text leftform_lbl font500 text-dark1 font12"
+            >City</span
+          >
+          <input
+            type="text"
+            class="form-control border-start-0 br-9"
+            formControlName="region"
+            [f1]="{ id: 'BLDGREGION', multi: true }"
+          />
+        </div>
+      </div>
+    </div>
+  </form>
+</section>
+<app-loader *ngIf="loaderToggle"></app-loader>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner text-center bg-white br-10 w-100">
+      <div class="flex justify-content-between">
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+          [attr.accesskey]="loaderToggle == true ? '' : 'w'"
+          (click)="getReport(false)"
+        >
+          Do<u>w</u>nload
+        </button>
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white"
+          (click)="getReport(true)"
+          [attr.accesskey]="loaderToggle == true ? '' : 'p'"
+        >
+          Print
+        </button>
+        <a
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white text-decoration-none first_letter_textdecorationone"
+          [attr.accesskey]="loaderToggle == true ? '' : 'x'"
+          routerLink="/dashboard"
+          >E<u>x</u>it
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,187 @@
+<section class="container">
+    <form [formGroup]="LcstatusreportAuth">
+        <div formGroupName="reportParameters">
+          <div class="row d-flex justify-content-center">
+            <div class="col-md-6">
+              <div
+                class="group_panel br-10 form_common_bg p-3 pt-3 position-relative"
+              >
+                <p
+                  class="bg-white font600 group_title mb-0 position-absolute"
+                ></p>
+                <div class="row g-2">
+                  <div class="col-md-12">
+                    <div class="input-group">
+                      <span
+                        class="input-group-text leftform_lbl font500 text-dark1 font12"
+                        >Building Code</span
+                      >
+                      <input
+                        type="text"
+                        id="LcstatusreportAuth_bldg"
+                        class="form-control border-start-0 post_input_field"
+                        formControlName="StrPrmBldgCode"
+                        [f1]="{ id: 'BUILDINGS', multi: true }"
+                        autocomplete="off"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="col-md-12">
+                    <div class="input-group">
+                      <span
+                        class="input-group-text leftform_lbl font500 text-dark1 font12"
+                        >Material Group</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field"
+                        formControlName="StrPrmMatGroup"
+                        [f1]="{ id: 'MATGROUPS', multi: true }"
+                        autocomplete="off"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="col-md-12">
+                    <div class="input-group">
+                      <span
+                        class="input-group-text leftform_lbl font500 text-dark1 font12"
+                        >Party Code</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field"
+                        formControlName="StrPrmPartyCode"
+                        [f1]="{ id: 'CONTRACTORS', multi: true }"
+                        autocomplete="off"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="col-md-12">
+                    <div
+                      class="input-group flex-nowrap"
+                      appDate1
+                      [class.is-invalid]="
+                        (LcstatusreportAuth.get('reportParameters')?.controls[
+                          'StrPrmDurFrom'
+                        ]?.invalid &&
+                          LcstatusreportAuth.get('reportParameters')?.controls[
+                            'StrPrmDurFrom'
+                          ]?.touched) ||
+                        (LcstatusreportAuth.get('reportParameters')?.controls[
+                          'StrPrmDurUpto'
+                        ]?.invalid &&
+                          LcstatusreportAuth.get('reportParameters')?.controls[
+                            'StrPrmDurUpto'
+                          ]?.touched)
+                      "
+                    >
+                      <span
+                        class="input-group-text leftform_lbl font500 text-dark1"
+                        >Date Range</span
+                      >
+                      <div
+                        class="bg-white datepicker_field post_input_field flex-grow-1"
+                        [class.is-invalid]="
+                          (LcstatusreportAuth.get('reportParameters')?.controls[
+                            'StrPrmDurFrom'
+                          ]?.invalid &&
+                            LcstatusreportAuth.get('reportParameters')?.controls[
+                              'StrPrmDurFrom'
+                            ]?.touched) ||
+                          (LcstatusreportAuth.get('reportParameters')?.controls[
+                            'StrPrmDurUpto'
+                          ]?.invalid &&
+                            LcstatusreportAuth.get('reportParameters')?.controls[
+                              'StrPrmDurUpto'
+                            ]?.touched)
+                        "
+                      >
+                        <span class="input-group-addon">
+                          <div mat-form-field appearance="fill" class="matForm">
+                            <mat-date-range-input
+                              [rangePicker]="picker"
+                            >
+                              <input
+                                matStartDate
+                                formControlName="StrPrmDurFrom"
+                                placeholder="Start date"
+                              />
+                              <input
+                                matEndDate
+                                formControlName="StrPrmDurUpto"
+                                placeholder="End date"
+                              />
+                            </mat-date-range-input>
+                            <mat-datepicker-toggle
+                              matSuffix
+                              [for]="picker"
+                            ></mat-datepicker-toggle>
+                            <mat-date-range-picker
+                              #picker
+                            ></mat-date-range-picker>
+                          </div>
+                        </span>
+                      </div>
+                    </div>
+                    <div
+                      *ngIf="
+                        LcstatusreportAuth.controls['reportParameters'].invalid &&
+                        LcstatusreportAuth.controls['reportParameters'].touched
+                      "
+                    >
+                      <div
+                        class="invalid-feedback d-block"
+                        *ngIf="
+                          (LcstatusreportAuth.get('reportParameters').controls[
+                            'StrPrmDurFrom'
+                          ]?.invalid &&
+                            LcstatusreportAuth.get('reportParameters').controls[
+                              'StrPrmDurFrom'
+                            ]?.touched) ||
+                          (LcstatusreportAuth.get('reportParameters').controls[
+                            'StrPrmDurUpto'
+                          ]?.invalid &&
+                            LcstatusreportAuth.get('reportParameters').controls[
+                              'StrPrmDurUpto'
+                            ]?.touched)
+                        "
+                      >
+                        Proper Date is required
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12">
+                    <div class="mt-1" *ngIf="_service.getAccess('Export')">
+                    <p class="font600 group_title mb-1">Export Type :</p>
+                    <div
+                      class="form-check form-check-inline"
+                      *ngFor="let item of exportTypes"
+                    >
+                      <input
+                        class="form-check-input position-relative cursor-pointer"
+                        type="radio"
+                        [value]="item.id"
+                        formControlName="exportType"
+                      />
+                      <label class="form-check-label m-0" for="exTy1">
+                        {{ item.name }}
+                      </label>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </form>
+  </section>
+
+  <app-loader *ngIf="loaderToggle"></app-loader>
+
+  <app-buttons [buttonsList]="buttonsList" (eventTrigger)="buttonAction($event)"></app-buttons>
+

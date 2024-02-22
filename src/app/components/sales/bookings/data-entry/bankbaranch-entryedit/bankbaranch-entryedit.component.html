@@ -1,0 +1,7 @@
+<div class="popup-backdrop" (click)="close()">
+    <div class="popup-content" (click)="$event.stopPropagation()">
+        <!-- Popup content goes here -->
+        <h2>Hello from the Popup!</h2>
+        <button (click)="close()">Close</button>
+    </div>
+</div>

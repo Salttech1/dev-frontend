@@ -1,0 +1,43 @@
+<div class="container h-75">
+  <div class="align-content-around h-100 justify-content-around row">
+    <div class="col-lg-4 col-md-6">
+      <div class="card br-20">
+        <div class="card-body">
+          <h1 class="font500 m-0">Register</h1>
+          <p class="text-muted mb-5">Create new user</p>
+          <form [formGroup]="registerForm" (ngSubmit)="createUser()">
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">User ID</label>
+              <input
+                type="text"
+                class="form-control text-uppercase"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+                name="username"
+                formControlName="username"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label"
+                >Password</label
+              >
+              <input
+                type="password"
+                class="form-control"
+                id="exampleInputPassword1"
+                name="password"
+                formControlName="password"
+              />
+            </div>
+            <button
+              type="submit"
+              class="bg_common_red border-0 common_action_btn text-white br-10 w-100"
+            >
+              Submit
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

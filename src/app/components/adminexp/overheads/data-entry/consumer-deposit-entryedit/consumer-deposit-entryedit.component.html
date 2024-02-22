@@ -1,0 +1,402 @@
+<!--HTML for Broker Entry-->
+<section>
+  <div class="container">
+    <div class="row mb-3">
+      <div class="col-md-12">
+        <form [formGroup]="connectionSelection">
+          <div class="row">
+            <div class="col-md-3">
+              <div class="input-group">
+                <span class="input-group-text leftform_lbl font500 font12"
+                  >billType</span
+                >
+                <app-f1
+                  id="billType"
+                  [formControlName]="'billType'"
+                  name="Bill Type"
+                  class="form-control post_input_field border-start-0 d-flex"
+                  titleValue="{{ billTypeF1List?.mainheader }}"
+                  [tableData]="billTypeF1List?.dataSet"
+                  [colHeader]="billTypeColHeadings"
+                  [inputBBC]="billTypeF1abc"
+                  (updatedSelectedValue)="displayBillType($event)"
+                  [dynaPopId]="'OVERHEADS'"
+                  [queryConditon]="''"
+                  [errorMessage]="'Invalid Bill Type'"
+                >
+                </app-f1>
+              </div>
+              <div
+                class="invalid-feedback d-block"
+                *ngIf="
+                  connectionSelection.controls['billType'].invalid &&
+                  connectionSelection.controls['billType'].touched
+                "
+              >
+                <div
+                  class="errorField common_color_txt font12 font500"
+                  *ngIf="connectionSelection.controls['billType'].errors && connectionSelection.controls['billType'].errors?.['required']"
+                >
+                  *Please Enter bill Type
+                </div>
+                <div>
+                  <div
+                    *ngIf="connectionSelection.controls['billType'].errors?.['notFound']"
+                  >
+                    * Invalid Bill Type
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="input-group">
+                <span class="input-group-text leftform_lbl font500 font12"
+                  >connection No</span
+                >
+                <app-f1
+                  id="connectionNo"
+                  [formControlName]="'connectionNo'"
+                  name="connection No"
+                  class="form-control post_input_field border-start-0 d-flex"
+                  titleValue="{{ billTypeF1List?.mainheader }}"
+                  [tableData]="ConnTableDataList?.dataSet"
+                  [colHeader]="ConnColumnHeader"
+                  [inputBBC]="ConnnoF1abc"
+                  (updatedSelectedValue)="displayConncode($event)"
+                  [dynaPopId]="'CONSUMERNO'"
+                  [queryConditon]="''"
+                  [errorMessage]="'Invalid Connection No'"
+                >
+                </app-f1>
+              </div>
+              <div
+                class="invalid-feedback d-block"
+                *ngIf="
+                  connectionSelection.controls['connectionNo'].invalid &&
+                  connectionSelection.controls['connectionNo'].touched
+                "
+              >
+                <div
+                  class="errorField common_color_txt font12 font500"
+                  *ngIf="connectionSelection.controls['connectionNo'].errors && connectionSelection.controls['connectionNo'].errors?.['required']"
+                >
+                  *Please Enter Connection No
+                </div>
+                <div>
+                  <div
+                    *ngIf="connectionSelection.controls['connectionNo'].errors?.['notFound']"
+                  >
+                    * Invalid Connection No
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div
+                class="input-group"
+                [class.is-invalid]="
+                  connectionSelection.controls['billperiod'].invalid &&
+                  connectionSelection.controls['billperiod'].touched
+                "
+                appYearmonthformatdirective
+              >
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Month</span
+                >
+                <input
+                  type="number"
+                  [matDatepicker]="pickerYearSelection"
+                  class="form-control border-start-0 post_input_field"
+                  formControlName="billperiod"
+                  id="matDateField"
+                  maxlength="6"
+                />
+                <div
+                  class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                >
+                  <span class="input-group-addon">
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="pickerYearSelection"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker
+                      #pickerYearSelection
+                      startView="multi-year"
+                      (monthSelected)="
+                        chosenMonthHandler(
+                          $event,
+                          pickerYearSelection,
+                          connectionSelection.get('billperiod')
+                        )
+                      "
+                    ></mat-datepicker>
+                  </span>
+                </div>
+              </div>
+              <div
+                *ngIf="
+                  connectionSelection.controls['billperiod'].invalid &&
+                  connectionSelection.controls['billperiod'].touched
+                "
+              >
+                <div
+                  class="errorField common_color_txt font12 font500"
+                  *ngIf="connectionSelection.controls['billperiod'].errors && connectionSelection.controls['billperiod'].errors?.['required']"
+                >
+                  *Please enter Month In "YYYYMM" format
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-3" *ngIf="visibleformcontrol">
+    <div class="col-md-12">
+      <div class="br-10 form_common_bg group_panel p-3 position-relative pt-4">
+        <p class="bg-white font600 group_title mb-0 position-absolute">
+          Connection Details
+        </p>
+        <form [formGroup]="connectionform">
+          <div class="row g-3">
+            <div class="col-md-3">
+              <div class="input-group">
+                <span class="input-group-text leftform_lbl font500 font12"
+                  >Consumer No</span
+                >
+                <input
+                  type="text"
+                  formControlName="consumerNo"
+                  class="form-control w-10 border-start-0 post_input_field font500 font20"
+                />
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="input-group">
+                <span class="input-group-text leftform_lbl font500 font12"
+                  >Bill Coy</span
+                >
+                <input
+                  type="text"
+                  formControlName="ohdhbillcoy"
+                  class="form-control w-10 border-start-0 post_input_field font500 font20"
+                />
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="input-group">
+                <span class="input-group-text leftform_lbl font500 font12"
+                  >Bill Coy Name</span
+                >
+                <input
+                  type="text"
+                  formControlName="billCoyName"
+                  class="form-control w-10 border-start-0 post_input_field font500 font20"
+                />
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="input-group">
+                <span class="input-group-text leftform_lbl font500 font12"
+                  >Pay Coy</span
+                >
+                <input
+                  type="text"
+                  formControlName="ohdhpaycoy"
+                  class="form-control w-10 border-start-0 post_input_field font500 font20"
+                />
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="input-group">
+                <span class="input-group-text leftform_lbl font500 font12"
+                  >PayCoy Name</span
+                >
+                <input
+                  type="text"
+                  formControlName="payCoyName"
+                  class="form-control w-10 border-start-0 post_input_field font500 font20"
+                />
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="input-group">
+                <span class="input-group-text leftform_lbl font500 font12"
+                  >Location</span
+                >
+                <input
+                  type="text"
+                  formControlName="ohdhlocation"
+                  class="form-control w-10 border-start-0 post_input_field font500 font20"
+                />
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="input-group">
+                <span class="input-group-text leftform_lbl font500 font12"
+                  >Location Name</span
+                >
+                <input
+                  type="text"
+                  formControlName="locationName"
+                  class="form-control w-10 border-start-0 post_input_field font500 font20"
+                />
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="input-group">
+                <span class="input-group-text leftform_lbl font500 font12"
+                  >load</span
+                >
+                <input
+                  type="text"
+                  formControlName="ohdhload"
+                  class="form-control w-10 border-start-0 post_input_field font500 font20"
+                />
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-3" *ngIf="visibleformcontrol">
+    <div class="col-md-12">
+      <div class="br-10 form_common_bg group_panel p-3 position-relative pt-4">
+        <p class="bg-white font600 group_title mb-0 position-absolute">
+          Bill Entry Details
+        </p>
+        <form [formGroup]="billEntryform">
+          <div class="row mb-6 justify-content-center">
+            <div class="col-md-3">
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input font12 font500 position-relative"
+                  type="radio"
+                  name="inlineRadioOptions"
+                  id="inlineRadio1"
+                  formControlName="inlineRadioOptions"
+                  value="option1"
+                  (click)="setRadioOption()"
+                />
+                <label class="form-check-label" for="inlineRadio1"
+                  >Addition</label
+                >
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input font12 font500 position-relative"
+                  type="radio"
+                  name="inlineRadioOptions"
+                  id="inlineRadio2"
+                  formControlName="inlineRadioOptions"
+                  value="option2"
+                  (click)="setRadioOption()"
+                />
+                <label class="form-check-label" for="inlineRadio1"
+                  >Deduction</label
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="row g-3">
+            <div class="col-md-3">
+              <div class="input-group">
+                <span class="input-group-text leftform_lbl font500 font12"
+                  >Deposite Amount</span
+                >
+                <input
+                  type="number" (focusout)="onFocusOutEvent($event)"
+                  formControlName="depositeamt"
+                  class="form-control w-10 border-start-0 post_input_field font500 font20"
+                />
+              </div>
+            </div>
+            <div class="col-md-9">
+              <div class="input-group">
+                <span class="input-group-text leftform_lbl font500 font12"
+                  >Remarks</span
+                >
+                <input
+                  type="text"
+                  formControlName="remarks"
+                  class="form-control w-10 border-start-0 post_input_field font500 font20"
+                />
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+<app-loader *ngIf="loaderToggle"></app-loader>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner text-center bg-white br-10">
+      <div class="flex justify-content-between">
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="a"
+          (click)="addOverheadBillDetails()"
+          [disabled]="disabledFlagAdd"
+        >
+          Add
+        </button>
+
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="r"
+          (click)="retriveDepositeDetail()"
+          [disabled]="disabledFlagRetrieve"
+        >
+          Retrieve
+        </button>
+
+        <!-- <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="d"
+          [disabled]="disableFlagDelete"
+        >
+          Delete
+        </button> -->
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="s"
+          (click)="saveOverheadDeposite()"
+          [disabled]="disabledFlagSave"
+        >
+          Save
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="b"
+          (click)="back()"
+          [disabled]="disabledFlagBack"
+          *ngIf="visibleformcontrol"
+        >
+          Back
+        </button>
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+          accesskey="x"
+          (click)="handleExitClick()"
+        >
+          E<span class="text-decoration-underline">x</span>it
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

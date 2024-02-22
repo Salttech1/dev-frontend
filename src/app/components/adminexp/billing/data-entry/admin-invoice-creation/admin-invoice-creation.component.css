@@ -1,0 +1,64 @@
+.default-table-height {
+    height: 9rem !important;
+}
+.t-1{
+    width: max-content;
+}
+/* .chk{
+     padding: 0.5rem; 
+} */
+
+
+
+.form-check-input[type="radio"]:after {
+    display: none;
+  }
+  
+  .form-check-input:checked[type="radio"] {
+    border-width: 4px;
+  }
+  
+  /* CSS for the highlighted table */
+.highlighted-table {
+  border: 2px solid red; /* Change the border style as desired */
+  background-color: lightyellow; /* Change the background color as desired */
+}
+
+/* CSS for the highlighted row */
+.highlighted-row {
+  background-color: yellow; /* Change the background color as desired */
+  font-weight: bold; /* Add any other desired styles for the row */
+}
+
+
+/* For Table CSS */
+table.datatable tbody td {
+  padding-top: 1px !important;
+  padding-bottom: 1px !important;
+  vertical-align: middle;
+}
+
+table.datatable.table-bordered tr th {
+  vertical-align: middle;
+  line-height: 5px;
+  border-bottom: 2px solid #120e0e !important;
+}
+
+.table_head_position_sticky {
+  position: sticky;
+  top: 0;
+  opacity: 1;
+  overflow-y: auto;
+  background-color: #e9ecef;
+  color: black;
+  z-index: 1;
+  text-align: center;
+}
+
+
+
+.input_control {
+  line-height: 16px;
+  padding: 1px;
+}
+

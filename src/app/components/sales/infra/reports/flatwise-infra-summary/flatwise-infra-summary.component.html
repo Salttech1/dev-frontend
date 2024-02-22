@@ -1,0 +1,428 @@
+<section>
+  <div class="container">
+    <div class="row mb-3">
+      <div class="col-md-12">
+        <form [formGroup]="buildingSelectionsForm">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="input-group">
+                <span class="input-group-text leftform_lbl font500 font12"
+                  ><span class="text-danger font500 font12"><b>*</b></span
+                  >Building Code</span
+                >
+                <input
+                  id="code"
+                  type="text"
+                  formControlName="code"
+                  class="form-control border-start-0 post_input_field font500 font12"
+                  [f1]="{ id: 'BUILDINGS' }"
+                  autofocus
+                />
+                <div class="invalid-feedback d-block">
+                  <div
+                    *ngIf="
+                      buildingSelectionsForm.controls['code'].invalid &&
+                      buildingSelectionsForm.controls['code'].touched
+                    "
+                  >
+                    <!-- validation 1 below-->
+                    <div
+                      *ngIf="buildingSelectionsForm.controls['code'].errors && buildingSelectionsForm.controls['code'].errors?.['required']"
+                    >
+                      <div class="errorField common_color_txt font12 font500">
+                        Building code is invalid
+                      </div>
+                    </div>
+                    <!-- validation 2 below-->
+                    <div
+                      *ngIf="buildingSelectionsForm.controls['code'].errors?.['maxlength']?.actualLength"
+                    >
+                      <div class="errorField common_color_txt font12 font500">
+                        Max 4 charaters allowed. Your length is
+                        {{buildingSelectionsForm.controls['code'].errors?.['maxlength']?.actualLength}}
+                        characters.
+                      </div>
+                    </div>
+                    <!-- validation 3 below-->
+                    <div
+                      *ngIf="
+                        buildingSelectionsForm.controls['code'].value.includes(
+                          ' '
+                        )
+                      "
+                    >
+                      <div class="errorField common_color_txt font12 font500">
+                        No white space allowed.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="group_panel br-10 form_common_bg p-3 pt-4 position-relative">
+    <p class="bg-white font600 group_title mb-0 position-absolute">
+      Report Type
+    </p>
+    <div class="container">
+      <form [formGroup]="reportTypeForm">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="br-10 group_panel p-3 position-relative">
+              <label
+                class="bg-white font600 group_title mb-0 position-absolute"
+              >
+                <input
+                  type="radio"
+                  value="detail"
+                  name="flatwiserpt"
+                  formControlName="flatwiserpt"
+                  class="form-check-input font12 font500 cursor-pointer"
+                  (change)="getTheValueOfRadioBtn()"
+                />
+                Detail
+              </label>
+              <br />
+              <div formArrayName="detailsBreakUp">
+                <div
+                  *ngFor="
+                    let item of detailsBreakUpFormArr.controls;
+                    let index = index
+                  "
+                  [formGroupName]="index"
+                >
+                  <div class="br-10 group_panel p-3 position-relative">
+                    <p
+                      class="bg-white font600 group_title mb-0 position-absolute"
+                    ></p>
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input position-relative"
+                        type="radio"
+                        name="lumpsum"
+                        id="oc{{ index }}"
+                        value="onlyCollection"
+                        formControlName="lumpsum"
+                      />
+                      <label class="form-check-label" for="oc{{ index }}">
+                        Only Collection
+                      </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input position-relative"
+                        type="radio"
+                        name="lumpsum"
+                        id="full{{ index }}"
+                        value="full"
+                        formControlName="lumpsum"
+                      />
+                      <label class="form-check-label" for="full{{ index }}">
+                        Full
+                      </label>
+                    </div>
+                  </div>
+                  <br />
+                  <div class="form-check form-check-inline">
+                    <input
+                      type="checkbox"
+                      name="normal"
+                      id="{{ 'normal' + index }}"
+                      formControlName="normal"
+                      class="form-check-input position-relative cursor-pointer"
+                    /><label class="form-check-label" for="normal">
+                      Normal
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="br-10 group_panel p-3 position-relative">
+              <label
+                class="bg-white font600 group_title mb-0 position-absolute"
+              >
+                <input
+                  type="radio"
+                  value="summary"
+                  name="flatwiserpt"
+                  formControlName="flatwiserpt"
+                  class="form-check-input font12 font500 cursor-pointer"
+                  (change)="getTheValueOfRadioBtn()"
+                />
+                Summary
+              </label>
+              <div formArrayName="summaryDetailsBreakUp">
+                <div
+                  *ngFor="
+                    let item of summaryDetailsBreakUpFormArr.controls;
+                    let index = index
+                  "
+                  [formGroupName]="index"
+                >
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="input-group mb-1">
+                          <span
+                            class="input-group-text leftform_lbl font500 w-25 text-dark1 font12"
+                            >OP:</span
+                          >
+                          <input
+                            type="number"
+                            class="form-control border-start-0 post_input_field w-75 text-dark1 font12 font500"
+                            value="0"
+                            formControlName="op"
+                            id="{{ 'op' + index }}"
+                          />
+                        </div>
+                        <div class="invalid-feedback d-block">
+                          <div
+                            class="input-group has-validation"
+                            [class.is-invalid]="
+                              summaryDetailsBreakUpFormArr.controls[0].controls
+                                .op.invalid &&
+                              summaryDetailsBreakUpFormArr.controls[0].controls
+                                .op.touched
+                            "
+                          >
+                            <!-- validation 1 below-->
+                            <div
+                              *ngIf="summaryDetailsBreakUpFormArr.controls[0].controls.op.errors && summaryDetailsBreakUpFormArr.controls[0].controls.op.errors?.['required']"
+                            >
+                              <div
+                                class="errorField common_color_txt font12 font500"
+                              >
+                                OP amount is required.
+                              </div>
+                            </div>
+                            <!-- validation 2 below-->
+                            <div
+                              *ngIf="
+                                this.summaryDetailsBreakUpFormArr.controls[0].get(
+                                  'op'
+                                ).value != null
+                              "
+                            >
+                              <div
+                                *ngIf="
+                                  this.summaryDetailsBreakUpFormArr.controls[0]
+                                    .get('op')
+                                    .value.includes(' ')
+                                "
+                              >
+                                <div
+                                  class="errorField common_color_txt font12 font500"
+                                >
+                                  No white space allowed.
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="input-group mb-1">
+                          <span
+                            class="input-group-text leftform_lbl font500 w-25 text-dark1 font12"
+                            >Site Works:</span
+                          >
+                          <input
+                            type="number"
+                            class="form-control border-start-0 post_input_field w-75 text-dark1 font12 font500"
+                            value="0"
+                            formControlName="siteWorks"
+                            id="{{ 'siteWorks' + index }}"
+                          />
+                        </div>
+                        <div class="invalid-feedback d-block">
+                          <div
+                            class="input-group has-validation"
+                            [class.is-invalid]="
+                              summaryDetailsBreakUpFormArr.controls[0].controls
+                                .siteWorks.invalid &&
+                              summaryDetailsBreakUpFormArr.controls[0].controls
+                                .siteWorks.touched
+                            "
+                          >
+                            <!-- validation 1 below-->
+                            <div
+                              *ngIf="summaryDetailsBreakUpFormArr.controls[0].controls.siteWorks.errors && summaryDetailsBreakUpFormArr.controls[0].controls.siteWorks.errors?.['required']"
+                            >
+                              <div
+                                class="errorField common_color_txt font12 font500"
+                              >
+                                Site Works amount is required.
+                              </div>
+                            </div>
+                            <!-- validation 2 below-->
+                            <div
+                              *ngIf="
+                                this.summaryDetailsBreakUpFormArr.controls[0].get(
+                                  'siteWorks'
+                                ).value != null
+                              "
+                            >
+                              <div
+                                *ngIf="
+                                  this.summaryDetailsBreakUpFormArr.controls[0]
+                                    .get('siteWorks')
+                                    .value.includes(' ')
+                                "
+                              >
+                                <div
+                                  class="errorField common_color_txt font12 font500"
+                                >
+                                  No white space allowed.
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="input-group mb-1">
+                          <span
+                            class="input-group-text leftform_lbl w-25 font500 text-dark1 font12"
+                            >Miscellaneous:</span
+                          >
+                          <input
+                            type="number"
+                            class="form-control border-start-0 post_input_field w-75 text-dark1 font12 font500"
+                            value="0"
+                            formControlName="miscellaneous"
+                            id="{{ 'miscellaneous' + index }}"
+                          />
+                        </div>
+                        <div class="invalid-feedback d-block">
+                          <div
+                            class="input-group has-validation"
+                            [class.is-invalid]="
+                              summaryDetailsBreakUpFormArr.controls[0].controls
+                                .miscellaneous.invalid &&
+                              summaryDetailsBreakUpFormArr.controls[0].controls
+                                .miscellaneous.touched
+                            "
+                          >
+                            <!-- validation 1 below-->
+                            <div
+                              *ngIf="summaryDetailsBreakUpFormArr.controls[0].controls.miscellaneous.errors && summaryDetailsBreakUpFormArr.controls[0].controls.miscellaneous.errors?.['required']"
+                            >
+                              <div
+                                class="errorField common_color_txt font12 font500"
+                              >
+                                Miscellaneous amount is required.
+                              </div>
+                            </div>
+                            <!-- validation 2 below-->
+                            <div
+                              *ngIf="
+                                this.summaryDetailsBreakUpFormArr.controls[0].get(
+                                  'miscellaneous'
+                                ).value != null
+                              "
+                            >
+                              <div
+                                *ngIf="
+                                  this.summaryDetailsBreakUpFormArr.controls[0]
+                                    .get('miscellaneous')
+                                    .value.includes(' ')
+                                "
+                              >
+                                <div
+                                  class="errorField common_color_txt font12 font500"
+                                >
+                                  No white space allowed.
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="input-group mb-1">
+                          <span
+                            class="input-group-text leftform_lbl w-25 font500 text-dark1 font12"
+                            >GST:</span
+                          >
+                          <input
+                            type="number"
+                            class="form-control border-start-0 post_input_field w-75 text-dark1 font12 font500"
+                            value="0"
+                            formControlName="gst"
+                            id="{{ 'gst' + index }}"
+                            disabled
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner bg-white br-10 d-flex justify-content-center">
+      <button
+        type="submit"
+        class="bg_common_red common_action_btn br-10"
+        accesskey="v"
+        [disabled]="false"
+        (click)="sendTheFormData()"
+      >
+        View
+      </button>
+      <button
+        type="submit"
+        class="bg_common_red common_action_btn br-10"
+        accesskey="p"
+        [disabled]="true"
+      >
+        Print
+      </button>
+      <button
+        type="submit"
+        class="bg_common_red common_action_btn br-10"
+        accesskey="r"
+        [disabled]="true"
+      >
+        Preview
+      </button>
+
+      <button
+        type="submit"
+        class="bg_common_red common_action_btn br-10"
+        accesskey="e"
+        [disabled]="true"
+      >
+        Export
+      </button>
+      <a
+        class="bg_common_red border-0 common_action_btn text-white br-10 first_letter_textdecorationone text-decoration-none"
+        accesskey="x"
+        routerLink="/dashboard"
+      >
+        E<u>x</u>it
+      </a>
+    </div>
+  </div>
+</section>

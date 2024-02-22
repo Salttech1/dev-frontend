@@ -1,0 +1,1243 @@
+<!-- 
+// Developed By  - 	ninad.s
+// Developed on - 29-04-23
+// Mode  - Data Entry
+// Purpose - Outinfra Entry / Edit
+// Modification Details
+// =======================================================================================================================================================
+// Date		Coder  Version User    Reason              
+// =======================================================================================================================================================
+ -->
+
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <form [formGroup]="customerdetails">
+          <div class="row pb-3">
+            <div class="col-md-6">
+              <div
+                class="input-group has-validation"
+                [class.is-invalid]="
+                  customerdetails.controls['bldgcode'].invalid &&
+                  customerdetails.controls['bldgcode'].touched
+                "
+              >
+                <span class="input-group-text leftform_lbl font500 font12">
+                  <b><span class="text-danger">*</span></b> Building:
+                </span>
+                <input
+                  type="text"
+                  formControlName="bldgcode"
+                  upperCase
+                  class="form-control border-start-0 post_input_field font500 font12"
+                  [f1]="{ id: 'BUILDINGS' }"
+                  (focusout)="setSubidBldgcode()"
+                />
+              </div>
+              <div
+                class="invalid-feedback d-block"
+                *ngIf="
+                  customerdetails.controls['bldgcode'].invalid &&
+                  customerdetails.controls['bldgcode'].touched
+                "
+              >
+                <div
+                  class="errorField common_color_txt font12 font500"
+                  *ngIf="customerdetails.controls['bldgcode'].errors && customerdetails.controls['bldgcode'].errors?.['required']"
+                >
+                  Building Code is required.
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div
+                class="input-group has-validation"
+                [class.is-invalid]="
+                  customerdetails.controls['wing'].invalid &&
+                  customerdetails.controls['wing'].touched
+                "
+              >
+                <span class="input-group-text leftform_lbl font500 font12 req">
+                  <b><span class="text-danger">*</span></b> Wing:
+                </span>
+                <input
+                  type="text"
+                  upperCase
+                  formControlName="wing"
+                  class="form-control border-start-0 post_input_field font500 font12"
+                  [f1]="{ id: 'BWINGS', subId: subidBldgcode }"
+                  (focusout)="setSubidBldgcodeAndWing()"
+                />
+              </div>
+              <div
+            class="invalid-feedback d-block"
+            *ngIf="
+            customerdetails.controls['wing'].invalid &&
+            customerdetails.controls['wing'].touched
+            ">
+              <div
+                class="errorField common_color_txt font12 font500"
+                *ngIf="customerdetails.controls['wing'].errors && customerdetails.controls['wing'].errors?.['required']"
+              >
+                Wing is required.
+              </div>
+            </div>
+            </div>
+            <div class="col-md-3">
+              <div
+                class="input-group has-validation"
+                [class.is-invalid]="
+                  customerdetails.controls['flatno'].invalid &&
+                  customerdetails.controls['flatno'].touched
+                "
+              >
+                <span class="input-group-text leftform_lbl font500 font12 req">
+                  <b><span class="text-danger">*</span></b> Flat No.:
+                </span>
+                <input
+                  type="text"
+                  formControlName="flatno"
+                  class="form-control border-start-0 post_input_field font500 font12"
+                  [f1]="{ id: 'FLATSOLD', subId: subidBldgcodeAndWing }"
+                />
+              </div>
+              <div
+            class="invalid-feedback d-block"
+            *ngIf="
+            customerdetails.controls['flatno'].invalid &&
+            customerdetails.controls['flatno'].touched
+            ">
+              <div
+                class="errorField common_color_txt font12 font500"
+                *ngIf="customerdetails.controls['flatno'].errors && customerdetails.controls['flatno'].errors?.['required']"
+              >
+                Flat number is required.
+              </div>
+            </div>
+            </div>
+          </div>
+          <div class="row pb-3">
+            <div class="col-md-6">
+              <div class="input-group">
+                <span class="input-group-text leftform_lbl font500 font12 req">
+                  Flat Owner:
+                </span>
+                <input
+                  type="text"
+                  formControlName="flatowner"
+                  class="form-control border-start-0 post_input_field font500 font12"
+                  disabled="true"
+                />
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="input-group">
+                <span class="input-group-text leftform_lbl font500 font12">
+                  Start Month:
+                </span>
+                <input
+                  type="text"
+                  formControlName="startMonth"
+                  class="form-control border-start-0 post_input_field font500 font12"
+                  disabled="true"
+                />
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="input-group has-validation" appDate1>
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >
+                  Receipt Date
+                </span>
+                <input
+                  type="text"
+                  class="date_container form-control post_input_field fonttxt_black font500 font12 border-start-0"
+                  matInput
+                  formControlName="receiptdate"
+                  [matDatepicker]="receiptdatePicker"
+                />
+                <div
+                  class="datepicker_input_cutsom_icon input-group-append bg-white post_input_field datepicker_field border-0"
+                >
+                  <span class="input-group-addon">
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="receiptdatePicker"
+                      tabindex="-1"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #receiptdatePicker></mat-datepicker>
+                  </span>
+                </div>
+              </div>
+              <div class="invalid-feedback d-block"
+              *ngIf="customerdetails.controls['receiptdate'].invalid &&
+              customerdetails.controls['receiptdate'].touched"
+              >
+               <div class="errorField common_color_txt font12 font500"
+               *ngIf="customerdetails.controls['receiptdate'].errors && customerdetails.controls['receiptdate'].errors?.['required']"
+               ><!--NS 24.05.2023-->
+                Receipt date required.
+               </div>
+              </div>
+            </div>
+          </div>
+          <div class="row pb-3">
+            <div class="col-md-6">
+              <div class="input-group">
+                <span class="input-group-text leftform_lbl font500 font12 req">
+                  Receipt #:
+                </span>
+                <input
+                  type="text"
+                  formControlName="receiptNum"
+                  class="form-control border-start-0 post_input_field font500 font12"
+                  disabled="true"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-group">
+                <span class="input-group-text leftform_lbl font500 font12 req">
+                  Narrative:
+                </span>
+                <input
+                  type="text"
+                  formControlName="narrative"
+                  class="form-control border-start-0 post_input_field font500 font12"
+                />
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <form [formGroup]="outgoingAuxillaryForm">
+          <div class="container">
+            <div class="row pb-3">
+              <div class="col-md-12">
+                <div
+                  class="group_panel br-10 form_common_bg p-3 pt-4 position-relative"
+                >
+                  <p
+                    class="bg-white font600 group_title mb-0 position-absolute"
+                  >
+                    1. Incoming Cheque Details
+                  </p>
+                  <div class="inchqDetailsSection">
+                    <!-- <form [formGroup]="outgoingAuxillaryForm"> -->
+                    <div class="table-responsive">
+                      <div class="view" formArrayName="inchqDetailsBreakUp">
+                        <div class="wrapper">
+                          <table
+                            class="table table-bordered table w-100 mb-0"
+                            style="width: 100%"
+                          >
+                            <thead class="table_head_position_sticky">
+                              <tr tabindex="-1">
+                                <th class="fontBold font12 fonttxt_black">
+                                  Bank
+                                </th>
+                                <th class="fontBold font12 fonttxt_black">
+                                  Out Stn
+                                </th>
+                                <th class="fontBold font12 fonttxt_black">
+                                  <b
+                                    ><span class="text-danger">*</span>Fund
+                                    Source</b
+                                  >
+                                </th>
+                                <th class="fontBold font12 fonttxt_black">
+                                  <b
+                                    ><span class="text-danger">*</span>Acc
+                                    Type</b
+                                  >
+                                </th>
+                                <th class="fontBold font12 fonttxt_black">
+                                  <b
+                                    ><span class="text-danger">*</span>Cheque
+                                    Date</b
+                                  >
+                                </th>
+                                <th class="border-end-0 font500 font12 req">
+                                  <b>Cheque No.</b>
+                                </th>
+                                <th class="border-end-0 font500 font12 req">
+                                  <b
+                                    ><span class="text-danger">*</span>Cheque
+                                    Amount</b
+                                  >
+                                </th>
+                                <th class="fontBold font12 fonttxt_black">
+                                  Action
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr
+                                *ngFor="let item of outgoingAuxillaryForm.controls?.['inchqDetailsBreakUp'].controls;let index = index"
+                                [formGroupName]="index"
+                              >
+                                <!-- INCHQ_BANK -- Start  -->
+                                <td>
+                                  <div class="has-validation"
+                                  [class.is-invalid]="
+                                      outgoingAuxillaryForm.controls
+                                        .inchqDetailsBreakUp.controls[index]
+                                        .controls['bank'].invalid &&
+                                      outgoingAuxillaryForm.controls
+                                        .inchqDetailsBreakUp.controls[index]
+                                        .controls['bank'].touched
+                                    ">
+                                  <input
+                                    class="border-0 form-control input_control font500 fonttxt_black font12"
+                                    type="text"
+                                    formControlName="bank"
+                                  />
+                                </div>
+                                <div class="invalid-feedback d-block">
+                                  <div
+                                    class="errorField common_color_txt font12 font500"
+                                    *ngIf="outgoingAuxillaryForm.controls.inchqDetailsBreakUp.controls[index].controls['bank'].errors &&
+                                    outgoingAuxillaryForm.controls.inchqDetailsBreakUp.controls[index].controls['bank'].errors?.['required']                                    "
+                                  >
+                                   Bank name required.
+                                  </div>
+                                </div>
+                                </td>
+                                <!-- INCHQ_BANK -- End   -->
+                                <!-- INCHQ_OUTSTAT -- Start  -->
+                                <td>
+                                  <input
+                                    class="border-0 form-control input_control font500 fonttxt_black font12"
+                                    type="text"
+                                    formControlName="outstat"
+                                    disabled
+                                  />
+                                </td>
+                                <!-- INCHQ_OUTSTAT -- End   -->
+                                <!-- INCHQ_FUND -- Start  -->
+                                <td>
+                                  <div
+                                    class="has-validation"
+                                    [class.is-invalid]="
+                                      outgoingAuxillaryForm.controls
+                                        .inchqDetailsBreakUp.controls[index]
+                                        .controls['fund'].invalid &&
+                                      outgoingAuxillaryForm.controls
+                                        .inchqDetailsBreakUp.controls[index]
+                                        .controls['fund'].touched
+                                    "
+                                  >
+                                    <input
+                                      class="border-0 form-control input_control form-control font500 fonttxt_black font12"
+                                      type="text"
+                                      formControlName="fund"
+                                      [f1]="{ id: 'FUNDSOURCES' }"
+                                    />
+                                  </div>
+                                  <div class="invalid-feedback d-block">
+                                    <div
+                                      class="errorField common_color_txt font12 font500"
+                                      *ngIf="outgoingAuxillaryForm.controls.inchqDetailsBreakUp.controls[index].controls['fund'].errors && outgoingAuxillaryForm.controls.inchqDetailsBreakUp.controls[index].controls['fund'].errors?.['required']"
+                                    >
+                                      Fund Type Required. Use F1 for help.
+                                    </div>
+                                    <div
+                                      class="errorField common_color_txt font12 font500"
+                                      *ngIf="outgoingAuxillaryForm.controls.inchqDetailsBreakUp.controls[index].controls['fund'].errors?.['maxlength']?.actualLength"
+                                    >
+                                      Max 5 Characters allowed. Current is{{outgoingAuxillaryForm.controls.inchqDetailsBreakUp.controls[index].controls['fund'].errors?.['maxlength']?.actualLength}}
+                                      characters.
+                                    </div>
+                                  </div>
+                                </td>
+                                <!-- INCHQ_FUND -- End   -->
+                                <!-- INCHQ_ACTYPE -- Start  -->
+                                <td>
+                                  <div
+                                    class="has-validation"
+                                    [class.is-invalid]="
+                                      outgoingAuxillaryForm.controls
+                                        .inchqDetailsBreakUp.controls[index]
+                                        .controls['actype'].invalid &&
+                                      outgoingAuxillaryForm.controls
+                                        .inchqDetailsBreakUp.controls[index]
+                                        .controls['actype'].touched
+                                    "
+                                  >
+                                    <input
+                                      class="border-0 input_control form-control font500 fonttxt_black font12"
+                                      type="text"
+                                      formControlName="actype"
+                                      [f1]="{ id: 'TYPEOFACCOUNTS' }"
+                                    />
+                                  </div>
+                                  <div class="invalid-feedback d-block">
+                                    <div
+                                      class="errorField common_color_txt font12 font500"
+                                      *ngIf="outgoingAuxillaryForm.controls.inchqDetailsBreakUp.controls[index].controls['actype'].errors
+                                      && outgoingAuxillaryForm.controls.inchqDetailsBreakUp.controls[index].controls['actype'].errors?.['required']"
+                                    >
+                                      Account Type Required. Use F1 for help.
+                                    </div>
+                                    <div
+                                      class="errorField common_color_txt font12 font500"
+                                      *ngIf="outgoingAuxillaryForm.controls.inchqDetailsBreakUp.controls[index].controls['actype'].errors?.['maxlength']?.actualLength"
+                                    >
+                                      Max 5 Characters allowed. Current is{{outgoingAuxillaryForm.controls.inchqDetailsBreakUp.controls[index].controls['actype'].errors?.['maxlength']?.actualLength}}
+                                      characters.
+                                    </div>
+                                  </div>
+                                </td>
+                                <!-- INCHQ_ACTYPE -- End   -->
+                                <!-- INCHQ_DATE -- Start  -->
+                                <td>
+                                  <div
+                                    class="input-group has-validation flex-nowrap"
+                                    [class.is-invalid]="
+                                      outgoingAuxillaryForm.controls
+                                        .inchqDetailsBreakUp.controls[index]
+                                        .controls['date'].invalid &&
+                                      outgoingAuxillaryForm.controls
+                                        .inchqDetailsBreakUp.controls[index]
+                                        .controls['date'].touched
+                                    "
+                                    appDate1
+                                  >
+                                    <input
+                                      type="text"
+                                      style="width: 90px; height: 25px"
+                                      class="preinput_radius date_container form-control post_input_field fonttxt_black font12 border-0"
+                                      matInput
+                                      formControlName="date"
+                                      [matDatepicker]="datePicker"
+                                    />
+                                    <div
+                                      class="datepicker_input_cutsom_icon input-group-append bg-white post_input_field datepicker_field border-0"
+                                    >
+                                      <span class="input-group-addon">
+                                        <mat-datepicker-toggle
+                                          matSuffix
+                                          [for]="datePicker"
+                                          tabindex="-1"
+                                        ></mat-datepicker-toggle>
+                                        <mat-datepicker
+                                          #datePicker
+                                        ></mat-datepicker>
+                                      </span>
+                                    </div>
+                                  </div>
+
+                                  <div class="invalid-feedback d-block">
+                                    <div
+                                      class="errorField common_color_txt font12 font500"
+                                      *ngIf="outgoingAuxillaryForm.controls.inchqDetailsBreakUp.controls[index].controls['date'].errors
+                                      && outgoingAuxillaryForm.controls.inchqDetailsBreakUp.controls[index].controls['date'].errors?.['required']"
+                                    >
+                                      Cheque Date Required.
+                                    </div>
+                                  </div>
+                                </td>
+                                <!-- INCHQ_DATE -- End   -->
+                                <!-- INCHQ_NUM -- Start  -->
+                                <td>
+                                  <div
+                                    class="input-group has-validation"
+                                    [class.is-invalid]="
+                                      outgoingAuxillaryForm.controls
+                                        .inchqDetailsBreakUp.controls[index]
+                                        .controls['num'].invalid &&
+                                      outgoingAuxillaryForm.controls
+                                        .inchqDetailsBreakUp.controls[index]
+                                        .controls['num'].touched
+                                    "
+                                  >
+                                    <input
+                                      class="text-end border-0 input_control form-control font500 fonttxt_black font12"
+                                      type="text"
+                                      value=""
+                                      oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                                      formControlName="num"
+                                      (focusout) = "chqNumCanNotBeZero($event)"
+                                      (input)="removeMesgOfInvalidChqNo($event)"
+                                    />
+                                  </div>
+                                  <div *ngIf="flagForChqNumIsZero" class="errorField common_color_txt font12 font500">
+                                    Cheque no. can not be zero.
+                                  </div>                             
+                                  <div class="invalid-feedback d-block">
+                                    <div
+                                      *ngIf="outgoingAuxillaryForm.controls.inchqDetailsBreakUp.controls[index].controls['num'].errors &&
+                                      outgoingAuxillaryForm.controls.inchqDetailsBreakUp.controls[index].controls['num'].errors?.['required']"
+                                      class="errorField common_color_txt font12 font500"
+                                    >
+                                      Cheque no. required.
+                                    </div>
+                                    <div
+                                      class="errorField common_color_txt font12 font500"
+                                      *ngIf="outgoingAuxillaryForm.controls.inchqDetailsBreakUp.controls[index].controls['num'].errors?.['maxlength']?.actualLength"
+                                    >
+                                      Max 12 Character allowed. Current is{{outgoingAuxillaryForm.controls.inchqDetailsBreakUp.controls[index].controls['num'].errors?.['maxlength']?.actualLength}}
+                                      characters.
+                                    </div>
+                                </div>
+                                </td>
+                                <!-- INCHQ_NUM -- End   -->
+                                <!-- INCHQ_AMOUNT -- Start  -->
+                                <td>
+                                  <div
+                                    class="input-group has-validation"
+                                    [class.is-invalid]="
+                                      outgoingAuxillaryForm.controls
+                                        .inchqDetailsBreakUp.controls[index]
+                                        .controls['amount'].invalid &&
+                                      outgoingAuxillaryForm.controls
+                                        .inchqDetailsBreakUp.controls[index]
+                                        .controls['amount'].touched
+                                    "
+                                  >
+                                    <input
+                                      class="text-end border-0 input_control form-control font500 fonttxt_black font12"
+                                      type="text"
+                                      value="0"
+                                      oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                                      formControlName="amount"
+                                      (focusout) = "chqAmntCanNotBeZero($event)"
+                                      (input)="removeMesgOfInvalidChqAmnt($event)"                         
+                                    />
+                                  </div>
+                                  <div *ngIf="flagForChqAmntIsZero" class="errorField common_color_txt font12 font500">
+                                    Cheque amount can not be zero.
+                                  </div>  
+                                  <div class="invalid-feedback d-block">
+                                    <div
+                                      *ngIf="outgoingAuxillaryForm.controls.inchqDetailsBreakUp.controls[index].controls['amount'].errors
+                                      && outgoingAuxillaryForm.controls.inchqDetailsBreakUp.controls[index].controls['amount'].errors?.['required']"
+                                      class="errorField common_color_txt font12 font500"
+                                    >
+                                      amount is required.
+                                    </div>
+                                  </div>
+                                </td>
+                                <!-- INCHQ_AMOUNT -- End   -->
+                                <td>
+                                  <div
+                                    class="action_panel d-flex justify-content-center"
+                                  >
+                                    <button
+                                      type="button"
+                                      class="btn action_btn d-flex bg_common_red"
+                                      (click)="addInchqRow()"
+                                    >
+                                      <!--NS 22.05.2023-->
+                                      <img
+                                        src="assets/images/add.svg"
+                                        alt="add"
+                                        class="add_img"
+                                      />
+                                    </button>
+                                    <button
+                                      type="button"
+                                      class="btn action_btn d-flex bg_common_red ms-1"
+                                      (click)="deleteInchqRow(index)"
+                                    >
+                                      <!--NS 22.05.2023-->
+                                      <img
+                                        src="assets/images/trash.svg"
+                                        alt="remove"
+                                        class="delete_img"
+                                      />
+                                    </button>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- </form> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row pb-3">
+              <div class="col-md-3">
+                <div class="input-group">
+                  <span
+                    class="input-group-text leftform_lbl font500 font12 req"
+                  >
+                    Total Amount:
+                  </span>
+                  <input
+                    type="text"
+                    formControlName="totalAmount"
+                    class="form-control border-start-0 post_input_field font500 font12"
+                    disabled
+                  />
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="input-group">
+                  <span
+                    class="input-group-text leftform_lbl font500 font12 req"
+                  >
+                    Chq Amt:
+                  </span>
+                  <input
+                    type="text"
+                    formControlName="chqAmount"
+                    class="form-control border-start-0 post_input_field font500 font12"
+                    disabled
+                  />
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="input-group">
+                  <span
+                    class="input-group-text leftform_lbl font500 font12 req"
+                  >
+                    TDS Amt:
+                  </span>
+                  <input
+                    type="text"
+                    formControlName="tdsAmount"
+                    class="form-control border-start-0 post_input_field font500 font12"
+                    (focus)="calculateSumOfChequeAmntInGridColmn()"
+                  /> 
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="input-group">
+                  <span
+                    class="input-group-text leftform_lbl font500 font12 redhighlighter"
+                  >
+                    Receipt Amt:
+                  </span>
+                  <input
+                    type="text"
+                    formControlName="receiptAmount"
+                    class="form-control border-start-0 post_input_field font500 font12"
+                    disabled
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div
+                  class="group_panel br-10 form_common_bg p-3 pt-4 position-relative"
+                >
+                  <p
+                    class="bg-white font600 group_title mb-0 position-absolute"
+                  >
+                    2. Allocation
+                  </p>
+                  <div
+                    class="container"
+                    style="padding-left: 0px; padding-right: 0"
+                  >
+                    <div class="row">
+                      <div class="col-md-2">
+                        <div class="row pb-1">
+                          <div class="col-md-12">
+                            <div class="input-group justify-content-center">
+                              <span
+                                class="input-group-text allocationform_months_col1_lbl font500 font12"
+                              >
+                                <b>Start Month</b></span
+                              >
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row pb-3">
+                          <div class="col-md-12">
+                            <input
+                              type="text"
+                              size="6"
+                              formControlName="outinfraStartMonth"
+                              class="form-control txt_align_center_for_col1_of_allocation allocationform_months_col1_input post_input_field_for_col1_of_allocation font500 font12"
+                              value="123456"
+                              disabled="true"
+                            />
+                          </div>
+                        </div>
+                        <div class="row pb-1">
+                          <div class="col-md-12">
+                            <div class="input-group justify-content-center">
+                              <span
+                                class="input-group-text allocationform_months_col1_lbl font500 font12"
+                              >
+                                <b>End Month</b>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row pb-3">
+                          <div class="col-md-12">
+                            <input
+                              type="text"
+                              size="6"
+                              formControlName="endMonth"
+                              class="form-control txt_align_center_for_col1_of_allocation allocationform_months_col1_input post_input_field_for_col1_of_allocation font500 font12"
+                              value="123456"
+                              disabled="true"
+                            />
+                          </div>
+                        </div>
+                        <div class="row pb-1">
+                          <div class="col-md-12">
+                            <div class="input-group justify-content-center">
+                              <span
+                                class="input-group-text allocationform_months_col1_lbl font500 font12 req"
+                              >
+                                <b>Total Month</b>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row pb-">
+                          <div class="col-md-12">
+                            <input
+                              type="text"
+                              size="6"
+                              formControlName="totalmonth"
+                              class="form-control txt_align_center_for_col1_of_allocation allocationform_months_col1_input post_input_field_for_col1_of_allocation font500 font12"
+                              value="0"
+                              disabled="true"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-10">
+                        <div class="row pb-3">
+                          <div class="col-md-12">
+                            <!--add the panel title-->
+                            <div class="outinfraDetailsSection">
+                              <div
+                                class="table-responsive"
+                                style="border: 1px solid #ced4da"
+                              >
+                                <div
+                                  class="view"
+                                  formArrayName="outinfraDetailsBreakUp"
+                                >
+                                  <div class="wrapper">
+                                    <table
+                                      class="table table-bordered w-100 mb-0"
+                                      style="width: 100%; height: 243px"
+                                    >
+                                      <thead class="table_head_position_sticky">
+                                        <tr tabindex="-1">
+                                          <th
+                                            class="border-end-0 font500 font12 req"
+                                          >
+                                            <b
+                                              ><span class="text-danger">*</span
+                                              >month</b
+                                            >
+                                          </th>
+                                          <th
+                                            class="fontBold font12 fonttxt_black"
+                                          >
+                                            NarrCd
+                                          </th>
+                                          <th
+                                            class="fontBold font12 fonttxt_black"
+                                          >
+                                            Narration
+                                          </th>
+                                          <th
+                                            class="fontBold font12 fonttxt_black"
+                                          >
+                                            AUXI Paid
+                                          </th>
+                                          <th
+                                            class="fontBold font12 fonttxt_black"
+                                          >
+                                            Int Paid
+                                          </th>
+                                          <th
+                                            class="fontBold font12 fonttxt_black"
+                                          >
+                                            Admin
+                                          </th>
+                                          <th
+                                            class="fontBold font12 fonttxt_black"
+                                          >
+                                            CGST
+                                          </th>
+                                          <th
+                                            class="fontBold font12 fonttxt_black"
+                                          >
+                                            SGST
+                                          </th>
+                                          <th
+                                            class="fontBold font12 fonttxt_black"
+                                          >
+                                            IGST
+                                          </th>
+                                          <th
+                                            class="fontBold font12 fonttxt_black"
+                                          >
+                                            CGST %
+                                          </th>
+                                          <th
+                                            class="fontBold font12 fonttxt_black"
+                                          >
+                                            SGST %
+                                          </th>
+                                          <th
+                                            class="fontBold font12 fonttxt_black"
+                                          >
+                                            IGST %
+                                          </th>
+                                          <th
+                                            class="fontBold font12 fonttxt_black"
+                                          >
+                                            TDS
+                                          </th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr
+                                          *ngFor="let item of outgoingAuxillaryForm.controls?.['outinfraDetailsBreakUp'].controls;let index = index"
+                                          [formGroupName]="index"
+                                        >
+                                          <!-- INF_MONTH -- Start  -->
+                                          <td>
+                                            <input
+                                              class="border-0 form-control input_control form-control font500 fonttxt_black font12"
+                                              type="text"
+                                              formControlName="month"
+                                              disabled="true"
+                                            />
+                                          </td>
+                                          <!-- INF_MONTH -- End   -->
+                                          <!-- INF_NARRCODE -- Start  -->
+                                          <td>
+                                            <input
+                                              class="border-0 form-control input_control form-control font500 fonttxt_black font12"
+                                              type="text"
+                                              formControlName="narrcode"
+                                            />
+                                            <div
+                                              class="errorField common_color_txt font12 font500"
+                                              *ngIf="outgoingAuxillaryForm.controls.outinfraDetailsBreakUp.controls[index].controls['narrcode'].errors?.['maxlength']?.actualLength"
+                                            >
+                                              Max 2 Character allowed. Current
+                                              is
+                                              {{outgoingAuxillaryForm.controls.outinfraDetailsBreakUp.controls[index].controls['narrcode'].errors?.['maxlength']?.actualLength}}
+                                              characters.
+                                            </div>
+                                          </td>
+                                          <!-- INF_NARRCODE -- End   -->
+                                          <!-- Narration(equvivalent db field name is remark) -- Start -->
+                                          <td>
+                                            <input
+                                              class="border-0 form-control input_control form-control font500 fonttxt_black font12"
+                                              type="text"
+                                              formControlName="remarks"
+                                              disabled="true"
+                                            />
+                                          </td>
+                                          <!-- Narration -- End -->
+                                          <!-- INF_AMTPAID -- Start  -->
+                                          <td>
+                                            <input
+                                              class="text-end border-0 form-control input_control form-control font500 fonttxt_black font12"
+                                              type="text"
+                                              value="0"
+                                              formControlName="amtpaid"
+                                              disabled="true"
+                                            /><!-- oninput="this.value=this.value.replace(/[^0-9\.]/g,'');" -->
+                                          </td>
+                                          <!-- INF_AMTPAID -- End   -->
+                                          <!-- INF_AMTINT -- Start  -->
+                                          <td>
+                                            <input
+                                              class="text-end border-0 form-control input_control form-control font500 fonttxt_black font12"
+                                              type="text"
+                                              value="0"
+                                              oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                                              formControlName="amtint"
+                                              disabled="true"
+                                            />
+                                            <!-- oninput="this.value=this.value.replace(/[^0-9\.]/g,'');" -->
+                                          </td>
+                                          <!-- INF_AMTINT -- End   -->
+                                          <!-- INF_ADMINCHARGES -- Start  -->
+                                          <td>
+                                            <input
+                                              class="text-end border-0 form-control input_control form-control font500 fonttxt_black font12"
+                                              type="text"
+                                              value="0"
+                                              formControlName="admincharges"
+                                              disabled="true"
+                                            />
+                                          </td>
+                                          <!-- INF_ADMINCHARGES -- End   -->
+                                          <!-- INF_CGST -- Start  -->
+                                          <td>
+                                            <input
+                                              class="text-end border-0 form-control input_control form-control font500 fonttxt_black font12"
+                                              type="text"
+                                              value="0"
+                                              oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                                              formControlName="cgst"
+                                              disabled="true"
+                                            />
+                                          </td>
+                                          <!-- INF_CGST -- End   -->
+                                          <!-- INF_SGST -- Start  -->
+                                          <td>
+                                            <input
+                                              class="text-end border-0 form-control input_control form-control font500 fonttxt_black font12"
+                                              type="text"
+                                              value="0"
+                                              oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                                              formControlName="sgst"
+                                              disabled="true"
+                                            />
+                                          </td>
+                                          <!-- INF_SGST -- End   -->
+                                          <!-- INF_IGST -- Start  -->
+                                          <td>
+                                            <input
+                                              class="text-end border-0 form-control input_control form-control font500 fonttxt_black font12"
+                                              type="text"
+                                              value="0"
+                                              oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                                              formControlName="igst"
+                                              disabled="true"
+                                            />
+                                          </td>
+                                          <!-- INF_IGST -- End   -->
+                                          <!-- INF_CGSTPERC -- Start  -->
+                                          <td>
+                                            <input
+                                              class="text-end border-0 form-control input_control form-control font500 fonttxt_black font12"
+                                              type="text"
+                                              value="0"
+                                              oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                                              formControlName="cgstperc"
+                                              disabled="true"
+                                            />
+                                          </td>
+                                          <!-- INF_CGSTPERC -- End   -->
+                                          <!-- INF_SGSTPERC -- Start  -->
+                                          <td>
+                                            <input
+                                              class="text-end border-0 form-control input_control form-control font500 fonttxt_black font12"
+                                              type="text"
+                                              value="0"
+                                              oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                                              formControlName="sgstperc"
+                                              disabled="true"
+                                            />
+                                          </td>
+                                          <!-- INF_SGSTPERC -- End   -->
+                                          <!-- INF_IGSTPERC -- Start  -->
+                                          <td>
+                                            <input
+                                              class="text-end border-0 form-control input_control form-control font500 fonttxt_black font12"
+                                              type="text"
+                                              value="0"
+                                              oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                                              formControlName="igstperc"
+                                              disabled="true"
+                                            />
+                                          </td>
+                                          <!-- INF_IGSTPERC -- End   -->
+                                          <!-- INF_TDS -- Start  -->
+                                          <td>
+                                            <input
+                                              class="text-end border-0 form-control input_control form-control font500 fonttxt_black font12"
+                                              type="text"
+                                              value="0"
+                                              oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                                              formControlName="tds"
+                                            />
+                                          </td>
+                                          <!-- INF_TDS -- End   -->
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row pb-3">
+                          <div class="col-md-2">
+                            <div class="input-group">
+                              <span
+                                class="input-group-text leftform_lbl font500 font12 req"
+                              >
+                                OG
+                              </span>
+                              <input
+                                type="text"
+                                formControlName="total_og"
+                                class="form-control border-start-0 post_input_field font500 font12"
+                                value="0"
+                                disabled="true"
+                              />
+                            </div>
+                          </div>
+                          <div class="col-md-2">
+                            <div class="input-group">
+                              <span
+                                class="input-group-text leftform_lbl font500 font12 req"
+                              >
+                                Admin
+                              </span>
+                              <input
+                                type="text"
+                                formControlName="admin"
+                                class="form-control border-start-0 post_input_field font500 font12"
+                                value="0"
+                                disabled="true"
+                              />
+                            </div>
+                          </div>
+                          <div class="col-md-2">
+                            <div class="input-group">
+                              <span
+                                class="input-group-text leftform_lbl font500 font12 req"
+                              >
+                                INT
+                              </span>
+                              <input
+                                type="text"
+                                formControlName="int"
+                                class="form-control border-start-0 post_input_field font500 font12"
+                                value="0"
+                                disabled="true"
+                              />
+                            </div>
+                          </div>
+                          <div class="col-md-2">
+                            <div class="input-group">
+                              <span
+                                class="input-group-text leftform_lbl font500 font12 req"
+                              >
+                                CGST
+                              </span>
+                              <input
+                                type="text"
+                                formControlName="total_cgst"
+                                class="form-control border-start-0 post_input_field font500 font12"
+                                value="0"
+                                disabled="true"
+                              />
+                            </div>
+                          </div>
+                          <div class="col-md-2">
+                            <div class="input-group">
+                              <span
+                                class="input-group-text leftform_lbl font500 font12 req"
+                              >
+                                SGST
+                              </span>
+                              <input
+                                type="text"
+                                formControlName="total_sgst"
+                                class="form-control border-start-0 post_input_field font500 font12"
+                                value="0"
+                                disabled="true"
+                              />
+                            </div>
+                          </div>
+                          <div class="col-md-2">
+                            <div class="input-group">
+                              <span
+                                class="input-group-text leftform_lbl font500 font12 req"
+                              >
+                                IGST
+                              </span>
+                              <input
+                                type="text"
+                                formControlName="total_igst"
+                                class="form-control border-start-0 post_input_field font500 font12"
+                                value="0"
+                                disabled="true"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row pb-3">
+                          <div class="col-md-4">
+                            <div class="input-group">
+                              <span
+                                class="input-group-text leftform_lbl font500 font12 req"
+                              >
+                                Receipt Amt:
+                              </span>
+                              <input
+                                type="text"
+                                formControlName="receiptAmt"
+                                class="form-control border-start-0 post_input_field font500 font12"
+                                value="0"
+                              />
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="input-group">
+                              <span
+                                class="input-group-text leftform_lbl font500 font12 req"
+                              >
+                                Adj. Amount:
+                              </span>
+                              <input
+                                type="text"
+                                formControlName="adjAmount"
+                                class="form-control border-start-0 post_input_field font500 font12"
+                                value="0"
+                              />
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="input-group">
+                              <span
+                                class="input-group-text leftform_lbl font500 font12 redhighlighter"
+                              >
+                                Balance Amt:
+                              </span>
+                              <input
+                                type="text"
+                                formControlName="balanceAmount"
+                                class="form-control border-start-0 post_input_field font500 font12"
+                                value="0"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-4">
+                            <div class="input-group">
+                              <span
+                                class="input-group-text leftform_lbl font500 font12 req"
+                              >
+                                TDS Amt:
+                              </span>
+                              <input
+                                type="text"
+                                formControlName="tdsAmt"
+                                class="form-control border-start-0 post_input_field font500 font12"
+                                value="0"
+                              />
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="input-group">
+                              <span
+                                class="input-group-text leftform_lbl font500 font12 req"
+                              >
+                                TDS Adj Amt:
+                              </span>
+                              <input
+                                type="text"
+                                formControlName="tdsAdjAmt"
+                                class="form-control border-start-0 post_input_field font500 font12"
+                                value="0"
+                              />
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="input-group">
+                              <span
+                                class="input-group-text leftform_lbl font500 font12 redhighlighter"
+                              >
+                                Balance TDS Amt:
+                              </span>
+                              <input
+                                type="text"
+                                formControlName="BalanceTdsAmt"
+                                class="form-control border-start-0 post_input_field font500 font12"
+                                value="0"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner text-center bg-white br-10">
+      <div class="flex justify-content-between">
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="a"
+          (click)="addOutDetails()"
+        >
+          Add
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="r"
+          (click)="retrieveDetails()"
+        >
+          Retrieve
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="d"
+          (click)="deleteDetails()"
+        >
+          Delete
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="d"
+          (click)="processAmountForBreakup()"
+        >
+          Process
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="s"
+          (click)="saveDetails()"
+        >
+          Save
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="b"
+          (click)="handleBackClick()"
+        >
+          Back
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="b"
+          (click)="handleExit()"
+        >
+          Exit
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

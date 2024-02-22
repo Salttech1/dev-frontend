@@ -1,0 +1,140 @@
+<ng-container *ngIf="config.pdfView">
+
+      <!-- export types -->
+      <div class="mt-4 mb-3" *ngIf="_service.getAccess('Export')">
+        <p class="bg-white font600 group_title mb-1">Export Type</p>
+
+        <div class="form-check form-check-inline" *ngFor="let item of exportTypes">
+          <input class="form-check-input font12 font500 position-relative cursor-pointer" [(ngModel)]="config.exportType" type="radio"
+            [value]="item.id" />
+          <label class="form-check-label m-0" for="exTy1">
+            {{ item.name }}
+          </label>
+        </div>
+      </div>
+
+  <div class="page">
+    <div class="paginatio_pdf_container d-flex w-100">
+      <nav>
+        <button (click)="prevPage()" [disabled]="config.page === 1" class="previous bg_common_red br-10 px-3 me-1">
+          Prev
+        </button>
+        <button (click)="nextPage()" [disabled]="config.page === config.totalPages"
+          class="next bg_common_red br-10 px-3 me-1">
+          Next
+        </button>
+        <p class="mb-0 font500 ms-1">{{ config.page }} / {{ config.totalPages }}</p>
+      </nav>
+    </div>
+    <pdf-viewer [src]="config.src" [original-size]="true" [render-text]="true" [rotation]="0" [show-all]="false"
+      [fit-to-page]="true" [zoom]="1" [zoom-scale]="'page-width'" [external-link-target]="'blank'" [autoresize]="true"
+      [show-borders]="false" class="pdf-viewer" [page]="config.page" (after-load-complete)="afterLoadComplete($event)"
+      class="pdf-viewer"></pdf-viewer>
+  </div>
+</ng-container>
+<section class="auxiliary-bill-generation-wrapper" *ngIf="!config.pdfView">
+  <section class="form-section-wrapper">
+    <div class="container">
+      <!-- first row -->
+      <form [formGroup]="billForm">
+        <div class="row pb-3">
+          <div class="col-md-6">
+            <div class="input-group has-validation" [class.is-invalid]="
+                (billForm.get('ownerIdFrom')?.hasError('required') &&
+                billForm.controls['ownerIdFrom'].touched) ||
+               ( billForm.controls?.['ownerIdFrom'].errors?.['notFound'] &&
+                billForm.controls['ownerIdFrom'].touched)
+              ">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">Flat Owner ID From</span>
+              <input type="text" id="ownerIdFrom" required upperCase class="form-control border-start-0"
+                formControlName="ownerIdFrom" name="ownerIdFrom" [f1]="{ id: 'UNITOWNERID', isSingleValue: true }"
+                appCommonAutoFocus (focusout)="onLeaveFlatOwnerFrom($event.target.value)" />
+            </div>
+            <div class="errorField common_color_txt font12 font500 disInl"
+              *ngIf="billForm.controls?.['ownerIdFrom'].errors?.['notFound'] ">
+              Invalid Owner ID.
+            </div>
+            <div class="errorField common_color_txt font12 font500 disInl" *ngIf=" (billForm.get('ownerIdFrom')?.hasError('required') &&
+              billForm.controls['ownerIdFrom'].touched)">
+              Owner ID is required.
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="input-group has-validation">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">Flat Owner ID To</span>
+              <input type="text" class="form-control border-start-0" formControlName="ownerIdTo" disabled
+                name="ownerIdTo" />
+            </div>
+          </div>
+        </div>
+        <div class="row pb-3">
+          <div class="col-md-6">
+            <div class="input-group" appDate1 [class.is-invalid]="
+            (billForm.get('billDate')?.hasError('required') &&
+            billForm.controls['billDate'].touched) ">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">Bill Generation Date
+              </span>
+              <input type="text" [autocomplete]="'off'"
+                class="form-control border-start-0 post_input_field font500 text-dark1 font12" matInput required
+                formControlName="billDate" [matDatepicker]="pickerFrom" name="billGenerationDate" />
+              <div
+                class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0">
+                <span class="input-group-addon">
+                  <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+                  <mat-datepicker #pickerFrom></mat-datepicker>
+                </span>
+              </div>
+            </div>
+            <div class="errorField common_color_txt font12 font500 disInl" *ngIf=" (billForm.get('billDate')?.hasError('required') &&
+            billForm.controls['billDate'].touched)">
+              Bill generation date is required.
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <div class="row pb-3 mt-4">
+        <div class="table-responsive default-table-height stylishScroll">
+          <table class="table table-bordered table table-sm">
+            <thead>
+              <tr>
+                <th class="fontBold font12 fonttxt_black" *ngFor="let item of tableHeadersList">
+                  {{ item.name }}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{ tableData.billNumber }}</td>
+                <td  class="text-nowrap">{{ tableData.ownerId }}</td>
+                <td>{{ tableData.month }}</td>
+                <td>{{ tableData.billDate | date: 'dd/MM/yyyy' }}</td>
+                <td>{{ tableData.billFromDate | date: 'dd/MM/yyyy' }}</td>
+                <td>{{ tableData.billToDate  | date: 'dd/MM/yyyy' }}</td>
+                <td>{{ tableData.billAmount }}</td>
+                <td>{{ tableData.billArrears }}</td>
+                <td>{{ tableData.interest }}</td>
+                <td>{{ tableData.interestArrears }}</td>
+                <td>{{ tableData.admin }}</td>
+                <td>{{ tableData.cgst }}</td>
+                <td>{{ tableData.sgst }}</td>
+                <td>{{ tableData.igst }}</td>
+                <td>{{ tableData.cgstPerc }}</td>
+                <td>{{ tableData.sgstPerc }}</td>
+                <td>{{ tableData.igstPerc }}</td>
+                <td>{{ tableData.invoiceNumber }}</td>
+                <td>{{ tableData.irnno }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
+    </div>
+  </section>
+</section>
+
+<app-buttons [buttonsList]="buttonsList" (eventTrigger)="buttonAction($event)"></app-buttons>
+
+<app-loader *ngIf="config.isLoading"></app-loader>

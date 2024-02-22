@@ -1,0 +1,143 @@
+<section class="depositrenewal_section" *ngIf="!isViewClicked">
+    <div class="container">
+      <div class="form_depositor_container pb-2">
+        <form [formGroup]="listOfMonthwiseRepaymentsForm" #formDirective="ngForm">
+            <div class="col-sm-12"  formGroupName="reportParameters">
+                <div class="col-md-12 col-sm-12 col-xl-12 col-xxl-12 pt-3">
+                    <div class="">
+                        <div class="">
+                            <div class="input-group" [class.is-invalid]="
+                            listOfMonthwiseRepaymentsForm.controls['reportParameters'].controls['TxtCoyCode'].invalid &&
+                            listOfMonthwiseRepaymentsForm.controls['reportParameters'].controls['TxtCoyCode'].touched
+                          ">
+                                <span class="input-group-text leftform_lbl font500 text-dark1 font12">Company</span>
+                                <app-f1
+                                id="company4"
+                                [formControlName]="'TxtCoyCode'"
+                                placeholder=""
+                                class="form-control post_input_field border-start-0 d-flex"
+                                titleValue="{{ compData?.mainheader }}"
+                                [tableData]="compData?.dataSet"
+                                [colHeader]="compHeader"
+                                [inputBBC]="bringBackColumn"
+                                [dynaPopId]="'COMPANY'"
+                                [queryConditon]="coy_condition"
+                                (updatedSelectedValue)="updateCompanyList($event)"
+                                [errorMessage]="'Invalid Company Code'"
+                              ></app-f1>
+                              <span class="position-relative span_divider"></span>
+                                <input ype="text" class="form-control w-50 border-start-0 post_input_field font500 text-dark1 font12"
+                                formControlName="companyName" tabindex="-1"/>
+                            </div>
+                            <div *ngIf="listOfMonthwiseRepaymentsForm.controls['reportParameters'].controls['TxtCoyCode'].invalid && listOfMonthwiseRepaymentsForm.controls['reportParameters'].controls['TxtCoyCode'].touched">
+                                <div class="errorField common_color_txt font12 font500"
+                                    *ngIf="listOfMonthwiseRepaymentsForm.controls['reportParameters'].controls['TxtCoyCode'].errors && listOfMonthwiseRepaymentsForm.controls['reportParameters'].controls['TxtCoyCode'].errors?.['required']">
+                                    * Company Code is required
+                                </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xl-12 col-xxl-12 pt-3">
+                    <div
+                        class="input-group flex-nowrap"
+                        [class.is-invalid]="
+                      (listOfMonthwiseRepaymentsForm.get('range')?.controls['reportFromDate']
+                        ?.invalid &&
+                        listOfMonthwiseRepaymentsForm.get('range')?.controls['reportFromDate']
+                          ?.touched) ||
+                      (listOfMonthwiseRepaymentsForm.get('range')?.controls['reportToDate']
+                        ?.invalid &&
+                        listOfMonthwiseRepaymentsForm.get('range')?.controls['reportToDate']
+                          ?.touched)
+                    "
+                    >
+                        <span class="input-group-text leftform_lbl font500 text-dark1">Deposit Date</span>
+                        <div
+                            class="bg-white datepicker_field post_input_field"
+                            [class.is-invalid]="
+                        (listOfMonthwiseRepaymentsForm.get('range')?.controls['reportFromDate']
+                          ?.invalid &&
+                          listOfMonthwiseRepaymentsForm.get('range')?.controls['reportFromDate']
+                            ?.touched) ||
+                            (listOfMonthwiseRepaymentsForm.get('range')?.controls['reportToDate']
+                          ?.invalid &&
+                          listOfMonthwiseRepaymentsForm.get('range')?.controls['reportToDate']
+                            ?.touched)
+                      "
+                        >
+                            <span class="input-group-addon">
+                                <div
+                                    mat-form-field
+                                    appearance="fill"
+                                    class="matForm"
+                                >
+                                    <mat-date-range-input
+                                        [formGroup]="
+                              this.listOfMonthwiseRepaymentsForm.controls['range']
+                            "
+                                        [rangePicker]="picker"
+                                    >
+                                        <input (click)="setCompanyName()"
+                                            matStartDate
+                                            formControlName="reportFromDate"
+                                            placeholder="From date"  class="font500 text-dark1 font12"
+                                            id="formDateField"
+                                        >
+                                        <input (click)="setCompanyName()"
+                                            matEndDate
+                                            formControlName="reportToDate"
+                                            placeholder="To date" class="font500 text-dark1 font12"
+                                            id="toDateField"
+                                        >
+                                    </mat-date-range-input>
+                                    <mat-datepicker-toggle
+                                        matSuffix
+                                        [for]="picker" tabindex="-1"
+                                    ></mat-datepicker-toggle>
+                                    <mat-date-range-picker #picker></mat-date-range-picker>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+                    <div *ngIf="
+                    listOfMonthwiseRepaymentsForm.controls['range'].invalid &&
+                    listOfMonthwiseRepaymentsForm.controls['range'].touched
+                ">
+                        <div
+                  class="invalid-feedback d-block"
+                  *ngIf="
+                  (listOfMonthwiseRepaymentsForm.get('range')?.controls['reportFromDate']
+                      ?.invalid &&
+                      listOfMonthwiseRepaymentsForm.get('range')?.controls['reportFromDate']
+                        ?.touched) ||
+                        (listOfMonthwiseRepaymentsForm.get('range')?.controls['reportToDate']
+                      ?.invalid &&
+                      listOfMonthwiseRepaymentsForm.get('range')?.controls['reportToDate']
+                        ?.touched)
+                  "
+                >
+                 * Proper Date is required
+                </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        </div>
+    </div>
+</section>
+<app-loader *ngIf="loaderToggle"></app-loader>
+
+  
+<section class="action_section position-fixed w-100">
+    <div class="container">
+        <div class="action_conatiner text-center bg-white br-10 w-100">
+            <div class="flex justify-content-between">
+              <button type="submit" class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone" accesskey="w" (click)="getReport(false)">Do<span class="text-decoration-underline">w</span>nload</button>
+              <button type="submit" class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white"  (click)="getReport(true)"  accesskey="p">Print</button>
+              <!-- <button type="submit" class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white" [disabled]="true" accesskey="p" >Preview</button> -->
+              <button type="submit" class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"  accesskey="x" (click)="handleExitClick()">E<span class="text-decoration-underline">x</span>it</button>
+            </div>
+        </div>
+    </div>
+</section>

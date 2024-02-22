@@ -1,0 +1,201 @@
+<!--HTML for Broker Entry-->
+<section>
+    <div class="container">
+      <div class="row mb-3">
+        <div class="col-md-12">
+          <form [formGroup]="connectionSelection">
+            <div class="row">
+              <div class="col-md-3">
+                <div class="input-group">
+                  <span class="input-group-text leftform_lbl font500 font12"
+                    >BillType</span
+                  >
+                  <app-f1
+                  id="billType"
+                  [formControlName]="'billType'"
+                  name="billTypeName"
+                  class="form-control post_input_field  border-start-0 d-flex "
+                  titleValue="{{ billTypeF1List?.mainheader }}"
+                  [tableData]="billTypeF1List?.dataSet"
+                  [colHeader]="billTypeColHeadings"
+                  [inputBBC]="billTypeF1abc"
+                  [dynaPopId]="'OVERHEADS'"
+                  [queryConditon]="''"
+                  [errorMessage]="'Invalid Bill Type'"
+                >
+                </app-f1>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="input-group">
+                  <input type="file" id="filepath" [formControlName]="'filepath'" class="form-control"  (change)="addfile($event)" placeholder="Upload file" accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">   
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+    
+</section>
+
+<section>
+  <div class="container">
+    <div class="row mb-3">
+      <div class="col-md-12">
+        <div class="br-10 form_common_bg group_panel p-3 position-relative pt-4">
+          <p class="bg-white font600 group_title mb-0 position-absolute">
+            Period wise Bill Details
+          </p>
+          <div class="table_wrapper table-responsive">
+            
+            <table
+              class="table table-bordered position-relative"
+              *ngIf="filelist"
+              datatable
+              [dtOptions]="dtOptions"
+              dt-instance="dtInstance"
+            >
+            <thead class="table_head_position_sticky">
+                <tr>
+                  <th class="fontBold font12 text-dark1">Sr No</th>
+                  <th class="fontBold font12 text-dark1" >Consumer No</th>
+                  <th class="fontBold font12 text-dark1">Bill Date</th>
+                  <th class="fontBold font12 text-dark1">Bill No</th>
+                  <th class="fontBold font12 text-dark1">From date</th>
+                  <th class="fontBold font12 text-dark1">To date</th>
+                  <th class="fontBold font12 text-dark1">Bill Period</th>
+                  <th class="fontBold font12 text-dark1">Bill Amount</th>
+                  <th class="fontBold font12 text-dark1">CGST</th>
+                  <th class="fontBold font12 text-dark1">SGST</th>
+                  <th class="fontBold font12 text-dark1">Total Payable</th>
+                  <th class="fontBold font12 text-dark1">Unit Consumed</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let billdata of filelist; let i = index">
+                  <td class="font12 text-dark1 p-0" style="width: 70px; height: 25px">{{ billdata.SrNo}}</td>
+                  <td class="font12 text-dark1 p-0" style="width: 90px; height: 25px">{{ billdata.ConsumerNumber }}</td>
+                  <td class="font12 text-dark1 p-0" style="width: 90px; height: 25px">{{ billdata.BillDate }}</td>
+                  <td class="font12 text-dark1 p-0" style="width: 90px; height: 25px">{{ billdata.BillNo }}</td>
+                  <td class="font12 text-dark1 p-0" style="width: 90px; height: 25px">{{ billdata.fromdate }}</td>
+                  <td class="font12 text-dark1 p-0" style="width: 90px; height: 25px">{{ billdata.todate }}</td>
+                  <td class="font12 text-dark1 p-0" style="width: 90px; height: 25px"> {{ billdata.BillPeriod }}</td>
+                  <td class="font12 text-dark1 p-0" >
+                    <input
+                      type="number"
+                      #chIn
+                      id="{{ 'inputInd' + i }}"
+                      style="width: 90px; height: 25px"
+                      [(ngModel)]="filelist[i].BillAmount"
+                      (keyup.ArrowDown)="valueChangeInput(i)"
+                      
+                    />
+                  </td>
+                  <td class="font12 text-dark1 p-0">
+                    <input
+                      type="number"
+                      #chIn
+                      id="{{ 'inputInd' + i }}"
+                      style="width: 90px; height: 25px"
+                      [(ngModel)]="filelist[i].CGST"
+                      (keyup.ArrowDown)="valueChangeInput(i)"
+                    />
+                  </td>
+                  <td class="font12 text-dark1 p-0">
+                    <input
+                      type="number"
+                      #chIn
+                      id="{{ 'inputInd' + i }}"
+                      style="width: 90px; height: 25px"
+                      [(ngModel)]="filelist[i].SGST"
+                      (keyup.ArrowDown)="valueChangeInput(i)"
+                      
+                    />
+                  </td>
+                  <td class="font12 text-dark1 p-0">
+                    <input
+                      type="number"
+                      #chIn
+                      id="{{ 'inputInd' + i }}"
+                      style="width: 90px; height: 25px"
+                      [(ngModel)]="filelist[i].TotalPayable"
+                      (keyup.ArrowDown)="valueChangeInput(i)"
+                    />
+                  </td>
+                  <td class="font12 text-dark1 p-0">{{ billdata.Unitconsumed }}</td>
+                </tr>
+              </tbody>  
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="action_section position-fixed w-100">
+    <div class="container">
+      <div class="action_conatiner text-center bg-white br-10">
+        <div class="flex justify-content-between">
+          <button
+            type="submit"
+            class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+            accesskey="a"
+            (click)="addBillRecordsinGrid()"
+            [disabled]="!disableSave"
+          >
+            Add
+          </button>
+  
+          <button
+            type="submit"
+            class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+            accesskey="r"
+            (click)="funcValidateGrid()"
+          >
+            Retrieve
+          </button>
+  
+          <button
+            type="submit"
+            class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+            accesskey="d"
+            [disabled]="initialMode"
+          >
+            Delete
+          </button>
+
+          <button
+            type="submit"
+            class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+            accesskey="s"
+            (click)="saveOverheadBill()"
+            [disabled]="disableSave"
+          >
+            Save
+          </button>
+          
+          <button
+            type="submit"
+            class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+            accesskey="b"
+            (click)="handleBackClick()"
+          >
+            Back
+          </button>
+          <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+          accesskey="x"
+          (click)="handleExitClick()"
+        >
+          E<span class="text-decoration-underline">x</span>it
+        </button>
+        </div>
+      </div>
+    </div>
+</section>
+  

@@ -1,0 +1,132 @@
+<section class="depositrenewal_section">
+  <div class="container">
+    <div class="form_depositor_container pb-2">
+      <form [formGroup]="form15hgReturnsSectionForm">
+       
+        <div class="col-sm-12">
+          <div class="col-md-12 col-sm-12 col-xl-12 col-xxl-12 pt-3">
+            <div class="">
+              <div class="">
+                <div class="input-group"  [class.is-invalid]="
+                form15hgReturnsSectionForm.controls['companyCode'].invalid &&
+                form15hgReturnsSectionForm.controls['companyCode'].touched
+              ">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Company</span
+                  >
+                  <app-f1
+                    id="company4"
+                    [formControlName]="'companyCode'"
+                    placeholder=""
+                    class="form-control post_input_field border-start-0 d-flex"
+                    titleValue="{{ compData?.mainheader }}"
+                    [tableData]="compData?.dataSet"
+                    [colHeader]="compHeader"
+                    [inputBBC]="bringBackColumn"
+                    (updatedSelectedValue)="updateCompanyList($event)"
+                    [dynaPopId]="'COMPANY'"
+                    [queryConditon]="coy_condition"
+                    [errorMessage]="'Invalid Company Code'"
+                  ></app-f1>
+                  <span class="position-relative span_divider"></span>
+                  <input
+                    type="text"
+                    class="form-control w-50 border-start-0 post_input_field font500 text-dark1 font12 disabled_cls"
+                    [formControlName]="'companyName'"
+                    tabindex="-1" [readonly]="readonlyAttr"
+                  />
+                </div>
+                <div *ngIf="form15hgReturnsSectionForm.controls['companyCode'].invalid && form15hgReturnsSectionForm.controls['companyCode'].touched">
+                  <div
+                      class="errorField common_color_txt font12 font500"
+                      *ngIf="form15hgReturnsSectionForm.controls['companyCode'].errors && form15hgReturnsSectionForm.controls['companyCode'].errors?.['required']"
+                  >
+                      * Company Code is required
+                  </div>
+              </div>
+              </div>
+            </div>
+          </div>  
+          <div class="col-md-9 col-sm-12 col-xl-8 col-xxl-8 pt-3">
+            <div class="">
+                <div class="">
+                    <div class="input-group" [class.is-invalid]="
+                    form15hgReturnsSectionForm.controls['acyear'].invalid &&
+                    form15hgReturnsSectionForm.controls['acyear'].touched
+                  ">
+                        <span class="input-group-text leftform_lbl font500 text-dark1 font12">Accounting Year</span>
+                        <input type="text" class="form-control border-start-0 post_input_field font500 text-dark1 font12" [formControlName]="'acyear'"/> 
+                    </div>
+                    <div *ngIf="form15hgReturnsSectionForm.controls['acyear'].invalid && form15hgReturnsSectionForm.controls['acyear'].touched">
+                      <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="form15hgReturnsSectionForm.controls['acyear'].errors && form15hgReturnsSectionForm.controls['acyear'].errors?.['required']"
+                      >
+                          * Accounting Year is required
+                      </div>
+                  </div>
+                </div>
+              
+            </div>
+        </div>   
+        <div class="col-md-8 col-sm-12 col-xl-12 col-xxl-12 pt-3">
+            <div class="">
+                <div class="">
+                    <div class="input-group"  [class.is-invalid]="
+                    form15hgReturnsSectionForm.controls['quaterId'].invalid &&
+                    form15hgReturnsSectionForm.controls['quaterId'].touched
+                  ">
+                        <span class="input-group-text leftform_lbl font500 text-dark1 font12">Quarter</span>
+                        <app-f1 [formControlName]="'quaterId'" type="text" class="form-control post_input_field border-start-0 d-flex" (updatedSelectedValue)="updateQuarter($event)"  titleValue="{{quaterData?.mainheader}}"   [tableData]="quaterData?.dataSet" [colHeader]="quaterColumnHeader"  [inputBBC]="quaterData?.bringBackColumn" [dynaPopId]="'FDTDSQ'" [queryConditon]=quarter_condition [errorMessage]="'Invalid Quarter Code'" ></app-f1>
+                        <span class="position-relative span_divider"></span>
+                        <input type="text" class="form-control w-50 border-start-0 post_input_field font500 text-dark1 font12 disabled_cls" [formControlName]="'quaterName'" tabindex="-1" [readonly]="readonlyAttr">
+                      </div>
+                      <div *ngIf="form15hgReturnsSectionForm.controls['quaterId'].invalid && form15hgReturnsSectionForm.controls['quaterId'].touched">
+                        <div
+                            class="errorField common_color_txt font12 font500"
+                            *ngIf="form15hgReturnsSectionForm.controls['quaterId'].errors && form15hgReturnsSectionForm.controls['quaterId'].errors?.['required']"
+                        >
+                            * Quarter is required
+                        </div>
+                    </div>
+                </div>    
+            </div>
+        </div>   
+        <div class="col-md-12 col-sm-12 col-xl-12 col-xxl-4 pt-3">
+            <div class="mb-2 pb-2">
+            <div class="input-group">
+                <div class="form-check d-flex align-items-center">
+                <input type="radio" class="form-check-input font12 font500 position-relative" name="formType" [formControlName]="'formType'" value="H">
+                <label class="form-check-label" for="radio1">15H</label>
+                </div>
+                <div class="form-check d-flex align-items-center">
+                <input type="radio" class="form-check-input font12 font500  position-relative" name="formType" [formControlName]="'formType'" value="G">
+                <label class="form-check-label" for="radio2">15G</label>
+                </div>
+            </div>
+            </div>
+        </div> 
+        </div>
+    
+      </form>
+    </div>
+  </div>
+</section>
+<app-loader *ngIf="loaderToggle"></app-loader>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+      <div class="action_conatiner text-center bg-white br-10 w-100">
+          <div class="flex justify-content-between">
+            <!-- <button type="submit" class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white exportcls" disabled="true" >New</button>
+            <button type="submit" class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white exportcls" disabled="true" >Edit</button>
+            <button type="submit" class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white exportcls" disabled="true">Delete</button> -->
+              <button type="submit" class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white exportcls first_letter_textdecorationone" (click)="exportForm15hgReturns()" accesskey="w">Do<span class="text-decoration-underline">w</span>nload</button>
+              <!-- <button type="submit" class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white exportcls" disabled="true"  accesskey="p">Print</button> -->
+              <button type="submit" class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone"  accesskey="x" (click)="handleQuit()">E<span class="text-decoration-underline">x</span>it</button>
+          </div>
+      </div>
+  </div>
+</section>
+
+

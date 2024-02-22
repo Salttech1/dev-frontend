@@ -1,0 +1,91 @@
+<section class="container">
+    <form [formGroup]="VehicleMeterReadingRep">
+        <div class="mth_year_container d-flex justify-content-center">
+            <div class="">
+                <div class="col-xl-12">
+                    <label
+                      class="form-label formlbl font600 text-dark1 pb-2 mb-0 font12"
+                      >Year (e.g. {{accYear}} )</label
+                    >
+                    <div
+                      class="input-group"
+                      [class.is-invalid]="
+                      VehicleMeterReadingRep.controls['TxtAccYear']
+                          .invalid &&
+                        (VehicleMeterReadingRep.controls['TxtAccYear']
+                          .touched || VehicleMeterReadingRep.controls['TxtAccYear']
+                          .dirty)
+                      "
+                    >
+                      <span
+                        class="input-group-text leftform_lbl font500 text-dark1 font12"
+                        >Accounting Year</span
+                      >
+                      <input
+                        type="text"
+                        [min]="8"
+                        class="form-control border-start-0 post_input_field"
+                        formControlName="TxtAccYear"
+                        id="TxtAccYear"
+                      />
+                    </div>
+                    <div
+                      *ngIf="
+                      VehicleMeterReadingRep.controls['TxtAccYear']
+                          .invalid &&
+                        (VehicleMeterReadingRep.controls['TxtAccYear']
+                          .touched  || VehicleMeterReadingRep.controls['TxtAccYear']
+                          .dirty)
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="MthDetExpRep.controls['TxtAccYear'].errors && MthDetExpRep.controls['TxtAccYear'].errors?.['required']"
+                      >
+                        *Accounting Year is required
+                      </div>
+                      <div class="errorField common_color_txt font12 font500" *ngIf="MthDetExpRep.controls['TxtAccYear'].errors && MthDetExpRep.controls['TxtAccYear'].errors?.['minlength']">
+                        Accounting Year must be at least 9 characters long.
+                      </div> 
+                      <div *ngIf="MthDetExpRep.controls['TxtAccYear'].errors?.['pattern']" class="errorField common_color_txt font12 font500">Invalid Accounting Year formate</div>
+                      <div *ngIf="MthDetExpRep.controls['TxtAccYear'].errors?.['yearVal']" class="errorField common_color_txt font12 font500">Invalid Accounting Year</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
+<app-loader *ngIf="loaderToggle"></app-loader>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner text-center bg-white br-10 w-100">
+      <div class="flex justify-content-between">
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+          accesskey="w"
+          (click)="getReport(false)"
+        >
+          Do<span class="text-decoration-underline">w</span>nload
+        </button>
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white"
+          (click)="getReport(true)"
+          accesskey="p"
+        >
+          Print
+        </button>
+        <!-- <button type="submit" class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white" [disabled]="true" accesskey="p" >Preview</button> -->
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+          accesskey="x"
+          (click)="handleExitClick()"
+        >
+          E<span class="text-decoration-underline">x</span>it
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,26 @@
+table {
+  width: 100%;
+}
+
+.mat-table {
+  font-family: "Montserrat";
+}
+
+.mat-cell {
+  font-size: 12px;
+}
+
+td.mat-cell,
+th.mat-header-cell {
+  padding: 0.4rem;
+}
+
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td,
+th {
+  width: 25%;
+}

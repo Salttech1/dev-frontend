@@ -1,0 +1,516 @@
+<form [formGroup]="contractDebitNoteEntryForm">
+  <div class="form_container">
+    <!--CDBNOTE-->
+    <div class="row g-2 custom">
+      <div class="col-sm-6">
+        <div class="input-group" [class.is-invalid]="
+            contractDebitNoteEntryForm.controls['dbnoteser'].invalid &&
+            contractDebitNoteEntryForm.controls['dbnoteser'].touched
+          ">
+          <span class="input-group-text leftform_lbl font500 text-dark1 font12"><span
+              class="text-danger font500 font12">* </span>Contract Debit
+            Note #</span>
+          <input type="text" id="dbnote123" class="form-control border-start-0" formControlName="dbnoteser"
+            maxlength="10" [f1]="{ id: 'CDBNOTE' , fill: 1}" />
+        </div>
+        <div *ngIf="
+            contractDebitNoteEntryForm.controls['dbnoteser'].invalid &&
+            contractDebitNoteEntryForm.controls['dbnoteser'].touched
+          ">
+          <div class="errorField common_color_txt font12 font500"
+            *ngIf=" contractDebitNoteEntryForm.controls['dbnoteser'].errors &&  contractDebitNoteEntryForm.controls['dbnoteser'].errors?.['required']">
+            * Contract Debit No is required
+          </div>
+        </div>
+        <div class="invalid-feedback d-block" *ngIf="
+            contractDebitNoteEntryForm.controls['dbnoteser'].invalid &&
+            contractDebitNoteEntryForm.controls['dbnoteser'].touched
+          ">
+          <div *ngIf="contractDebitNoteEntryForm.controls['dbnoteser'].errors?.['notFound']">
+            * Invalid Contract Debit No
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="input-group" [class.is-invalid]="
+            contractDebitNoteEntryForm.controls['date'].invalid &&
+            contractDebitNoteEntryForm.controls['date'].touched
+          ">
+          <span class="input-group-text leftform_lbl font500 text-dark1 font12">Debit Note Date</span>
+          <input type="text" [autocomplete]="'off'"
+            class="form-control border-start-0 post_input_field font500 text-dark1 font12" id="debitNoteDate123"
+            matInput [matDatepicker]="debitNoteDate" formControlName="date" name=""
+            (dateChange)="validateDebitNoteDate('debitNoteDate123', $event)" />
+          <div
+            class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0">
+            <span class="input-group-addon">
+              <mat-datepicker-toggle matSuffix [for]="debitNoteDate" tabindex="-1"></mat-datepicker-toggle>
+              <mat-datepicker #debitNoteDate></mat-datepicker>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="debitNoteDetails" class="pt-2">
+        <div class="row g-2 custom">
+          <div class="col-sm-4 ">
+            <div class="input-group">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">Party Type</span>
+              <input type="text" class="form-control post_input_field border-end-0 border-start-0 d-flex"
+                formControlName="party" tabindex="-1" disabled />
+              <span class="position-relative span_divider"></span>
+              <input type="text" class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500" id
+                formControlName="partyTypeName" tabindex="-1" disabled />
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="input-group" [class.is-invalid]="
+                contractDebitNoteEntryForm.controls['contract'].invalid &&
+                contractDebitNoteEntryForm.controls['contract'].touched
+              ">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">Rec ID</span>
+              <input type="text" class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+                id="contract1234" formControlName="contract" [f1]="{ id: 'CONTRACTID', fill: 1 }" />
+            </div>
+            <div *ngIf="
+                contractDebitNoteEntryForm.controls['contract'].invalid &&
+                contractDebitNoteEntryForm.controls['contract'].touched
+              ">
+              <div class="errorField common_color_txt font12 font500"
+                *ngIf=" contractDebitNoteEntryForm.controls['contract'].errors &&  contractDebitNoteEntryForm.controls['contract'].errors?.['required']">
+                Rec Id is required
+              </div>
+            </div>
+            <div class="invalid-feedback d-block" *ngIf="
+                contractDebitNoteEntryForm.controls['contract'].invalid &&
+                contractDebitNoteEntryForm.controls['contract'].touched
+              ">
+              <div *ngIf=" contractDebitNoteEntryForm.controls['contract'].errors?.['notFound']">
+                Invalid Rec Id
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="input-group" [class.is-invalid]="
+                contractDebitNoteEntryForm.controls['contbillno'].invalid &&
+                contractDebitNoteEntryForm.controls['contbillno'].touched
+              ">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">Contract Bill #</span>
+              <input type="text" class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+                id="contractbill1234" formControlName="contbillno"
+                [f1]="{ id: 'CBILLS', fill: 1, subId: contractBillCondition }" />
+            </div>
+            <div *ngIf="
+                contractDebitNoteEntryForm.controls['contbillno'].invalid &&
+                contractDebitNoteEntryForm.controls['contbillno'].touched
+              ">
+              <div class="errorField common_color_txt font12 font500"
+                *ngIf=" contractDebitNoteEntryForm.controls['contbillno'].errors &&  contractDebitNoteEntryForm.controls['contbillno'].errors?.['required']">
+                Contract Bill No is required
+              </div>
+            </div>
+            <div class="invalid-feedback d-block" *ngIf="
+                contractDebitNoteEntryForm.controls['contbillno'].invalid &&
+                contractDebitNoteEntryForm.controls['contbillno'].touched
+              ">
+              <div *ngIf=" contractDebitNoteEntryForm.controls['contbillno'].errors?.['notFound']">
+                Invalid Contract Bill
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4 ">
+            <div class="input-group">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">Bill Date</span>
+              <input type="text" class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+                id="contbilldt1234" formControlName="contbilldt" disabled />
+            </div>
+          </div>
+          <div class="col-sm-8 ">
+            <div class="input-group" [class.is-invalid]="
+                contractDebitNoteEntryForm.controls['partycode'].invalid &&
+                contractDebitNoteEntryForm.controls['partycode'].touched
+              ">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">Party Code</span>
+              <input type="text" class="form-control post_input_field border-end-0 border-start-0 d-flex"
+                formControlName="partycode" tabindex="-1" disabled />
+              <span class="position-relative span_divider"></span>
+              <input type="text" class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500" id
+                formControlName="partyName" tabindex="-1" disabled />
+            </div>
+          </div>
+          <div class="col-sm-4 ">
+            <div class="input-group">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">Bill Type</span>
+              <input type="text" class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500" id
+                formControlName="billtype" disabled />
+            </div>
+          </div>
+
+          <div class="col-sm-4 ">
+            <div class="input-group" [class.is-invalid]="
+                contractDebitNoteEntryForm.controls['amount'].invalid &&
+                contractDebitNoteEntryForm.controls['amount'].touched
+              ">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12"><span
+                  class="text-danger font500 font12">* </span>DN Amt</span>
+              <input type="text"
+                class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500 text-end"
+                id="amount123124" formControlName="amount" (change)="checkIsDNAmountValid()"
+                oninput="this.value=this.value.replace(/[^0-9\.]/g,'');" />
+            </div>
+            <div *ngIf="
+                contractDebitNoteEntryForm.controls['amount'].invalid &&
+                contractDebitNoteEntryForm.controls['amount'].touched
+              ">
+              <div class="errorField common_color_txt font12 font500"
+                *ngIf="contractDebitNoteEntryForm.controls['amount'].errors && contractDebitNoteEntryForm.controls['amount'].errors?.['required']">
+                * Debit amount cannot be left blank.
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4 ">
+            <div class="input-group">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">Building Code</span>
+              <input type="text" class="form-control post_input_field border-end-0 border-start-0 d-flex"
+                formControlName="bldgcode" tabindex="-1" disabled />
+              <span class="position-relative span_divider"></span>
+              <input type="text" class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500" id
+                formControlName="bldgName" tabindex="-1" disabled />
+            </div>
+          </div>
+          <div class="col-sm-4 ">
+            <div class="input-group">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">TDS (%)</span>
+              <input type="text" class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+                id="tdsperc123" formControlName="tdsperc" (keyup)="calculateTDS()" />
+            </div>
+          </div>
+          <div class="col-sm-4 ">
+            <div class="input-group">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">TDS Amount</span>
+              <input type="text" class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500" id
+                formControlName="tdsamount" />
+            </div>
+          </div>
+          <div class="col-sm-4 ">
+            <div class="input-group">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">Company Code</span>
+              <input type="text" class="form-control post_input_field border-end-0 border-start-0 d-flex"
+                formControlName="coy" tabindex="-1" disabled />
+              <span class="position-relative span_divider"></span>
+              <input type="text" class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500" id
+                formControlName="coyName" tabindex="-1" disabled />
+            </div>
+          </div>
+          <div class="col-sm-4 col-md-6 ">
+            <div class="input-group">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">Narration</span>
+              <input type="text" class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+                id="narration123" formControlName="narration" maxlength="40" />
+            </div>
+          </div>
+          <div class="col-sm-4 col-md-6 col-lg-4 col-xl-6 col-xxl-4">
+            <div class="input-group">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">Description 1</span>
+              <input upperCase type="text"
+                class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500" id="desc1"
+                formControlName="description1" maxlength="50" />
+            </div>
+          </div>
+          <div class="col-sm-4 col-md-6 col-lg-4 col-xl-6 col-xxl-4">
+            <div class="input-group">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">Description 2</span>
+              <input upperCase type="text"
+                class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500" id="desc3"
+                maxlength="50" formControlName="description2" />
+            </div>
+          </div>
+          <div class="col-sm-4 col-md-6 col-lg-4 col-xl-6 col-xxl-4">
+            <div class="input-group">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">Description 3</span>
+              <input upperCase type="text"
+                class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500" id="desc5"
+                maxlength="50" formControlName="description3" />
+            </div>
+          </div>
+          <div class="col-sm-4 col-md-6 col-lg-4 col-xl-6 col-xxl-4">
+            <div class="input-group">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">Description 4</span>
+              <input upperCase type="text"
+                class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500" id="desc2"
+                maxlength="50" formControlName="description4" />
+            </div>
+          </div>
+          <div class="col-sm-4 col-md-6 col-lg-4 col-xl-6 col-xxl-4">
+            <div class="input-group">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">Description 5</span>
+              <input upperCase type="text"
+                class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500" id="desc4"
+                maxlength="50" formControlName="description5" />
+            </div>
+          </div>
+          <div class="col-sm-4 col-md-8 col-lg-4 col-xl-6 col-xxl-6">
+            <div class="input-group">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">Work Cd</span>
+              <input type="text" class="form-control post_input_field border-end-0 border-start-0 d-flex"
+                formControlName="workcode" tabindex="-1" disabled />
+              <span class="position-relative span_divider"></span>
+              <input type="text" class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500" id
+                formControlName="workName" tabindex="-1" disabled />
+            </div>
+          </div>
+        </div>
+        <br />
+        <div class="tab-pane container active p-0" id="itemGSTBreakUpDetails" formArrayName="itemsDebitNoteWiseArray">
+          <div class="gstBreakup_section">
+            <div class="table-responsive">
+              <div class="view">
+                <div class="wrapper">
+                  <table class="table table-bordered datatable table w-100 mb-0" [cellNavi]="'cell'">
+                    <thead class="table_head_position_sticky">
+                      <tr tabindex="0">
+                        <th class="fontBold font12 text-dark1">SAC Code</th>
+                        <th class="fontBold font12 text-dark1">Item Desc</th>
+                        <th class="fontBold font12 text-dark1 max_wid_120">
+                          FOTO Amt
+                        </th>
+                        <th class="fontBold font12 text-dark1 max_wid_120">
+                          UOM
+                        </th>
+                        <th class="fontBold font12 text-dark1 max_wid_150">
+                          Qty
+                        </th>
+                        <th class="fontBold font12 text-dark1">Rate</th>
+                        <th class="fontBold font12 text-dark1 max_wid_150">
+                          Amount
+                        </th>
+                        <th class="fontBold font12 text-dark1">Disc.Amt</th>
+                        <th class="fontBold font12 text-dark1 max_wid_150">
+                          Taxable Amount
+                        </th>
+                        <th class="fontBold font12 text-dark1">CGST %</th>
+                        <th class="fontBold font12 text-dark1 max_wid_150">
+                          CGST Amt
+                        </th>
+                        <th class="fontBold font12 text-dark1">SGST %</th>
+                        <th class="fontBold font12 text-dark1">SGST Amt</th>
+                        <th class="fontBold font12 text-dark1">IGST %</th>
+                        <th class="fontBold font12 text-dark1">IGST Amt</th>
+                        <th class="fontBold font12 text-dark1">UGST %</th>
+                        <th class="fontBold font12 text-dark1">UGST Amt</th>
+                      </tr>
+                    </thead>
+                    <tbody *ngIf="showTable">
+                      <tr *ngFor="
+                    let item of contractDebitNoteEntryForm.controls
+                      .itemsDebitNoteWiseArray.controls;
+                    let index = index
+                  " [formGroupName]="index">
+
+                        <td>
+                          <input
+                            class="border-0 form-control input_control form-control font500 text-dark1 font12 itemDesc_input"
+                            type="text" name [formControlName]="'saccode'" readonly tabindex="-1" />
+                        </td>
+                        <td>
+                          <input
+                            class="border-0 form-control input_control form-control font500 text-dark1 font12 itemDesc_input"
+                            type="text" name [formControlName]="'sacdesc'" readonly tabindex="-1" />
+                        </td>
+                        <td>
+                          <input
+                            class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                            type="text" name maxlength="8" [id]="'cell' + index + '-1'" [formControlName]="'fotoamt'"
+                            oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                            (blur)=" checkIsFotoAmountValid(index)" />
+                        </td>
+                        <td>
+                          <input
+                            class="border-0 form-control input_control form-control font500 text-dark1 font12 itemDesc_input"
+                            type="text" name [id]="'cell' + index + '-2'" maxlength="10" [formControlName]="'uom'" />
+                        </td>
+                        <td>
+                          <input
+                            class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                            type="text" name [id]="'cell' + index + '-3'" (blur)="setQuantity(index)"
+                            [formControlName]="'quantity'" value="0" maxlength="10"
+                            oninput="this.value=this.value.replace(/[^0-9\.]/g,'');" />
+                        </td>
+                        <td>
+                          <input
+                            class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                            type="text" name [id]="'cell' + index + '-4'" [formControlName]="'rate'"
+                            (blur)="checkIsRateValid(index)" value="0" maxlength="10"
+                            oninput="this.value=this.value.replace(/[^0-9\.]/g,'');" />
+                        </td>
+                        <td>
+                          <input
+                            class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                            type="text" name [id]="'cell' + index + '-5'" [formControlName]="'amount'"
+                            (blur)="checkIsItemAmountValid(index)" value="0" maxlength="12"
+                            oninput="this.value=this.value.replace(/[^0-9\.]/g,'');" />
+                        </td>
+                        <td>
+                          <input
+                            class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                            type="text" name [id]="'cell' + index + '-6'" [formControlName]="'discountamt'" value="0"
+                            maxlength="10" (change)="checkValidDiscountAmount(index)"
+                            oninput="this.value=this.value.replace(/[^0-9\.]/g,'');" />
+                        </td>
+                        <td>
+                          <input
+                            class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                            type="text" name [id]="'cell' + index + '-7'" [formControlName]="'taxableamt'" value="0"
+                            maxlength="12" (blur)="setAmount(index)"
+                            oninput="this.value=this.value.replace(/[^0-9\.]/g,'');" />
+                        </td>
+                        <td>
+                          <input
+                            class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                            type="text" name [formControlName]="'cgstperc'" value="0" [id]="'cell' + index + '-8'"
+                            maxlength="5" id="cgstpercId" oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                            (change)="
+                            calcGST(
+                              'CGST',
+                              contractDebitNoteEntryForm.controls.itemsDebitNoteWiseArray.controls[
+                                index
+                              ].get('cgstperc'),
+                              contractDebitNoteEntryForm.controls.itemsDebitNoteWiseArray.controls[
+                                index
+                              ].get('taxableamt')?.value,
+                              contractDebitNoteEntryForm.controls.itemsDebitNoteWiseArray.controls[
+                                index
+                              ].get('cgstamt'),
+                              $event.target.id
+                            )
+                          " />
+                        </td>
+                        <td>
+                          <input
+                            class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                            type="text" name [id]="'cell' + index + '-9'" maxlength="12" [formControlName]="'cgstamt'"
+                            value="0" oninput="this.value=this.value.replace(/[^0-9\.]/g,'');" />
+                        </td>
+                        <td>
+                          <input
+                            class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                            type="text" name [id]="'cell' + index + '-10'" [formControlName]="'sgstperc'" value="0"
+                            maxlength="5" oninput="this.value=this.value.replace(/[^0-9\.]/g,'');" (change)="
+                            calcGST(
+                              'SGST',
+                              contractDebitNoteEntryForm.controls.itemsDebitNoteWiseArray.controls[
+                                index
+                              ].get('sgstperc'),
+                              contractDebitNoteEntryForm.controls.itemsDebitNoteWiseArray.controls[
+                                index
+                              ].get('taxableamt')?.value,
+                              contractDebitNoteEntryForm.controls.itemsDebitNoteWiseArray.controls[
+                                index
+                              ].get('sgstamt'),
+                              $event.target.id
+                            )
+                          " />
+                        </td>
+                        <td>
+                          <input
+                            class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                            type="text" name [formControlName]="'sgstamt'" value="0" [id]="'cell' + index + '-11'"
+                            maxlength="12" oninput="this.value=this.value.replace(/[^0-9\.]/g,'');" />
+                        </td>
+                        <td>
+                          <input
+                            class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                            type="text" name [id]="'cell' + index + '-12'" [formControlName]="'igstperc'" value="0"
+                            maxlength="5" oninput="this.value=this.value.replace(/[^0-9\.]/g,'');" (change)="
+                            calcGST(
+                              'IGST',
+                              contractDebitNoteEntryForm.controls.itemsDebitNoteWiseArray.controls[
+                                index
+                              ].get('igstperc'),
+                              contractDebitNoteEntryForm.controls.itemsDebitNoteWiseArray.controls[
+                                index
+                              ].get('taxableamt')?.value,
+                              contractDebitNoteEntryForm.controls.itemsDebitNoteWiseArray.controls[
+                                index
+                              ].get('igstamt'),
+                              $event.target.id
+                            )
+                          " />
+                        </td>
+                        <td>
+                          <input
+                            class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                            type="text" name [id]="'cell' + index + '-13'" [formControlName]="'igstamt'" value="0"
+                            maxlength="12" oninput="this.value=this.value.replace(/[^0-9\.]/g,'');" />
+                        </td>
+                        <td>
+                          <input
+                            class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                            type="text" name [formControlName]="'ugstperc'" value="0" maxlength="5"
+                            [id]="'cell' + index + '-14'" oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                            (change)="
+                            calcGST(
+                              'UGST',
+                              contractDebitNoteEntryForm.controls.itemsDebitNoteWiseArray.controls[
+                                index
+                              ].get('ugstperc'),
+                              contractDebitNoteEntryForm.controls.itemsDebitNoteWiseArray.controls[
+                                index
+                              ].get('taxableamt')?.value,
+                              contractDebitNoteEntryForm.controls.itemsDebitNoteWiseArray.controls[
+                                index
+                              ].get('ugstamt'),
+                              $event.target.id
+                            )
+                          " />
+                        </td>
+                        <td>
+                          <input
+                            class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                            type="text" name maxlength="12" [id]="'cell' + index + '-15'" [formControlName]="'ugstamt'"
+                            value="0" oninput="this.value=this.value.replace(/[^0-9\.]/g,'');" />
+                        </td>
+
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner text-center bg-white br-10">
+      <div class="flex justify-content-between">
+        <button type="submit" class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          [disabled]="disableButtons[0]" [attr.accesskey]="loaderToggle ? '' : 'a'"
+          (click)="handleAddOrRetrieveClick(false)">
+          Add
+        </button>
+        <button [disabled]="disableButtons[1]" type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          [attr.accesskey]="loaderToggle ? '' : 'r'" (click)="handleAddOrRetrieveClick(true)">
+          Retrieve
+
+        </button>
+        <button [disabled]="disableButtons[2]" type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          [attr.accesskey]="loaderToggle ? '' : 's'" (click)="addContractDebitNote()">
+          Save
+        </button>
+        <button type="submit" [disabled]="disableButtons[3]"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1" accesskey="b"
+          (click)="handleBackClick()">
+          Back
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+<app-loader *ngIf="loaderToggle"></app-loader>

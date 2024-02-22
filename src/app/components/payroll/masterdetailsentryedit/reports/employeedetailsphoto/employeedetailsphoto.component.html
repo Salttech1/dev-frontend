@@ -1,0 +1,188 @@
+<section class="container">
+  <form [formGroup]="EmpDetPhoto">
+    <div class="d-flex justify-content-center">
+      <div class="col-lg-6">
+        <div class="row g-3">
+          <div
+            class="group_panel br-10 form_common_bg p-3 pt-3 position-relative"
+          >
+            <p class="bg-white font600 group_title mb-0 position-absolute"></p>
+            <div class="row g-2">
+              <div
+                class="input-group"
+                [class.is-invalid]="
+                  EmpDetPhoto.controls['TxtCompany'].invalid &&
+                  EmpDetPhoto.controls['TxtCompany'].touched
+                "
+              >
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Company</span
+                >
+                <input
+                  type="text"
+                  class="form-control border-start-0 post_input_field"
+                  formControlName="TxtCompany"
+                  [f1]="{ id: 'SALARYCOY' , multi: true}"
+                  id="TxtCompanyid"
+                />
+              </div>
+              <div
+                class="disInl me-2"
+                *ngIf="
+                  EmpDetPhoto.controls['TxtCompany'].invalid &&
+                  (EmpDetPhoto.controls['TxtCompany'].touched ||
+                    EmpDetPhoto.controls['TxtCompany'].dirty)
+                "
+              >
+                <div
+                  class="errorField common_color_txt font12 font500 disInl"
+                  *ngIf="EmpDetPhoto.controls['TxtCompany'].errors?.min || EmpDetPhoto.controls['TxtCompany'].errors?.['required']"
+                >
+                  Company Code is required
+                </div>
+              </div>
+              <div class="input-group">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Department</span
+                >
+                <input
+                  type="text"
+                  class="form-control border-start-0 post_input_field"
+                  formControlName="TxtDept"
+                  [f1]="{ id: 'DEPARTMENT' , multi: true}"
+                  id="TxtDept"
+                />
+              </div>
+              <div class="input-group">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Site</span
+                >
+                <input
+                  type="text"
+                  class="form-control border-start-0 post_input_field"
+                  formControlName="TxtSite"
+                  [f1]="{ id: 'SITESHELP' , multi: true}"
+                  id="TxtSite"
+                />
+              </div>
+              <div class="col-lg-6">
+                <div class="input-group">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Employee From</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0 post_input_field"
+                    formControlName="TxtEmpFrom"
+                    [f1]="{ id: 'EMPPERS' , multi: true}"
+                    id="EMPPERS"
+                  />
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="input-group">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Employee To</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0 post_input_field"
+                    formControlName="TxtEmpTo"
+                    [f1]="{ id: 'EMPPERS' , multi: true}"
+                    id="EMPPERS"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Radio Button -->
+          <div
+            class="group_panel br-10 form_common_bg p-3 pt-3 position-relative"
+          >
+            <p class="bg-white font600 group_title mb-0 position-absolute">
+              Sort On
+            </p>
+            <div class="input-group">
+              <div class="my-2">
+                <div class="form-check d-flex align-items-center">
+                  <input
+                    type="radio"
+                    class="form-check-input font12 font500 position-relative"
+                    id="RbSortOn1id"
+                    name="RbSortOn"
+                    value="Dept"
+                    formControlName="RbSortOn"
+                  />
+                  <label
+                    class="form-check-label first_letter_textdecorationone"
+                    for="xx"
+                    accesskey="h"
+                  >
+                    Department-wise
+                  </label>
+                </div>
+                <div class="form-check d-flex align-items-center">
+                  <input
+                    type="radio"
+                    class="form-check-input font12 font500 position-relative"
+                    id="RbSortOn2id"
+                    name="RbSortOn"
+                    value="Site"
+                    formControlName="RbSortOn"
+                  />
+                  <label
+                    class="form-check-label first_letter_textdecorationone"
+                    for="xx"
+                    accesskey="h"
+                  >
+                    Site-wise
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- End of Radio Button -->
+        </div>
+      </div>
+    </div>
+  </form>
+</section>
+<app-loader *ngIf="loaderToggle"></app-loader>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner text-center bg-white br-10 w-100">
+      <div class="flex justify-content-between">
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+          accesskey="w"
+          (click)="getReport(false)"
+        >
+          Do<span class="text-decoration-underline">w</span>nload
+        </button>
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white"
+          (click)="getReport(true)"
+          accesskey="p"
+        >
+          Print
+        </button>
+        <!-- <button type="submit" class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white" [disabled]="true" accesskey="p" >Preview</button> -->
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+          accesskey="x"
+          (click)="handleExitClick()"
+        >
+          E<span class="text-decoration-underline">x</span>it
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

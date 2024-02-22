@@ -1,0 +1,26 @@
+/* loader css */
+.loader_svg {
+    width: 40px;
+    height: 40px;
+    border: solid 4px transparent;
+    border-top-color: #E23335 !important;
+    border-left-color: #E23335 !important;
+    border-radius: 50%;
+}
+.loader_panel{
+    animation: loading-bar-spinner 400ms linear infinite;
+}
+.inner_loader{
+    top: 0;
+    z-index: 5;
+    opacity: .9;
+    left:0;
+    display:flex
+}
+.inner_loader.active{
+    display: flex;
+}
+@keyframes loading-bar-spinner {
+    0%   { transform: rotate(0deg);   transform: rotate(0deg); }
+    100% { transform: rotate(360deg); transform: rotate(360deg); }
+  }

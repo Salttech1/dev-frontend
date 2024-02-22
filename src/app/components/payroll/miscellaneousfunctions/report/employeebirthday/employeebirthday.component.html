@@ -1,0 +1,129 @@
+<section>
+  <div class="container">
+    <form [formGroup]="bithdayForm">
+      <div class="row g-2">
+        <div class="col-lg-4">
+          <div
+            class="input-group"
+            appDate1
+            class="input-group has-validation"
+            [class.is-invalid]="
+              bithdayForm.controls['birthdate'].invalid &&
+              (bithdayForm.controls['birthdate'].touched ||
+                bithdayForm.controls['birthdate'].dirty)
+            "
+          >
+            <span class="input-group-text leftform_lbl font500 font12"
+              ><span class="req_field common_color_txt fontBold font14">*</span
+              >Birthdate</span
+            >
+            <input
+              type="text"
+              class="form-control border-start-0 post_input_field font500 font12"
+              matInput
+              id="birthdate"
+              [matDatepicker]="birthdate"
+              formControlName="birthdate"
+              autocomplete="off"
+              (dateChange)="validateInvalidFormat($event, 'birthdate')"
+            />
+            <div
+              class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+            >
+              <span class="input-group-addon">
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="birthdate"
+                  tabindex="-1"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #birthdate tabindex="-1"></mat-datepicker>
+              </span>
+            </div>
+          </div>
+          <div
+          class="disInl me-2"
+          *ngIf="
+          bithdayForm.controls['birthdate'].invalid &&
+            (bithdayForm.controls['birthdate'].touched ||
+            bithdayForm.controls['birthdate'].dirty)
+          "
+        >
+          <div
+            class="errorField common_color_txt font12 font500 disInl"
+            *ngIf="bithdayForm.controls['birthdate'].errors?.min || bithdayForm.controls['birthdate'].errors?.['required']"
+          >
+            Date is required
+          </div>
+        </div>
+        </div>
+
+        <div class="mb-3 col-md-12 col-lg-8 col-xl-12 col-xxl-9">
+          <div class="input-group">
+            <span
+              class="input-group-text leftform_lbl bg-transparent border-0 font500 text-dark1 font12 ps-0 font600"
+              >Report Option</span
+            >
+            <div class="form-check d-flex align-items-center">
+              <input
+                type="radio"
+                class="form-check-input font12 font500 position-relative"
+                id="radio1"
+                name="reportOption"
+                value="Monthwise"
+                formControlName="reportOption"
+                (change)="optionSelect($event.target)"
+              />
+              <label class="form-check-label" for="radio1">Monthwise</label>
+            </div>
+            <div class="form-check d-flex align-items-center">
+              <input
+                type="radio"
+                class="form-check-input font12 font500 position-relative"
+                id="radio2"
+                name="reportOption"
+                value="Datewise"
+                formControlName="reportOption"
+                (change)="optionSelect($event.target)"
+              />
+              <label class="form-check-label" for="radio2">Datewise</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+<app-loader *ngIf="loaderToggle"></app-loader>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner text-center bg-white br-10 w-100">
+      <div class="flex justify-content-between">
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+          accesskey="w"
+          (click)="getReport(false)"
+        >
+          Do<span class="text-decoration-underline">w</span>nload
+        </button>
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white"
+          (click)="getReport(true)"
+          accesskey="p"
+        >
+          Print
+        </button>
+        <!-- <button type="submit" class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white" [disabled]="true" accesskey="p" >Preview</button> -->
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+          accesskey="x"
+          (click)="handleExitClick()"
+        >
+          E<span class="text-decoration-underline">x</span>it
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

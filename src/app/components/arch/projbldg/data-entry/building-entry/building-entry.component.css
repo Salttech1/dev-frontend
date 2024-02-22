@@ -1,0 +1,232 @@
+.input-group-text {
+  border-radius: 9px 0px 0px 9px;
+}
+
+.input-group input {
+  text-transform: uppercase;
+}
+
+.input-group-text.req > b {
+  color: red;
+}
+
+.disInl {
+  display: inline-block;
+}
+
+.is-invalid,
+.is-invalid > .input-group-text,
+.is-invalid > .form-control,
+.is-invalid > app-f1 {
+  border-color: red;
+}
+
+.form-control {
+  border-radius: 0.6rem;
+}
+
+.font7
+{
+  font-size: 7px;
+}
+
+
+
+/* tab structure */
+.tabs_container .nav-item .nav-link {
+  padding: 5px 10px;
+  opacity: 0.6;
+  background: #fdfdfd !important;
+}
+.tabs_container .nav-tabs .nav-link:hover {
+  border-color: transparent;
+}
+.tabs_container .nav-link.active {
+  border-radius: 10px 10px 0px 0px;
+  border-color: #d9dce0 !important;
+  border-bottom-color: transparent !important;
+  font-weight: 600 !important;
+  opacity: 1 !important;
+}
+.tabs_container .tab-content {
+  border: 1px solid #d9dce0;
+  border-top: unset;
+  background: rgba(251, 251, 251, 0.4);
+  border-radius: 0px 10px 10px 10px;
+  padding: 10px 20px;
+  /* padding: 30px 45px; */
+}
+
+.table_height {
+  width: 1173px;
+  overflow-x: auto;
+  /* table-layout: fixed; */
+  /* overflow: scroll; */
+}
+
+.table-responsive {
+  height: 450px;
+}
+
+.padding_for_flatDetailsTabOnly {
+  padding-right: 0px;
+  padding-left: 0px;
+}
+.heading_border_color {
+  border: 1px solid black;
+}
+.heading_border2_color {
+  border: 1px solid black;
+}
+.table_header_parent_sticky {
+  position: relative;
+}
+.table_head_position_sticky {
+  position: sticky;
+  z-index: 1;
+  top: 0;
+  opacity: 1;
+  overflow-y: auto;
+  background-color: #e9ecef;
+  color: black;
+  text-align: center;
+}
+.font500 {
+  font-weight: 500pt;
+}
+
+.divModeandWidthForAggregateData{
+  display: inline-block; 
+  width: 7.8%;
+  padding: 4px 20px;
+    background: #f7f7fa;
+}
+
+.divModeandWidthForEmptyDivAtBeggining{
+  display:inline-block;width:23.5%;padding: 4px 20px;
+  background: white;
+}
+
+.divModeandWidthForEmptyDivAtEnd1{
+  display: inline-block; width: 14.1%;padding: 4px 20px;
+  background: white;
+}
+
+.divModeandWidthForEmptyDivAtEnd2{
+  display: inline-block; width:14.1%;padding: 4px 20px;
+  background: white;
+}
+
+
+.divModeandWidthForTotalLabel{
+  display: inline-block; width: 15.6%;padding: 4px 20px;
+  background: #f7f7fa;
+}
+
+.borderForAggregateAndLabelDivs{
+  border: 1px solid #ced4da;
+}
+
+.setcontent
+{
+display: inline-block;
+}
+
+.setWidth{
+  min-width: 200px;
+}
+
+.flatnumDivtag{
+  display: none;
+}
+.accomDivtag{
+  display: none;
+}
+.flatnumDivtagForRequiredValidation{
+  display: none;
+}
+/*Start for owning company --> following three classes are used for owning company*/ 
+.labelsizeforf1coy
+{
+  width:31%;
+}
+
+.inputsizeforf1coy
+{
+  width:6%;
+}
+
+.descriptionforf1coy
+{
+  width:63%;
+}
+/*End for owning company*/ 
+/* Start for opt 2 coy --> for opt 2 engineerng and opt 2 sales company following three classes are used*/
+.labelsizeforf1opt2coy
+{
+  width:30%;
+}
+
+.inputsizeforf1opt2coy
+{
+  width:7%;
+}
+
+.descriptionforf1opt2coy
+{
+  width:63%;
+}
+/* End for opt2 coy*/
+/* Start for Maintainance coy --> for Maintainance company following three classes are used*/
+.labelsizeforf1Maintcoy
+{
+  width:28%;
+}
+
+.inputsizeforf1Maintcoy
+{
+  width:9%;
+}
+
+.descriptionforf1Maint2coy
+{
+  width:63%;
+}
+/* End for Maintainance coy*/
+/* Start for city in tab 1.(Account Sensitive Building Details) --> for Maintainance company following three classes are used*/
+.labelsizeforf1City
+{
+  width:20%;
+}
+
+.inputsizeforf1City
+{
+  width:18%;
+}
+
+.descriptionforf1City
+{
+  width:63%;
+}
+/* End for city in tab1(Account Sensitive Building Details)*/
+/* Start for brokerage coy in tab 1.(Account Sensitive Building Details) --> for Maintainance company following three classes are used*/
+.labelsizeforf1Intbrokeragecoy
+{
+  width:28%;
+}
+
+.inputsizeforf1Intbrokeragecoy
+{
+  width:12%;
+}
+
+.descriptionforf1Intbrokeragecoy
+{
+  width:61%;
+}
+/* End for brokerage coy in tab1(Account Sensitive Building Details)*/
+
+
+.post_input_field2 {
+  border-radius: 0px 0px 0px 0px;
+}

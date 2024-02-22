@@ -1,0 +1,333 @@
+<section>
+  <div class="container">
+    <div class="col-md-12">
+      <form [formGroup]="vehSelectionsForm">
+        <div class="row mb-2 g-3">
+          <div class="col-md-6">
+            <div
+              class="input-group has-validation"
+              [class.is-invalid]="
+                vehSelectionsForm.controls['equipid'].invalid &&
+                (vehSelectionsForm.controls['equipid'].touched ||
+                  vehSelectionsForm.controls['equipid'].dirty)
+              "
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                ><span class="req_field common_color_txt fontBold font14"
+                  >*</span
+                >Vehicle No.:</span
+              >
+              <input
+                type="text"
+                formControlName="equipid"
+                id="equipid"
+                class="form-control w-50 border-start-0 post_input_field font500 font12"
+                appCommonAutoFocus
+                [f1]="{ id: 'VEHNUM', subId: vehcondition }"
+              />
+              
+            </div>
+            <div
+              class="disInl me-2"
+              *ngIf="
+                vehSelectionsForm.controls['equipid'].invalid &&
+                (vehSelectionsForm.controls['equipid'].touched ||
+                  vehSelectionsForm.controls['equipid'].dirty)
+              "
+            >
+              <div
+                class="errorField common_color_txt font12 font500 disInl"
+                *ngIf="vehSelectionsForm.controls['equipid'].errors && vehSelectionsForm.controls['equipid'].errors?.['required']"
+              >
+                Vehicle Code is required
+              </div>
+              <div
+                class="errorField common_color_txt font12 font500"
+                *ngIf="vehSelectionsForm.controls['equipid'].errors?.['maxlength']?.actualLength"
+              >
+                Max 15 Character allowed. Current is
+                {{vehSelectionsForm.controls['equipid'].errors?.['maxlength']?.actualLength}}
+                characters.
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="text-danger">
+              Note:Only Certificates whose banking is not done are displayed
+            </div>
+          </div>
+        </div>
+      </form>
+      <!-- Grid Start -->
+      <div *ngIf="isDataRecieved">
+        <form [formGroup]="vehCancelForm">
+          <div class="admexphDetailsSection">
+            <div class="table-responsive">
+              <div class="view" formArrayName="admexphDetailsBreakUp">
+                <div class="wrapper">
+                  <table
+                    class="table table-bordered datatable table w-100 mb-0 admExpTbl"
+                    style="width: 100%; margin-top: 40px"
+                    datatable
+                    dt-instance="dtInstance"
+                  >
+                    <thead class="table_head_position_sticky">
+                      <tr tabindex="-1">
+                        <th class="fontBold font12 text-dark1">Tick</th>
+                        <th class="fontBold font12 text-dark1">Certificate#</th>
+                        <th class="fontBold font12 text-dark1">Vehicle Type</th>
+                        <th class="fontBold font12 text-dark1">Company</th>
+                        <th class="fontBold font12 text-dark1">Proprietor</th>
+                        <th class="fontBold font12 text-dark1">Party Code</th>
+                        <th class="fontBold font12 text-dark1">Allotted To</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        *ngFor="let item of vehCancelForm.controls?.['admexphDetailsBreakUp'].controls;let index = index"
+                        [formGroupName]="index"
+                      >
+                        <!-- Tick start   -->
+                        <td class="text-center">
+                          <input
+                            class="form-check-input position-relative"
+                            type="radio"
+                            name="radio"
+                            id="radioid_{{ index }}"
+                            [checked]="index === 0"
+                            (change)="triggerFormCheck(index, $event)"
+                            [class.eventnone]="eventnone"
+                            (keyup.Enter)="
+                              onEnterTriggerFormCheck(index, $event)
+                            "
+                          />
+                        </td>
+                        <!-- Tick end   -->
+                        <!-- Certnum start   -->
+                        <td class="text-center">
+                          <input
+                            class="text-end border-0 form-control input_control form-control font500 text-dark1 font12 itemDesc_input"
+                            type="text"
+                            value="0"
+                            formControlName="certnum"
+                            [readonly]="!editable"
+                            tabindex="-1"
+                          />
+                        </td>
+                        <!-- Certnum end   -->
+                        <!-- Vehnum start   -->
+                        <td class="text-center">
+                          <input
+                            class="text-end border-0 form-control input_control form-control font500 text-dark1 font12 itemDesc_input"
+                            type="text"
+                            value="0"
+                            formControlName="vehtype"
+                            [readonly]="!editable"
+                            tabindex="-1"
+                          />
+                        </td>
+                        <!-- Vehnum end   -->
+                        <!-- Company start   -->
+                        <td class="text-center">
+                          <input
+                            class="text-end border-0 form-control input_control form-control font500 text-dark1 font12 itemDesc_input"
+                            type="text"
+                            value="0"
+                            formControlName="coy"
+                            [readonly]="!editable"
+                            tabindex="-1"
+                          />
+                        </td>
+                        <!-- company end   -->
+                        <!-- prop start   -->
+                        <td class="text-center">
+                          <input
+                            class="text-end border-0 form-control input_control form-control font500 text-dark1 font12 itemDesc_input"
+                            type="text"
+                            value="0"
+                            formControlName="prop"
+                            [readonly]="!editable"
+                            tabindex="-1"
+                          />
+                        </td>
+                        <!-- prop end   -->
+                        <!-- partycode start   -->
+                        <td class="text-center">
+                          <input
+                            class="text-end border-0 form-control input_control form-control font500 text-dark1 font12 itemDesc_input"
+                            type="text"
+                            value="0"
+                            formControlName="partycode"
+                            [readonly]="!editable"
+                            tabindex="-1"
+                          />
+                        </td>
+                        <!-- partycode end   -->
+                        <!-- allotted to start   -->
+                        <td class="text-center">
+                          <input
+                            class="text-end border-0 form-control input_control form-control font500 text-dark1 font12 itemDesc_input"
+                            type="text"
+                            value="0"
+                            formControlName="allottedto"
+                            [readonly]="!editable"
+                            tabindex="-1"
+                          />
+                        </td>
+                        <!-- allotted to end   -->
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+        <div class="admexpdDetailsSection">
+          <div class="table-responsive">
+            <div class="view">
+              <div class="wrapper">
+                <table
+                  class="table table-bordered datatable table w-100 mb-0 admExpTbl"
+                  style="width: 100%; margin-top: 40px"
+                  datatable
+                  dt-instance="dtInstance"
+                >
+                  <thead class="table_head_position_sticky">
+                    <tr tabindex="-1">
+                      <th class="fontBold font12 text-dark1">Workcode</th>
+                      <th class="fontBold font12 text-dark1">Bill Reference</th>
+                      <th class="fontBold font12 text-dark1">Bill Date</th>
+                      <th class="fontBold font12 text-dark1">BillAmount</th>
+                      <th class="fontBold font12 text-dark1">Duration From</th>
+                      <th class="fontBold font12 text-dark1">Duration Upto</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- *ngFor="let item of vehCancelForm.controls?.['admexpdDetailsBreakUp'].controls;let index = index"
+                          [formGroupName]="index" -->
+                    <tr *ngFor="let item of detailRow; let index = index">
+                      <!-- ADMD_WORKCODE -- Start  -->
+                      <td>
+                        <input
+                          class="border-0 form-control input_control form-control font500 text-dark1 font12"
+                          type="text"
+                          [(ngModel)]="item.workcode"
+                          [readonly]="!editable"
+                          tabindex="-1"
+                        />
+                      </td>
+                      <!-- ADMD_WORKCODE -- End   -->
+                      <!-- BILLREF -- Start  -->
+                      <td>
+                        <input
+                          class="border-0 form-control input_control form-control font500 text-dark1 font12"
+                          type="text"
+                          [(ngModel)]="item.billref"
+                          [readonly]="!editable"
+                          tabindex="-1"
+                        />
+                      </td>
+                      <!-- BILLREF -- End   -->
+                      <!-- BILLDATE -- Start  -->
+                      <td>
+                        <input
+                          class="border-0 form-control input_control form-control font500 text-dark1 font12"
+                          type="text"
+                          [(ngModel)]="item.billdate"
+                          [readonly]="!editable"
+                          tabindex="-1"
+                        />
+                      </td>
+                      <!-- BILLDATE -- End   -->
+                      <!-- BILLAMT -- Start  -->
+                      <td>
+                        <input
+                          class="border-0 form-control input_control form-control font500 text-dark1 font12"
+                          type="text"
+                          [(ngModel)]="item.billamount"
+                          [readonly]="!editable"
+                          tabindex="-1"
+                        />
+                      </td>
+                      <!-- BILLAMT -- End   -->
+                      <!-- DURATIONFROM -- Start  -->
+                      <td>
+                        <input
+                          class="border-0 form-control input_control form-control font500 text-dark1 font12"
+                          type="text"
+                          [(ngModel)]="item.durationFrom"
+                          [readonly]="!editable"
+                          tabindex="-1"
+                        />
+                      </td>
+                      <!-- DURATIONFROM -- End   -->
+                      <!-- DURATIONUPTO -- Start  -->
+                      <td>
+                        <input
+                          class="border-0 form-control input_control form-control font500 text-dark1 font12"
+                          type="text"
+                          [(ngModel)]="item.durationUpto"
+                          [readonly]="!editable"
+                          tabindex="-1"
+                        />
+                      </td>
+                      <!-- DURATIONUPTO -- End   -->
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+<app-loader *ngIf="loaderToggle"></app-loader>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner text-center bg-white br-10">
+      <div class="flex justify-content-between">
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="r"
+          (click)="retrieve()"
+          [disabled]="initialMode"
+        >
+          Retrieve
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="u"
+          (click)="handleUpdateClick()"
+          [disabled]="!initialMode"
+        >
+          Update
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone"
+          accesskey="t"
+          (click)="reset()"
+          [disabled]="!initialMode"
+        >
+          Rese<span class="text-decoration-underline">t</span>
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone"
+          accesskey="x"
+          [disabled]="initialMode"
+          (click)="handleExitClick()"
+        >
+          E<span class="text-decoration-underline">x</span>it
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

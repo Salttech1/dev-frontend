@@ -1,0 +1,156 @@
+<section class="container">
+  <div class="col-md-6">
+    <form [formGroup]="policySummaryReport" #formDirective="ngForm">
+      <div class="row mb-3">
+        <div class="col-sm-12">
+          <div formGroupName="reportParameters">
+            <div class="row">
+              <div class="col-md-6 mb-2">
+                <div
+                  class="input-group has-validation"
+                  [class.is-invalid]="
+                    policySummaryReport.controls['reportParameters'].controls[
+                      'txtPolicyStatus'
+                    ].invalid &&
+                    (policySummaryReport.controls['reportParameters'].controls[
+                      'txtPolicyStatus'
+                    ].touched ||
+                      policySummaryReport.controls['reportParameters'].controls[
+                        'txtPolicyStatus'
+                      ].dirty)
+                  "
+                >
+                  <span class="input-group-text leftform_lbl font500 text-dark1"
+                    ><b class="text-danger">*</b>
+                    Policy Status
+                  </span>
+                  <input
+                    type="text"
+                    class="form-control border-start-0"
+                    formControlName="txtPolicyStatus"
+                    autofocus
+                    [f1]="{ id: 'POLICYSTATUS', multi: true }"
+                  />
+                  <div
+                    class="invalid-feedback d-block"
+                    *ngIf="
+                      policySummaryReport.controls['reportParameters'].controls[
+                        'txtPolicyStatus'
+                      ].invalid &&
+                      (policySummaryReport.controls['reportParameters']
+                        .controls['txtPolicyStatus'].touched ||
+                        policySummaryReport.controls['reportParameters']
+                          .controls['txtPolicyStatus'].dirty)
+                    "
+                  >
+                    <div
+                      *ngIf="policySummaryReport.controls['reportParameters'].controls['txtPolicyStatus'].errors?.['required']"
+                    >
+                      Policy Status is required
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6 mb-2">
+                <div class="input-group mb-2">
+                  <div
+                    class="input-group tbl_datepicker custom_picker border border-light"
+                    appDate1
+                    [class.is-invalid]="
+                      policySummaryReport.controls['reportParameters'].controls[
+                        'txtMaturityDate'
+                      ].invalid &&
+                      policySummaryReport.controls['reportParameters'].controls[
+                        'txtMaturityDate'
+                      ].touched
+                    "
+                  >
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1"
+                      ><b class="text-danger">*</b>
+                      Date
+                    </span>
+                    <input
+                      class="form-control input_control border-0 form-control pre_input_field font500 text-dark1 font12"
+                      id=""
+                      matInput
+                      [matDatepicker]="pickerMaturutyDate"
+                      formControlName="txtMaturityDate"
+                    />
+                    <div
+                      class="datepicker_input_cutsom_icon border-0 input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                    >
+                      <span class="input-group-addon">
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="pickerMaturutyDate"
+                          tabindex="-1"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #pickerMaturutyDate></mat-datepicker>
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="invalid-feedback d-block"
+                    *ngIf="
+                      policySummaryReport.controls['reportParameters'].controls[
+                        'txtMaturityDate'
+                      ].invalid &&
+                      policySummaryReport.controls['reportParameters'].controls[
+                        'txtMaturityDate'
+                      ].touched
+                    "
+                  >
+                    <div
+                      *ngIf="
+                        premScheduleFormArr.controls[index].get(
+                          'txtMaturityDate'
+                        )?.errors['required']
+                      "
+                    >
+                      Date is required/wrong
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+<app-loader *ngIf="loaderToggle"></app-loader>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner text-center bg-white br-10 w-100">
+      <div class="flex justify-content-between">
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+          accesskey="w"
+          (click)="getReport(false)"
+        >
+          Do<span class="text-decoration-underline">w</span>nload
+        </button>
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white"
+          (click)="getReport(true)"
+          accesskey="p"
+        >
+          Print
+        </button>
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+          accesskey="x"
+          (click)="handleExitClick()"
+        >
+          E<span class="text-decoration-underline">x</span>it
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

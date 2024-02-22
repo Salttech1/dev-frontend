@@ -1,0 +1,71 @@
+table.datatable tbody td {
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
+    vertical-align: middle;
+ }
+ 
+ table.datatable.table-bordered tr th {
+    vertical-align: middle;
+    line-height: 5px;
+    border-bottom: 2px solid #120e0e !important;
+ }
+ 
+ .table_head_position_sticky {
+    position: sticky;
+    top: 0;
+    opacity: 1;
+    overflow-y: auto;
+    background-color: #e9ecef;
+    color: black;
+    z-index: 1;
+    text-align: center;
+ }
+ 
+ .table-bordered>:not(caption)>*>* {
+    border-width: 0 1px;
+    border-bottom: 1px solid #ccc !important;
+ }
+.eventnone{
+    pointer-events: none;
+}
+.input_control {
+   line-height: 16px;
+   padding: 1px;
+}
+.chq_dt_width{
+   width: 17%;
+}
+.bank_wid{
+   width:25rem
+}
+mat-icon.done{
+   width: auto;
+   height: auto;
+   font-size: 13px;
+   line-height: 13px;
+   padding: 0 1px;
+}
+.ok_btn{
+   padding: 2px 0;
+   vertical-align: middle;
+   box-shadow: 2px 3px #eee;
+    border-radius: 2px;
+}
+.action_btn img {
+   width: 11px;
+   height: 13px;
+}
+.action_btn{
+   padding: 2px 2px;
+   line-height: 0;
+}
+.errorField {
+   line-height: 15px;
+   letter-spacing: 0.2px;
+}
+.chq_dt_wid{
+   min-width:7rem
+}
+.b_wid{
+   min-width:9rem
+}

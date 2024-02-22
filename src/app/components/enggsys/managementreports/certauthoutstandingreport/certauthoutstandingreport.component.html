@@ -1,0 +1,178 @@
+<section>
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-6">
+      <form [formGroup]="certAuthOutstandingForm">
+        <div class="row g-2">
+          <div class="col-md-12">
+            <div class="br-10 group_panel p-3 position-relative">
+              <p class="bg-white font600 group_title mb-0 position-absolute">
+                <ng-container> Report option </ng-container>
+              </p>
+              <div class="form-check">
+                <input
+                  class="form-check-input position-relative"
+                  type="radio"
+                  id="billRadioDefault1"
+                  value="cert"
+                  formControlName="reportOption"
+                />
+                <label class="form-check-label" for="billRadioDefault1">
+                  Certificate
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input position-relative"
+                  type="radio"
+                  id="billRadio2"
+                  value="auth"
+                  formControlName="reportOption"
+                />
+                <label class="form-check-label" for="billRadio2">
+                  Authorisation
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <div class="br-10 group_panel p-3 position-relative">
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input position-relative"
+                  type="radio"
+                  id="flexRadioDefault3"
+                  value="summ"
+                  formControlName="reportOption2"
+                />
+                <label class="form-check-label" for="flexRadioDefault3">
+                  Summary
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input position-relative"
+                  type="radio"
+                  id="flexRadioDefault4"
+                  value="detail"
+                  formControlName="reportOption2"
+                />
+                <label class="form-check-label" for="flexRadioDefault4">
+                  Detail
+                </label>
+              </div>
+            </div>
+          </div>
+          <!-- building code and name -->
+          <div
+            class="input-group has-validation mt-4"
+            [class.is-invalid]="
+                      (certAuthOutstandingForm.get('bldgcodes')?.hasError('required') &&
+                       certAuthOutstandingForm.controls['bldgcodes'].touched)|| certAuthOutstandingForm.controls?.['bldgcodes'].errors?.['notFound'] 
+                     "
+          >
+            <span
+              class="input-group-text leftform_lbl font500 text-dark1 font12"
+            >
+              <b><span class="text-danger">*</span></b
+              >Building
+            </span>
+            <input
+              appCommonAutoFocus
+              type="text"
+              formControlName="bldgcodes"
+              class="form-control border-start-0 post_input_field font500 font12"
+              upperCase
+              [f1]="{
+                id: 'BUILDINGS',
+                formData: certAuthOutstandingForm.get('blgdName')
+              }"
+              (focusout)="onLeaveBuildingCode($event.target.value)"
+            />
+            <span class="position-relative span_divider"></span>
+            <input
+              type="text"
+              class="form-control w-50 border-start-0 post_input_field font500 text-dark1 font12"
+              [formControlName]="'blgdName'"
+              tabindex="-1"
+            />
+          </div>
+          <div
+            class="errorField common_color_txt font12 font500 disInl"
+            *ngIf="certAuthOutstandingForm.controls?.['bldgcodes'].errors?.['notFound'] "
+          >
+            Invalid Building Code.
+          </div>
+        </div>
+        <!-- From Date & To Date -->
+        <div class="row g-2">
+          <div class="col-md-6">
+            <div class="input-group mt-4" appDate1>
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >From Date</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control border-start-0 post_input_field font500 font12"
+                [autocomplete]="'off'"
+                matInput
+                [matDatepicker]="futureCollFrmDt"
+                formControlName="frmDate"
+              />
+              <div
+                class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+              >
+                <span class="input-group-addon">
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="futureCollFrmDt"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #futureCollFrmDt></mat-datepicker>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="input-group mt-4" appDate1>
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >To Date</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control border-start-0 post_input_field font500 font12"
+                [autocomplete]="'off'"
+                matInput
+                [matDatepicker]="futureCollToDt"
+                formControlName="toDate"
+              />
+              <div
+                class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+              >
+                <span class="input-group-addon">
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="futureCollToDt"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #futureCollToDt></mat-datepicker>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<app-buttons
+  [buttonsList]="buttonsList"
+  (eventTrigger)="buttonAction($event)"
+></app-buttons>
+
+<app-loader *ngIf="config.isLoading"></app-loader>

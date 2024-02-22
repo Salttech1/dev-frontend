@@ -1,0 +1,508 @@
+<section>
+    <div class="reports_detail_container">
+        <form [formGroup]="depositReportsForm">
+            <div
+                class="row"
+                formGroupName="reportParameters"
+            >
+                <div class="mb-2 col-md-10 col-lg-6 col-xl-6 col-xxl-6">
+                            <div class="input-group" [class.is-invalid]="
+                            depositReportsForm.controls['reportParameters'].controls['txtCompanyCd'].invalid &&
+                            depositReportsForm.controls['reportParameters'].controls['txtCompanyCd'].touched">
+                                <span class="input-group-text leftform_lbl font500 text-dark1 font12">Company</span>
+                                <app-f1
+                                    [formControlName]="'txtCompanyCd'"
+                                    placeholder
+                                    class="form-control post_input_field border-start-0 border-end-0 d-flex"
+                                    titleValue="{{tableData?.mainheader}}"
+                                    [tableData]="tableData?.dataSet"
+                                    [colHeader]="columnHeader"
+                                    [inputBBC]="bringBackColumn"
+                                    (updatedSelectedValue)="updateCompanyList($event)"
+                                    [dynaPopId]="'COMPANY'"
+                                    [queryConditon]=coy_condition
+                                    id="companyCode"
+                                    [errorMessage]="'Invalid Company Code'"
+                                    (change)="updateOnChangeCompanyList($event)"
+                                ></app-f1>
+                                <span class="position-relative span_divider"></span>
+                                <input
+                                type="text"
+                                class="form-control  w-50 border-start-0 post_input_field font500 text-dark1 font12 disabled_cls"
+                                formControlName="companyName"
+                                readonly tabindex="-1"
+                            >
+                            </div>
+                            <div *ngIf="depositReportsForm.controls['reportParameters'].controls['txtCompanyCd'].invalid && depositReportsForm.controls['reportParameters'].controls['txtCompanyCd'].touched">
+                                <div
+                                    class="errorField common_color_txt font12 font500"
+                                    *ngIf="depositReportsForm.controls['reportParameters'].controls['txtCompanyCd'].errors && depositReportsForm.controls['reportParameters'].controls['txtCompanyCd'].errors?.['required']"
+                                >
+                                    * Company Code is required
+                                </div>
+                            </div>
+                </div>
+                <div class="mb-2 col-md-7 col-lg-6 col-xl-6 col-xxl-6">
+                    <div
+                        class="input-group flex-nowrap"
+                        [class.is-invalid]="
+                      (depositReportsForm.get('range')?.controls['reportFromDate']
+                        ?.invalid &&
+                        depositReportsForm.get('range')?.controls['reportFromDate']
+                          ?.touched) ||
+                      (depositReportsForm.get('range')?.controls['reportToDate']
+                        ?.invalid &&
+                        depositReportsForm.get('range')?.controls['reportToDate']
+                          ?.touched)
+                    "
+                    >
+                        <span class="input-group-text leftform_lbl font500 text-dark1">Date Range</span>
+                        <div
+                            class="bg-white datepicker_field post_input_field"
+                            [class.is-invalid]="
+                        (depositReportsForm.get('range')?.controls['reportFromDate']
+                          ?.invalid &&
+                          depositReportsForm.get('range')?.controls['reportFromDate']
+                            ?.touched) ||
+                            (depositReportsForm.get('range')?.controls['reportToDate']
+                          ?.invalid &&
+                          depositReportsForm.get('range')?.controls['reportToDate']
+                            ?.touched)
+                      "
+                        >
+                            <span class="input-group-addon">
+                                <div
+                                    mat-form-field
+                                    appearance="fill"
+                                    class="matForm"
+                                >
+                                    <mat-date-range-input
+                                        [formGroup]="
+                              this.depositReportsForm.controls['range']
+                            "
+                                        [rangePicker]="picker"
+                                    >
+                                        <input
+                                            matStartDate
+                                            formControlName="reportFromDate"
+                                            placeholder="From date"  class="font500 text-dark1 font12"
+                                            id="fromDateField" 
+                                        />
+                                        <input
+                                            matEndDate
+                                            formControlName="reportToDate"
+                                            placeholder="To date" class="font500 text-dark1 font12"
+                                            id="toDateField" 
+                                        >
+                                    </mat-date-range-input>
+                                    <mat-datepicker-toggle
+                                        matSuffix
+                                        [for]="picker" tabindex="-1"
+                                    ></mat-datepicker-toggle>
+                                    <mat-date-range-picker #picker></mat-date-range-picker>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+                    <div *ngIf="
+                depositReportsForm.controls['range'].invalid &&
+                depositReportsForm.controls['range'].touched
+                ">
+                        <div
+                  class="invalid-feedback d-block mt-0"
+                  *ngIf="
+                  (depositReportsForm.get('range')?.controls['reportFromDate']
+                      ?.invalid &&
+                      depositReportsForm.get('range')?.controls['reportFromDate']
+                        ?.touched) ||
+                        (depositReportsForm.get('range')?.controls['reportToDate']
+                      ?.invalid &&
+                      depositReportsForm.get('range')?.controls['reportToDate']
+                        ?.touched)
+                  "
+                >
+                 * Proper Date is required
+                </div>
+                    </div>
+                    <!-- <div class="row">
+                        <div class="mb-3 col-md-5 col-lg-4 col-xl-3 col-xxl-3">
+                            <div class>
+                                <div class>
+                                    <div class="input-group">
+                                        <span class="input-group-text leftform_lbl font500 text-dark1 font12">From</span>
+                                      
+                                        <input
+                                            class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                                            id="formDateField"
+                                            formControlName="reportFromDate"
+                                            matInput
+                                            [matDatepicker]="pickerFrom"
+                                            name
+                                            ng-change="changeEvent($event)"
+                                        >
+                                        <div class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0">
+                                            <span class="input-group-addon">
+                                                <mat-datepicker-toggle
+                                                    matSuffix
+                                                    [for]="pickerFrom"
+                                                    tabindex="-1"
+                                                ></mat-datepicker-toggle>
+                                                <mat-datepicker #pickerFrom></mat-datepicker>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="depositReportsForm.controls['reportParameters'].controls['reportFromDate'].invalid && depositReportsForm.controls['reportParameters'].controls['reportFromDate'].touched">
+                                        <div
+                                            class="errorField common_color_txt font12 font500"
+                                            *ngIf="depositReportsForm.controls['reportParameters'].controls['reportFromDate'].errors && depositReportsForm.controls['reportParameters'].controls['reportFromDate'].errors?.['required']"
+                                        >
+                                            * From Date is required
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 col-md-5 col-lg-4 col-xl-3 col-xxl-3">
+                            <div class>
+                                <div class>
+                                    <div class="input-group">
+                                        <span class="input-group-text leftform_lbl font500 text-dark1 font12">To</span>
+                                        <input
+                                            type="text"
+                                            class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                                            id="toDateField"
+                                            matInput
+                                            [matDatepicker]="pickerTo"
+                                            formControlName="reportToDate"
+                                            name
+                                        >
+                                        <div class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0">
+                                            <span class="input-group-addon">
+                                                <mat-datepicker-toggle
+                                                    matSuffix
+                                                    [for]="pickerTo"
+                                                    tabindex="-1"
+                                                ></mat-datepicker-toggle>
+                                                <mat-datepicker #pickerTo></mat-datepicker>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="depositReportsForm.controls['reportParameters'].controls['reportToDate'].invalid && depositReportsForm.controls['reportParameters'].controls['reportToDate'].touched">
+                                        <div
+                                            class="errorField common_color_txt font12 font500"
+                                            *ngIf="depositReportsForm.controls['reportParameters'].controls['reportToDate'].errors && depositReportsForm.controls['reportParameters'].controls['reportToDate'].errors?.['required']"
+                                        >
+                                            * To Date is required
+                                        </div>
+                                        <div
+                                        *ngIf="depositReportsForm.controls['reportParameters'].controls['reportToDate'].errors?.['ifscInValid']"
+                                        class="errorField common_color_txt font12 font500"
+                                    >
+                                       Invalid To Date
+                                    </div>
+                                    </div>
+                                  
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+                <div class="col-xxl-12">
+                    <label class="form-label formlbl font600 text-dark1 pb-1 mb-0 font12">Report Option</label>
+                    <div class="row d-block-formcheck">
+                        <div class="mb-3 col-md-12 col-lg-6 col-xl-6 col-xxl-6">
+                            <div class="input-group">
+                               <div class="form-check d-flex align-items-center">
+                                    <input
+                                        type="radio"
+                                        class="form-check-input font12 font500 position-relative"
+                                        id="freshDepositId"
+                                        name="reportOption"
+                                        value="freshDeposit"
+                                        formControlName="reportOption"
+                                    >
+                                    <label
+                                        class="form-check-label first_letter_textdecorationone"
+                                        for="freshDepositId"
+                                        accesskey="h"
+                                    >
+                                        Fres<span class="text-decoration-underline">h</span> Deposit
+                                    </label>
+                                </div>
+                                <div class="form-check d-flex align-items-center">
+                                    <input
+                                        type="radio"
+                                        class="form-check-input font12 font500  position-relative"
+                                        id="renewedDepositId"
+                                        name="reportOption"
+                                        value="renewedDeposit"
+                                        formControlName="reportOption"
+                                    >
+                                    <label
+                                        class="form-check-label first_letter_underline"
+                                        for="renewedDepositId"
+                                        accesskey="r"
+                                    >
+                                        Renewed Deposit
+                                    </label>
+                                </div>
+                                <div class="form-check d-flex align-items-center">
+                                    <input
+                                        type="radio"
+                                        class="form-check-input font12 font500  position-relative"
+                                        id="activeDepositId"
+                                        name="reportOption"
+                                        value="activeDeposit"
+                                        formControlName="reportOption"
+                                    >
+                                    <label
+                                        class="form-check-label first_letter_underline"
+                                        for="activeDepositId"
+                                        accesskey="a"
+                                    >
+                                        Active Deposit
+                                    </label>
+                                </div>
+                                <div class="form-check d-flex align-items-center">
+                                    <input
+                                        type="radio"
+                                        class="form-check-input font12 font500  position-relative"
+                                        id="activeDepositPeriodWiseId"
+                                        name="reportOption"
+                                        value="activeDepositPeriodWise"
+                                        formControlName="reportOption"
+                                    >
+                                    <label
+                                        class="form-check-label"
+                                        for="activeDepositPeriodWiseId"
+                                        accesskey="c"
+                                    >
+                                        A<span class="text-decoration-underline">c</span>tive Deposit(PeriodWise)
+                                    </label>
+                                </div>
+                                <div class="form-check d-flex align-items-center">
+                                    <input
+                                        type="radio"
+                                        class="form-check-input font12 font500  position-relative"
+                                        id="activeDepositIntRateWiseId"
+                                        name="reportOption"
+                                        value="activeDepositIntRateWise"
+                                        formControlName="reportOption"
+                                    >
+                                    <label
+                                        class="form-check-label"
+                                        for="activeDepositIntRateWiseId"
+                                        accesskey="i"
+                                    >
+                                        Active Deposit(<span class="text-decoration-underline">I</span>nt Rate Wise)
+                                    </label>
+                                </div>
+                                <div class="form-check d-flex align-items-center">
+                                    <input
+                                        type="radio"
+                                        class="form-check-input font12 font500  position-relative"
+                                        id="rapidActualId"
+                                        name="reportOption"
+                                        value="rapidActual"
+                                        formControlName="reportOption"
+                                    >
+                                    <label
+                                        class="form-check-label"
+                                        for="rapidActualId"
+                                        accesskey="u"
+                                    >
+                                        Repaid-Act<span class="text-decoration-underline">u</span>al
+                                    </label>
+                                </div>
+                                <div class="form-check d-flex align-items-center">
+                                    <input
+                                        type="radio"
+                                        class="form-check-input font12 font500  position-relative"
+                                        id="rapidRenewalId"
+                                        name="reportOption"
+                                        value="rapidRenewal"
+                                        formControlName="reportOption"
+                                    >
+                                    <label
+                                        class="form-check-label"
+                                        for="rapidRenewalId"
+                                        accesskey="l"
+                                    >
+                                        Repaid-Renewa<span class="text-decoration-underline">l</span>
+                                    </label>
+                                </div>
+                                <div class="form-check d-flex align-items-center">
+                                    <input
+                                        type="radio"
+                                        class="form-check-input font12 font500  position-relative"
+                                        id="maturityDepositId"
+                                        name="reportOption"
+                                        value="maturityDeposit"
+                                        formControlName="reportOption"
+                                    >
+                                    <label
+                                        class="form-check-label first_letter_underline"
+                                        for="maturityDepositId"
+                                        accesskey="m"
+                                    >
+                                        Maturity Deposit
+                                    </label>
+                                </div>
+                                <div class="form-check d-flex align-items-center">
+                                    <input
+                                        type="radio"
+                                        class="form-check-input font12 font500  position-relative"
+                                        id="activeDepositNonStaffId"
+                                        name="reportOption"
+                                        value="activeDepositNonStaff"
+                                        formControlName="reportOption"
+                                    >
+                                    <label
+                                        class="form-check-label"
+                                        for="activeDepositNonStaffId"
+                                        accesskey="n"
+                                    >
+                                        Active Deposit (<span class="text-decoration-underline">N</span>on Staff)
+                                    </label>
+                                </div>
+                                <div class="form-check d-flex align-items-center">
+                                    <input
+                                        type="radio"
+                                        class="form-check-input font12 font500  position-relative"
+                                        id="activeDepositStaffId"
+                                        name="reportOption"
+                                        value="activeDepositStaff"
+                                        formControlName="reportOption"
+                                    >
+                                    <label
+                                        class="form-check-label"
+                                        for="activeDepositStaffId"
+                                        accesskey="s"
+                                    >
+                                        Active Deposit (<span class="text-decoration-underline">S</span>taff)
+                                    </label>
+                                </div>
+                                <div class="form-check d-flex align-items-center">
+                                    <input
+                                        type="radio"
+                                        class="form-check-input font12 font500  position-relative"
+                                        id="maturityDepositNonStaffId"
+                                        name="reportOption"
+                                        value="maturityDepositNonStaff"
+                                        formControlName="reportOption"
+                                    >
+                                    <label
+                                        class="form-check-label"
+                                        for="maturityDepositNonStaffId"
+                                        accesskey="o"
+                                    >
+                                        Maturity Deposit (N<span class="text-decoration-underline">o</span>n Staff)
+                                    </label>
+                                </div>
+                                <div class="form-check d-flex align-items-center">
+                                    <input
+                                        type="radio"
+                                        class="form-check-input font12 font500  position-relative"
+                                        id="maturityDepositStaffId"
+                                        name="reportOption"
+                                        value="maturityDepositStaff"
+                                        formControlName="reportOption"
+                                    >
+                                    <label
+                                        class="form-check-label"
+                                        for="maturityDepositStaffId"
+                                        accesskey="y"
+                                    >
+                                        Maturit<span class="text-decoration-underline">y</span> Deposit (Staff)
+                                    </label>
+                                </div>
+                            </div>
+                            <div *ngIf="depositReportsForm.controls['reportParameters'].controls['reportOption'].invalid && depositReportsForm.controls['reportParameters'].controls['reportOption'].touched">
+                                <div
+                                    class="errorField common_color_txt font12 font500"
+                                    *ngIf="depositReportsForm.controls['reportParameters'].controls['reportOption'].errors && depositReportsForm.controls['reportParameters'].controls['reportOption'].errors?.['required']"
+                                >
+                                    * report option is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div  class="col-md-12 col-sm-12 col-xl-12 col-xxl-12 pt-3">
+                <p class="bg-white font600 group_title mb-1">
+                  Export Type
+                </p>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input position-relative"
+                    type="radio"
+                    name="exportType"
+                    id="exTy1"
+                    value="PDF"
+                    formControlName="exportType"
+                  />
+                  <label class="form-check-label" for="exTy1">
+                    PDF
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input position-relative"
+                    type="radio"
+                    name="exportType"
+                    id="exTy2"
+                    value="EXCEL_REPORT_DATA_FORMAT"
+                    formControlName="exportType"
+                  />
+                  <label class="form-check-label" for="exTy2">
+                      Excel (Report - Data Format)
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input position-relative"
+                    type="radio"
+                    name="exportType"
+                    id="exTy3"
+                    value="EXCEL_TEMPLATE_FORMAT"
+                    formControlName="exportType"
+                  />
+                  <label class="form-check-label" for="exTy3">
+                      Excel (Template Format)
+      
+                  </label>
+                </div>
+              </div>
+        </form>
+    </div>
+</section>
+<app-loader *ngIf="loaderToggle"></app-loader>
+<section class="action_section position-fixed w-100">
+    <div class="container">
+        <div class="action_conatiner text-center bg-white br-10">
+            <div class="flex justify-content-between">
+                <button
+                    type="submit"
+                    class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white exportcls first_letter_textdecorationone"
+                    (click)="getReport(false)"
+                    accesskey="w"
+                >Do<span class="text-decoration-underline">w</span>nload</button>
+                <button
+                    type="submit"
+                    class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white exportcls"
+                    (click)="getReport(true)"
+                    accesskey="p"
+                >Print
+                </button>
+                <button
+                    type="submit"
+                    class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone"
+                    accesskey="x"
+                    (click)="handleExit()"
+                >E<span class="text-decoration-underline">x</span>it</button>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,147 @@
+
+.logo_container {
+  max-width: 642px;
+  margin: 0 auto;
+  width: 100%;
+}
+.login_container_a {
+  padding: 0px 0 50px 0;
+}
+.mb-15 {
+  margin-bottom: 15px;
+}
+
+#userid::placeholder {
+  text-transform: capitalize;
+}
+.loginfrm-input {
+  padding: 15px 0;
+  padding-left: 70px;
+  border: none;
+  border-bottom: 1px solid #acacac;
+  border-radius: 10px 10px 0px 0px;
+  background: #fcfcfc;
+  font-size: 16px;
+  line-height: 17px;
+}
+.input_container_first {
+  margin-bottom: 30px;
+}
+.input_container:last-child {
+  margin-bottom: 40px;
+}
+.forget_pwd {
+  padding-top: 25px;
+}
+.login-btn {
+  padding: 15px 0;
+  background: #e23335;
+  line-height: 16px;
+  border-radius: 5px;
+}
+.erp_title {
+  font-weight: bold;
+  font-size: 25px;
+}
+.erp_sub_title {
+  color: #777777;
+}
+/* .user-bg{background: url(../images/user.svg)#FCFCFC  no-repeat 19px 19px;}
+.pwd-bg{background: url(../images/lock.svg)#FCFCFC  no-repeat 19px 19px;} */
+.fon18 {
+  font-size: 18px;
+}
+.forget_pwd {
+  font-weight: 500;
+  line-height: 23px;
+  text-align: center;
+  color: #777777;
+}
+.click-me-text {
+  color: #e23335;
+}
+.forgetPwd_text {
+  padding-right: 6px;
+  line-height: 23px;
+}
+.login_form_container {
+  padding-top: 40px;
+  margin: 0 auto;
+  width: 100%;
+}
+.logo_cls {
+  width: 181px;
+}
+.icon_span {
+  top: 10px;
+  width: 58px;
+  height: calc(100% - 20px);
+  border-right: 0.5px solid #acacac;
+}
+
+.pwd_show {
+  top: 15px;
+  right: 15px;
+}
+
+input::-ms-reveal,
+input::-ms-clear {
+  display: none;
+}
+/* responsive */
+@media only screen and (min-width: 768px) {
+  .login_form_container {
+    padding-top: 70px;
+    width: 65%;
+  }
+  .input_container_first {
+    margin-bottom: 45px;
+  }
+  .input_container:last-child {
+    margin-bottom: 60px;
+  }
+  .loginfrm-input {
+    line-height: 23px;
+  }
+  .login-btn {
+    line-height: 31px;
+    border-radius: 10px;
+  }
+}
+@media only screen and (min-width: 992px) {
+  .login_left {
+    display: block;
+    background-size: contain;
+  }
+  .logo_cls {
+    width: 250px;
+  }
+  .login_form_container {
+    padding-top: 70px;
+    width: 65%;
+  }
+  .input_container_first {
+    margin-bottom: 45px;
+  }
+  .input_container:last-child {
+    margin-bottom: 60px;
+  }
+  .loginfrm-input {
+    line-height: 23px;
+  }
+  .login-btn {
+    line-height: 31px;
+    border-radius: 10px;
+  }
+}
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  .login_left {
+    background-size: cover;
+  }
+}
+@media only screen and (orientation: landscape) {
+  .login_form_container {
+    width: 65%;
+  }
+}

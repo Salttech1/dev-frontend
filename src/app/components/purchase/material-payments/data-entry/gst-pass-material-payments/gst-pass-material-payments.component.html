@@ -1,0 +1,315 @@
+<section>
+  <div
+    class="payment_details br-10 bg-white p-3 px-2 mt-3 position-relative header_border"
+  >
+    <p
+      class="fs-6 mb-0 position-absolute bg-white font600 lh-24 font12 group_title"
+    >
+      Unpassed Authorization Details
+    </p>
+    <div *ngIf="addChqContainer">
+      <form [formGroup]="gstPassMaterialFormGroup">
+        <div class="table-responsive">
+          <div class="view">
+            <div class="wrapper mb-4">
+              <table class="table table-bordered datatable table w-100 mb-0">
+                <thead class="table_head_position_sticky">
+                  <tr tabindex="0">
+                    <th class="fontBold font12 text-dark1 text-start">
+                      Company
+                    </th>
+                    <th class="fontBold font12 text-dark1 text-start">
+                      Party Code
+                    </th>
+                    <th class="fontBold font12 text-dark1 text-start">
+                      Auth Num
+                    </th>
+                    <th class="fontBold font12 text-dark1 text-start bank_wid">
+                      Bank
+                    </th>
+                    <th
+                      class="fontBold font12 text-dark1 max_wid_120 text-start chq_dt_width"
+                    >
+                      Cheque Date
+                    </th>
+                    <th class="fontBold font12 text-dark1 max_wid_120">
+                      Cheque#
+                    </th>
+                    <th class="fontBold font12 text-dark1 max_wid_150">
+                      Amount
+                    </th>
+                    <th class="fontBold font12 text-dark1">Out Stn</th>
+                    <th class="fontBold font12 text-dark1">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    *ngFor="let i of addChqTblArr"
+                    class="font12 txt_black font500"
+                  >
+                    <td>{{ i.coy }}</td>
+                    <td>{{ i.partycode }}</td>
+                    <td>{{ i.authnum }}</td>
+                    <td>
+                      <div
+                        class="input-group b_wid"
+                        [class.is-invalid]="
+                          gstPassMaterialFormGroup.controls['bank'].invalid &&
+                          gstPassMaterialFormGroup.controls['bank'].touched
+                        "
+                      >
+                        <input
+                          type="text"
+                          class="form-control input_control border-0 form-control pre_input_field font500 text-dark1 font12 font500"
+                          formControlName="bank"
+                          appCommonAutoFocus
+                        />
+                      </div>
+                      <div
+                        *ngIf="
+                          gstPassMaterialFormGroup.controls['bank'].invalid &&
+                          gstPassMaterialFormGroup.controls['bank'].touched
+                        "
+                      >
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="gstPassMaterialFormGroup.controls['bank'].errors && gstPassMaterialFormGroup.controls['bank'].errors?.['required']"
+                        >
+                          Bank required
+                        </div>
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="gstPassMaterialFormGroup.controls['bank'].errors?.['maxlength'] "
+                        >
+                          Bank. should be 51 Character. Current is
+                          {{ gstPassMaterialFormGroup.controls['bank'].errors?.['maxlength']?.actualLength }}
+                          characters.
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div
+                        [class.is-invalid]="
+                          gstPassMaterialFormGroup.controls['chequeDate']
+                            .invalid &&
+                          gstPassMaterialFormGroup.controls['chequeDate']
+                            .touched
+                        "
+                        class="input-group tbl_datepicker custom_picker border border-light input_control font500 chq_dt_wid"
+                        appDate1
+                      >
+                        <input
+                          class="form-control input_control border-0 form-control pre_input_field font500 text-dark1 font12 input_control font500"
+                          matInput
+                          [matDatepicker]="picker"
+                          formControlName="chequeDate"
+                        />
+                        <div
+                          class="datepicker_input_cutsom_icon border-0 input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                        >
+                          <span class="input-group-addon">
+                            <mat-datepicker-toggle
+                              matSuffix
+                              [for]="picker"
+                              tabindex="-1"
+                            ></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                          </span>
+                        </div>
+                      </div>
+                      <div
+                        *ngIf="
+                          gstPassMaterialFormGroup.controls['chequeDate']
+                            .invalid &&
+                          gstPassMaterialFormGroup.controls['chequeDate']
+                            .touched
+                        "
+                      >
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="gstPassMaterialFormGroup.controls['chequeDate'].errors && gstPassMaterialFormGroup.controls['chequeDate'].errors?.['required']"
+                        >
+                          Date required
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div
+                        class="input-group b_wid"
+                        [class.is-invalid]="
+                          gstPassMaterialFormGroup.controls['chqNo'].invalid &&
+                          gstPassMaterialFormGroup.controls['chqNo'].touched
+                        "
+                      >
+                        <input
+                          type="text"
+                          class="form-control input_control border-0 form-control pre_input_field font500 text-dark1 font12 input_control font500"
+                          formControlName="chqNo"
+                        />
+                      </div>
+                      <div
+                        *ngIf="
+                          gstPassMaterialFormGroup.controls['chqNo'].invalid &&
+                          gstPassMaterialFormGroup.controls['chqNo'].touched
+                        "
+                      >
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="gstPassMaterialFormGroup.controls['chqNo'].errors && gstPassMaterialFormGroup.controls['chqNo'].errors?.['required']"
+                        >
+                          cheque# required
+                        </div>
+                      </div>
+                    </td>
+                    <td>{{ i.amount }}</td>
+                    <td>
+                      <select
+                        class="form-select form-control font12 input_control font500"
+                        formControlName="outstat"
+                      >
+                        <option class="font12">N</option>
+                        <option class="font12">Y</option>
+                      </select>
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        class="ok_btn text-white bg-success border-0 me-2"
+                        title="Done"
+                        (click)="chequeAdded()"
+                      >
+                        <mat-icon class="d-block done">done</mat-icon>
+                      </button>
+                      <button
+                        type="button"
+                        class="ok_btn text-white bg_common_red border-0 action_btn"
+                        title="Delete"
+                        (click)="delete()"
+                      >
+                        <img src="assets/images/trash.svg" alt="remove" />
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div id="unpassedAuthDetail">
+      <div class="table-responsive">
+        <table class="table table-bordered datatable w-100 mb-0">
+          <thead class="table_head_position_sticky">
+            <tr tabindex="0">
+              <th class="fontBold font12 text-dark1">Building</th>
+              <th class="fontBold font12 text-dark1">P/T</th>
+              <th class="fontBold font12 text-dark1 text-start">Party Name</th>
+              <th class="fontBold font12 text-dark1">Company</th>
+              <th class="fontBold font12 text-dark1 max_wid_120">Auth #</th>
+              <th class="fontBold font12 text-dark1 max_wid_120">Trans Sr#</th>
+              <th class="fontBold font12 text-dark1 max_wid_150">A/T</th>
+              <th class="fontBold font12 text-dark1">Auth Date</th>
+              <th class="fontBold font12 text-dark1 max_wid_150">Pay Amt</th>
+              <th class="fontBold font12 text-dark1">Tick</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              class="font12 font500 text-center"
+              *ngFor="let i of unpassedAuthorisationArray; let index = index"
+            >
+              <td>{{ i.bldgcode }}</td>
+              <td>{{ i.partytype }}</td>
+              <td class="text-start">{{ i.partyname }}</td>
+              <td>{{ i.prop }}</td>
+              <td>{{ i.authnum }}</td>
+              <td>
+                <input
+                  type="text"
+                  class="text-center font12 font500 p-0 form-control br-9 d-flex text-start border-0 bg-transparent"
+                  [(ngModel)]="i.transer"
+                  readonly
+                  tabindex="-1"
+                />
+              </td>
+              <td>{{ i.authtype }}</td>
+              <td>{{ i.authdate }}</td>
+              <td class="font-monospace font14 text-end">{{ i.payamount }}</td>
+              <td class="text-center">
+                <input
+                  class="form-check-input activetbl-chk-input"
+                  type="checkbox"
+                  [(ngModel)]="i.tick"
+                  (change)="triggerFormCheck(index, $event)"
+                  [class.eventnone]="eventnone"
+                  id="tick{{ index }}"
+                  (keyup.Enter)="onEnterTriggerFormCheck(index, $event)"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+<app-loader *ngIf="loader"></app-loader>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner bg-white br-10 d-flex justify-content-center">
+      <button
+        type="submit"
+        class="bg_common_red common_action_btn br-10 text-white border-0"
+        [attr.accesskey]="loader ? '' : 'r'"
+        (click)="retrieve()"
+        [disabled]="btnArray[0]"
+      >
+        Retrieve
+      </button>
+      <button
+        type="submit"
+        class="bg_common_red common_action_btn br-10 text-white border-0"
+        accesskey="a"
+        (click)="addCheque()"
+        [disabled]="btnArray[1]"
+      >
+        Add Cheque
+      </button>
+      <button
+        type="submit"
+        class="bg_common_red common_action_btn br-10 text-white border-0"
+        accesskey="c"
+        (click)="confirm($event)"
+        [disabled]="btnArray[2]"
+      >
+        Confirm
+      </button>
+      <button
+        type="submit"
+        class="bg_common_red common_action_btn br-10 text-white border-0"
+        [attr.accesskey]="loader ? '' : 's'"
+        (click)="save()"
+        [disabled]="btnArray[4]"
+      >
+        Save
+      </button>
+      <button
+        type="submit"
+        class="bg_common_red common_action_btn br-10 text-white border-0"
+        accesskey="b"
+        (click)="back()"
+        [disabled]="btnArray[3]"
+      >
+        Back
+      </button>
+      <a
+        class="bg_common_red border-0 common_action_btn text-white br-10 first_letter_textdecorationone text-decoration-none"
+        accesskey="x"
+        routerLink="/dashboard"
+      >
+        E<u>x</u>it
+      </a>
+    </div>
+  </div>
+</section>

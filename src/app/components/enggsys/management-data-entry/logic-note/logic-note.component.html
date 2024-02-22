@@ -1,0 +1,820 @@
+<!-- <p>logic-note works!</p> -->
+<section>
+  <div class="row">
+    <div class="col-md-12">
+      <form [formGroup]="logicNoteForm">
+        <!-- Row -> 1st -->
+        <div class="row g-2">
+          <div class="col-md-2">
+            <div
+              class="input-group"
+              [class.is-invalid]="(logicNoteForm.get('project')?.hasError('required') && logicNoteForm.get('project')?.touched) || logicNoteForm.get('project')?.errors?.['notFound']"
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                ><b class="text-danger">*</b>Project</span
+              >
+              <input
+                type="text"
+                name=""
+                id="logicNote_project"
+                upperCase
+                formControlName="project"
+                class="form-control border-start-0 post_input_field font500 font12"
+                [f1]="{ id: 'MATCERTLNPROJECTCODE', isSingleValue: true }"
+              />
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="(logicNoteForm.get('project')?.touched && logicNoteForm.get('project')?.invalid) && !logicNoteForm.get('project')?.errors?.['notFound']"
+            >
+              Project code is required.
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="logicNoteForm.get('project')?.errors?.['notFound']"
+            >
+              Project code is not valid.
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="input-group">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >RAC No.</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                upperCase
+                formControlName="racno"
+                class="form-control border-start-0 post_input_field font500 font12"
+                [f1]="{
+                  id: 'MATCERTLOGICNOTE',
+                  formData: logicNoteForm.get('')
+                }"
+              />
+              <span class="position-relative span_divider"></span>
+              <input
+                type="text"
+                name=""
+                id=""
+                formControlName="racnoDesc"
+                class="form-control border-start-0 post_input_field font500 font12"
+              />
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div
+              class="input-group"
+              [class.is-invalid]="(logicNoteForm.get('tenderCode')?.hasError('required') && logicNoteForm.get('tenderCode')?.touched) || logicNoteForm.get('tenderCode')?.errors?.['notFound']"
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                ><b class="text-danger">*</b>Tender Code</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                upperCase
+                formControlName="tenderCode"
+                class="form-control border-start-0 post_input_field font500 font12"
+                [f1]="{ id: 'MATCERTTENDERNO', isSingleValue: true }"
+              />
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="(logicNoteForm.get('tenderCode')?.touched && logicNoteForm.get('tenderCode')?.invalid) && !logicNoteForm.get('tenderCode')?.errors?.['notFound']"
+            >
+              Tender code is required.
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="logicNoteForm.get('tenderCode')?.errors?.['notFound']"
+            >
+              Tender code is not valid.
+            </div>
+          </div>
+          <div class="col-md-1">
+            <div class="form-check d-flex align-items-center">
+              <input
+                type="checkbox"
+                class="form-check-input font12 font500 position-relative cursor-pointer customeSize"
+                formControlName="yn"
+              />
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="input-group">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >CopyLogicNote</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                formControlName="copyLogicNote"
+                class="form-control border-start-0 post_input_field font500 font12"
+                [f1]="{ id: 'MATCERTLOGICNOTE', isSingleValue: true }"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 2 to 6 -->
+        <div
+          class="group_panel br-10 p-2 position-relative form_common_bg mt-4"
+        >
+          <!-- Row -> 2nd -->
+          <div class="row g-2">
+            <div class="col-md-2">
+              <div class="input-group" appDate1>
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Date</span
+                >
+                <input
+                  type="text"
+                  name=""
+                  id=""
+                  [autocomplete]="'off'"
+                  formControlName="date"
+                  class="form-control border-start-0 post_input_field font500 font12"
+                  matInput
+                  [matDatepicker]="logicNotedate"
+                />
+                <div
+                  class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                >
+                  <span class="input-group-addon">
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="logicNotedate"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #logicNotedate></mat-datepicker>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="input-group">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Revision</span
+                >
+                <input
+                  type="text"
+                  name=""
+                  id=""
+                  formControlName="revision"
+                  class="form-control border-start-0 post_input_field font500 font12"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-group">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Short Sub Task</span
+                >
+                <input
+                  type="text"
+                  name=""
+                  id=""
+                  formControlName="task"
+                  class="form-control border-start-0 post_input_field font500 font12"
+                />
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="input-group">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Location</span
+                >
+                <input
+                  type="text"
+                  name=""
+                  id=""
+                  formControlName="location"
+                  class="form-control border-start-0 post_input_field font500 font12"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Row -> 3rd -->
+          <div class="row g-2 mt-1">
+            <div class="col-md-8">
+              <div class="input-group">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Package Name</span
+                >
+                <input
+                  type="text"
+                  name=""
+                  id=""
+                  formControlName="packageName"
+                  class="form-control border-start-0 post_input_field font500 font12"
+                />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="input-group">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Import Under</span
+                >
+                <input
+                  type="text"
+                  name=""
+                  id=""
+                  formControlName="importUnder"
+                  class="form-control border-start-0 post_input_field font500 font12"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Row -> 4th -->
+          <div
+            class="table-responsive group_panel default-table-height stylishScroll mt-2 p-2"
+          >
+            <div class="row g-2">
+              <div class="col-md-12">
+                <div class="input-group">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Scope of work</span
+                  >
+                  <textarea
+                    name=""
+                    id=""
+                    class="form-control border-start-0 post_input_field font500 font12"
+                    formControlName="scopeOfWork"
+                  ></textarea>
+                </div>
+                <div class="input-group mt-1">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Commercial Description1</span
+                  >
+                  <textarea
+                    name=""
+                    id=""
+                    class="form-control border-start-0 post_input_field font500 font12"
+                    formControlName="commercialDesc1"
+                  ></textarea>
+                </div>
+                <div class="input-group mt-1">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Commercial Description2</span
+                  >
+                  <textarea
+                    name=""
+                    id=""
+                    class="form-control border-start-0 post_input_field font500 font12"
+                    formControlName="commercialDesc2"
+                  ></textarea>
+                </div>
+                <div class="input-group mt-1">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Final Consideration</span
+                  >
+                  <textarea
+                    name=""
+                    id=""
+                    class="form-control border-start-0 post_input_field font500 font12"
+                    formControlName="finalConsideration"
+                  ></textarea>
+                </div>
+                <div class="input-group mt-1">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Technical Description</span
+                  >
+                  <textarea
+                    name=""
+                    id=""
+                    class="form-control border-start-0 post_input_field font500 font12"
+                    formControlName="techDesc"
+                  ></textarea>
+                </div>
+                <div class="input-group mt-1">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Recommendation with justification</span
+                  >
+                  <textarea
+                    name=""
+                    id=""
+                    class="form-control border-start-0 post_input_field font500 font12"
+                    formControlName="justification"
+                  ></textarea>
+                </div>
+                <div class="input-group mt-1">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Delivery Schedule</span
+                  >
+                  <textarea
+                    name=""
+                    id=""
+                    class="form-control border-start-0 post_input_field font500 font12"
+                    formControlName="deliverySchedule"
+                  ></textarea>
+                </div>
+                <div class="input-group mt-1">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Warranty Information</span
+                  >
+                  <textarea
+                    name=""
+                    id=""
+                    class="form-control border-start-0 post_input_field font500 font12"
+                    formControlName="warrantyInfo"
+                  ></textarea>
+                </div>
+                <div class="input-group mt-1">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Resource Allocation</span
+                  >
+                  <textarea
+                    name=""
+                    id=""
+                    class="form-control border-start-0 post_input_field font500 font12"
+                    formControlName="resourceAllocation"
+                  ></textarea>
+                </div>
+                <div class="input-group mt-1">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Tendor Narrative</span
+                  >
+                  <textarea
+                    name=""
+                    id=""
+                    class="form-control border-start-0 post_input_field font500 font12"
+                    formControlName="tendorNarrative"
+                  ></textarea>
+                </div>
+                <div class="input-group mt-1">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Inportant Specification</span
+                  >
+                  <textarea
+                    name=""
+                    id=""
+                    class="form-control border-start-0 post_input_field font500 font12"
+                    formControlName="impSpecification"
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row -> 5th -->
+          <div class="row g-2 mt-2">
+            <div class="col-md-3">
+              <div class="input-group">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Group RAC</span
+                >
+                <input
+                  type="text"
+                  name=""
+                  id=""
+                  class="form-control border-start-0 post_input_field font500 font12"
+                />
+              </div>
+              <div class="input-group mt-1">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Company</span
+                >
+                <input
+                  type="text"
+                  name=""
+                  id=""
+                  class="form-control border-start-0 post_input_field font500 font12"
+                />
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div
+                class="group_panel br-10 p-2 position-relative form_common_bg"
+              >
+                <div class="col-md-12" formArrayName="addLogicNoteList">
+                  <div
+                    class="table-responsive group_panel form_common_bg stylishScroll custom-height"
+                  >
+                    <table class="table table-bordered table-sm mb-0">
+                      <thead>
+                        <tr>
+                          <th class="fontBold font12 fonttxt_black">
+                            Cert Type
+                          </th>
+                          <th class="fontBold font12 fonttxt_black">
+                            Cert Code
+                          </th>
+                          <th class="fontBold font12 fonttxt_black">
+                            Sub Group
+                          </th>
+                          <th class="fontBold font12 fonttxt_black">
+                            Group Code
+                          </th>
+                          <th class="fontBold font12 fonttxt_black">Amount</th>
+                          <th class="fontBold font12 fonttxt_black">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr
+                          *ngFor="
+                            let item of logicNoteForm?.controls[
+                              'addLogicNoteList'
+                            ].controls;
+                            let index = index
+                          "
+                          [formGroupName]="index"
+                        >
+                          <td>
+                            <div class="input-group">
+                              <input
+                                type="text"
+                                name=""
+                                id=""
+                                formControlName="certType"
+                                class="form-control input_control font500 fonttxt_black font12"
+                                [f1]="{
+                                  id: 'MATCERTTYPE',
+                                  isSingleValue: true
+                                }"
+                              />
+                            </div>
+                          </td>
+                          <td>
+                            <div class="input-group">
+                              <input
+                                type="text"
+                                name=""
+                                id=""
+                                formControlName="certCode"
+                                class="form-control input_control font500 fonttxt_black font12"
+                                [f1]="{
+                                  id: 'MATCERTLNCODE',
+                                  isSingleValue: true
+                                }"
+                              />
+                            </div>
+                          </td>
+                          <td>
+                            <div class="input-group">
+                              <input
+                                type="text"
+                                name=""
+                                id=""
+                                formControlName="subGroup"
+                                class="form-control input_control font500 fonttxt_black font12"
+                              />
+                            </div>
+                          </td>
+                          <td>
+                            <div class="input-group">
+                              <input
+                                type="text"
+                                name=""
+                                id=""
+                                formControlName="groupCode"
+                                class="form-control input_control font500 fonttxt_black font12"
+                              />
+                            </div>
+                          </td>
+                          <td>
+                            <div class="input-group">
+                              <input
+                                type="text"
+                                name=""
+                                id=""
+                                formControlName="amt"
+                                class="form-control input_control font500 fonttxt_black font12"
+                              />
+                            </div>
+                          </td>
+                          <td>
+                            <div
+                              class="action_panel d-flex justify-content-center"
+                            >
+                              <button
+                                type="button"
+                                class="btn action_btn d-flex bg_common_red mt-1"
+                                (click)="logicNoteAdd()"
+                              >
+                                <img
+                                  src="/assets/images/add.svg"
+                                  alt="add"
+                                  class="add_img"
+                                />
+                              </button>
+                              <!-- <button
+                                  type="button"
+                                  class="btn action_btn d-flex bg_common_red ms-1 mt-1"
+                                  (click)="deleteParty(index)"
+                                >
+                                  <img
+                                    src="/assets/images/trash.svg"
+                                    alt="remove"
+                                    class="delete_img"
+                                  />
+                                </button> -->
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="col-md-12">
+                <div
+                  class="group_panel br-10 p-2 position-relative form_common_bg"
+                >
+                  <div
+                    class="table-responsive group_panel form_common_bg stylishScroll custom-height"
+                  >
+                    <table class="table table-bordered table-sm mb-0">
+                      <thead>
+                        <tr>
+                          <th class="fontBold font12 fonttxt_black">Code</th>
+                          <th class="fontBold font12 fonttxt_black">
+                            Commitee Name
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <div class="input-group">
+                              <input
+                                type="text"
+                                name=""
+                                id=""
+                                formControlName="code"
+                                class="form-control input_control font500 fonttxt_black font12"
+                                [f1]="{
+                                  id: 'MATCERTLNCOMMITTEE',
+                                  isSingleValue: true,
+                                  formData: logicNoteForm.get('commiteeName')
+                                }"
+                              />
+                            </div>
+                          </td>
+                          <td>
+                            <div class="input-group">
+                              <input
+                                type="text"
+                                name=""
+                                id=""
+                                formControlName="commiteeName"
+                                class="form-control input_control font500 fonttxt_black font12"
+                              />
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row -> 6rd -->
+          <div
+            class="table-responsive group_panel default-table-height stylishScroll mt-2 p-2"
+          >
+            <table class="table table-bordered table-sm">
+              <thead class="table_head_position_sticky">
+                <tr>
+                  <th class="fontBold font12 fonttxt_black">Party Type</th>
+                  <th class="fontBold font12 fonttxt_black">Party Code</th>
+                  <th class="fontBold font12 fonttxt_black">Vendor Name</th>
+                  <th class="fontBold font12 fonttxt_black">Brand</th>
+                  <th class="fontBold font12 fonttxt_black">Yes / No</th>
+                  <th class="fontBold font12 fonttxt_black">
+                    Group Logic Note
+                  </th>
+                  <th class="fontBold font12 fonttxt_black">Curr. Type</th>
+                  <th class="fontBold font12 fonttxt_black">Curr. Rate</th>
+                  <th class="fontBold font12 fonttxt_black">Curr. Amt</th>
+                  <th class="fontBold font12 fonttxt_black">Quote Date</th>
+                  <th class="fontBold font12 fonttxt_black">Order Date</th>
+                  <th class="fontBold font12 fonttxt_black">Delivery Date</th>
+                  <th class="fontBold font12 fonttxt_black">Delivery Weeks</th>
+                  <th class="fontBold font12 fonttxt_black">Address</th>
+                  <th class="fontBold font12 fonttxt_black">Work Code Amt</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        name=""
+                        id=""
+                        class="form-control input_control font500 fonttxt_black font12"
+                        formControlName="partyType"
+                        [f1]="{
+                          id: 'PARTTYPE',
+                          isSingleValue: true,
+                          subId: config.getFilterParty
+                        }"
+                        (onfocusout)="onLeavePartyType($event.target.value)"
+                      />
+                    </div>
+                  </td>
+                  <td>
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        name=""
+                        id=""
+                        class="form-control input_control font500 fonttxt_black font12"
+                        formControlName="partyCode"
+                        [f1]="{ id: 'PARTYCODE', isSingleValue: true }"
+                      />
+                    </div>
+                  </td>
+                  <td>
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        name=""
+                        id=""
+                        class="form-control input_control font500 fonttxt_black font12"
+                        formControlName="vendorName"
+                      />
+                    </div>
+                  </td>
+                  <td>
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        name=""
+                        id=""
+                        class="form-control input_control font500 fonttxt_black font12"
+                        formControlName="brand"
+                      />
+                    </div>
+                  </td>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <input
+                        type="checkbox"
+                        class="form-check-input font12 font500 position-relative cursor-pointer customeSize1"
+                        formControlName="yesNo"
+                      />
+                    </div>
+                  </td>
+                  <td>
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        name=""
+                        id=""
+                        class="form-control input_control font500 fonttxt_black font12"
+                        formControlName="grpLogicNote"
+                        [f1]="{ id: 'MATCERTGROUPLN', isSingleValue: true }"
+                      />
+                    </div>
+                  </td>
+                  <td>
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        name=""
+                        id=""
+                        class="form-control input_control font500 fonttxt_black font12"
+                        formControlName="currType"
+                        [f1]="{ id: 'LCCURRENCY', isSingleValue: true }"
+                      />
+                    </div>
+                  </td>
+                  <td>
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        name=""
+                        id=""
+                        class="form-control input_control font500 fonttxt_black font12"
+                        formControlName="currRate"
+                      />
+                    </div>
+                  </td>
+                  <td>
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        name=""
+                        id=""
+                        class="form-control input_control font500 fonttxt_black font12"
+                        formControlName="currAmt"
+                      />
+                    </div>
+                  </td>
+                  <td>
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        name=""
+                        id=""
+                        class="form-control input_control font500 fonttxt_black font12"
+                        formControlName="quoteDate"
+                      />
+                    </div>
+                  </td>
+                  <td>
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        name=""
+                        id=""
+                        class="form-control input_control font500 fonttxt_black font12"
+                        formControlName="orderDate"
+                      />
+                    </div>
+                  </td>
+                  <td>
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        name=""
+                        id=""
+                        class="form-control input_control font500 fonttxt_black font12"
+                        formControlName="deliveryDate"
+                      />
+                    </div>
+                  </td>
+                  <td>
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        name=""
+                        id=""
+                        class="form-control input_control font500 fonttxt_black font12"
+                        formControlName="deliveryWeek"
+                      />
+                    </div>
+                  </td>
+                  <td>
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        name=""
+                        id=""
+                        class="form-control input_control font500 fonttxt_black font12"
+                        formControlName="address"
+                      />
+                    </div>
+                  </td>
+                  <td>
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        name=""
+                        id=""
+                        class="form-control input_control font500 fonttxt_black font12"
+                        formControlName="workCodeAmt"
+                      />
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Bottom button start -->
+<app-buttons
+  [buttonsList]="buttonsList"
+  (eventTrigger)="buttonAction($event)"
+></app-buttons>
+<!-- Bottom button end -->

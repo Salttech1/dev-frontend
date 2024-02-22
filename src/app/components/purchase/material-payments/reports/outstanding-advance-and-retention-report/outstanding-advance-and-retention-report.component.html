@@ -1,0 +1,358 @@
+<section>
+  <div class="row">
+    <div class="col-md-12">
+      <form [formGroup]="queryForm">
+        <div class="row g-3">
+          <div class="col-md-4">
+            <div class="row g-3">
+              <div class="col-md-12">
+                <div class="br-10 group_panel p-3 position-relative">
+                  <p
+                    class="bg-white font600 group_title mb-0 position-absolute"
+                  >
+                    Report
+                  </p>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input position-relative"
+                      type="radio"
+                      name="name"
+                      id="advacedOut"
+                      value="advancedOut"
+                      formControlName="name"
+                    />
+                    <label class="form-check-label" for="advacedOut">
+                      Advanced Outstanding
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input position-relative"
+                      type="radio"
+                      name="name"
+                      id="retOut"
+                      value="retentionOut"
+                      formControlName="name"
+                    />
+                    <label class="form-check-label" for="retOut">
+                      Retention Outstanding
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="row g-3 h-100">
+              <div class="col-md-12 h-100">
+                <div class="br-10 group_panel p-3 position-relative h-100">
+                  <p
+                    class="bg-white font600 group_title mb-0 position-absolute"
+                  >
+                    Other Code
+                  </p>
+                  <div class="row g-2 h-100">
+                    <div class="col-md-12">
+                      <div
+                        class="input-group"
+                        [class.is-invalid]="
+                                            queryForm.controls['bldgCode'].invalid &&
+                                            queryForm.controls['bldgCode'].touched || queryForm.invalid &&
+                                            queryForm.touched && queryForm.errors?.['atLeastOneFilter'] "
+                      >
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Buildings</span
+                        >
+                        <input
+                          appCommonAutoFocus
+                          type="text"
+                          id="building123"
+                          class="form-control border-start-0"
+                          formControlName="bldgCode"
+                          [f1]="{ id: 'BUILDINGS', multi: true }"
+                        />
+                      </div>
+                      <div
+                        class="invalid-feedback d-block"
+                        *ngIf="
+                          queryForm.controls['bldgCode'].invalid &&
+                          queryForm.controls['bldgCode'].touched
+                        "
+                      >
+                        <div
+                          *ngIf="queryForm.controls['bldgCode'].errors?.['notFound']"
+                        >
+                          Not Found
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div
+                        class="input-group has-validation"
+                        [class.is-invalid]="
+                                            queryForm.controls['matGroup'].invalid &&
+                                            queryForm.controls['matGroup'].touched || queryForm.invalid &&
+                                            queryForm.touched && queryForm.errors?.['atLeastOneFilter']"
+                      >
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Material Code</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0"
+                          formControlName="matGroup"
+                          [f1]="{ id: 'MATGROUPS', multi: true }"
+                        />
+                      </div>
+                      <div
+                        class="invalid-feedback d-block"
+                        *ngIf="
+                          queryForm.controls['matGroup'].invalid &&
+                          queryForm.controls['matGroup'].touched
+                        "
+                      >
+                        <div
+                          *ngIf="queryForm.controls['matGroup'].errors?.['notFound']"
+                        >
+                          Not Found
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div
+                        class="input-group"
+                        [class.is-invalid]="
+                                            queryForm.controls['partyCode'].invalid &&
+                                            queryForm.controls['partyCode'].touched || queryForm.invalid &&
+                                            queryForm.touched && queryForm.errors?.['atLeastOneFilter']"
+                      >
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Supplier Code</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0"
+                          formControlName="partyCode"
+                          [f1]="{
+                            id: 'PARTYCODE',
+                            subId: party_condition,
+                            multi: true
+                          }"
+                        />
+                      </div>
+                      <div
+                        class="invalid-feedback d-block"
+                        *ngIf="
+                          queryForm.controls['partyCode'].invalid &&
+                          queryForm.controls['partyCode'].touched
+                        "
+                      >
+                        <div
+                          *ngIf="queryForm.controls['partyCode'].errors?.['notFound']"
+                        >
+                          Not Found
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div
+                        class="input-group"
+                        [class.is-invalid]="
+                                            queryForm.controls['coyCode'].invalid &&
+                                            queryForm.controls['coyCode'].touched || queryForm.invalid &&
+                                            queryForm.touched && queryForm.errors?.['atLeastOneFilter']"
+                      >
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Company</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0"
+                          formControlName="coyCode"
+                          [f1]="{ id: 'COMPANY', multi: true }"
+                        />
+                      </div>
+                      <div
+                        class="invalid-feedback d-block"
+                        *ngIf="
+                          queryForm.controls['coyCode'].invalid &&
+                          queryForm.controls['coyCode'].touched
+                        "
+                      >
+                        <div
+                          *ngIf="queryForm.controls['coyCode'].errors?.['notFound']"
+                        >
+                          Not Found
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-12">
+                      <div class="input-group">
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Bldg Region</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0"
+                          formControlName="bldgReg"
+                          [f1]="{ id: 'BLDGREGION' }"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div
+                        class="input-group ng_select"
+                        [class.is-invalid]="
+                                            queryForm.controls['bldgExcl'].invalid &&
+                                            queryForm.controls['bldgExcl'].touched || queryForm.invalid &&
+                                            queryForm.touched && queryForm.errors?.['atLeastOneFilter']"
+                      >
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Excluding Buildings</span
+                        >
+                        <ng-select
+                          [items]="excluBldgList"
+                          [multiple]="true"
+                          [closeOnSelect]="false"
+                          [searchable]="true"
+                          placeholder="Select people"
+                          formControlName="bldgExcl"
+                          class="form-control"
+                          bindValue="0"
+                          bindLabel="0"
+                        >
+                          <ng-template
+                            ng-option-tmp
+                            let-item="item"
+                            let-index="index"
+                            let-search="searchTerm"
+                          >
+                            <div>{{ item[0] }}</div>
+                            <div>{{ item[1] }}</div>
+                          </ng-template>
+                        </ng-select>
+                      </div>
+                      <div
+                        class="invalid-feedback d-block"
+                        *ngIf="
+                          queryForm.controls['bldgExcl'].invalid &&
+                          queryForm.controls['bldgExcl'].touched
+                        "
+                      >
+                        <div
+                          *ngIf="queryForm.controls['coyCode'].errors?.['notFound']"
+                        >
+                          Not Found
+                        </div>
+                      </div>
+                      <div
+                        class="invalid-feedback d-block"
+                        *ngIf="queryForm.invalid && queryForm.touched"
+                      >
+                        <div
+                          class="font12 font500"
+                          *ngIf="queryForm.errors?.['atLeastOneFilter']"
+                        >
+                          Please Select AtLeast One Filter Condition
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Export Type -->
+                    <div class="col-sm-12" *ngIf="_service.getAccess('Export')">
+                      <p class="bg-white font600 group_title mb-1">
+                        Export Type
+                      </p>
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input position-relative"
+                          type="radio"
+                          name="exportType"
+                          id="exTy1"
+                          value="PDF"
+                          formControlName="exportType"
+                        />
+                        <label class="form-check-label" for="exTy1">
+                          PDF
+                        </label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input position-relative"
+                          type="radio"
+                          name="exportType"
+                          id="exTy2"
+                          value="EXCEL_REPORT_DATA_FORMAT"
+                          formControlName="exportType"
+                        />
+                        <label class="form-check-label" for="exTy2">
+                          Excel (Report - Data Format)
+                        </label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input position-relative"
+                          type="radio"
+                          name="exportType"
+                          id="exTy3"
+                          value="EXCEL_TEMPLATE_FORMAT"
+                          formControlName="exportType"
+                        />
+                        <label class="form-check-label" for="exTy3">
+                          Excel (Template Format)
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner bg-white br-10 d-flex justify-content-center">
+      <button *ngIf="_service.getAccess('Export')"
+        type="submit"
+        class="bg_common_red common_action_btn br-10 first_letter_textdecorationone"
+        [attr.accesskey]="loaderToggle == true ? '' : 'w'"
+        (click)="getReport(false)"
+      >
+        Do<u>w</u>nload
+      </button>
+      <button *ngIf="_service.getAccess('Print')"
+        type="submit"
+        class="bg_common_red common_action_btn br-10"
+        (click)="getReport(true)"
+        [attr.accesskey]="loaderToggle == true ? '' : 'p'"
+      >
+        Print
+      </button>
+      <button
+      type="submit"
+      (click)="resetForm()"
+      class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone"
+      accesskey="t"
+    >
+      Rese<span class="text-decoration-underline">t</span>
+    </button>
+      <a
+        class="bg_common_red border-0 common_action_btn text-white br-10 first_letter_textdecorationone text-decoration-none"
+        [attr.accesskey]="loaderToggle == true ? '' : 'x'"
+        routerLink="/dashboard"
+        >E<u>x</u>it
+      </a>
+    </div>
+  </div>
+</section>
+<app-loader *ngIf="loaderToggle"></app-loader>

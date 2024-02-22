@@ -1,0 +1,237 @@
+<section class="container">
+  <form [formGroup]="VehCertPrint">
+    <div class="d-flex justify-content-center">
+      <div class="col-md-6">
+        <div class="row g-3">
+          <div
+            class="group_panel br-10 form_common_bg p-3 pt-3 position-relative"
+          >
+            <p class="bg-white font600 group_title mb-0 position-absolute"></p>
+            <div class="row g-2">
+              <div
+                class="input-group"
+                [class.is-invalid]="
+                  VehCertPrint.controls['TxtCompany'].invalid &&
+                  VehCertPrint.controls['TxtCompany'].touched
+                "
+              >
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Company</span
+                >
+                <input
+                  type="text"
+                  class="form-control border-start-0 post_input_field"
+                  formControlName="TxtCompany"
+                  [f1]="{ id: 'COMPANY' }"
+                  id="TxtCompany"
+                />
+              </div>
+              <div
+                class="input-group has-validation"
+                [class.is-invalid]="
+                  VehCertPrint.controls['TxtPartyCode'].invalid &&
+                  (VehCertPrint.controls['TxtPartyCode'].touched ||
+                    VehCertPrint.controls['TxtPartyCode'].dirty)
+                "
+              >
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >
+                  Party
+                </span>
+                <input
+                  type="text"
+                  class="form-control border-start-0 post_input_field"
+                  formControlName="TxtPartyCode"
+                  [f1]="{ id: 'PARTYCODE', subId: partyConditon }"
+                />
+              </div>
+              <div
+                class="disInl me-2"
+                *ngIf="
+                  VehCertPrint.controls['TxtPartyCode'].invalid &&
+                  (VehCertPrint.controls['TxtPartyCode'].touched ||
+                    VehCertPrint.controls['TxtPartyCode'].dirty)
+                "
+              >
+                <div
+                  class="errorField common_color_txt font12 font500 disInl"
+                  *ngIf="VehCertPrint.controls['TxtPartyCode'].errors?.min || VehCertPrint.controls['TxtPartyCode'].errors?.['required']"
+                >
+                  Party Code is required
+                </div>
+                <div
+                  class="errorField common_color_txt font12 font500 disInl"
+                  *ngIf="VehCertPrint.controls['TxtPartyCode'].errors?.['maxlength']?.actualLength"
+                >
+                  Max 12 Character allowed. Current is
+                  {{VehCertPrint.controls['TxtPartyCode'].errors?.['maxlength']?.actualLength}}
+                  characters.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="group_panel br-10 form_common_bg p-3 pt-3 position-relative"
+          >
+            <p class="bg-white font600 group_title mb-0 position-absolute">
+              Certificate Type
+            </p>
+            <div class="col-xl-12">
+              <div class="input-group">
+                <div class="my-2">
+                  <div class="form-check d-flex align-items-center">
+                    <input
+                      type="radio"
+                      class="form-check-input font12 font500 position-relative"
+                      id="RbCertType1id"
+                      name="RbCertType"
+                      value="Passed"
+                      formControlName="RbCertType"
+                    />
+                    <label
+                      class="form-check-label first_letter_textdecorationone"
+                      for="xx"
+                      accesskey="h"
+                    >
+                      Passed
+                    </label>
+                  </div>
+                  <div class="form-check d-flex align-items-center">
+                    <input
+                      type="radio"
+                      class="form-check-input font12 font500 position-relative"
+                      id="RbCertType2id"
+                      name="RbCertType"
+                      value="UnPassed"
+                      formControlName="RbCertType"
+                    />
+                    <label
+                      class="form-check-label first_letter_textdecorationone"
+                      for="xx"
+                      accesskey="h"
+                    >
+                      UnPassed
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="group_panel br-10 form_common_bg p-3 pt-3 position-relative"
+          >
+            <p class="bg-white font600 group_title mb-0 position-absolute">
+              Certificate #(Range)
+            </p>
+            <div class="row g-2">
+              <div
+                class="input-group"
+                [class.is-invalid]="
+                  VehCertPrint.controls['TxtCertFrom'].invalid &&
+                  VehCertPrint.controls['TxtCertFrom'].touched
+                "
+              >
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >
+                  Certificate From:
+                </span>
+                <input
+                  type="text"
+                  class="form-control border-start-0 post_input_field"
+                  formControlName="TxtCertFrom"
+                  [f1]="{ id: 'ADMNUM', subId: certTypeCondition }"
+                />
+       
+              </div>
+              <div
+              *ngIf="
+                VehCertPrint.controls['TxtCertFrom'].invalid &&
+                VehCertPrint.controls['TxtCertFrom'].touched
+              "
+            >
+              <div
+                class="errorField common_color_txt font12 font500"
+                *ngIf="VehCertPrint.controls['TxtCertFrom'].errors && VehCertPrint.controls['TxtCertFrom'].errors?.['required']"
+              >
+                * Certificate From is required
+              </div>
+            </div>
+              <div
+                class="input-group"
+                [class.is-invalid]="
+                  VehCertPrint.controls['TxtCertUpto'].invalid &&
+                  VehCertPrint.controls['TxtCertUpto'].touched
+                "
+              >
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >
+                  Certificate UpTo:
+                </span>
+                <input
+                  type="text"
+                  class="form-control border-start-0 post_input_field"
+                  formControlName="TxtCertUpto"
+                  [f1]="{ id: 'ADMNUM', subId: certTypeCondition }"
+                />
+  
+              </div>
+              <div
+              *ngIf="
+                VehCertPrint.controls['TxtCertUpto'].invalid &&
+                VehCertPrint.controls['TxtCertUpto'].touched
+              "
+            >
+              <div
+                class="errorField common_color_txt font12 font500"
+                *ngIf="VehCertPrint.controls['TxtCertUpto'].errors && VehCertPrint.controls['TxtCertUpto'].errors?.['required']"
+              >
+                * Certificate To is required
+              </div>
+            </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</section>
+<app-loader *ngIf="loaderToggle"></app-loader>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner text-center bg-white br-10 w-100">
+      <div class="flex justify-content-between">
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+          accesskey="w"
+          (click)="getReport(false)"
+        >
+          Do<span class="text-decoration-underline">w</span>nload
+        </button>
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white"
+          (click)="getReport(true)"
+          accesskey="p"
+        >
+          Print
+        </button>
+        <!-- <button type="submit" class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white" [disabled]="true" accesskey="p" >Preview</button> -->
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+          accesskey="x"
+          (click)="handleExitClick()"
+        >
+          E<span class="text-decoration-underline">x</span>it
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

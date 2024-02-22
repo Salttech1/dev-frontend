@@ -1,0 +1,735 @@
+<!-- <p>admin-intercompany-invoice works!</p> -->
+
+<!-- Intercompany invoice form -->
+<section *ngIf="!config.isTableMaximized">
+  <div class="row">
+    <div class="col-md-12">
+      <form [formGroup]="intercompanyInvoice">
+        <!-- Row 1st -->
+        <div class="row g-2">
+          <div class="col-md-6">
+            <div
+              class="input-group"
+              [class.is-invalid]="
+                (intercompanyInvoice.get('companyCode')?.hasError('required') &&
+                  intercompanyInvoice.controls['companyCode'].touched) || intercompanyInvoice.get('companyCode')?.errors?.['notFound']"
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                ><b class="text-danger">*</b>Company</span
+              >
+              <input
+                type="text"
+                upperCase
+                id="intercompany_coy"
+                class="form-control border-start-0 post_input_field font500 font12"
+                formControlName="companyCode"
+                [f1]="{
+                  id: 'COMPANY',
+                  formData: intercompanyInvoice.get('companyName'),
+                  isSingleValue: true
+                }"
+                (focusout)="onLeaveCompany($event.target.value)"
+              />
+              <span class="position-relative span_divider"></span>
+              <input
+                type="text"
+                class="form-control w-50 border-start-0 post_input_field font500 font12"
+                formControlName="companyName"
+              />
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="
+                (intercompanyInvoice.get('companyCode')?.touched &&
+                intercompanyInvoice.get('companyCode')?.invalid) && !intercompanyInvoice.get('companyCode')?.errors?.['notFound']
+              "
+            >
+              Company code is required.
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="intercompanyInvoice.get('companyCode')?.errors?.['notFound']"
+            >
+              Company code is not valid.
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="intercompanyInvoice.get('coy')?.errors?.['notFound']"
+            >
+              Code not valid.
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div
+              class="input-group"
+              [class.is-invalid]="(intercompanyInvoice.get('projectCode')?.hasError('required') &&
+            intercompanyInvoice.controls['projectCode'].touched) || intercompanyInvoice.get('projectCode')?.errors?.['notFound']"
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Project</span
+              >
+              <input
+                upperCase
+                type="text"
+                id=""
+                class="form-control post_input_field border-start-0 font500 font12"
+                formControlName="projectCode"
+                (focusout)="setHelpFilter()"
+                [f1]="{
+                  id: 'GROUPPROJ',
+                  formData: intercompanyInvoice.get('projectCodeName'),
+                  isSingleValue: true,
+                  subId: filter.getProject ? filter.getProject : ''
+                }"
+              />
+              <span class="position-relative span_divider"></span>
+              <input
+                type="text"
+                class="form-control w-50 border-start-0 post_input_field font500 font12"
+                formControlName="projectCodeName"
+              />
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="intercompanyInvoice.get('projectCode')?.errors?.['notFound']"
+            >
+              Project code is not valid.
+            </div>
+
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="
+            (intercompanyInvoice.get('projectCode')?.touched &&
+            intercompanyInvoice.get('projectCode')?.invalid) && !intercompanyInvoice.get('projectCode')?.errors?.['notFound']
+          "
+            >
+              Project code is required.
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 2nd -->
+        <div class="row g-2 mt-2">
+          <div class="col-md-4">
+            <div
+              class="input-group"
+              appDate1
+              [class.is-invalid]="
+                (intercompanyInvoice.get('billDate')?.hasError('required') &&
+                  intercompanyInvoice.controls['billDate'].touched) ||
+                (intercompanyInvoice.get('billDate')?.touched &&
+                  intercompanyInvoice.get('billDate')?.invalid) ||
+                intercompanyInvoice
+                  .get('billDate')
+                  ?.hasError('matDatepickerParse')
+              "
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                ><b class="text-danger">*</b>Invoice Date</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0 post_input_field font500 font12"
+                name=""
+                id="intercompany_invoice"
+                matInput
+                [matDatepicker]="pickerInv"
+                formControlName="billDate"
+              />
+              <div
+                class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+              >
+                <span class="input-group-addon">
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="pickerInv"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #pickerInv></mat-datepicker>
+                </span>
+              </div>
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="
+                intercompanyInvoice.get('billDate')?.touched &&
+                intercompanyInvoice.get('billDate')?.hasError('required') &&
+                !intercompanyInvoice
+                  .get('billDate')
+                  ?.hasError('matDatepickerParse')
+              "
+            >
+              Invoice date required.
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="
+                intercompanyInvoice
+                  .get('billDate')
+                  ?.hasError('matDatepickerParse')
+              "
+            >
+              Invoice date is invalid.
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div
+              class="input-group"
+              appDate1
+              [class.is-invalid]="
+                (intercompanyInvoice
+                  .get('billFromDate')
+                  ?.hasError('required') &&
+                  intercompanyInvoice.controls['billFromDate'].touched) ||
+                (intercompanyInvoice.get('billFromDate')?.touched &&
+                  intercompanyInvoice.get('billFromDate')?.invalid) ||
+                intercompanyInvoice.hasError('invalidMonthInvFromDate') ||
+                intercompanyInvoice
+                  .get('billFromDate')
+                  ?.hasError('matDatepickerParse')
+              "
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                ><b class="text-danger">*</b>Tran From</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0 post_input_field font500 font12"
+                name=""
+                id="intercompany_tranfrom"
+                matInput
+                [matDatepicker]="pickerFrom"
+                formControlName="billFromDate"
+              />
+              <div
+                class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+              >
+                <span class="input-group-addon">
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="pickerFrom"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #pickerFrom></mat-datepicker>
+                </span>
+              </div>
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="
+                intercompanyInvoice.get('billFromDate')?.touched &&
+                intercompanyInvoice.get('billFromDate')?.hasError('required') &&
+                !intercompanyInvoice
+                  .get('billFromDate')
+                  ?.hasError('matDatepickerParse')
+              "
+            >
+              Tran from date is required.
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="
+                intercompanyInvoice
+                  .get('billFromDate')
+                  ?.hasError('matDatepickerParse')
+              "
+            >
+              Tran from date is invalid.
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="intercompanyInvoice.hasError('invalidMonthInvFromDate')"
+            >
+              Invalid month for Tran from date.
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div
+              class="input-group"
+              appDate1
+              [class.is-invalid]="
+                (intercompanyInvoice.get('billToDate')?.hasError('required') &&
+                  intercompanyInvoice.controls['billToDate'].touched) ||
+                (intercompanyInvoice.get('billToDate')?.touched &&
+                  intercompanyInvoice.get('billToDate')?.invalid) ||
+                intercompanyInvoice.hasError('invalidDateOrder') ||
+                intercompanyInvoice
+                  .get('billToDate')
+                  ?.hasError('matDatepickerParse') ||
+                intercompanyInvoice.hasError('invalidMonthInvToDate')
+              "
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                ><b class="text-danger">*</b>Tran To</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0 post_input_field font500 font12"
+                name=""
+                id="intercompany_tranto"
+                matInput
+                [matDatepicker]="pickerTo"
+                formControlName="billToDate"
+              />
+              <div
+                class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+              >
+                <span class="input-group-addon">
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="pickerTo"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #pickerTo></mat-datepicker>
+                </span>
+              </div>
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="
+                intercompanyInvoice.get('billToDate')?.touched &&
+                intercompanyInvoice.get('billToDate')?.invalid &&
+                !intercompanyInvoice
+                  .get('billToDate')
+                  ?.hasError('matDatepickerParse')
+              "
+            >
+              Tran to date is required.
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="
+                intercompanyInvoice
+                  .get('billToDate')
+                  ?.hasError('matDatepickerParse')
+              "
+            >
+              Tran to date is invalid.
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="intercompanyInvoice.hasError('invalidMonthInvToDate')"
+            >
+              Invalid month for Tran to date.
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="intercompanyInvoice.hasError('invalidDateOrder')"
+            >
+              Tran to date cannot be less than Tran From date.
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 3rd -->
+        <div class="row mt-3">
+          <div class="col-md-6">
+            <div
+              class="input-group"
+              [class.is-invalid]="
+                intercompanyInvoice
+                  .get('groupInvoiceNumber')
+                  ?.hasError('required') &&
+                intercompanyInvoice.controls['groupInvoiceNumber'].touched
+              "
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Group Invoice Num</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0 post_input_field font500 font12"
+                name=""
+                id=""
+                formControlName="groupInvoiceNumber"
+                [f1]="{
+                  id: 'INTERCOMPNAYGRPBILL',
+                  subId: filter.getGroupInvoiceNumber,
+                  isSingleValue: true
+                }"
+              />
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="
+                intercompanyInvoice.get('groupInvoiceNumber')?.touched &&
+                intercompanyInvoice.get('groupInvoiceNumber')?.invalid
+              "
+            >
+              Group Invoice Number is required.
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="input-group">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Remarks</span
+              >
+              <input
+                type="text"
+                maxlength="56"
+                class="form-control border-start-0 post_input_field font500 font12"
+                name=""
+                id=""
+                formControlName="remark"
+              />
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Form Section -->
+<!-- *ngIf="initialMode" -> Use condition -->
+<form [formGroup]="intercompanyInvoice">
+  <section>
+    <div class="row mt-4">
+      <div class="col-md-12">
+        <div
+          class="group_panel br-10 p-1 pt-1 position-relative form_common_bg"
+        >
+          <div class="container d-flex justify-content-end m-1">
+            <button
+              (click)="toggleTable()"
+              *ngIf="getKeys(intercompanyInvoice.controls?.['dynamicArray']?.controls[0]?.value).length!=0"
+              class="btn  btn-sm justify-content-center"
+            >
+            <img title="Maximised" *ngIf=" config.isTableMaximized" style="height: 1rem"  src="assets/images/max.png" alt="add" />
+            <img title="Minimised" *ngIf=" !config.isTableMaximized"style="height: 1rem"  src="assets/images/min.png" alt="add" />
+            </button>
+
+          </div>
+
+          <!-- New Table Start -->
+          <div class="container-fluid">
+            <div class="row">
+              <!-- Movable Table with Scroll -->
+              <div
+                class="col-md-12 p-0"
+                *ngIf="getKeys(intercompanyInvoice.controls?.['dynamicArray']?.controls[0]?.value).length!=0"
+              >
+                <div
+                  class="scrollable-table"
+                  [ngStyle]="{
+                    'max-height': config.isTableMaximized ? '100%' : '300px',
+                    height: config.isTableMaximized ? '100%' : '300px'
+                  }"
+                  formArrayName="dynamicArray"
+                >
+                  <div
+                    #tableContainer
+                    class="table-responsive group_panel default-table-height-1"
+                    id="table2"
+                  >
+                    <table id="intercompany_table"
+                      class="interCompanyDetails table-container table table-bordered custome-width"
+                    >
+                      <thead class="table-head-fix">
+                        <tr>
+                          <!-- <th>No</th> -->
+                          <!-- <th class="fontBold font12 fonttxt_black">Sr. No</th> -->
+                          <th class="fontBold font12 fonttxt_black">
+                            AC Major
+                          </th>
+                          <th class="fontBold font12 fonttxt_black">
+                            Major Name
+                          </th>
+                          <th class="fontBold font12 fonttxt_black">
+                            AC Minor
+                          </th>
+                          <th class="fontBold font12 fonttxt_black">
+                            Minor Name
+                          </th>
+                          <th class="fontBold font12 fonttxt_black">
+                            AC Min Type
+                          </th>
+                          <th class="fontBold font12 fonttxt_black">
+                            AC Amount
+                          </th>
+                          <th
+                            *ngFor="let controlName of getKeys(intercompanyInvoice.controls?.['dynamicArray']?.controls[0]?.value) "
+                            class="fontBold font12 fonttxt_black"
+                            [ngClass]="{'hide-column': controlName === 'rowDiffrence'}"
+                            [id]="controlName"
+
+                          >
+                            {{ controlName }}
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <!-- Add your data rows here for the movable table -->
+                        <tr
+                          *ngFor="let itemDynamicGroup of intercompanyInvoice.controls?.['dynamicArray'].controls; let i = index"
+                          [formGroupName]="i"
+
+                        >
+                          <!-- <td>
+                            <div class="has-validation">
+
+                              {{i+1}}
+                            </div>
+                          </td> -->
+                          <td >
+                            <div class="input-group custom-table-width">
+                              <input
+                                type="text"
+                                [title]="intercompanyInvoice.controls?.['dynamicArray'].controls[i].get('acmajor')?.value"
+                                class="form-control input_control font500 fonttxt_black font12"
+                                formControlName="acmajor"
+                              />
+                            </div>
+                          </td>
+                          <td >
+                            <div
+                              class="input-group custom-table-width-Major-Name"
+                            >
+                              <input
+                                type="text"
+                                [title]="intercompanyInvoice.controls?.['dynamicArray'].controls[i].get('majorName')?.value"
+                                class="form-control input_control font500 fonttxt_black font12"
+                                formControlName="majorName"
+                              />
+                            </div>
+                          </td>
+                          <td >
+                            <div class="has-validation">
+                              <input
+                                type="text"
+                                [title]="intercompanyInvoice.controls?.['dynamicArray'].controls[i].get('acminor')?.value"
+                                class="form-control input_control font500 fonttxt_black font12"
+                                formControlName="acminor"
+                              />
+                            </div>
+                          </td>
+                          <td >
+                            <div class="has-validation">
+                              <input
+                                type="text"
+                                [title]="intercompanyInvoice.controls?.['dynamicArray'].controls[i].get('minorName')?.value"
+                                class="form-control input_control font500 fonttxt_black font12"
+                                formControlName="minorName"
+                              />
+                            </div>
+                          </td>
+                          <td >
+                            <div class="has-validation">
+                              <input
+                                type="text"
+                                [title]="intercompanyInvoice.controls?.['dynamicArray'].controls[i].get('acMinType')?.value"
+                                class="form-control input_control font500 fonttxt_black font12"
+                                formControlName="acMinType"
+                              />
+                            </div>
+                          </td>
+                          <td >
+                            <div class="input-group custom-table-width">
+                              <input
+                                type="text"
+                                [title]="intercompanyInvoice.controls?.['dynamicArray'].controls[i].get('acAmount')?.value"
+                                class="form-control input_control font500 fonttxt_black font12"
+                                formControlName="acAmount"
+                              />
+                            </div>
+                          </td>
+                          <!-- <td>{{i+1}}</td> -->
+                          <td  [ngClass]="{'hide-column': controlName === 'rowDiffrence'}"
+                            *ngFor="let controlName of getKeys(intercompanyInvoice.controls?.['dynamicArray']?.controls[0]?.value) let index=index "
+                          >
+                            <div class="input-group custom-table-width">
+                              <input
+                                [id]="controlName + '_' + i"
+                                type="text"
+                                oninput="this.value = this.value.replace(/[^0-9]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                                class="form-control input_control font500 fonttxt_black font12"
+                                [formControlName]="controlName"
+                                (keyup)="navigate($event, i, controlName)"
+                                (focusout)="
+                                  interInvoiceBreakupCalculation(
+                                    itemDynamicGroup,
+                                    controlName,
+                                    $event.target
+                                  )
+                                "
+                                (focus)="
+                                  interInvoiceBreakupCalculation(
+                                    itemDynamicGroup,
+                                    controlName
+                                  )
+                                "
+                              />
+                            </div>
+                            <div
+                              [id]="'error-' + controlName + '_' + i"
+                              class="errorField common_color_txt font12 font500 disInl errorFound"
+                              *ngIf="intercompanyInvoice.controls?.['dynamicArray'].controls[i].get(controlName).errors?.['invalidSum']"
+                            >
+                              Balance Amount ({{intercompanyInvoice.controls?.['dynamicArray'].controls[i].get('rowDiffrence')?.value
+
+
+
+
+
+
+
+                              }}) Remaining for this row
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- New Table End -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom Section -->
+
+  <section>
+    <div class="row g-2 mt-2">
+      <div class="col-md-4" colspan="2">
+        <div class="input-group">
+          <span class="input-group-text leftform_lbl font500 text-dark1 font12"
+            >AC Amount</span
+          >
+          <input
+            type="text"
+            class="form-control border-start-0 post_input_field font500 font12"
+            formControlName="totalAcAmt"
+          />
+        </div>
+        <div class="input-group mt-2">
+          <span class="input-group-text leftform_lbl font500 text-dark1 font12"
+            >Balance Amt</span
+          >
+          <input
+            type="text"
+            class="form-control border-start-0 post_input_field font500 font12"
+            formControlName="balanceAmt"
+          />
+        </div>
+      </div>
+      <div
+        class="col-md-8"
+        *ngIf="keysStartingWithTotal.length != 0"
+        colspan="2"
+      >
+        <div class="group_panel br-10 p-2 position-relative form_common_bg">
+          <div class="col-md-12">
+            <div class="table-responsive group_panel">
+              <table class="table table-bordered table-sm">
+                <thead>
+                  <tr>
+                    <th
+                      *ngFor="let item of keysStartingWithTotal"
+                      class="fontBold font12 fonttxt_black"
+                    >
+                      {{ item.replace("total_", "") }}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td *ngFor="let item of keysStartingWithTotal">
+                      <div class="has-validation">
+                        <input
+                          type="text"
+                          [formControlName]="item"
+                          class="form-control input_control font500 fonttxt_black font12"
+                        />
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</form>
+<!-- Button List -->
+<app-buttons
+  [buttonsList]="buttonsList"
+  (eventTrigger)="buttonAction($event)"
+></app-buttons>
+
+<!-- Button trigger modal -->
+<button
+  type="button"
+  id="printProcess"
+  class="btn btn-primary d-none"
+  data-bs-toggle="modal"
+  data-bs-target="#exampleModal"
+>
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title bold" id="exampleModalLabel">
+          Intercompany Invoice type
+        </h3>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="container mb-2">
+          <div class="input-group justify-content-center">
+            <div
+              class="form-check form-check-inline"
+              *ngFor="let item of config.invoiceTypeList"
+            >
+              <input
+                class="form-check-input position-relative cursor-pointer"
+                [(ngModel)]="config.invoiceType"
+                type="radio"
+                [value]="item.id"
+              />
+              <label class="form-check-label m-0" for="exTy1">
+                {{ item.name }}
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-sm btn-danger"
+          (click)="printProcess()"
+          data-bs-dismiss="modal"
+        >
+          Save
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-loader *ngIf="config.isLoading"></app-loader>

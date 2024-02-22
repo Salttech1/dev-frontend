@@ -1,0 +1,145 @@
+<!-- <p>mep-progress-entry works!</p> -->
+<section>
+  <div class="row">
+    <div class="col-md-12">
+      <form [formGroup]="mepProgressForm">
+        <div class="row g-2">
+          <div class="col-md-4">
+            <div
+              class="input-group"
+              [class.is-invalid]="(mepProgressForm.get('project')?.hasError('required') && mepProgressForm.get('project')?.touched) || mepProgressForm.get('project')?.errors?.['notFound']"
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                ><b class="text-danger">*</b>Project</span
+              >
+              <input
+                type="text"
+                name=""
+                id="mepProgress_project"
+                upperCase
+                class="form-control border-start-0 post_input_field font500 font12"
+                formControlName="project"
+                [f1]="{ id: 'PROJECTS', isSingleValue: true }"
+              />
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="(mepProgressForm.get('project')?.touched && mepProgressForm.get('project')?.invalid) && !mepProgressForm.get('project')?.errors?.['notFound']"
+            >
+              Project code is required.
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="mepProgressForm.get('project')?.errors?.['notFound']"
+            >
+              Project code is not valid.
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div
+              class="input-group"
+              [class.is-invalid]="(mepProgressForm.get('stage')?.hasError('required') && mepProgressForm.get('stage')?.touched) || mepProgressForm.get('stage')?.errors?.['notFound']"
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                ><b class="text-danger">*</b>Stage</span
+              >
+              <input
+                type="text"
+                name=""
+                id="mepProgress_stage"
+                upperCase
+                class="form-control border-start-0 post_input_field font500 font12"
+                formControlName="stage"
+                [f1]="{ id: '', isSingleValue: true }"
+              />
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="(mepProgressForm.get('stage')?.touched && mepProgressForm.get('stage')?.invalid) && !mepProgressForm.get('stage')?.errors?.['notFound']"
+            >
+              Project code is required.
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="mepProgressForm.get('stage')?.errors?.['notFound']"
+            >
+              Project code is not valid.
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-2 mt-1">
+          <!-- *ngIf="initialMode" -> Use Condition -->
+          <div class="row g-2 mt-1">
+            <div
+              class="group_panel br-10 p-3 pt-4 position-relative form_common_bg"
+            >
+              <div class="col-md-12">
+                <div
+                  class="table-responsive group_panel form_common_bg stylishScroll"
+                >
+                  <table class="table table-bordered table-sm mb-0">
+                    <thead>
+                        <tr>
+                            <th class="fontBold font12 fonttxt_black">MEPDMS_DESCCODE</th>
+                            <th class="fontBold font12 fonttxt_black">Reqd Qty</th>
+                            <th class="fontBold font12 fonttxt_black">Conseal</th>
+                            <th class="fontBold font12 fonttxt_black">LT Room Panels</th>
+                            <th class="fontBold font12 fonttxt_black">Floor Panel</th>
+                            <th class="fontBold font12 fonttxt_black">Pendant</th>
+                            <th class="fontBold font12 fonttxt_black">Pendant (HT)</th>
+                            <th class="fontBold font12 fonttxt_black">Sub Floor Panel</th>
+                            <th class="fontBold font12 fonttxt_black">PDB</th>
+                            <th class="fontBold font12 fonttxt_black">Upright</th>
+                            <th class="fontBold font12 fonttxt_black">UPS DB</th>
+                            <th class="fontBold font12 fonttxt_black">Side Valve</th>
+                            <th class="fontBold font12 fonttxt_black">BMS LDB</th>
+                            <th class="fontBold font12 fonttxt_black">Total Sprinkle</th>
+                            <th class="fontBold font12 fonttxt_black">BMS ELDB</th>
+                            <th class="fontBold font12 fonttxt_black">Sprinkle Tapping</th>
+                            <th class="fontBold font12 fonttxt_black">Flexible</th>
+                            <th class="fontBold font12 fonttxt_black">BMS DDC Panel</th>
+                            <th class="fontBold font12 fonttxt_black">AHU VFD S.Panel</th>
+                            <th class="fontBold font12 fonttxt_black">Balance</th>
+                            <th class="fontBold font12 fonttxt_black">Only Sprinkle Head</th>
+                            <th class="fontBold font12 fonttxt_black">Vent Fan Panel</th>
+                            <th class="fontBold font12 fonttxt_black">Complete Date</th>
+                            <th class="fontBold font12 fonttxt_black">Sump Pump Panel</th>
+                            <th class="fontBold font12 fonttxt_black">.</th>
+                            <th class="fontBold font12 fonttxt_black">.</th>
+                            <th class="fontBold font12 fonttxt_black">Dimmer Con. DB</th>
+                            <th class="fontBold font12 fonttxt_black">Dimmer Sup. LDB</th>
+                            <th class="fontBold font12 fonttxt_black">.</th>
+                            <th class="fontBold font12 fonttxt_black">Total</th>
+                            <th class="fontBold font12 fonttxt_black">Remark</th>
+                            <th class="fontBold font12 fonttxt_black">Remark</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="input-group">
+                                    <input type="text" name="" id="" class="form-control input_control font500 fonttxt_black font12">
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Bottom button start -->
+<app-buttons
+  [buttonsList]="buttonsList"
+  (eventTrigger)="buttonAction($event)"
+></app-buttons>
+<!-- Bottom button end -->

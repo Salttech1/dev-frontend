@@ -1,0 +1,854 @@
+<section>
+  <form [formGroup]="qf">
+    <div class="row g-3">
+      <!-- Query form -->
+      <div class="col-lg-12">
+        <div class="row g-2">
+          <div class="col-lg-3 col-md-6">
+            <div class="input-group has-validation">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Rec Id</span
+              >
+              <input
+                id="recId"
+                type="text"
+                class="form-control border-start-0"
+                formControlName="contract"
+                [f1]="{ id: 'CONTRACTID', fill: 1 }"
+              />
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="input-group has-validation">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Cert Type</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0"
+                formControlName="certType"
+                [f1]="{ id: 'CERTTYPES' }"
+              />
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="input-group has-validation">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Run Sr.</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0"
+                formControlName="runSer"
+              />
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="input-group has-validation">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Bill no.</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0"
+                formControlName="billRef"
+                [f1]="{ id: 'CONTRACTBILLS', subId: billQueryCon, multi: true }"
+              />
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="input-group has-validation">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Cert no.</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0"
+                formControlName="certNum"
+                [f1]="{ id: 'CERTNUM', subId: certQueryCon }"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Center part -->
+      <div class="col-lg-12">
+        <div class="row g-2">
+          <!-- Narration Item -->
+          <div class="col-lg-12 narr" *ngIf="narration">
+            <div
+              class="br-10 group_panel p-3 position-relative"
+              formArrayName="narrItems"
+            >
+              <p class="bg-white font600 group_title mb-0 position-absolute">
+                Item Narration
+              </p>
+              <div class="table-responsive itemNarScroll">
+                <table class="table mb-1">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Sr no.</th>
+                      <th scope="col">Item</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      *ngFor="
+                        let item of qf.controls.narrItems.controls;
+                        let ind = index
+                      "
+                      [formGroupName]="ind"
+                    >
+                      <td>
+                        <input
+                          class="form-check-input"
+                          id="{{ 'checkBox' + ind }}"
+                          type="checkbox"
+                          formControlName="checked"
+                        />
+                      </td>
+                      <td>{{ item.controls?.srno?.value }}</td>
+                      <td>{{ item.controls?.itemdesc?.value }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div
+                class="invalid-feedback d-block"
+                *ngIf="narrItems?.errors && narrItems?.touched"
+              >
+                <ng-container *ngIf="narrItems?.errors?.noNarr"
+                  >Please select atleast 1 item</ng-container
+                >
+                <ng-container *ngIf="narrItems?.errors?.exceedLength"
+                  >Max 5 items are allowed</ng-container
+                >
+              </div>
+              <button
+                type="button"
+                class="btn btn-theme rounded-4 font12 mt-1"
+                accesskey="k"
+                (click)="narration = false"
+              >
+                O<u>k</u>
+              </button>
+            </div>
+          </div>
+
+          <!-- Company/Proprietor/Contractor -->
+          <ng-container *ngIf="!bills">
+            <div class="col-lg-3 col-md-6">
+              <div class="input-group has-validation">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Company</span
+                >
+                <input
+                  type="text"
+                  class="form-control border-start-0"
+                  formControlName="company"
+                />
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+              <div class="input-group has-validation">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Building</span
+                >
+                <input
+                  type="text"
+                  class="form-control border-start-0"
+                  formControlName="buildingName"
+                />
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+              <div class="input-group has-validation">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Proprietor</span
+                >
+                <input
+                  type="text"
+                  class="form-control border-start-0"
+                  formControlName="proprietor"
+                />
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+              <div class="input-group has-validation">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Work</span
+                >
+                <input
+                  type="text"
+                  class="form-control border-start-0"
+                  formControlName="workName"
+                />
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+              <div class="input-group has-validation">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Project</span
+                >
+                <input
+                  type="text"
+                  class="form-control border-start-0"
+                  formControlName="projectName"
+                />
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+              <div class="input-group has-validation">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >City</span
+                >
+                <input
+                  type="text"
+                  class="form-control border-start-0"
+                  formControlName="city"
+                />
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+              <div class="input-group has-validation">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Contractor</span
+                >
+                <input
+                  type="text"
+                  class="form-control border-start-0"
+                  formControlName="partyName"
+                />
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+              <div class="input-group has-validation">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >PAN</span
+                >
+                <input
+                  type="text"
+                  class="form-control border-start-0"
+                  formControlName="panNo"
+                />
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+              <div class="input-group has-validation">
+                <span
+                  title="Total Amount certified"
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >T-Amt Certified</span
+                >
+                <input
+                  type="text"
+                  class="form-control border-start-0"
+                  formControlName="contract"
+                />
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+              <div class="input-group has-validation flex-nowrap" appDate1>
+                <span
+                  class="input-group-text leftform_lbl border-end-0 font500 text-dark1 font12"
+                  >Prev Date</span
+                >
+                <span class="br-10 datepicker_field input-group-addon w-100">
+                  <div mat-form-field appearance="fill" class="matForm">
+                    <mat-date-range-input
+                      [formGroup]="this.qf.controls['prev']"
+                      [rangePicker]="picker"
+                    >
+                      <input
+                        class="font12"
+                        matStartDate
+                        formControlName="from"
+                        placeholder="From Date"
+                      />
+                      <input
+                        class="font12"
+                        matEndDate
+                        formControlName="to"
+                        placeholder="To Date"
+                      />
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="picker"
+                    ></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                  </div>
+                </span>
+              </div>
+            </div>
+          </ng-container>
+
+          <!-- Bills Details -->
+          <ng-container *ngIf="bills">
+            <div class="col-lg-12">
+              <div class="table-responsive">
+                <table class="table table-rounded m-0">
+                  <thead>
+                    <tr>
+                      <th scope="col">Bill no.</th>
+                      <th scope="col">Bill Date</th>
+                      <th scope="col">Bill Amt</th>
+                      <th scope="col">TDS Amt</th>
+                      <th scope="col">Retention O/S</th>
+                      <th scope="col">Adv Adjusted</th>
+                      <th scope="col">Rel Rentention</th>
+                      <th scope="col">Pay Amt</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1234</td>
+                      <td>1234</td>
+                      <td>1234</td>
+                      <td>1234</td>
+                      <td>1234</td>
+                      <td>1234</td>
+                      <td>1234</td>
+                      <td>1234</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+
+      <!-- Bottom form Details -->
+      <div class="col-lg-12">
+        <div class="row g-2">
+          <div class="col-lg-6 col-md-6">
+            <div class="input-group has-validation">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Prepared By</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0"
+                formControlName="originator"
+              />
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="input-group" appDate1>
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Cert Date</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0 border-end-0"
+                formControlName="certDate"
+                matInput
+                [matDatepicker]="certDate"
+                placeholder="Certificate date"
+              />
+
+              <span class="input-group-addon border br-10"
+                ><mat-datepicker-toggle
+                  matIconSuffix
+                  [for]="certDate"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #certDate></mat-datepicker
+              ></span>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="input-group has-validation">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Net Amt</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0"
+                formControlName="payAmount"
+              />
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6">
+            <div class="input-group has-validation flex-nowrap" appDate1>
+              <span
+                class="input-group-text leftform_lbl border-end-0 font500 text-dark1 font12"
+                >Duration</span
+              >
+              <span class="br-10 datepicker_field input-group-addon w-100">
+                <div mat-form-field appearance="fill" class="matForm">
+                  <mat-date-range-input
+                    [formGroup]="this.qf.controls['duration']"
+                    [rangePicker]="picker1"
+                  >
+                    <input
+                      class="font12"
+                      matStartDate
+                      formControlName="from"
+                      placeholder="From Date"
+                    />
+                    <input
+                      class="font12"
+                      matEndDate
+                      formControlName="to"
+                      placeholder="To Date"
+                    />
+                  </mat-date-range-input>
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker1"
+                  ></mat-datepicker-toggle>
+                  <mat-date-range-picker #picker1></mat-date-range-picker>
+                </div>
+              </span>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="input-group has-validation">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Contract Amt</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0"
+                formControlName="conAmount"
+              />
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="input-group has-validation">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Work Perc</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0"
+                formControlName="demo"
+              />
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="input-group has-validation">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Trips</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0"
+                formControlName="trips"
+              />
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6">
+            <div class="input-group has-validation flex-nowrap" appDate1>
+              <span
+                class="input-group-text leftform_lbl border-end-0 font500 text-dark1 font12"
+                >Ass. Tax dt</span
+              >
+              <span class="br-10 datepicker_field input-group-addon w-100">
+                <div mat-form-field appearance="fill" class="matForm">
+                  <mat-date-range-input
+                    [formGroup]="this.qf.controls['asstax']"
+                    [rangePicker]="picker2"
+                  >
+                    <input
+                      class="font12"
+                      matStartDate
+                      formControlName="from"
+                      placeholder="From Date"
+                    />
+                    <input
+                      class="font12"
+                      matEndDate
+                      formControlName="to"
+                      placeholder="To Date"
+                    />
+                  </mat-date-range-input>
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker2"
+                  ></mat-datepicker-toggle>
+                  <mat-date-range-picker #picker2></mat-date-range-picker>
+                </div>
+              </span>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="input-group has-validation">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Expense Type</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0"
+                formControlName="debSocYN"
+              />
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="input-group has-validation">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Pay Mode</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0"
+                formControlName="payTender"
+              />
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="input-group has-validation">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Cert Amt</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0"
+                formControlName="certAmount"
+              />
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="input-group has-validation">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Retention</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0"
+                formControlName="retained"
+              />
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="input-group has-validation">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Adv Adj</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0"
+                formControlName="advAdjusted"
+              />
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="input-group has-validation">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Basic Amt</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0"
+                formControlName="basicAmt"
+              />
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="input-group has-validation">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >CGST Amt</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0"
+                formControlName="cgstAmt"
+              />
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="input-group has-validation">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >SGST Amt</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0"
+                formControlName="sgstAmt"
+              />
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="input-group has-validation">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >IGST Amt</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0"
+                formControlName="igstAmt"
+              />
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="input-group has-validation">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >UGST Amt</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0"
+                formControlName="ugstAmt"
+              />
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="input-group has-validation">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >TDS Amt</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0"
+                formControlName="tdsAmount"
+              />
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="input-group has-validation">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Cess</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0"
+                formControlName="tdsSur"
+              />
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="input-group has-validation">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Debit Amt</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0"
+                formControlName="debit"
+              />
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="input-group has-validation">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Remarks</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0"
+                formControlName="remarks"
+              />
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="input-group has-validation">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Description</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0"
+                formControlName="description"
+              />
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6">
+            <div class="input-group has-validation">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Debiting Party</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0"
+                formControlName="debitingParty"
+              />
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6">
+            <div class="input-group has-validation">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Debiting Reason</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0"
+                formControlName="debitingReason"
+              />
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6">
+            <div class="br-10 group_panel py-3 px-sm-3 px-2 position-relative">
+              <p class="font500 group_title mb-0 position-absolute">
+                Tax Level
+              </p>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="taxLevel"
+                  id="inlineRadio1"
+                  value="option1"
+                  formControlName="taxLevel"
+                />
+                <label class="form-check-label" for="inlineRadio1"
+                  >Open Plot</label
+                >
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="taxLevel"
+                  id="inlineRadio2"
+                  value="option2"
+                  formControlName="taxLevel"
+                />
+                <label class="form-check-label" for="inlineRadio2"
+                  >Land Under Construction</label
+                >
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="taxLevel"
+                  id="inlineRadio3"
+                  value="option3"
+                  formControlName="taxLevel"
+                />
+                <label class="form-check-label" for="inlineRadio3"
+                  >Occupation Builder</label
+                >
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="taxLevel"
+                  id="inlineRadio4"
+                  value="option4"
+                  formControlName="taxLevel"
+                />
+                <label class="form-check-label" for="inlineRadio4">None</label>
+              </div>
+            </div>
+            <div class="input-group has-validation">
+              <!-- <label class="font12 font500 form-label me-3">Tax Level </label> -->
+              <!-- <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Tax Level</span
+              > -->
+              <div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</section>
+
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner bg-white br-10 d-flex justify-content-center">
+      <button
+        type="submit"
+        class="bg_common_red common_action_btn br-10"
+        [attr.accesskey]="loaderToggle ? '' : 'n'"
+        (click)="showNarration()"
+      >
+        Narration
+      </button>
+      <button
+        type="submit"
+        class="bg_common_red common_action_btn br-10"
+        [attr.accesskey]="loaderToggle ? '' : 'r'"
+        (click)="retrieve()"
+      >
+        Retrieve
+      </button>
+      <button
+        type="submit"
+        class="bg_common_red common_action_btn br-10"
+        [attr.accesskey]="loaderToggle ? '' : 'a'"
+      >
+        Add
+      </button>
+      <button
+        type="submit"
+        class="bg_common_red common_action_btn br-10"
+        accesskey="p"
+        (click)="showBill()"
+      >
+        Bills
+      </button>
+      <button
+        type="submit"
+        class="bg_common_red common_action_btn br-10"
+        [attr.accesskey]="loaderToggle ? '' : 's'"
+      >
+        Save
+      </button>
+      <button
+        type="button"
+        class="bg_common_red common_action_btn br-10 first_letter_textdecorationone"
+        accesskey="t"
+      >
+        Rese<u>t</u>
+      </button>
+      <a
+        class="bg_common_red common_action_btn border-0 text-white br-10 text-decoration-none"
+        accesskey="c"
+        routerLink="/shared/codehelp"
+      >
+        Code Help
+      </a>
+      <a
+        class="bg_common_red border-0 common_action_btn text-white br-10 first_letter_textdecorationone text-decoration-none"
+        accesskey="x"
+        routerLink="/dashboard"
+      >
+        E<u>x</u>it
+      </a>
+    </div>
+  </div>
+</section>
+<app-loader *ngIf="loaderToggle"></app-loader>

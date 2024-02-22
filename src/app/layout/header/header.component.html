@@ -1,0 +1,266 @@
+<nav>
+  <div class="container">
+    <div class="top_container_wrap">
+      <div class="row header_res_nav">
+        <div class="col-4 col-md-10 col-lg-10 col-xl-10 col-xxl-10">
+          <div
+            class="d-md-none d-lg-none d-xl-none d-xxl-none humberger d-flex flex-column justify-content-center h-100"
+            [class.open]="openMenu"
+            (click)="toggleMenu()"
+          >
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+          <app-menu></app-menu>
+        </div>
+        <div class="col-8 col-md-2 col-lg-2 col-xl-2 col-xxl-2 ps-0">
+          <div class="d-flex align-items-center h-100 justify-content-end">
+            <div
+              class="bg_circle d-flex justify-content-center align-items-center position-relative"
+            >
+              <span
+                class="position-absolute notify_alert bg_common_red rounded d-block"
+              ></span>
+              <img
+                src="assets/images/notification.svg"
+                alt="notification"
+              />
+            </div>
+
+            <div
+              class="bg_circle d-flex justify-content-center align-items-center"
+            >
+              <div class="dropdown custom_drp w-100 h-100">
+                <div data-bs-toggle="dropdown" class="w-100 h-100 d-flex justify-content-center align-items-center">
+                <img
+                  src="assets/images/user.svg"
+                  alt="user"
+                  width="16px"
+                  class="dropdown-toggle"
+                />
+              </div>
+                <ul class="dropdown-menu user_action p-0 border-0">
+                  <li class="li_usr">
+                    <span class="w-100 d-block font13 font500 username_title">
+                      User Name :
+                      <span class="usr_titleVal">{{ userName }}</span>
+                    </span>
+                  </li>
+                  <li class="li_logout">
+                    <button
+                      type="button"
+                      class="w-100 border-0 br-10 text-center d-block bg_common_red text-white font13 font600 py-2 logout_btn"
+                      (click)="routeToReport()"
+                    >
+                      Reports
+                    </button>
+                  </li>
+                  <li class="li_logout">
+                    <button
+                      type="button"
+                      class="w-100 border-0 br-10 text-center d-block bg_common_red text-white font13 font600 py-2 logout_btn"
+                      (click)="routeToCodeHelp()"
+                    >
+                      Code Help
+                    </button>
+                  </li>
+                  <li class="li_logout">
+                    <button
+                      type="button"
+                      class="w-100 border-0 br-10 text-center d-block bg_common_red text-white font13 font600 py-2 logout_btn"
+                      (click)="logout()"
+                    >
+                      Logout
+                    </button>
+                  </li>
+                </ul>
+
+                <span class="top_arr"></span>
+              </div>
+            </div>
+            <a
+              routerLink="dashboard"
+              class="homeDashboard bg_circle d-flex justify-content-center align-items-center position-relative me-0"
+            >
+              <img src="assets/images/homedashboard.svg" alt="home" />
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="row" *ngIf="openMenu">
+        <!-- mobile Responsive -->
+        <section class="d-block d-md-none res_menu_section">
+          <ul class="p-0">
+            <li
+              class="menu_li list-unstyled"
+              *ngFor="let i of resMenu; let c = index"
+            >
+              <a
+                class="d-flex text-dark1 d-flex"
+                routerLink="{{ i.description | trimwhitespace }}"
+                *ngIf="!i.sub_menu?.length"
+                (click)="toggleMenu()"
+              >
+                <span class="font500 menu_text position-relative">{{
+                  i.description
+                }}</span>
+              </a>
+              <a
+                class="d-flex justify-content-between text-black text-decoration-none"
+                *ngIf="i.sub_menu?.length"
+                [class.border-0]="level1 && levelDesc.l1Desc == i.description"
+                (click)="openSubMenu(i.description, 1)"
+              >
+                <span class="font500 menu_text position-relative">{{
+                  i.description
+                }}</span>
+                <span
+                  class="border-0 span_arrow text-center"
+                  *ngIf="i.sub_menu?.length"
+                >
+                  <img src="assets/images/d_arrow.svg" />
+                </span>
+              </a>
+              <ul
+                class="menu_list_ul_item ps-0 mb-0"
+                *ngIf="
+                  i.sub_menu?.length &&
+                  level1 &&
+                  levelDesc.l1Desc == i.description
+                "
+              >
+                <li
+                  class="menu_list_li_items list-unstyled"
+                  *ngFor="let l1 of i.sub_menu; let j = index"
+                >
+                  <a
+                    class="menu_list_li_items_a text-black text-decoration-none position-relative d-flex"
+                    routerLink="{{ i.description | trimwhitespace }}/{{
+                      l1.description | trimwhitespace
+                    }}"
+                    *ngIf="!l1?.sub_menu?.length"
+                    (click)="toggleMenu()"
+                  >
+                    <span class="font500 menu_text position-relative">{{
+                      l1.description
+                    }}</span>
+                  </a>
+
+                  <a
+                    type="button"
+                    class="d-flex menu_list_li_items_a text-black text-decoration-none position-relative justify-content-between"
+                    *ngIf="l1?.sub_menu?.length"
+                    (click)="openSubMenu(l1.code + '_' + l1.description, 2)"
+                    [class.border-0]="
+                      level2 &&
+                      levelDesc.l2Desc == l1.code + '_' + l1.description
+                    "
+                  >
+                    <span class="menu_list_txt font500 font12 d-flex">
+                      <img
+                        src="assets/images/rightarr.svg"
+                        class="me-2"
+                      />
+                      {{ l1.description }}
+                    </span>
+                    <span class="plus_span text-center">
+                      <img
+                        src="assets/images/plus.svg"
+                        alt
+                        class="plus_icon"
+                      />
+                    </span>
+                  </a>
+                  <ul
+                    class="menu_list_ul_item ps-0 mb-0"
+                    *ngIf="
+                      l1.sub_menu?.length &&
+                      level2 &&
+                      levelDesc.l2Desc == l1.code + '_' + l1.description
+                    "
+                  >
+                    <li
+                      class="menu_list_li_items list-unstyled"
+                      *ngFor="let l2 of l1.sub_menu; let t = index"
+                    >
+                      <a
+                        class="menu_list_li_items_a text-black text-decoration-none position-relative d-flex"
+                        routerLink="{{ i.description | trimwhitespace }}/{{
+                          l1.description | trimwhitespace
+                        }}/{{ l2.description | trimwhitespace }}"
+                        *ngIf="!l2?.sub_menu?.length"
+                        (click)="toggleMenu()"
+                      >
+                        <span
+                          class="font500 menu_text position-relative ps-3"
+                          >{{ l2.description }}</span
+                        >
+                      </a>
+
+                      <a
+                        class="menu_list_li_items_a text-black text-decoration-none position-relative d-flex justify-content-between"
+                        [class.border-0]="level3"
+                        *ngIf="l2?.sub_menu?.length"
+                        (click)="openSubMenu(l1.code + '_' + l2.description, 3)"
+                      >
+                        <span class="menu_list_txt font500 font12 ps-3">{{
+                          l2.description
+                        }}</span>
+                        <span class="rightarr_span text-center">
+                          <img src="assets/images/d_arrow.svg" alt />
+                        </span>
+                      </a>
+                      <ul
+                        class="menu_list_ul_item ps-0 mb-0 lastlevel_ul"
+                        *ngIf="
+                          l2.sub_menu?.length &&
+                          level3 &&
+                          levelDesc.l3Desc == l1.code + '_' + l2.description
+                        "
+                      >
+                        <li
+                          class="menu_list_li_items list-unstyled"
+                          *ngFor="let l3 of l2.sub_menu; let t = index"
+                        >
+                          <a
+                            class="border-0 menu_list_li_items_a text-black text-decoration-none position-relative d-flex justify-content-between"
+                            routerLink="{{ i.description | trimwhitespace }}/{{
+                              l1.description | trimwhitespace
+                            }}/{{ l2.description | trimwhitespace }}/{{
+                              l3.description | trimwhitespace
+                            }}"
+                            *ngIf="!l3?.sub_menu?.length"
+                            (click)="toggleMenu()"
+                          >
+                            <span class="font500 menu_text position-relative">{{
+                              l3.description
+                            }}</span>
+                          </a>
+
+                          <a
+                            class="border-0 menu_list_li_items_a text-black text-decoration-none position-relative"
+                            *ngIf="l3?.sub_menu?.length"
+                          >
+                            <span class="menu_list_txt font500 font12">{{
+                              l3.description
+                            }}</span>
+                            <img
+                              src="assets/images/d_arrow.svg"
+                              alt
+                              style="transform: rotate(-90deg)"
+                            />
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+      </div>
+    </div>
+  </div>
+</nav>

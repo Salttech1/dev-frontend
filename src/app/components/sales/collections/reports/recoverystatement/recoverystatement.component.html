@@ -1,0 +1,210 @@
+<section class="Recovery-Statement-wrapper">
+  <section class="form-section-wrapper">
+    <form [formGroup]="recoveryStatementForm">
+        <div class="container">
+            <div class="d-flex justify-content-center">
+            <div class="row">
+              <div class="col-md-2"></div>
+              <div class="col-md-12">
+                <!-- building code and name -->
+                <div
+                  class="input-group has-validation mt-4"
+                  [class.is-invalid]="
+                  ( recoveryStatementForm.get('bldgcode')?.hasError('required') &&
+                   recoveryStatementForm.controls['bldgcode'].touched)|| recoveryStatementForm.controls?.['bldgcode'].errors?.['notFound'] 
+                 "
+                >
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >
+                    <b><span class="text-danger">*</span></b
+                    >Building
+                  </span>
+                  <input
+                    appCommonAutoFocus
+                    type="text"
+                    formControlName="bldgcode"
+                    class="form-control border-start-0 post_input_field font500 font12"
+                    upperCase
+                    [f1]="{
+                      id: 'BUILDINGS',
+                      formData: recoveryStatementForm.get('blgdName')
+                    }"
+                    (focusout)="onLeaveBuildingCode($event.target.value)"
+                  />
+                  <span class="position-relative span_divider"></span>
+                  <input
+                    type="text"
+                    class="form-control w-50 border-start-0 post_input_field font500 text-dark1 font12"
+                    [formControlName]="'blgdName'"
+                    tabindex="-1"
+                  />
+                </div>
+                <div
+                  class="errorField common_color_txt font12 font500 disInl"
+                  *ngIf="recoveryStatementForm.controls?.['bldgcode'].errors?.['notFound'] "
+                >
+                  Invalid Building Code.
+                </div>
+                <!-- wing -->
+                <div
+                  class="input-group mt-4"
+                  [class.is-invalid]="
+                recoveryStatementForm.controls?.['wing'].errors?.['notFound'] 
+               "
+                >
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Wing &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  </span>
+                  <input
+                    type="text"
+                    formControlName="wing"
+                    upperCase
+                    class="form-control border-start-0 post_input_field font500 font12"
+                    [f1]="{
+                      id: 'BWINGS',
+                      isSingleValue: true,
+                      subId: queryString.getWing
+                    }"
+                    (focusout)="onLeaveWingCode($event.target.value)"
+                  />
+                </div>
+                <div
+                  class="errorField common_color_txt font12 font500 disInl"
+                  *ngIf="recoveryStatementForm.controls?.['wing'].errors?.['notFound'] "
+                >
+                  Invalid wing .
+                </div>
+                <!-- flat no -->
+                <div
+                  class="input-group has-validation mt-4"
+                  [class.is-invalid]="
+                   ( recoveryStatementForm.get('flatNum')?.hasError('required') &&
+                    recoveryStatementForm.controls['flatNum'].touched)
+                    || (recoveryStatementForm.controls['flatNum'].touched &&recoveryStatementForm.controls?.['flatNum'].errors?.['notFound'] )
+                  "
+                >
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >
+                    <b><span class="text-danger">*</span></b
+                    >Flat No.
+                  </span>
+                  <input
+                    type="text"
+                    formControlName="flatNum"
+                    class="form-control border-start-0 post_input_field font500 font12"
+                    upperCase
+                    [f1]="{
+                      id: 'FLATSALL',
+                      formData: recoveryStatementForm.get('ownerName'),
+                      isSingleValue: true,
+                      subId: queryString.getFlatNumber
+                        ? queryString.getFlatNumber
+                        : queryString.getWing
+                    }"
+                    (focusout)="onLeaveFlatNum($event.target.value)"
+                  />
+                  <span class="position-relative span_divider"></span>
+                  <input
+                    type="text"
+                    class="form-control w-50 border-start-0 post_input_field font500 text-dark1 font12"
+                    [formControlName]="'ownerName'"
+                    tabindex="-1"
+                  />
+                </div>
+                <div
+                  class="errorField common_color_txt font12 font500 disInl"
+                  *ngIf="recoveryStatementForm.controls?.['flatNum'].errors?.['notFound'] "
+                >
+                  Invalid flat Number.
+                </div>
+              <div class="input-group justify-content-center">
+                <div class="m-3">
+                  <div class="form-check d-flex align-items-center">
+                    <input
+                      type="radio"
+                      class="form-check-input font12 font500 position-relative cursor-pointer"
+                      formControlName="printType"
+                      [value]="receiptTypes[0].id"
+                    />
+                    <label
+                      class="form-check-label first_letter_textdecorationone mt-1"
+                      for="Policymattoday"
+                      accesskey="h"
+                    >
+                      Parking
+                    </label>
+                  </div>
+                </div>
+                <div class="m-3">
+                  <div class="form-check d-flex align-items-center">
+                    <input
+                      type="radio"
+                      class="form-check-input font12 font500 position-relative cursor-pointer"
+                      formControlName="printType"
+                      [value]="receiptTypes[1].id"
+                    />
+                    <label
+                      class="form-check-label first_letter_textdecorationone mt-1"
+                      for="Policymattoday"
+                      accesskey="h"
+                    >
+                      Flats
+                    </label>
+                  </div>
+                </div>
+                <div class="m-3">
+                    <div class="form-check d-flex align-items-center">
+                      <input
+                        type="radio"
+                        class="form-check-input font12 font500 position-relative cursor-pointer"
+                        formControlName="printType"
+                        [value]="receiptTypes[2].id"
+                      />
+                      <label
+                        class="form-check-label first_letter_textdecorationone mt-1"
+                        for="Policymattoday"
+                        accesskey="h"
+                      >
+                        All
+                      </label>
+                    </div>
+                  </div>
+              </div>
+                <!-- export types -->
+                <div class="mt-4" *ngIf="_service.getAccess('Export')">
+                  <p class="bg-white font600 group_title mb-1">Export Type</p>
+    
+                  <div
+                    class="form-check form-check-inline"
+                    *ngFor="let item of exportTypes"
+                  >
+                    <input
+                      class="form-check-input position-relative cursor-pointer"
+                      type="radio"
+                      [value]="item.id"
+                      formControlName="exportType"
+                    />
+                    <label class="form-check-label m-0" for="exTy1">
+                      {{ item.name }}
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2"></div>
+            </div>
+        </div>
+          </div>
+    </form>
+  </section>
+</section>
+
+
+<app-buttons
+  [buttonsList]="buttonsList"
+  (eventTrigger)="buttonAction($event)"
+></app-buttons>
+
+<app-loader *ngIf="config.isLoading"></app-loader>

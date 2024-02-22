@@ -1,0 +1,10 @@
+.lastlevel_ul{
+    list-style: disc;
+    margin-left: 40px;
+    color: #d9dce0;
+    font-size: 12px;
+}
+.fav_menu_ul{
+    max-height: 550px;
+    overflow-y: auto;
+}

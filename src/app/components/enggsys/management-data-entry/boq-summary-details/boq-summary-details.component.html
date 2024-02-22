@@ -1,0 +1,403 @@
+<!-- <p>boq-summary-details works!</p> -->
+<section>
+  <div class="row">
+    <div class="col-md-12">
+      <form [formGroup]="boqSummaryDetailsForm">
+        <div class="row g-2">
+          <div class="col-md-3">
+            <div class="input-group">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Project</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control border-start-0 post_input_field font500 font12"
+                formControlName="project"
+                [f1]="{ id: 'BUILDINGS', isSingleValue: true }"
+                (focusout)="onLeaveProject($event.target.value)"
+              />
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="input-group">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >BOQ No.</span
+              >
+              <input
+                type="text"
+                name=""
+                id="boqno"
+                class="form-control border-start-0 post_input_field font500 font12"
+                formControlName="boqno"
+                [f1]="{
+                  id: 'MATCERTLNBOQCODE',
+                  isSingleValue: true,
+                  subId: filters.getBOQNo ? filters.getBOQNo : ''
+                }"
+              />
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="input-group">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >RAC No.</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control border-start-0 post_input_field font500 font12"
+                formControlName="racno"
+                [f1]="{ id: 'MATCERTLOGICNOTE', isSingleValue: true }"
+              />
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="input-group">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Vendor</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control border-start-0 post_input_field font500 font12"
+                formControlName="vendor"
+                [f1]="{ id: 'MATCERTLNVENDOR', isSingleValue: true }"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-2 mt-2">
+          <div class="col-md-12">
+            <div class="group_panel br-10 p-2 position-relative form_common_bg">
+              <div class="col-md-12">
+                <div class="row g-2">
+                  <div class="container mb-2">
+                    <div class="input-group justify-content-center">
+                      <span
+                        class="input-group-text leftform_lbl font500 text-dark1 font12"
+                        >Formula Field :
+                      </span>
+                      <div class="form-check form-check-inline">
+                        <select
+                          class="border-1 form-control input_control form-control font500 text-dark1 font12"
+                        >
+                          <option selected>Select</option>
+                          <option value="qty">Qty</option>
+                          <option value="matRate">MatRate</option>
+                          <option value="MatAmt">MatAmt</option>
+                          <option value="LabRate">LabRate</option>
+                          <option value="LabAmt">LabAmt</option>
+                          <option value="Currency">Currency</option>
+                          <option value="ConversionRate">ConversionRate</option>
+                          <option value="OtherRate">OtherRate</option>
+                          <option value="OtherAmt">OtherAmt</option>
+                          <option value="Length">Length</option>
+                          <option value="width">width</option>
+                          <option value="HighDepth">HighDepth</option>
+                          <option value="Thickness">Thickness</option>
+                          <option value="Density">Density</option>
+                        </select>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <select
+                          class="border-1 form-control input_control form-control font500 text-dark1 font12"
+                        >
+                          <option selected>Select</option>
+                          <option value="plus">+</option>
+                          <option value="minus">-</option>
+                          <option value="divide">/</option>
+                          <option value="multiplication">*</option>
+                        </select>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <select
+                          class="border-1 form-control input_control form-control font500 text-dark1 font12"
+                        >
+                          <option selected>Select</option>
+                          <option value="qty">Qty</option>
+                          <option value="matRate">MatRate</option>
+                          <option value="MatAmt">MatAmt</option>
+                          <option value="LabRate">LabRate</option>
+                          <option value="LabAmt">LabAmt</option>
+                          <option value="Currency">Currency</option>
+                          <option value="ConversionRate">ConversionRate</option>
+                          <option value="OtherRate">OtherRate</option>
+                          <option value="OtherAmt">OtherAmt</option>
+                          <option value="Length">Length</option>
+                          <option value="width">width</option>
+                          <option value="HighDepth">HighDepth</option>
+                          <option value="Thickness">Thickness</option>
+                          <option value="Density">Density</option>
+                        </select>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <button type="button" class="btn action_btn d-flex">
+                          <img
+                            src="assets/images/forward.svg"
+                            alt=""
+                            style="
+                              height: 1rem;
+                              width: 1rem;
+                              margin-left: -2rem;
+                            "
+                          />
+                        </button>
+                      </div>
+
+                      <div class="form-check form-check-inline">
+                        <select
+                          class="border-1 form-control input_control form-control font500 text-dark1 font12"
+                        >
+                          <option selected>Select</option>
+                          <option value="qty">Qty</option>
+                          <option value="matRate">MatRate</option>
+                          <option value="MatAmt">MatAmt</option>
+                          <option value="LabRate">LabRate</option>
+                          <option value="LabAmt">LabAmt</option>
+                          <option value="Currency">Currency</option>
+                          <option value="ConversionRate">ConversionRate</option>
+                          <option value="OtherRate">OtherRate</option>
+                          <option value="OtherAmt">OtherAmt</option>
+                          <option value="Length">Length</option>
+                          <option value="width">width</option>
+                          <option value="HighDepth">HighDepth</option>
+                          <option value="Thickness">Thickness</option>
+                          <option value="Density">Density</option>
+                        </select>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <button type="button" class="btn btn-light btn-sm">
+                          Process
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row g-2">
+                  <div class="pt-2">
+                    <!-- tab -->
+                    <div class="tabs_container pt-2">
+                      <div class="tabs_inner_container">
+                        <ul class="nav nav-tabs">
+                          <!-- Party Detail -->
+                          <li class="nav-item">
+                            <a
+                              class="nav-link lh-20 active text-decoration-none font14 text-dark1 font500 first_letter_textdecorationone"
+                              data-bs-toggle="tab"
+                              href="#partydetail"
+                              accesskey=""
+                            >
+                              <span class="text-decoration-underline"></span
+                              >Section 1
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="tab-content">
+                        <!-- Party Detail Tab-->
+                        <div
+                          class="tab-pane container active p-0"
+                          id="partydetail"
+                        >
+                          <div
+                            class="table-responsive group_panel form_common_bg stylishScroll"
+                            formArrayName="addBOQSummaryList"
+                          >
+                            <table class="table table-bordered table-sm mb-0">
+                              <thead>
+                                <tr>
+                                  <th class="fontBold font12 fonttxt_black">
+                                    Sr. No.
+                                  </th>
+                                  <th class="fontBold font12 fonttxt_black">
+                                    Item Code
+                                  </th>
+                                  <th class="fontBold font12 fonttxt_black">
+                                    Product
+                                  </th>
+                                  <!-- <th class="fontBold font12 fonttxt_black">
+                                      Brand
+                                    </th>
+                                    <th class="fontBold font12 fonttxt_black">
+                                      Item Desc
+                                    </th>
+                                    <th class="fontBold font12 fonttxt_black">
+                                      Location
+                                    </th>
+                                    <th class="fontBold font12 fonttxt_black">
+                                      Area
+                                    </th>
+                                    <th class="fontBold font12 fonttxt_black">
+                                      Vendor1SubItemDesc
+                                    </th>
+                                    <th class="fontBold font12 fonttxt_black">
+                                      Vendor1Qty
+                                    </th>
+                                    <th class="fontBold font12 fonttxt_black">
+                                      Vendor1Material
+                                    </th>
+                                    <th class="fontBold font12 fonttxt_black">
+                                      Vendor1MatType
+                                    </th>
+                                    <th class="fontBold font12 fonttxt_black">
+                                      Vendor1MatRate
+                                    </th>
+                                    <th class="fontBold font12 fonttxt_black">
+                                      Vendor1MatAmt
+                                    </th>
+                                    <th class="fontBold font12 fonttxt_black">
+                                      Vendor1LabRate
+                                    </th>
+                                    <th class="fontBold font12 fonttxt_black">
+                                      Vendor1LabRate
+                                    </th>
+                                    <th class="fontBold font12 fonttxt_black">
+                                      Vendor1LabAmt
+                                    </th>
+                                    <th class="fontBold font12 fonttxt_black">
+                                      Vendor1Currency
+                                    </th>
+                                    <th class="fontBold font12 fonttxt_black">
+                                      Vendor1ConversionRate
+                                    </th>
+                                    <th class="fontBold font12 fonttxt_black">
+                                      Vendor1OtherDesc
+                                    </th>
+                                    <th class="fontBold font12 fonttxt_black">
+                                      Vendor1OtherRate
+                                    </th>
+                                    <th class="fontBold font12 fonttxt_black">
+                                      Vendor1OtherAmt
+                                    </th>
+                                    <th class="fontBold font12 fonttxt_black">
+                                      Vendor1Length
+                                    </th>
+                                    <th class="fontBold font12 fonttxt_black">
+                                      Vendor1width
+                                    </th>
+                                    <th class="fontBold font12 fonttxt_black">
+                                      Vendor1HighDepth
+                                    </th>
+                                    <th class="fontBold font12 fonttxt_black">
+                                      Vendor1Thickness
+                                    </th>
+                                    <th class="fontBold font12 fonttxt_black">
+                                      Vendor1Density
+                                    </th>
+                                    <th class="fontBold font12 fonttxt_black">
+                                      Vendor1Remarks
+                                    </th>
+                                    <th class="fontBold font12 fonttxt_black">
+                                      Vendor1ItemPath
+                                    </th> -->
+                                  <th class="fontBold font12 fonttxt_black">
+                                    Action
+                                  </th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <!-- <tr> -->
+                                <tr
+                                  *ngFor="
+                                    let item of boqSummaryDetailsForm?.controls[
+                                      'addBOQSummaryList'
+                                    ].controls;
+                                    let index = index
+                                  "
+                                  [formGroupName]="index"
+                                >
+                                  <td>
+                                    <div class="input-group">
+                                      <input
+                                        type="text"
+                                        name=""
+                                        id=""
+                                        class="form-control input_control font500 fonttxt_black font12"
+                                        formControlName="srno"
+                                      />
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="input-group">
+                                      <input
+                                        type="text"
+                                        name=""
+                                        id=""
+                                        class="form-control input_control font500 fonttxt_black font12"
+                                        formControlName="itemCode"
+                                      />
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="input-group">
+                                      <input
+                                        type="text"
+                                        name=""
+                                        id=""
+                                        class="form-control input_control font500 fonttxt_black font12"
+                                        formControlName="product"
+                                      />
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div
+                                      class="action_panel d-flex justify-content-center"
+                                    >
+                                      <button
+                                        type="button"
+                                        class="btn action_btn d-flex bg_common_red mt-1"
+                                        (click)="addBOQ()"
+                                      >
+                                        <img
+                                          src="/assets/images/add.svg"
+                                          alt="add"
+                                          class="add_img"
+                                        />
+                                      </button>
+                                      <button
+                                        type="button"
+                                        class="btn action_btn d-flex bg_common_red ms-1 mt-1"
+                                        (click)="deleteBOQ(index)"
+                                      >
+                                        <img
+                                          src="/assets/images/trash.svg"
+                                          alt="remove"
+                                          class="delete_img"
+                                        />
+                                      </button>
+                                    </div>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Bottom button start -->
+<app-buttons
+  [buttonsList]="buttonsList"
+  (eventTrigger)="buttonAction($event)"
+></app-buttons>
+<!-- Bottom button end -->

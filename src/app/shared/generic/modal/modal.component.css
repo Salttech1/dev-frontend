@@ -1,0 +1,33 @@
+.custom_modal .modal-title {
+    padding: 10px 0 10px 0;font-family: 'Montserrat';
+}
+.custom_modal .modal-content {
+    padding: 0 20px;
+}
+.btn-close {
+    opacity: 1;
+}
+.modal_ok_btn .bg_common_red:focus-visible {
+    outline: 2px solid #a00a0a;
+}
+
+.modal_ok_btn .bg_common_green:focus-visible{
+    background-color: #a00a0a;
+    margin-right: 15px;
+}
+
+.del_act_cancel_btn {
+    padding: 3px 40px;
+}
+
+.del_act_cancel_btn {
+    background: #F6F7F8;
+}
+
+.del_act_btn {
+    padding: 3px 40px;
+}
+
+.bg_common_red {
+    background: #E23335;
+}

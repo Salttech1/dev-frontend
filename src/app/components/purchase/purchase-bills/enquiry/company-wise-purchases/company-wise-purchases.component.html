@@ -1,0 +1,609 @@
+<section class="depositrenewal_section">
+  <div class="container">
+    <div class="form_depositor_container pb-2">
+      <form [formGroup]="companyWisePurchaseSectionForm">
+        <div class="col-sm-12" formGroupName="reportParameters">
+          <div class="col-md-12 col-sm-12 col-xl-12 col-xxl-12 pt-3">
+            <div class="">
+              <div class="">
+                <div
+                  class="input-group"
+                  [class.is-invalid]="
+                    companyWisePurchaseSectionForm.get('reportParameters')
+                      ?.controls['companyCode'].invalid &&
+                    companyWisePurchaseSectionForm.get('reportParameters')
+                      ?.controls['companyCode'].touched
+                  "
+                >
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Company</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0"
+                    id="company4"
+                    formControlName="companyCode"
+                    autocomplete="off"
+                    [f1]="{
+                      id: 'COMPANY'
+                    }"
+                    autofocus
+                  />
+                </div>
+                <div
+                  class="invalid-feedback d-block"
+                  *ngIf="
+                    companyWisePurchaseSectionForm.get('reportParameters')
+                      ?.controls['companyCode'].invalid &&
+                    companyWisePurchaseSectionForm.get('reportParameters')
+                      ?.controls['companyCode'].touched
+                  "
+                >
+                  <div
+                    *ngIf="companyWisePurchaseSectionForm.get('reportParameters')?.controls['companyCode'].errors?.['notFound']"
+                  >
+                    * Invalid Company Code
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 col-sm-12 col-xl-12 col-xxl-12 pt-3">
+            <div class="">
+              <div class="">
+                <div
+                  class="input-group"
+                  [class.is-invalid]="
+                    companyWisePurchaseSectionForm.get('reportParameters')
+                      ?.controls['projectCode'].invalid &&
+                    companyWisePurchaseSectionForm.get('reportParameters')
+                      ?.controls['projectCode'].touched
+                  "
+                >
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Project</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0"
+                    id="project4"
+                    formControlName="projectCode"
+                    autocomplete="off"
+                    [f1]="{
+                      id: 'PROJECTS'
+                    }"
+                  />
+                </div>
+                <div
+                  class="invalid-feedback d-block"
+                  *ngIf="
+                    companyWisePurchaseSectionForm.get('reportParameters')
+                      ?.controls['projectCode'].invalid &&
+                    companyWisePurchaseSectionForm.get('reportParameters')
+                      ?.controls['projectCode'].touched
+                  "
+                >
+                  <div
+                    *ngIf="companyWisePurchaseSectionForm.get('reportParameters')?.controls['projectCode'].errors?.['notFound']"
+                  >
+                    * Invalid Project Code
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 col-sm-12 col-xl-12 col-xxl-12 pt-3">
+            <div class="">
+              <div class="">
+                <div
+                  class="input-group"
+                  [class.is-invalid]="
+                    companyWisePurchaseSectionForm.get('reportParameters')
+                      ?.controls['buildCode'].invalid &&
+                    companyWisePurchaseSectionForm.get('reportParameters')
+                      ?.controls['buildCode'].touched
+                  "
+                >
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Building</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0"
+                    id="building4"
+                    formControlName="buildCode"
+                    autocomplete="off"
+                    [f1]="{
+                      id: 'BUILDINGS'
+                    }"
+                  />
+                </div>
+                <div
+                  class="invalid-feedback d-block"
+                  *ngIf="
+                    companyWisePurchaseSectionForm.get('reportParameters')
+                      ?.controls['buildCode'].invalid &&
+                    companyWisePurchaseSectionForm.get('reportParameters')
+                      ?.controls['buildCode'].touched
+                  "
+                >
+                  <div
+                    *ngIf="companyWisePurchaseSectionForm.get('reportParameters')?.controls['buildCode'].errors?.['notFound']"
+                  >
+                    * Invalid Project Code
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 col-sm-12 col-xl-12 col-xxl-12 pt-3">
+            <div class="">
+              <div class="">
+                <div
+                  class="input-group"
+                  [class.is-invalid]="
+                    companyWisePurchaseSectionForm.get('reportParameters')
+                      ?.controls['suppCode'].invalid &&
+                    companyWisePurchaseSectionForm.get('reportParameters')
+                      ?.controls['suppCode'].touched
+                  "
+                >
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Supplier Code</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0"
+                    id="supplier4"
+                    formControlName="suppCode"
+                    autocomplete="off"
+                    [f1]="{
+                      id: 'SUPPLIERS'
+                    }"
+                  />
+                </div>
+                <div
+                  class="invalid-feedback d-block"
+                  *ngIf="
+                    companyWisePurchaseSectionForm.get('reportParameters')
+                      ?.controls['suppCode'].invalid &&
+                    companyWisePurchaseSectionForm.get('reportParameters')
+                      ?.controls['suppCode'].touched
+                  "
+                >
+                  <div
+                    *ngIf="companyWisePurchaseSectionForm.get('reportParameters')?.controls['suppCode'].errors?.['notFound']"
+                  >
+                    * Invalid Supplier Code
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 col-sm-12 col-xl-12 col-xxl-12 pt-3">
+            <div class="">
+              <div class="">
+                <div
+                  class="input-group"
+                  [class.is-invalid]="
+                    companyWisePurchaseSectionForm.get('reportParameters')
+                      ?.controls['matGroupCode'].invalid &&
+                    companyWisePurchaseSectionForm.get('reportParameters')
+                      ?.controls['matGroupCode'].touched
+                  "
+                >
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Material Group</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0"
+                    id="matGroup4"
+                    formControlName="matGroupCode"
+                    autocomplete="off"
+                    [f1]="{
+                      id: 'MATGROUPS',
+                      subId: matGroups_condition
+                    }"
+                  />
+                </div>
+                <div
+                  class="invalid-feedback d-block"
+                  *ngIf="
+                    companyWisePurchaseSectionForm.get('reportParameters')
+                      ?.controls['matGroupCode'].invalid &&
+                    companyWisePurchaseSectionForm.get('reportParameters')
+                      ?.controls['matGroupCode'].touched
+                  "
+                >
+                  <div
+                    *ngIf="companyWisePurchaseSectionForm.get('reportParameters')?.controls['matGroupCode'].errors?.['notFound']"
+                  >
+                    * Invalid Material Group
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 col-sm-12 col-xl-12 col-xxl-12 pt-3">
+            <div class="">
+              <div class="">
+                <div
+                  class="input-group"
+                  [class.is-invalid]="
+                    companyWisePurchaseSectionForm.get('reportParameters')
+                      ?.controls['matCode'].invalid &&
+                    companyWisePurchaseSectionForm.get('reportParameters')
+                      ?.controls['matCode'].touched
+                  "
+                >
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Material Code</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0"
+                    id="matCode4"
+                    formControlName="matCode"
+                    autocomplete="off"
+                    [f1]="{
+                      id: 'MATCODES'
+                    }"
+                  />
+                </div>
+                <div
+                  class="invalid-feedback d-block"
+                  *ngIf="
+                    companyWisePurchaseSectionForm.get('reportParameters')
+                      ?.controls['matCode'].invalid &&
+                    companyWisePurchaseSectionForm.get('reportParameters')
+                      ?.controls['matCode'].touched
+                  "
+                >
+                  <div
+                    *ngIf="companyWisePurchaseSectionForm.get('reportParameters')?.controls['matCode'].errors?.['notFound']"
+                  >
+                    * Invalid Mat Code
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 mt-3">
+            <div
+              class="input-group flex-nowrap"
+              appDate1
+              [class.is-invalid]="
+                (companyWisePurchaseSectionForm.get('billRange')?.controls[
+                  'from'
+                ]?.invalid &&
+                  companyWisePurchaseSectionForm.get('billRange')?.controls[
+                    'from'
+                  ]?.touched) ||
+                (companyWisePurchaseSectionForm.get('billRange')?.controls['to']
+                  ?.invalid &&
+                  companyWisePurchaseSectionForm.get('billRange')?.controls[
+                    'to'
+                  ]?.touched)
+              "
+            >
+              <span class="input-group-text leftform_lbl font500 text-dark1"
+                >Bill Date Range</span
+              >
+              <div
+                class="bg-white datepicker_field post_input_field flex-grow-1"
+                [class.is-invalid]="
+                  (companyWisePurchaseSectionForm.get('billRange')?.controls[
+                    'from'
+                  ]?.invalid &&
+                    companyWisePurchaseSectionForm.get('billRange')?.controls[
+                      'from'
+                    ]?.touched) ||
+                  (companyWisePurchaseSectionForm.get('billRange')?.controls[
+                    'to'
+                  ]?.invalid &&
+                    companyWisePurchaseSectionForm.get('billRange')?.controls[
+                      'to'
+                    ]?.touched)
+                "
+              >
+                <span class="input-group-addon">
+                  <div mat-form-field appearance="fill" class="matForm">
+                    <mat-date-range-input
+                      [formGroup]="
+                        this.companyWisePurchaseSectionForm.controls[
+                          'billRange'
+                        ]
+                      "
+                      [rangePicker]="picker2"
+                    >
+                      <input
+                        class="font12"
+                        matStartDate
+                        formControlName="from"
+                        placeholder="Start date"
+                      />
+                      <input
+                        class="font12"
+                        matEndDate
+                        formControlName="to"
+                        placeholder="End date"
+                      />
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="picker2"
+                    ></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker2></mat-date-range-picker>
+                  </div>
+                </span>
+              </div>
+            </div>
+            <div
+              *ngIf="
+                companyWisePurchaseSectionForm.controls['billRange'].invalid &&
+                companyWisePurchaseSectionForm.controls['billRange'].touched
+              "
+            >
+              <div
+                class="invalid-feedback d-block"
+                *ngIf="
+                  (companyWisePurchaseSectionForm.get('billRange').controls[
+                    'from'
+                  ]?.invalid &&
+                    companyWisePurchaseSectionForm.get('billRange').controls[
+                      'from'
+                    ]?.touched) ||
+                  (companyWisePurchaseSectionForm.get('billRange').controls[
+                    'to'
+                  ]?.invalid &&
+                    companyWisePurchaseSectionForm.get('billRange').controls[
+                      'to'
+                    ]?.touched)
+                "
+              >
+                Proper Date is required
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 col-sm-12 col-xl-12 col-xxl-12 pt-3">
+            <div class="">
+              <div class="">
+                <div
+                  class="input-group"
+                  [class.is-invalid]="
+                    companyWisePurchaseSectionForm.get('reportParameters')
+                      ?.controls['bill'].invalid &&
+                    companyWisePurchaseSectionForm.get('reportParameters')
+                      ?.controls['bill'].touched
+                  "
+                >
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Bill Type</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0"
+                    id="billType4"
+                    formControlName="bill"
+                    autocomplete="off"
+                    [f1]="{
+                      id: 'BILLTYPES'
+                    }"
+                  />
+                </div>
+                <div
+                  class="invalid-feedback d-block"
+                  *ngIf="
+                    companyWisePurchaseSectionForm.get('reportParameters')
+                      ?.controls['bill'].invalid &&
+                    companyWisePurchaseSectionForm.get('reportParameters')
+                      ?.controls['bill'].touched
+                  "
+                >
+                  <div
+                    *ngIf="companyWisePurchaseSectionForm.get('reportParameters')?.controls['bill'].errors?.['notFound']"
+                  >
+                    * Invalid Bill Type
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 mt-3">
+            <div
+              class="input-group flex-nowrap"
+              appDate1
+              [class.is-invalid]="
+                (companyWisePurchaseSectionForm.get('entryRange')?.controls[
+                  'from'
+                ]?.invalid &&
+                  companyWisePurchaseSectionForm.get('entryRange')?.controls[
+                    'from'
+                  ]?.touched) ||
+                (companyWisePurchaseSectionForm.get('entryRange')?.controls[
+                  'to'
+                ]?.invalid &&
+                  companyWisePurchaseSectionForm.get('entryRange')?.controls[
+                    'to'
+                  ]?.touched)
+              "
+            >
+              <span class="input-group-text leftform_lbl font500 text-dark1"
+                >Entry Date Range</span
+              >
+              <div
+                class="bg-white datepicker_field post_input_field flex-grow-1"
+                [class.is-invalid]="
+                  (companyWisePurchaseSectionForm.get('entryRange')?.controls[
+                    'from'
+                  ]?.invalid &&
+                    companyWisePurchaseSectionForm.get('entryRange')?.controls[
+                      'from'
+                    ]?.touched) ||
+                  (companyWisePurchaseSectionForm.get('entryRange')?.controls[
+                    'to'
+                  ]?.invalid &&
+                    companyWisePurchaseSectionForm.get('entryRange')?.controls[
+                      'to'
+                    ]?.touched)
+                "
+              >
+                <span class="input-group-addon">
+                  <div mat-form-field appearance="fill" class="matForm">
+                    <mat-date-range-input
+                      [formGroup]="
+                        this.companyWisePurchaseSectionForm.controls[
+                          'entryRange'
+                        ]
+                      "
+                      [rangePicker]="picker3"
+                    >
+                      <input
+                        class="font12"
+                        matStartDate
+                        formControlName="from"
+                        placeholder="Start date"
+                      />
+                      <input
+                        class="font12"
+                        matEndDate
+                        formControlName="to"
+                        placeholder="End date"
+                      />
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="picker3"
+                    ></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker3></mat-date-range-picker>
+                  </div>
+                </span>
+              </div>
+            </div>
+            <div
+              *ngIf="
+                companyWisePurchaseSectionForm.controls['entryRange'].invalid &&
+                companyWisePurchaseSectionForm.controls['entryRange'].touched
+              "
+            >
+              <div
+                class="invalid-feedback d-block"
+                *ngIf="
+                  (companyWisePurchaseSectionForm.get('entryRange').controls[
+                    'from'
+                  ]?.invalid &&
+                    companyWisePurchaseSectionForm.get('entryRange').controls[
+                      'from'
+                    ]?.touched) ||
+                  (companyWisePurchaseSectionForm.get('entryRange').controls[
+                    'to'
+                  ]?.invalid &&
+                    companyWisePurchaseSectionForm.get('entryRange').controls[
+                      'to'
+                    ]?.touched)
+                "
+              >
+                Proper Date is required
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="col-md-12 col-sm-12 col-xl-12 col-xxl-12 pt-3"
+          *ngIf="_service.getAccess('Export')"
+        >
+          <p class="bg-white font600 group_title mb-1">Export Type</p>
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input position-relative"
+              type="radio"
+              name="exportType"
+              id="exTy1"
+              value="PDF"
+              formControlName="exportType"
+            />
+            <label class="form-check-label" for="exTy1"> PDF </label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input position-relative"
+              type="radio"
+              name="exportType"
+              id="exTy2"
+              value="EXCEL_REPORT_DATA_FORMAT"
+              formControlName="exportType"
+            />
+            <label class="form-check-label" for="exTy2">
+              Excel (Report - Data Format)
+            </label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input position-relative"
+              type="radio"
+              name="exportType"
+              id="exTy3"
+              value="EXCEL_TEMPLATE_FORMAT"
+              formControlName="exportType"
+            />
+            <label class="form-check-label" for="exTy3">
+              Excel (Template Format)
+            </label>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+<app-loader *ngIf="loaderToggle"></app-loader>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner text-center bg-white br-10 w-100">
+      <div class="flex justify-content-between">
+        <button
+          *ngIf="_service.getAccess('Export')"
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+          accesskey="w"
+          (click)="getReport(false)"
+        >
+          Do<span class="text-decoration-underline">w</span>nload
+        </button>
+        <button
+          *ngIf="_service.getAccess('Print')"
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white"
+          (click)="getReport(true)"
+          accesskey="p"
+        >
+          Print
+        </button>
+        <button
+        type="submit"
+        (click)="resetForm()"
+        class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone"
+        accesskey="t"
+      >
+        Rese<span class="text-decoration-underline">t</span>
+      </button>
+        <!-- <button type="submit" class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white" [disabled]="true">File</button> -->
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+          accesskey="x"
+          (click)="handleExitClick()"
+        >
+          E<span class="text-decoration-underline">x</span>it
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,62 @@
+<section class="container">
+  <form [formGroup]="grosssalaryinexcel">
+    <div class="d-flex justify-content-center">
+      <div formGroupName="reportParameters">
+        <div class="row g-2 mb-3">
+          <div class="col-lg-12">
+            <div
+              class="group_panel br-10 form_common_bg p-3 pt-3 position-relative"
+            >
+              <p
+                class="bg-white font600 group_title mb-0 position-absolute"
+              ></p>
+              <div class="row mb-2 mb-2">
+                <div class="col-lg-12">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Paymonth
+                    </span>
+                    <input
+                      type="text"
+                      class="form-control border-start-0 post_input_field"
+                      formControlName="PPayMonthFrom"
+                      autocomplete="off"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</section>
+
+<app-loader *ngIf="loaderToggle"></app-loader>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner text-center bg-white br-10 w-100">
+      <div class="flex justify-content-between">
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+          accesskey="w"
+          (click)="exportReport()"
+        >
+          Do<span class="text-decoration-underline">w</span>nload
+        </button>
+        <!-- <button type="submit" class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white" [disabled]="true" accesskey="p" >Preview</button> -->
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+          accesskey="x"
+          (click)="handleExitClick()"
+        >
+          E<span class="text-decoration-underline">x</span>it
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,20 @@
+.container 
+    { display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-check-input:checked[type="radio"] {
+    border-width: 4px;
+  }
+
+  .form-check-input:after {
+    display: none;
+  }
+
+  .matForm {
+    display: flex;
+    align-items: center;
+    padding-left: 0.5rem;
+  }
+  

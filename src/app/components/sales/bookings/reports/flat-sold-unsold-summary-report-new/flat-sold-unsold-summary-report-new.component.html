@@ -1,0 +1,135 @@
+<section class="container">
+  <section class="form-section-wrapper">
+    <form [formGroup]="ReportCriteria">
+      <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+          
+           <!-- building code -->
+          <div
+          class="input-group mt-4"
+          [class.is-invalid]="(ReportCriteria.get('bldgCode')?.hasError('required') && ReportCriteria.controls['bldgCode'].touched)|| ReportCriteria.controls?.['bldgCode'].errors?.['notFound'] 
+     "
+        >
+          <span
+            class="input-group-text leftform_lbl font500 text-dark1 font12"
+          >
+            <b></b>Building
+          </span>
+          <input
+            appCommonAutoFocus
+            type="text"
+            formControlName="bldgCode"
+            class="form-control border-start-0 post_input_field font500 font12"
+            upperCase
+            [f1]="{
+              id: 'BUILDINGS',
+              multi: true
+            }"
+            (focusout)="onLeaveBuildingCode($event.target.value)"
+          />
+        </div>
+        <div
+          class="errorField common_color_txt font12 font500 disInl"
+          *ngIf="ReportCriteria.controls?.['bldgCode'].errors?.['notFound'] "
+        >
+          Invalid Building Code
+        </div>
+
+          <!-- wing -->
+          <div
+            class="input-group mt-4"
+            [class.is-invalid]="ReportCriteria.controls?.['wing'].errors?.['notFound'] "
+          >
+            <span
+              class="input-group-text leftform_lbl font500 text-dark1 font12"
+              >Wing &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </span>
+            <input
+              type="text"
+              formControlName="wing"
+              upperCase
+              class="form-control border-start-0 post_input_field font500 font12"
+              [f1]="{
+                id: 'BWINGS',
+                isSingleValue: true,
+                subId: filter_wing
+              }"
+            />
+          </div>
+          <div
+            class="errorField common_color_txt font12 font500 disInl"
+            *ngIf="ReportCriteria.controls?.['wing'].errors?.['notFound'] "
+          >
+            Invalid wing
+          </div>
+
+          <!-- As On Date -->
+          <div class="col-lg-8">
+            <div
+              class="input-group mt-4"
+              [class.is-invalid]="
+                ReportCriteria.get('asOnDate')?.touched &&
+                ReportCriteria.get('asOnDate')?.invalid
+              "
+              appDate1
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                ><b class="text-danger">*</b>As On Date</span
+              >
+              <input
+                type="text"
+                [autocomplete]="'off'"
+                class="form-control border-start-0 rounded-0 post_input_field font500 text-dark1 font12"
+                matInput
+                [max]="maxDate"
+                [matDatepicker]="reportDate"
+                formControlName="asOnDate"
+              />
+              <div
+                class="input-group-append bg-white post_input_field datepicker_field border-start-0"
+                [class.is-invalid]="
+                  ReportCriteria.get('asOnDate')?.touched &&
+                  ReportCriteria.get('asOnDate')?.errors
+                "
+              >
+                <span class="input-group-addon">
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="reportDate"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #reportDate></mat-datepicker>
+                </span>
+              </div>
+            </div>
+            <div
+              class="invalid-feedback"
+              [class.d-block]="
+                ReportCriteria.get('asOnDate')?.touched &&
+                ReportCriteria.get('asOnDate')?.invalid
+              "
+            >
+              <div *ngIf="ReportCriteria.get('asOnDate')?.errors?.['required']">
+                This is required
+              </div>
+              <div
+                *ngIf="
+                  ReportCriteria.get('asOnDate')?.hasError('matDatepickerMax')
+                "
+              >
+                Furture date not excepted
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </section>
+</section>
+
+<app-buttons
+  [buttonsList]="buttonsList"
+  (eventTrigger)="buttonAction($event)"
+></app-buttons>
+<app-loader *ngIf="config.isLoading"></app-loader>

@@ -1,0 +1,1093 @@
+<section class="depositordetail_section">
+  <div class="container">
+    <div class="form_depositor_container pb-2">
+      <form [formGroup]="sectionEntryForm">
+        <div class="row g-2">
+          <div class="col-md-4 col-lg-2">
+            <div class="">
+              <div
+                class="input-group"
+                [class.is-invalid]="
+                  sectionEntryForm.controls['companyCode'].invalid &&
+                  sectionEntryForm.controls['companyCode'].touched
+                "
+              >
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Company</span
+                >
+                <app-f1
+                  id="company4"
+                  [formControlName]="'companyCode'"
+                  placeholder=""
+                  class="form-control post_input_field border-start-0 d-flex"
+                  titleValue="{{ tableData?.mainheader }}"
+                  [tableData]="tableData?.dataSet"
+                  [colHeader]="columnHeader"
+                  [inputBBC]="bringBackColumn"
+                  (updatedSelectedValue)="updateCompanyList($event)"
+                  [dynaPopId]="'COMPANY'"
+                  [queryConditon]="coy_condition"
+                  [errorMessage]="'Invalid Company Code'"
+                ></app-f1>
+              </div>
+              <div
+                *ngIf="
+                  sectionEntryForm.controls['companyCode'].invalid &&
+                  sectionEntryForm.controls['companyCode'].touched
+                "
+              >
+                <div
+                  class="errorField common_color_txt font12 font500"
+                  *ngIf="sectionEntryForm.controls['companyCode'].errors && sectionEntryForm.controls['companyCode'].errors?.['required']"
+                >
+                  * Company Code is required
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-8 col-lg-4">
+            <!-- <label class="form-label formlbl font600 text-dark1 pb-3 mb-0 font12">Depositor</label> -->
+            <div class="">
+              <div class="">
+                <div
+                  class="input-group"
+                  [class.is-invalid]="
+                    sectionEntryForm.controls['depositorId'].invalid &&
+                    sectionEntryForm.controls['depositorId'].touched
+                  "
+                >
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Depositor</span
+                  >
+                  <app-f1
+                    [formControlName]="'depositorId'"
+                    type="text"
+                    placeholder=""
+                    class="form-control post_input_field border-start-0 d-flex"
+                    (updatedSelectedValue)="updateListControl($event)"
+                    titleValue="{{ depositorTableData?.mainheader }}"
+                    [tableData]="depositorTableData?.dataSet"
+                    [colHeader]="deptColumnHeader"
+                    [inputBBC]="depositorTableData?.bringBackColumn"
+                    [dynaPopId]="'DEPOSITORS'"
+                    [queryConditon]="deptDyanPop"
+                    [errorMessage]="'Invalid Depositor Code'"
+                    id="depositor4"
+                  ></app-f1>
+                  <span class="position-relative span_divider"></span>
+                  <input
+                    type="text"
+                    class="form-control w-50 border-start-0 post_input_field font500 text-dark1 font12 disabled_cls"
+                    [formControlName]="'depositorName'"
+                    tabindex="-1"
+                    [readonly]="readonlyAttr"
+                  />
+                </div>
+                <div
+                  *ngIf="
+                    sectionEntryForm.controls['depositorId'].invalid &&
+                    sectionEntryForm.controls['depositorId'].touched
+                  "
+                >
+                  <div
+                    class="errorField common_color_txt font12 font500"
+                    *ngIf="sectionEntryForm.controls['depositorId'].errors && sectionEntryForm.controls['depositorId'].errors?.['required']"
+                  >
+                    * Depositor Id is required
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-8 col-lg-4">
+            <div class="input-group">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >DOB</span
+              >
+              <input
+                type="text"
+                class="form-control font12 border-start-0 post_input_field disabled_cls"
+                [formControlName]="'dob'"
+                tabindex="-1"
+                [readonly]="readonlyAttr"
+                style="font-weight: bold; color: red"
+              />
+              <span class="position-relative span_divider"></span>
+              <input
+                type="text"
+                class="form-control border-start-0 post_input_field font12 disabled_cls"
+                [formControlName]="'age'"
+                [readonly]="readonlyAttr"
+                tabindex="-1"
+                [readonly]="readonlyAttr"
+                style="font-weight: bold; color: red"
+              />
+            </div>
+          </div>
+          <div class="col-md-4 col-lg-2">
+            <div class="">
+              <div class="">
+                <div
+                  class="input-group"
+                  [ngClass]="{ disableDiv: isAddClicked }"
+                  [class.is-invalid]="
+                    sectionEntryForm.controls['recieptNum'].invalid &&
+                    sectionEntryForm.controls['recieptNum'].touched
+                  "
+                >
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Receipt</span
+                  >
+                  <app-f1
+                    [formControlName]="'recieptNum'"
+                    type="text"
+                    placeholder=""
+                    class="form-control post_input_field border-start-0 d-flex"
+                    (updatedSelectedValue)="updateReciept($event)"
+                    titleValue="{{ recieptTableData?.mainheader }}"
+                    [tableData]="recieptTableData?.dataSet"
+                    [colHeader]="recieptColumnHeader"
+                    [inputBBC]="recieptTableData?.bringBackColumn"
+                    [dynaPopId]="'FDRECEIPTNUM '"
+                    [queryConditon]="recieptDyanPop"
+                    [errorMessage]="'Invalid reciept number'"
+                    id="receipt4"
+                  ></app-f1>
+                </div>
+                <div
+                  *ngIf="
+                    sectionEntryForm.controls['recieptNum'].invalid &&
+                    sectionEntryForm.controls['recieptNum'].touched
+                  "
+                >
+                  <div
+                    class="errorField common_color_txt font12 font500"
+                    *ngIf="sectionEntryForm.controls['recieptNum'].errors && sectionEntryForm.controls['recieptNum'].errors?.['required']"
+                  >
+                    * Reciept Number is required
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+<div class="chk_detail" *ngIf="isRetrievClicked || this.isAddClicked">
+  <div class="table_container table_wrapper">
+    <table
+      id="knowledgeTreeTable"
+      class="table table-striped gentbl"
+      style="width: 100%"
+    >
+      <thead>
+        <tr>
+          <th class="font800 font14 text-dark1">Bank</th>
+          <th class="font800 font14 text-dark1">Out Station</th>
+          <th class="font800 font14 text-dark1">Cheque Date</th>
+          <th class="font800 font14 text-dark1">Cheque#</th>
+          <th class="font800 font14 text-dark1">Amount</th>
+          <th class="font800 font14 text-dark1" *ngIf="!isRetrievClicked">
+            Action
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="
+            let t of isRetrievClicked
+              ? depositFetchedData.inchqResponseBean
+              : inChq;
+            let index = index
+          "
+        >
+          <td class="font500 font12 text-dark1">
+            <input
+              type="text"
+              class="font12 date_container form-control br-9 d-flex"
+              [value]="t.bank"
+              (input)="setBankCode($event.target.value)"
+              maxlength="20"
+              id="bank{{ index }}"
+            />
+          </td>
+          <td class="font500 font12 text-dark1">
+            <div>
+              <select [(ngModel)]="t.outstat">
+                <option
+                  class="font12 date_container form-control br-9 d-flex"
+                  *ngFor="let o of optionList"
+                  [value]="o"
+                >
+                  {{ o }}
+                </option>
+              </select>
+            </div>
+          </td>
+          <td class="font500 font12 text-dark1">
+            <div class="input-group">
+              <input
+                type="text"
+                [(ngModel)]="t.date"
+                (keydown.tab)="checkValidDate()"
+                class="preinput_radius date_container form-control post_input_field font500 text-dark1 font12"
+                matInput
+                [matDatepicker]="pickerTo"
+                [(ngModel)]="t.date"
+                name=""
+                (dateInput)="setCheuqueDate($event)"
+              />
+              <div
+                class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+              >
+                <span class="input-group-addon">
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="pickerTo"
+                    tabindex="-1"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #pickerTo tabindex="-1"></mat-datepicker>
+                </span>
+              </div>
+            </div>
+          </td>
+          <td class="font500 font12 text-dark1">
+            <input
+              type="text"
+              class="font12 date_container form-control br-9 d-flex"
+              [value]="t.num"
+              (input)="setChequeNumber($event.target.value)"
+              maxlength="12"
+              oninput="this.value=this.value.replace(/[^0-9]/g,'');"
+              id="chqNum{{ index }}"
+            />
+          </td>
+          <td class="font500 font12 text-dark1">
+            <input
+              type="text"
+              [value]="t.amount"
+              (input)="setAmount($event.target.value)"
+              class="font12 date_container form-control br-9 d-flex"
+              oninput="this.value=this.value.replace(/[^0-9]/g,'');"
+              maxlength="9"
+              id="amt{{ index }}"
+              (keydown.tab)="checkAmount()"
+            />
+          </td>
+          <td *ngIf="!isRetrievClicked">
+            <div class="action_panel d-flex">
+              <button
+                class="btn action_btn d-flex bg_common_red"
+                (click)="addRow()"
+              >
+                <img src="assets/images/add.svg" alt="add" />
+              </button>
+              <button
+                class="btn action_btn d-flex bg_common_red"
+                (click)="deleteRow(t)"
+              >
+                <img src="assets/images/trash.svg" alt="remove" />
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <th colspan="4" class="font12" style="text-align: right">Total:</th>
+          <th class="text-right font12">{{ t1 }}</th>
+          <th></th>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>
+<div class="form-container" *ngIf="isRetrievClicked || this.isAddClicked">
+  <form [formGroup]="depositEntryForm">
+    <div>
+      <div class="form_title_panel pt-md-0">
+        <span class="form-label formlbl font600 text-dark1 pb-3 mb-0 font12"
+          >Deposit Detail</span
+        >
+      </div>
+      <div class="tab-content">
+        <div class="container p-0">
+          <div class="row">
+            <div class="col-md-6 col-xl-4">
+              <div class="input-group mb-2 pb-2">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Joint Owner 1</span
+                >
+                <input
+                  type="text"
+                  class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                  [formControlName]="'jowner1'"
+                  (keydown.f1)="handleF1Event($event)"
+                  maxlength="35"
+                  autofocus
+                  id="uyewuz"
+                  (keydown.tab)="scrollPage(320)"
+                />
+              </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
+              <div class="input-group mb-2 pb-2">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Joint Owner 2</span
+                >
+                <input
+                  type="text"
+                  class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                  [formControlName]="'jowner2'"
+                  (keydown.f1)="handleF1Event($event)"
+                  maxlength="35"
+                />
+              </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
+              <div class="input-group mb-2 pb-2">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Joint Owner 3</span
+                >
+                <input
+                  type="text"
+                  class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                  [formControlName]="'jowner3'"
+                  (keydown.f1)="handleF1Event($event)"
+                  maxlength="35"
+                />
+              </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
+              <div class="row">
+                <div class="col-xl-6 col-md-6 col-sm-6">
+                  <div class="input-group mb-2 pb-2">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      ><span class="req_field common_color_txt fontBold font14"
+                        >*</span
+                      >Origin</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                      [formControlName]="'deporigin'"
+                      disabled="true"
+                    />
+                  </div>
+                </div>
+                <div class="col-xl-6 col-md-6 col-sm-6">
+                  <div class="input-group mb-2 pb-2">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      ><span class="req_field common_color_txt fontBold font14"
+                        >*</span
+                      >Pay To</span
+                    >
+                    <app-f1
+                      [formControlName]="'payeecode'"
+                      placeholder=""
+                      class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                      titleValue="{{ payToTableDate?.mainheader }}"
+                      [tableData]="payToTableDate?.dataSet"
+                      [colHeader]="payToColumnHeader"
+                      (updatedSelectedValue)="updatePayTo($event)"
+                      [dynaPopId]="'PAYEETO'"
+                      [inputBBC]="payToTableDate?.bringBackColumn"
+                      [queryConditon]="payto_condition"
+                      [errorMessage]="'Enter Either E/S Only'"
+                    ></app-f1>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
+              <div class="mb-2 pb-2">
+                <div class="input-group">
+                  <span
+                    class="input-group-text leftform_lbl bg-transparent border-0 font500 text-dark1 font12"
+                    >Staff Y/N</span
+                  >
+                  <div class="form-check d-flex align-items-center">
+                    <input
+                      type="radio"
+                      class="form-check-input font12 font500 position-relative"
+                      name="staffyn"
+                      [formControlName]="'staffyn'"
+                      value="Y"
+                    />
+                    <label class="form-check-label" for="radio1">Yes</label>
+                  </div>
+                  <div class="form-check d-flex align-items-center">
+                    <input
+                      type="radio"
+                      class="form-check-input font12 font500 position-relative"
+                      name="staffyn"
+                      [formControlName]="'staffyn'"
+                      value="N"
+                    />
+                    <label class="form-check-label" for="radio2">No</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
+              <div class="input-group mb-2 pb-2">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  ><span class="req_field common_color_txt fontBold font14"
+                    >*</span
+                  >Duration</span
+                >
+                <app-f1
+                  [formControlName]="'depmonths'"
+                  placeholder=""
+                  class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                  titleValue="{{ durationTableDate?.mainheader }}"
+                  [tableData]="durationTableDate?.dataSet"
+                  [colHeader]="durationColumnHeader"
+                  (updatedSelectedValue)="updateDuration($event)"
+                  [dynaPopId]="'DURATION'"
+                  [inputBBC]="durationTableDate?.bringBackColumn"
+                  (keydown.tab)="setMaturityDate()"
+                  [queryConditon]="duration_condition"
+                  [errorMessage]="'Enter Either 3/6/12/18/24/30/36/42/48 only'"
+                  type="number"
+                ></app-f1>
+              </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
+              <div class="input-group mb-2 pb-2">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Interest Rate</span
+                >
+                <input
+                  type="text"
+                  class="form-control w_20 border-start-0 border-end-0 post_input_field font500 text-dark1 font12"
+                  [formControlName]="'intrate'"
+                  (keydown.f1)="handleF1Event($event)"
+                />
+                <span class="position-relative span_divider"></span>
+                <input
+                  type="text"
+                  class="form-control w-sm-25 border-start-0 post_input_field font500 text-dark1 font12"
+                  [formControlName]="'intrate2'"
+                />
+              </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
+              <div class="input-group mb-2 pb-2">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  ><span class="req_field common_color_txt fontBold font14"
+                    >*</span
+                  >Interest Frequency</span
+                >
+                <app-f1
+                  [formControlName]="'intfreq'"
+                  placeholder=""
+                  class="form-control Deposit Dateborder-start-0 post_input_field font500 text-dark1 font12"
+                  titleValue="{{ inFreqTableDate?.mainheader }}"
+                  [tableData]="inFreqTableDate?.dataSet"
+                  [colHeader]="inFreqColumnHeader"
+                  (updatedSelectedValue)="updateInterestFreq($event)"
+                  [dynaPopId]="'INTFREQ'"
+                  [inputBBC]="inFreqTableDate?.bringBackColumn"
+                  [queryConditon]="interest_condtion"
+                  [errorMessage]="'Enter Either 0/3/6/9 only'"
+                ></app-f1>
+              </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
+              <div class="input-group mb-2 pb-2">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Deposit Amt</span
+                >
+                <input
+                  type="text"
+                  class="form-control w_20 border-start-0 border-end-0 post_input_field font500 text-dark1 font12"
+                  [formControlName]="'depamount'"
+                  disabled="true"
+                />
+              </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
+              <div class="input-group mb-2 pb-2">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Deposit Date</span
+                >
+                <input
+                  type="text"
+                  class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                  id="depositDate"
+                  matInput
+                  [matDatepicker]="depositDate"
+                  formControlName="depdate"
+                  (dateChange)="setMaturityDate()"
+                />
+                <div
+                  class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                >
+                  <span class="input-group-addon">
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="depositDate"
+                      disabled="isRetrievClicked"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #depositDate></mat-datepicker>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
+              <div class="input-group mb-2 pb-2">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Liquidity Type</span
+                >
+                <app-f1
+                  [formControlName]="'liqtype'"
+                  placeholder=""
+                  class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                  titleValue="{{ liquidityTableDate?.mainheader }}"
+                  [tableData]="liquidityTableDate?.dataSet"
+                  [colHeader]="liquidityColumnHeader"
+                  (updatedSelectedValue)="updateLiquididty($event)"
+                  [qur]
+                  [dynaPopId]="'LIQUIDITY'"
+                  [inputBBC]="liquidityTableDate?.bringBackColumn"
+                  [errorMessage]="'Enter either C/D/M only'"
+                  [queryConditon]="liq_condition"
+                ></app-f1>
+              </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
+              <div class="input-group mb-2 pb-2">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Nominee</span
+                >
+                <input
+                  type="text"
+                  class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                  [formControlName]="'nominee'"
+                  (keydown.f1)="handleF1Event($event)"
+                  maxlength="35"
+                  (keydown.tab)="scrollToEnd()"
+                />
+              </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
+              <div class="input-group mb-2 pb-2">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Natural Gaurdian 1</span
+                >
+                <input
+                  type="text"
+                  class="form-control text-uppercase border-start-0 border-end-0 post_input_field text-center font500 text-dark1 font12"
+                  [formControlName]="'ngid1'"
+                  (keydown.f1)="handleF1Event($event)"
+                  (keydown.tab)="checkGuradianId($event)"
+                  maxlength="1"
+                />
+                <span class="position-relative span_divider"></span>
+                <input
+                  type="text"
+                  class="form-control w_30 w-sm-25 border-start-0 post_input_field font500 text-dark1 font12"
+                  [formControlName]="'ngname1'"
+                  (keydown.f1)="handleF1Event($event)"
+                  maxlength="35"
+                />
+              </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
+              <div class="input-group mb-2 pb-2">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Natural Gaurdian 2</span
+                >
+                <input
+                  type="text"
+                  class="form-control text-uppercase border-start-0 border-end-0 post_input_field text-center font500 text-dark1 font12"
+                  [formControlName]="'ngid2'"
+                  (keydown.tab)="checkGuradianId($event)"
+                  (keydown.f1)="handleF1Event($event)"
+                  maxlength="1"
+                />
+                <span class="position-relative span_divider"></span>
+                <input
+                  type="text"
+                  class="form-control w_30 w-sm-25 border-start-0 post_input_field font500 text-dark1 font12"
+                  [formControlName]="'ngname2'"
+                  (keydown.f1)="handleF1Event($event)"
+                  maxlength="35"
+                />
+              </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
+              <div class="input-group mb-2 pb-2">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Natural Gaurdian 3</span
+                >
+                <input
+                  type="text"
+                  class="form-control text-uppercase border-start-0 border-end-0 post_input_field text-center font500 text-dark1 font12"
+                  style="width: 20px"
+                  [formControlName]="'ngid3'"
+                  (keydown.tab)="checkGuradianId($event)"
+                  (keydown.f1)="handleF1Event($event)"
+                  maxlength="1"
+                />
+                <span class="position-relative span_divider"></span>
+                <input
+                  type="text"
+                  class="form-control w_30 w-sm-25 border-start-0 post_input_field font500 text-dark1 font12"
+                  [formControlName]="'ngname3'"
+                  (keydown.f1)="handleF1Event($event)"
+                  maxlength="35"
+                />
+              </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
+              <div class="input-group mb-2 pb-2">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Original Receipt#</span
+                >
+                <input
+                  type="text"
+                  class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                  [formControlName]="'origreceipt'"
+                  disabled="true"
+                />
+              </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
+              <div class="input-group mb-2 pb-2">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Maturity Date</span
+                >
+                <input
+                  type="text"
+                  class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                  id=""
+                  matInput
+                  [matDatepicker]="matDate"
+                  formControlName="matdate"
+                  disabled="true"
+                />
+                <div
+                  class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                >
+                  <span class="input-group-addon">
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="matDate"
+                      [disabled]="true"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #matDate></mat-datepicker>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
+              <div class="input-group mb-2 pb-2">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Maturity Amt</span
+                >
+                <input
+                  type="text"
+                  class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                  [formControlName]="'matamount'"
+                  disabled="true"
+                />
+              </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
+              <div class="input-group mb-2 pb-2">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Broker</span
+                >
+                <app-f1
+                  [formControlName]="'broker'"
+                  placeholder=""
+                  class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                  titleValue="{{ brokerTableDate?.mainheader }}"
+                  [tableData]="brokerTableDate?.dataSet"
+                  [colHeader]="brokerColumnHeader"
+                  (updatedSelectedValue)="updateBrokerList($event)"
+                  [queryConditon]="broker_condition"
+                  [dynaPopId]="'BROKERS'"
+                  [inputBBC]="brokerTableDate?.bringBackColumn"
+                  [errorMessage]="'Invalid broker code'"
+                  (keyup)="resetBrokerName()"
+                ></app-f1>
+                <span class="position-relative span_divider"></span>
+                <input
+                  type="text"
+                  class="form-control w-sm-25 border-start-0 post_input_field font500 text-dark1 font12"
+                  [formControlName]="'brokerName'"
+                />
+              </div>
+            </div>
+            <div class="col-md-6 col-xl-5">
+              <div class="input-group mb-2 pb-2">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Cheque No. / Date</span
+                >
+                <input
+                  type="text"
+                  class="form-control border-start-0 border-end-0 post_input_field text-center font500 text-dark1 font12"
+                  (keydown.f1)="handleF1Event($event)"
+                />
+                <span class="position-relative span_divider"></span>
+                <input
+                  type="text"
+                  class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                  id=""
+                  matInput
+                  [matDatepicker]="chequeDate"
+                  formControlName="brokcheqdate"
+                />
+                <div
+                  class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                >
+                  <span class="input-group-addon">
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="chequeDate"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #chequeDate></mat-datepicker>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-xl-3">
+              <div class="input-group mb-2 pb-2">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Broker %</span
+                >
+                <input
+                  type="text"
+                  class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                  [formControlName]="'brokper'"
+                  disabled="true"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div>
+            <div class="form_title_panel">
+              <span
+                class="form-label formlbl font600 text-dark1 pb-3 mb-0 font12"
+                >Instruction</span
+              >
+            </div>
+            <div class="tab-content">
+              <div class="container p-0">
+                <div class="row">
+                  <div class="col-md-6 col-xl-4">
+                    <div class="mb-2 pb-lg-0 pb-xl-0 pb-xl-2 pb-xxl-2">
+                      <div class="input-group">
+                        <span
+                          class="input-group-text leftform_lbl bg-transparent border-0 font500 text-dark1 font12 ps-0"
+                          >FD Receipt Delivery On</span
+                        >
+                        <div class="form-check d-flex align-items-center">
+                          <input
+                            type="radio"
+                            class="form-check-input font12 font500 position-relative"
+                            name="instfdr"
+                            [formControlName]="'instfdr'"
+                            value="H"
+                          />
+                          <label class="form-check-label" for="radio1"
+                            >Hand</label
+                          >
+                        </div>
+                        <div class="form-check d-flex align-items-center">
+                          <input
+                            type="radio"
+                            class="form-check-input font12 font500 position-relative"
+                            name="instfdr"
+                            [formControlName]="'instfdr'"
+                            value="P"
+                          />
+                          <label class="form-check-label" for="radio2"
+                            >Post</label
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-xl-4">
+                    <div class="mb-2 pb-lg-0 pb-xl-0 pb-xl-2 pb-xxl-2">
+                      <div class="input-group">
+                        <span
+                          class="input-group-text leftform_lbl bg-transparent border-0 font500 text-dark1 font12 ps-0"
+                          >Interest Payment</span
+                        >
+                        <div class="form-check d-flex align-items-center">
+                          <input
+                            type="radio"
+                            class="form-check-input font12 font500 position-relative"
+                            name="instip"
+                            [formControlName]="'instip'"
+                            value="H"
+                          />
+                          <label class="form-check-label" for="radio1"
+                            >Hand</label
+                          >
+                        </div>
+                        <div class="form-check d-flex align-items-center">
+                          <input
+                            type="radio"
+                            class="form-check-input font12 font500 position-relative"
+                            name="instip"
+                            [formControlName]="'instip'"
+                            value="P"
+                          />
+                          <label class="form-check-label" for="radio2"
+                            >Post</label
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12 col-xl-4">
+                    <div class="mb-2 pb-lg-0 pb-xl-0 pb-xl-2 pb-xxl-2">
+                      <div class="input-group">
+                        <span
+                          class="input-group-text leftform_lbl bg-transparent border-0 font500 text-dark1 font12 ps-0"
+                          >Brokerage Payment</span
+                        >
+                        <div class="form-check d-flex align-items-center">
+                          <input
+                            type="radio"
+                            class="form-check-input font12 font500 position-relative"
+                            name="instbp"
+                            [formControlName]="'instbp'"
+                            value="H"
+                          />
+                          <label class="form-check-label" for="radio1"
+                            >Hand</label
+                          >
+                        </div>
+                        <div class="form-check d-flex align-items-center">
+                          <input
+                            type="radio"
+                            class="form-check-input font12 font500 position-relative"
+                            name="instbp"
+                            [formControlName]="'instbp'"
+                            value="P"
+                          />
+                          <label class="form-check-label" for="radio2"
+                            >Post</label
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-xl-6">
+                    <div class="input-group mb-2 pb-2">
+                      <span
+                        class="input-group-text leftform_lbl font500 text-dark1 font12"
+                        ><span
+                          class="req_field common_color_txt fontBold font14"
+                          >*</span
+                        >Bank Code</span
+                      >
+                      <app-f1
+                        [formControlName]="'bankcode'"
+                        placeholder=""
+                        class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                        titleValue="{{ bankTableData?.mainheader }}"
+                        [tableData]="bankTableData?.dataSet"
+                        [colHeader]="bankColumnHeader"
+                        (updatedSelectedValue)="upateBankList($event)"
+                        [dynaPopId]="'BANKS'"
+                        [inputBBC]="bankTableData?.bringBackColumn"
+                        [queryConditon]="bank_condition"
+                        [errorMessage]="'Invalid bankcode'"
+                        id="bankC123"
+                      ></app-f1>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-xl-6">
+                    <div class="input-group mb-2 pb-2">
+                      <span
+                        class="input-group-text leftform_lbl font500 text-dark1 font12"
+                        ><span
+                          class="req_field common_color_txt fontBold font14"
+                          >*</span
+                        >Voucher No</span
+                      >
+                      <app-f1
+                        [formControlName]="'slipnum'"
+                        placeholder=""
+                        class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                        titleValue="{{ voucherData?.mainheader }}"
+                        [tableData]="voucherData?.dataSet"
+                        [colHeader]="voucherColumnHeader"
+                        [dynaPopId]="'PAYINSLIPNUM'"
+                        [inputBBC]="voucherData?.bringBackColumn"
+                        [queryConditon]="voucher_condition"
+                        [errorMessage]="'Invalid voucher number'"
+                        id="vowNum12"
+                      ></app-f1>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-xl-6">
+                    <div class="input-group mb-2 pb-2">
+                      <span
+                        class="input-group-text leftform_lbl font500 text-dark1 font12"
+                        >Bank Name on warrant</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                        [formControlName]="'warbank'"
+                        (keydown.f1)="handleF1Event($event)"
+                        maxlength="30"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 col-xl-6">
+                    <div class="input-group mb-2 pb-2">
+                      <span
+                        class="input-group-text leftform_lbl font500 text-dark1 font12"
+                        >A/C# on warrant</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                        [formControlName]="'waracc'"
+                        (keydown.f1)="handleF1Event($event)"
+                        maxlength="20"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner text-center bg-white br-10">
+      <div class="flex justify-content-between">
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="a"
+          *ngIf="showAdd"
+          (click)="handleAddClick()"
+        >
+          Add
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          *ngIf="showRetrieve"
+          accesskey="r"
+          (click)="retrieveDepositDetails()"
+        >
+          Retrieve
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone"
+          *ngIf="showDepositor"
+          accesskey="o"
+          (click)="openDepositorScreen()"
+        >
+          Dep<span class="text-decoration-underline">o</span>sitor
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          *ngIf="showList"
+          [disabled]="true"
+          accesskey="l"
+        >
+          List
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          *ngIf="showPrint"
+          [disabled]="true"
+          accesskey="p"
+        >
+          Print
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="s"
+          [disabled]="disableSave"
+          (click)="saveDepositDetails()"
+          *ngIf="showSave"
+        >
+          Save
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone"
+          [disabled]="disableReset"
+          *ngIf="showReset"
+          accesskey="t"
+          (click)="resetForm()"
+        >
+          Rese<span class="text-decoration-underline">t</span>
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="b"
+          *ngIf="showBack"
+          (click)="handleBackEvent()"
+        >
+          Back
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone"
+          *ngIf="showExit"
+          accesskey="x"
+          (click)="handleExitClick()"
+        >
+          E<span class="text-decoration-underline">x</span>it
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<app-loader *ngIf="loader"></app-loader>

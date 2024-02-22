@@ -1,0 +1,179 @@
+<section class="container">
+  <form [formGroup]="lcCertificateForm">
+    <div formGroupName="reportParameters">
+      <div class="row d-flex justify-content-center">
+        <div class="col-md-6">
+          <div class="group_panel br-10 form_common_bg p-3 pt-3 position-relative">
+            <p class="bg-white font600 group_title mb-0 position-absolute"></p>
+            <div class="row g-2">
+              <div class="col-md-12">
+                <div class="input-group">
+                  <span class="input-group-text leftform_lbl font500 text-dark1 font12">Building Code</span>
+                  <input type="text" id="lcCertificateForm_bldg" class="form-control border-start-0 post_input_field"
+                    formControlName="bldgCode" [f1]="{ id: 'BUILDINGS', multi: true }" autocomplete="off" />
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div class="input-group">
+                  <span class="input-group-text leftform_lbl font500 text-dark1 font12">Work Code</span>
+                  <input type="text" class="form-control border-start-0 post_input_field" formControlName="WorkCode"
+                    [f1]="{ id: 'WORKCODES', multi: true }" autocomplete="off" />
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div class="input-group">
+                  <span class="input-group-text leftform_lbl font500 text-dark1 font12">Party Code</span>
+                  <input type="text" class="form-control border-start-0 post_input_field" formControlName="PartyCode"
+                    [f1]="{ id: 'CONTRACTORS', multi: true }" autocomplete="off" />
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div class="input-group">
+                  <span class="input-group-text leftform_lbl font500 text-dark1 font12">Rec ID</span>
+                  <input type="text" class="form-control border-start-0 post_input_field" formControlName="RecID"
+                    [f1]="{ id: 'CONTRACTS', multi: true }" autocomplete="off" />
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div class="input-group flex-nowrap" appDate1 [class.is-invalid]="
+                      (lcCertificateForm.get('reportParameters')?.controls[
+                        'FromDate'
+                      ]?.invalid &&
+                        lcCertificateForm.get('reportParameters')?.controls[
+                          'FromDate'
+                        ]?.touched) ||
+                      (lcCertificateForm.get('reportParameters')?.controls[
+                        'UptoDate'
+                      ]?.invalid &&
+                        lcCertificateForm.get('reportParameters')?.controls[
+                          'UptoDate'
+                        ]?.touched)
+                    ">
+                  <span class="input-group-text leftform_lbl font500 text-dark1">Date Range</span>
+                  <div class="bg-white datepicker_field post_input_field flex-grow-1" [class.is-invalid]="
+                        (lcCertificateForm.get('reportParameters')?.controls[
+                          'FromDate'
+                        ]?.invalid &&
+                          lcCertificateForm.get('reportParameters')?.controls[
+                            'FromDate'
+                          ]?.touched) ||
+                        (lcCertificateForm.get('reportParameters')?.controls[
+                          'UptoDate'
+                        ]?.invalid &&
+                          lcCertificateForm.get('reportParameters')?.controls[
+                            'UptoDate'
+                          ]?.touched)
+                      ">
+                    <span class="input-group-addon">
+                      <div mat-form-field appearance="fill" class="matForm">
+                        <mat-date-range-input [rangePicker]="picker">
+                          <input matStartDate formControlName="FromDate" placeholder="Start date" />
+                          <input matEndDate formControlName="UptoDate" placeholder="End date" />
+                        </mat-date-range-input>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-date-range-picker #picker></mat-date-range-picker>
+                      </div>
+                    </span>
+                  </div>
+                </div>
+                <div *ngIf="
+                      lcCertificateForm.controls['reportParameters'].invalid &&
+                      lcCertificateForm.controls['reportParameters'].touched
+                    ">
+                  <div class="invalid-feedback d-block" *ngIf="
+                        (lcCertificateForm.get('reportParameters').controls[
+                          'FromDate'
+                        ]?.invalid &&
+                          lcCertificateForm.get('reportParameters').controls[
+                            'FromDate'
+                          ]?.touched) ||
+                        (lcCertificateForm.get('reportParameters').controls[
+                          'UptoDate'
+                        ]?.invalid &&
+                          lcCertificateForm.get('reportParameters').controls[
+                            'UptoDate'
+                          ]?.touched)
+                      ">
+                    Proper Date is required
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <!-- export types -->
+                <div class="mt-1" *ngIf="_service.getAccess('Export')">
+                  <p class="font600 group_title mb-1">Export Type</p>
+
+                  <div
+                    class="form-check form-check-inline"
+                    *ngFor="let item of exportTypes"
+                  >
+                    <input
+                      class="form-check-input position-relative cursor-pointer"
+                      type="radio"
+                      [value]="item.id"
+                      formControlName="exportType"
+                    />
+                    <label class="form-check-label m-0" for="exTy1">
+                      {{ item.name }}
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</section>
+
+<app-loader *ngIf="loaderToggle"></app-loader>
+
+<app-buttons [buttonsList]="buttonsList" (eventTrigger)="buttonAction($event)"></app-buttons>
+
+<!-- <section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner text-center bg-white br-10 w-100">
+      <div class="flex justify-content-between">
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+          accesskey="w"
+          (click)="getReport(false)"
+        >
+          Do<span class="text-decoration-underline">w</span>nload
+        </button>
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white"
+          (click)="getReport(true)"
+          accesskey="p"
+        >
+          Print
+        </button>
+
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white"
+          (click)="reset()"
+          accesskey="p"
+        >
+          Reset
+        </button>
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+          accesskey="x"
+          (click)="handleExitClick()"
+        >
+          E<span class="text-decoration-underline">x</span>it
+        </button>
+      </div>
+    </div>
+  </div>
+</section> -->

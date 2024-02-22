@@ -1,0 +1,191 @@
+<section class="container">
+  <form [formGroup]="VehHistorySelectionform">
+    <div class="row g-2" formGroupName="reportParameters">
+      <div class="col-md-4">
+        <div
+          class="input-group"
+          [class.is-invalid]="
+            VehHistorySelectionform.controls['reportParameters'].controls[
+              'Frmdate'
+            ].invalid &&
+            (VehHistorySelectionform.controls['reportParameters'].controls[
+              'Frmdate'
+            ].touched ||
+              VehHistorySelectionform.controls['reportParameters'].controls[
+                'Frmdate'
+              ].dirty)
+          "
+          appDate1
+        >
+          <span class="input-group-text leftform_lbl font500 font12"
+            ><span class="req_field common_color_txt fontBold font14">*</span
+            >From Date</span
+          >
+          <input
+            type="text"
+            class="form-control border-start-0 post_input_field font500 font12"
+            matInput
+            id="fromDateField"
+            [matDatepicker]="Frmdate"
+            formControlName="Frmdate"
+            (dateChange)="validateInvalidFormat($event,'fromDateField')" 
+          />
+          <div
+            class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+          >
+            <span class="input-group-addon">
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="Frmdate"
+                tabindex="-1"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #Frmdate tabindex="-1"></mat-datepicker>
+            </span>
+          </div>
+        </div>
+        <div
+          class="disInl me-2"
+          *ngIf="
+            VehHistorySelectionform.controls['reportParameters'].controls[
+              'Frmdate'
+            ].invalid &&
+            (VehHistorySelectionform.controls['reportParameters'].controls[
+              'Frmdate'
+            ].touched ||
+              VehHistorySelectionform.controls['reportParameters'].controls[
+                'Frmdate'
+              ].dirty)
+          "
+        >
+          <div
+            class="errorField common_color_txt font12 font500 disInl"
+            *ngIf="VehHistorySelectionform.controls['reportParameters'].controls['Frmdate'].errors && VehHistorySelectionform.controls['reportParameters'].controls['Frmdate'].errors?.['required']"
+          >
+            From Date is required
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div
+          class="input-group"
+          [class.is-invalid]="
+            VehHistorySelectionform.controls['reportParameters'].controls[
+              'ToDate'
+            ].invalid &&
+            (VehHistorySelectionform.controls['reportParameters'].controls[
+              'ToDate'
+            ].touched ||
+              VehHistorySelectionform.controls['reportParameters'].controls[
+                'ToDate'
+              ].dirty)
+          "
+          appDate1
+        >
+          <span class="input-group-text leftform_lbl font500 font12"
+            ><span class="req_field common_color_txt fontBold font14">*</span>To
+            Date</span
+          >
+          <input
+            type="text"
+            class="form-control border-start-0 post_input_field font500 font12"
+            matInput
+            id="toDateField"
+            [matDatepicker]="ToDate"
+            formControlName="ToDate"
+            (dateChange)="validateInvalidFormat($event,'toDateField')" 
+          />
+          <div
+            class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+          >
+            <span class="input-group-addon">
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="ToDate"
+                tabindex="-1"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #ToDate tabindex="-1"></mat-datepicker>
+            </span>
+          </div>
+        </div>
+        <div
+          class="disInl me-2"
+          *ngIf="
+            VehHistorySelectionform.controls['reportParameters'].controls[
+              'ToDate'
+            ].invalid &&
+            (VehHistorySelectionform.controls['reportParameters'].controls[
+              'ToDate'
+            ].touched ||
+              VehHistorySelectionform.controls['reportParameters'].controls[
+                'ToDate'
+              ].dirty)
+          "
+        >
+          <div
+            class="errorField common_color_txt font12 font500 disInl"
+            *ngIf="VehHistorySelectionform.controls['reportParameters'].controls['ToDate'].errors && VehHistorySelectionform.controls['reportParameters'].controls['ToDate'].errors?.['required']"
+          >
+            To Date is required
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div
+        class="col-md-4"
+        class="d-flex justify-content-end justify-content-md-start"
+      >
+        <div class="checkbox_custom">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            name="disposed"
+            id="disposed"
+            formControlName="isdisposed"
+            (keypress)="checkBoxToggle($event)"
+          />
+          <label
+            for="IncludeDisposed"
+            class="form-check-label ps-2 ms-1 font500"
+          >
+            Include Disposed
+          </label>
+        </div>
+      </div>
+    </div>
+  </form>
+</section>
+<app-loader *ngIf="loaderToggle"></app-loader>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner text-center bg-white br-10 w-100">
+      <div class="flex justify-content-between">
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+          accesskey="w"
+          (click)="getReport(false)"
+        >
+          Do<span class="text-decoration-underline">w</span>nload
+        </button>
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white"
+          (click)="getReport(true)"
+          accesskey="p"
+        >
+          Print
+        </button>
+        <!-- <button type="submit" class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white" [disabled]="true" accesskey="p" >Preview</button> -->
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+          accesskey="x"
+          (click)="handleExitClick()"
+        >
+          E<span class="text-decoration-underline">x</span>it
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

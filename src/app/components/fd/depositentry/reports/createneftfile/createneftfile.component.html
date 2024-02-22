@@ -1,0 +1,183 @@
+<section class="depositrenewal_section">
+    <div class="container">
+        <div class="form_depositor_container pb-2">
+            <form [formGroup]="neftFileDetailForm">
+                    <div class="col-sm-12">
+                        <div class="col-md-12 col-sm-12 col-xl-12 col-xxl-12 pt-3">
+                            <!-- <div class="">
+                                <div class="input-group" [class.is-invalid]="
+                                neftFileDetailForm.controls['BankStr'].invalid &&
+                                neftFileDetailForm.controls['BankStr'].touched">
+                                    <div class="form-check d-flex align-items-center">
+                                        <input type="radio" class="form-check-input font12 font500 position-relative" id="pnbBank" name="BankStr" value="='PUNB'" formControlName="BankStr" selection-opt="PUNB" >
+                                        <label class="form-check-label" for="pnbBank">PNB</label>
+                                    </div>
+                                    <div class="form-check d-flex align-items-center">
+                                        <input type="radio" class="form-check-input font12 font500  position-relative" id="otherBank" name="BankStr" value="not like 'PUNB'" selection-opt="Others" formControlName="BankStr">
+                                        <label class="form-check-label" for="otherBank">Others</label>
+                                    </div>
+                                    </div>
+                            </div> -->
+                        </div> 
+                        <div class="col-md-12 col-sm-12 col-xl-12 col-xxl-12 pt-3">
+                            <div class="">
+                                <div class="">
+                                    <div class="input-group" [class.is-invalid]="
+                                    neftFileDetailForm.controls['companyCode'].invalid &&
+                                    neftFileDetailForm.controls['companyCode'].touched">
+                                        <span class="input-group-text leftform_lbl font500 text-dark1 font12">Company</span>
+                                        <app-f1
+                                        id="company4"
+                                        [formControlName]="'companyCode'"
+                                        placeholder=""
+                                        class="form-control post_input_field border-start-0 d-flex"
+                                        titleValue="{{ compData?.mainheader }}"
+                                        [tableData]="compData?.dataSet"
+                                        [colHeader]="compHeader"
+                                        [inputBBC]="bringBackColumn"
+                                        (updatedSelectedValue)="updateCompanyList($event)"
+                                        [dynaPopId]="'COMPANY'"
+                                        [queryConditon]="coy_condition"
+                                        [errorMessage]="'Invalid Company Code'"
+                                        (change)="updateOnChangeCompanyList($event)"
+                                      ></app-f1>
+                                      <span class="position-relative span_divider"></span>
+                                        <input ype="text" class="form-control w-50 border-start-0 post_input_field font500 text-dark1 font12"
+                                        [formControlName]="'companyName'" tabindex="-1"/>
+                                    </div>
+                                    <div *ngIf="neftFileDetailForm.controls['companyCode'].invalid && neftFileDetailForm.controls['companyCode'].touched">
+                                        <div class="errorField common_color_txt font12 font500"
+                                            *ngIf="neftFileDetailForm.controls['companyCode'].errors && neftFileDetailForm.controls['companyCode'].errors?.['required']">
+                                            * Company Code is required
+                                        </div>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-9 col-sm-12 col-xl-8 col-xxl-8 pt-3">
+                            <div class="">
+                                <div class="">
+                                    <div class="input-group">
+                                        <span class="input-group-text leftform_lbl font500 text-dark1 font12">From Date</span>
+                                        <input   class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                                        id="formDateField"  formControlName="fromDate" matInput [matDatepicker]="pickerFrom"  name="" ng-change="changeEvent($event)"  (dateChange)="validateInvalidFormat($event,'formDateField')" 
+                                    >
+                                    <div class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0">
+                                        <span class="input-group-addon">
+                                            <mat-datepicker-toggle matSuffix [for]="pickerFrom" tabindex="-1"></mat-datepicker-toggle>
+                                            <mat-datepicker #pickerFrom></mat-datepicker>
+                                        </span>
+                                    </div>
+                                    </div>
+                                    <div
+                                    *ngIf="neftFileDetailForm.controls['fromDate'].invalid && neftFileDetailForm.controls['fromDate'].touched">
+                                    <div class="errorField common_color_txt font12 font500"
+                                        *ngIf="neftFileDetailForm.controls['fromDate'].errors && neftFileDetailForm.controls['fromDate'].errors?.['required']">
+                                        * From Date is required
+                                    </div>
+                                 </div>
+                                </div>
+                              
+                            </div>
+                        </div>
+                        <div class="col-md-9 col-sm-12 col-xl-8 col-xxl-8 pt-3">
+                            <div class="">
+                                <div class="">
+                                    <div class="input-group">
+                                        <span class="input-group-text leftform_lbl font500 text-dark1 font12">To Date</span>
+                                        <input
+                                        type="text"
+                                        class="form-control border-start-0 post_input_field font500 text-dark1 font12" 
+                                        id="toDateField" matInput [matDatepicker]="pickerTo"  formControlName="toDate" name="" (dateChange)="validateInvalidFormat($event,'toDateField')" 
+                                    >
+                                        <div class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0">
+                                            <span class="input-group-addon">
+                                                <mat-datepicker-toggle matSuffix [for]="pickerTo" tabindex="-1"></mat-datepicker-toggle>
+                                                <mat-datepicker #pickerTo></mat-datepicker>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div
+                                *ngIf="neftFileDetailForm.controls['toDate'].invalid && neftFileDetailForm.controls['toDate'].touched">
+                              <div class="errorField common_color_txt font12 font500"
+                                  *ngIf="neftFileDetailForm.controls['toDate'].errors && neftFileDetailForm.controls['toDate'].controls['reportToDate'].errors?.['required']">
+                                  * To Date is required
+                              </div>
+                            </div>
+                                </div>
+                              
+                            </div>
+                        </div>
+                        <!-- <div class="col-md-12 col-sm-12 col-xl-12 col-xxl-12 pt-3">
+                            <div class="">
+                                <div class="">
+                                  <div class="input-group">
+                                    <span class="input-group-text leftform_lbl font500 text-dark1 font12">Company Bank A/c</span>
+                                    <input type="text" class="form-control w-50 border-start-0 post_input_field font500 text-dark1 font12" [formControlName]="'coyBankAC'" > 
+                                  </div>
+                                </div>
+                              </div>
+                        </div>
+                        <div class="col-md-9 col-sm-12 col-xl-8 col-xxl-8 pt-3">
+                            <div class="">
+                                <div class="">
+                                    <div class="input-group">
+                                        <span class="input-group-text leftform_lbl font500 text-dark1 font12">Cheque Alpha</span>
+                                        <input type="text" class="form-control border-start-0 post_input_field font500 text-dark1 font12" [formControlName]="'chqAlpha'" maxlength="3" id="chqAlpha12321"/> 
+                                      </div>
+                                </div>
+                              
+                            </div>
+                        </div>
+                        <div class="col-md-9 col-sm-12 col-xl-8 col-xxl-8 pt-3">
+                            <div class="">
+                                <div class="">
+                                    <div class="input-group">
+                                        <span class="input-group-text leftform_lbl font500 text-dark1 font12">Cheque Number</span>
+                                        <input type="text" class="form-control border-start-0 post_input_field font500 text-dark1 font12" [formControlName]="'chqNum'" maxlength="6" oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"/> 
+                                      </div>
+                                </div>  
+                            </div>
+                        </div>
+                        <div class="col-md-9 col-sm-12 col-xl-8 col-xxl-8 pt-3">
+                            <label class="form-label formlbl font600 text-dark1 pb-2 mb-0 font12">Date (format : ddmmyyyy)</label>
+                            <div class="">
+                                <div class="">
+                                    <div class="input-group">
+                                        <span class="input-group-text leftform_lbl font500 text-dark1 font12">Cheque Date</span>
+                                        <input type="text" class="form-control border-start-0 post_input_field font500 text-dark1 font12" [formControlName]="'chqDate'" maxlength="8"/>  
+                                      </div>
+                                </div>  
+                            </div>
+                        </div> -->
+                        <div class="col-md-12 col-sm-12 col-xl-12 col-xxl-12 pt-3">
+                            <label class="form-label formlbl font600 text-dark1 pb-2 mb-0 font12">(For all depositor keep empty)</label>
+                            <div class="">
+                                <div class="">
+                                  <div class="input-group">
+                                    <span class="input-group-text leftform_lbl font500 text-dark1 font12">Selective Depositor</span>
+                                    <app-f1 [formControlName]="'depositorId'" type="text" placeholder="" class="form-control post_input_field border-start-0 d-flex" (updatedSelectedValue)="getSelectedDepositor($event)" titleValue="{{depositorTableData?.mainheader}}"   [tableData]="depositorTableData?.dataSet" [colHeader]="deptColumnHeader"  [inputBBC]="depositorTableData?.bringBackColumn" [dynaPopId]="'DEPOSITORS'" [queryConditon]=deptDyanPop   [errorMessage]="'Invalid Depositor Code'" id="depositor4" [multiSelect]="'os'"></app-f1>
+                                  </div>
+                                </div>
+                              </div>
+                        </div>
+                        </div>
+                </form>
+        </div>
+    </div>
+</section>
+<app-loader *ngIf="loaderToggle"></app-loader>
+<section class="action_section position-fixed w-100">
+    <div class="container">
+        <div class="action_conatiner text-center bg-white br-10 w-100">
+            <div class="flex justify-content-between">
+                <!-- <button type="submit" class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"  [disabled]="true">New</button>
+              <button type="submit" class="bg_common_red border-0 common_action_btn text-white br-10 ms-1" [disabled]="true">Edit</button>  
+              <button type="submit" class="bg_common_red border-0 common_action_btn text-white br-10 ms-1" [disabled]="true">Delete</button> -->
+              <button type="submit" class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone"  accesskey="w" (click)="exportReport()">Do<span class="text-decoration-underline">w</span>nload</button>
+              <!-- <button type="submit" class="bg_common_red border-0 common_action_btn text-white br-10 ms-1" [disabled]="true">Print</button> -->
+              <button type="submit" class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone"  accesskey="x" (click)="handleQuitClick()">E<span class="text-decoration-underline">x</span>it</button>
+            </div>
+        </div>
+    </div>
+  </section>

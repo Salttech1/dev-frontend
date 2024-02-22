@@ -1,0 +1,161 @@
+<section class="container">
+  <section class="form-section-wrapper">
+    <form [formGroup]="ReportCriteria">
+      <div class="row d-flex justify-content-center">
+        <div class="col-md-4">
+          <!-- building code -->
+          <div
+            class="input-group mt-4"
+            [class.is-invalid]="ReportCriteria.controls?.['bldgCode'].errors?.['notFound'] 
+               "
+          >
+            <span
+              class="input-group-text leftform_lbl font500 text-dark1 font12"
+            >
+              <b></b>Building
+            </span>
+            <input
+              appCommonAutoFocus
+              type="text"
+              formControlName="bldgCode"
+              class="form-control border-start-0 post_input_field font500 font12"
+              upperCase
+              [f1]="{
+                id: 'BUILDINGS',
+                multi: true
+              }"
+              (focusout)="onLeaveBuildingCode($event.target.value)"
+            />
+          </div>
+          <div
+            class="errorField common_color_txt font12 font500 disInl"
+            *ngIf="ReportCriteria.controls?.['bldgCode'].errors?.['notFound'] "
+          >
+            Invalid Building Code
+          </div>
+
+          <!-- wing -->
+          <div
+            class="input-group mt-4"
+            [class.is-invalid]="ReportCriteria.controls?.['wing'].errors?.['notFound'] "
+          >
+            <span
+              class="input-group-text leftform_lbl font500 text-dark1 font12"
+              >Wing &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </span>
+            <input
+              type="text"
+              formControlName="wing"
+              upperCase
+              class="form-control border-start-0 post_input_field font500 font12"
+              [f1]="{
+                id: 'BWINGS',
+                isSingleValue: true,
+                subId: filter_wing
+              }"
+            />
+          </div>
+
+          <!-- Loaning Institute -->
+          <div
+            class="input-group mt-4"
+            [class.is-invalid]="ReportCriteria.controls?.['loanInst'].errors?.['notFound'] "
+          >
+            <span
+              class="input-group-text leftform_lbl font500 text-dark1 font12"
+              >Loaning Institutes
+            </span>
+            <input
+              type="text"
+              formControlName="loanInst"
+              upperCase
+              class="form-control border-start-0 post_input_field font500 font12"
+              [f1]="{
+                id: 'LOANCO',
+                multi: true
+              }"
+            />
+          </div>
+
+          <div
+            class="input-group flex-nowrap mt-4"
+            appDate1
+            [class.is-invalid]="
+              (ReportCriteria.get('date')?.controls['fromDate']?.invalid &&
+                ReportCriteria.get('date')?.controls['fromDate']?.touched) ||
+              (ReportCriteria.get('date')?.controls['toDate']?.invalid &&
+                ReportCriteria.get('date')?.controls['toDate']?.touched)
+            "
+          >
+            <span
+              class="input-group-text border-end-0 leftform_lbl max_wid font500 font12 req"
+              >Date</span
+            >
+            <div class="bg-white datepicker_field post_input_field">
+              <span class="input-group-addon">
+                <div mat-form-field appearance="fill" class="matForm">
+                  <mat-date-range-input
+                    [formGroup]="ReportCriteria.controls['date']"
+                    [rangePicker]="picker"
+                  >
+                    <input
+                      class="font12"
+                      matStartDate
+                      formControlName="fromDate"
+                      placeholder="From date"
+                    />
+                    <input
+                      class="font12"
+                      matEndDate
+                      formControlName="toDate"
+                      placeholder="To date"
+                    />
+                  </mat-date-range-input>
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker"
+                  ></mat-datepicker-toggle>
+                  <mat-date-range-picker #picker></mat-date-range-picker>
+                </div>
+              </span>
+            </div>
+          </div>
+          <div class="invalid-feedback">
+            Date Invalid/Empty. Future date not allowed
+          </div>
+
+          <!-- Report Type -->
+          <div class="input-group mt-4">
+            <div class="input-group justify-content-center">
+              <div class="form-check form-check-inline">
+                <input
+                  type="radio"
+                  class="form-check-input position-relative"
+                  formControlName="reportType"
+                  value="bldg"
+                />
+                <label class="form-check-label" for="radio1"
+                  >Building Wise</label
+                >
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  type="radio"
+                  class="form-check-input position-relative"
+                  formControlName="reportType"
+                  value="loan"
+                />
+                <label class="form-check-label" for="radio2">Loan Wise</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </section>
+</section>
+<app-buttons
+  [buttonsList]="buttonsList"
+  (eventTrigger)="buttonAction($event)"
+></app-buttons>
+<app-loader *ngIf="config.isLoading"></app-loader>

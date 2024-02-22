@@ -1,0 +1,88 @@
+<section class="depositrenewal_section">
+    <div class="container">
+        <div class="form_depositor_container pb-2">
+            <form [formGroup]="activeDepositListForm">
+                <div class="col-sm-12" formGroupName="reportParameters">
+                    <div class="col-md-12 col-sm-12 col-xl-12 col-xxl-12 pt-3">
+                        <div class="">
+                            <div class="">
+                                <div class="input-group" [class.is-invalid]="
+                                activeDepositListForm.controls['reportParameters'].controls['coy'].invalid &&
+                                activeDepositListForm.controls['reportParameters'].controls['coy'].touched">
+                                    <span class="input-group-text leftform_lbl font500 text-dark1 font12">Company</span>
+                                    <app-f1
+                                    id="company4"
+                                    [formControlName]="'coy'"
+                                    placeholder=""
+                                    class="form-control post_input_field border-start-0 d-flex"
+                                    titleValue="{{ compData?.mainheader }}"
+                                    [tableData]="compData?.dataSet"
+                                    [colHeader]="compHeader"
+                                    [inputBBC]="bringBackColumn"
+                                    (updatedSelectedValue)="updateCompanyList($event)"
+                                    [dynaPopId]="'COMPANY'"
+                                    [queryConditon]="coy_condition"
+                                    [errorMessage]="'Invalid Company Code'"
+                                  ></app-f1>
+                                  <span class="position-relative span_divider"></span>
+                                    <input ype="text" class="form-control w-50 border-start-0 post_input_field font500 text-dark1 font12"
+                                    [formControlName]="'companyName'" tabindex="-1"/>
+                                </div>
+                                <div *ngIf="activeDepositListForm.controls['reportParameters'].controls['coy'].invalid && activeDepositListForm.controls['reportParameters'].controls['coy'].touched">
+                                    <div
+                                        class="errorField common_color_txt font12 font500"
+                                        *ngIf="activeDepositListForm.controls['reportParameters'].controls['coy'].errors && activeDepositListForm.controls['reportParameters'].controls['coy'].errors?.['required']"
+                                    >
+                                        * Company Code is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-9 col-sm-12 col-xl-8 col-xxl-8 pt-3">
+                        <div class="">
+                            <div class="">
+                                <div class="input-group" [class.is-invalid]="
+                                activeDepositListForm.controls['reportParameters'].controls['reportAsOnDate'].invalid &&
+                                activeDepositListForm.controls['reportParameters'].controls['reportAsOnDate'].touched">
+                                    <span class="input-group-text leftform_lbl font500 text-dark1 font12">As on Date</span>
+                                    <input
+                                    type="text" (click)="setCompanyName()"
+                                    class="form-control border-start-0 post_input_field font500 text-dark1 font12" 
+                                    id="asDateField" matInput [matDatepicker]="pickerTo"  formControlName="reportAsOnDate" name="" (dateChange)="validateInvalidFormat($event,'asDateField')">
+                                    <div class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0">
+                                        <span class="input-group-addon">
+                                            <mat-datepicker-toggle matSuffix [for]="pickerTo" tabindex="-1"></mat-datepicker-toggle>
+                                            <mat-datepicker #pickerTo></mat-datepicker>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div
+                            *ngIf="activeDepositListForm.controls['reportParameters'].controls['reportAsOnDate'].invalid && activeDepositListForm.controls['reportParameters'].controls['reportAsOnDate'].touched">
+                          <div class="errorField common_color_txt font12 font500"
+                              *ngIf="activeDepositListForm.controls['reportParameters'].controls['reportAsOnDate'].errors && activeDepositListForm.controls['reportParameters'].controls['reportAsOnDate'].errors?.['required']">
+                              * As On Date is required
+                          </div>
+                        </div>
+                            </div>
+                          
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<app-loader *ngIf="loaderToggle"></app-loader>
+<section class="action_section position-fixed w-100">
+    <div class="container">
+        <div class="action_conatiner text-center bg-white br-10 w-100">
+            <div class="flex justify-content-between">
+                <button type="submit" class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone" accesskey="w" (click)="getReport(false)">Do<span class="text-decoration-underline">w</span>nload</button>
+                <button type="submit" class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white"  (click)="getReport(true)"  accesskey="p">Print</button>
+                <button type="submit" class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white" [disabled]="true">File</button>
+                <button type="submit" class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"  accesskey="x" (click)="handleExitClick()">E<span class="text-decoration-underline">x</span>it</button>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,56 @@
+<section>
+  <form [formGroup]="qf">
+    <div class="row g-3 justify-content-center">
+      <div class="col-sm-7">
+        <div
+          class="input-group"
+          [class.is-invalid]="qf?.invalid && qf?.touched && qf.errors?.['atLeastOneFilter'] "
+        >
+          <span class="input-group-text leftform_lbl font500 text-dark1 font12"
+            >Work Codes</span
+          >
+          <input
+            type="text"
+            class="form-control border-start-0 br-9"
+            formControlName="workCode"
+            [f1]="{
+              id: 'WORKCODES',
+              multi: true
+            }"
+          />
+        </div>
+      </div>
+    </div>
+  </form>
+</section>
+<app-loader *ngIf="loaderToggle"></app-loader>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner text-center bg-white br-10 w-100">
+      <div class="flex justify-content-between">
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+          [attr.accesskey]="loaderToggle == true ? '' : 'w'"
+          (click)="getReport(false)"
+        >
+          Do<u>w</u>nload
+        </button>
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white"
+          (click)="getReport(true)"
+          [attr.accesskey]="loaderToggle == true ? '' : 'p'"
+        >
+          Print
+        </button>
+        <a
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white text-decoration-none first_letter_textdecorationone"
+          [attr.accesskey]="loaderToggle == true ? '' : 'x'"
+          routerLink="/dashboard"
+          >E<u>x</u>it
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

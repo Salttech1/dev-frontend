@@ -1,0 +1,225 @@
+<section class="container">
+  <form [formGroup]="esicreturns">
+    <div class="d-flex justify-content-center">
+      <div formGroupName="reportParameters">
+        <div class="row g-2 mb-3">
+          <div class="col-lg-12">
+            <div
+              class="group_panel br-10 form_common_bg p-3 pt-3 position-relative"
+            >
+              <p
+                class="bg-white font600 group_title mb-0 position-absolute"
+              ></p>
+              <div class="row mb-2 mb-2">
+                <div class="col-lg-12">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Year</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0 post_input_field"
+                      formControlName="PYear"
+                      autocomplete="off"
+                      (change)="setMonth()"
+                    />
+                  </div>
+                </div>
+              </div>
+              <!-- Radio Button -->
+              <div
+                class="group_panel br-10 form_common_bg p-3 pt-3 mt-2 position-relative"
+              >
+                <p class="font600 group_title mb-0 position-absolute">
+                  First / Second Half
+                </p>
+                <div class="input-group">
+                  <div class="my-0">
+                    <div class="form-check d-flex align-items-center">
+                      <input
+                        type="radio"
+                        class="form-check-input font12 font500 position-relative"
+                        id="RbFirstHalf"
+                        name="rbYear"
+                        value="F"
+                        formControlName="rbYear"
+                        (change)="setMonth()"
+                      />
+                      <label
+                        class="form-check-label first_letter_textdecorationone"
+                        for="xx"
+                        accesskey="h"
+                      >
+                        First Half
+                      </label>
+                    </div>
+                    <div class="form-check d-flex align-items-center">
+                      <input
+                        type="radio"
+                        class="form-check-input font12 font500 position-relative"
+                        id="RbSecondHalf"
+                        name="rbYear"
+                        value="S"
+                        formControlName="rbYear"
+                        (change)="setMonth()"
+                      />
+                      <label
+                        class="form-check-label first_letter_textdecorationone"
+                        for="xx"
+                        accesskey="h"
+                      >
+                        Second Half
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- End of Radio Button -->
+
+              <div class="row mb-2 mt-2">
+                <div class="col-lg-6">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Paymonth From</span
+                    >
+                    <input
+                      disabled=""
+                      type="text"
+                      class="form-control border-start-0 post_input_field"
+                      formControlName="PPayMonthFrom"
+                      autocomplete="off"
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Paymonth To</span
+                    >
+                    <input
+                      disabled=""
+                      type="text"
+                      class="form-control border-start-0 post_input_field"
+                      formControlName="PPayMonthTo"
+                      autocomplete="off"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-0">
+                <div class="col-lg-12">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Salary Type</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0 post_input_field"
+                      formControlName="PSalType"
+                      [f1]="{ id: 'SALARYTYPES', multi: false }"
+                      id="SALARYTYPES"
+                      autocomplete="off"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-2 mt-2">
+                <div class="col-lg-12">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Company From</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0 post_input_field"
+                      formControlName="PCoyFrom"
+                      [f1]="{ id: 'SALARYCOY' }"
+                      id="SALARYCOY"
+                      autocomplete="off"
+                    />
+                  </div>
+                </div>
+                </div>
+                <div class="row mb-2 mt-2">
+                <div class="col-lg-12">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Company To</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0 post_input_field"
+                      formControlName="PCoyTo"
+                      [f1]="{ id: 'SALARYCOY' }"
+                      id="SALARYCOY"
+                      autocomplete="off"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-2 mb-2">
+                <div class="col-lg-12">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Location From</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0 post_input_field"
+                      formControlName="PDeptCode"
+                      [f1]="{ id: 'V_EMPLOCATION' }"
+                      id="V_EMPLOCATION"
+                      autocomplete="off"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</section>
+
+<app-loader *ngIf="loaderToggle"></app-loader>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner text-center bg-white br-10 w-100">
+      <div class="flex justify-content-between">
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+          accesskey="w"
+          (click)="getReport(false)"
+        >
+          Do<span class="text-decoration-underline">w</span>nload
+        </button>
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white"
+          (click)="getReport(true)"
+          accesskey="p"
+        >
+          Print
+        </button>
+        <!-- <button type="submit" class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white" [disabled]="true" accesskey="p" >Preview</button> -->
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+          accesskey="x"
+          (click)="handleExitClick()"
+        >
+          E<span class="text-decoration-underline">x</span>it
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,263 @@
+<!-- <p>partywise-narration-entry works!</p> -->
+
+<section>
+  <div class="row">
+    <div class="col-md-12">
+      <form [formGroup]="partywiseNarrationEntry">
+        <div class="row g-2">
+          <div class="container mb-2">
+            <div class="input-group justify-content-center">
+              <span>Cert Type : </span>
+              <div
+                class="form-check form-check-inline"
+                *ngFor="let item of config.partyType"
+              >
+                <input
+                  class="form-check-input position-relative cursor-pointer"
+                  type="radio"
+                  [value]="item.id"
+                  formControlName="partyType"
+                />
+                <label class="form-check-label m-0" for="exTy1">
+                  {{ item.name }}
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row g-2 mt-1">
+          <div class="col-md-6">
+            <div
+              class="input-group"
+              [class.is-invalid]="(partywiseNarrationEntry.get('project')?.hasError('required') && partywiseNarrationEntry.get('project')?.touched) || partywiseNarrationEntry.get('project')?.errors?.['notFound']"
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                ><b class="text-danger">*</b>Project</span
+              >
+              <input
+                type="text"
+                name=""
+                id="party_project"
+                upperCase
+                class="form-control border-start-0 post_input_field font500 font12"
+                [f1]="{
+                  id: 'BUILDINGS',
+                  isSingleValue: true,
+                  formData: partywiseNarrationEntry.get('projectName')
+                }"
+                formControlName="project"
+              />
+              <span class="position-relative span_divider"></span>
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control w-50 border-start-0 post_input_field font500 font12"
+                formControlName="projectName"
+              />
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="(partywiseNarrationEntry.get('project')?.touched && partywiseNarrationEntry.get('project')?.invalid) && !partywiseNarrationEntry.get('project')?.errors?.['notFound']"
+            >
+              Project code is required.
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="partywiseNarrationEntry.get('project')?.errors?.['notFound']"
+            >
+              Project code is not valid.
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div
+              class="input-group"
+              [class.is-invalid]="(partywiseNarrationEntry.get('group')?.hasError('required') && partywiseNarrationEntry.get('group')?.touched) || partywiseNarrationEntry.get('group')?.errors?.['notFound']"
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                ><b class="text-danger">*</b>Group</span
+              >
+              <input
+                type="text"
+                name=""
+                id="party_group"
+                upperCase
+                class="form-control border-start-0 post_input_field font500 font12"
+                [f1]="{
+                  id: 'GROUPCODE',
+                  isSingleValue: true,
+                  formData: partywiseNarrationEntry.get('groupName')
+                }"
+                formControlName="group"
+              />
+              <span class="position-relative span_divider"></span>
+              <input
+                type="text"
+                name=""
+                l
+                id=""
+                class="form-control w-50 border-start-0 post_input_field font500 font12"
+                formControlName="groupName"
+              />
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="(partywiseNarrationEntry.get('group')?.touched && partywiseNarrationEntry.get('group')?.invalid) && !partywiseNarrationEntry.get('group')?.errors?.['notFound']"
+            >
+              Group code is required.
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="partywiseNarrationEntry.get('group')?.errors?.['notFound']"
+            >
+              Group code is not valid.
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-2 mt-1" *ngIf="initialMode">
+          <div
+            class="group_panel br-10 p-2 position-relative form_common_bg"
+          >
+            <div class="col-md-12" formArrayName="addPartywisenarrationentry">
+              <div
+                class="table-responsive group_panel form_common_bg stylishScroll"
+              >
+                <table class="table table-bordered table-sm mb-0">
+                  <thead>
+                    <tr>
+                      <th class="fontBold font12 fonttxt_black">
+                        MAT CERT CODE
+                      </th>
+                      <th class="fontBold font12 fonttxt_black">
+                        MAT CERT NAME
+                      </th>
+                      <th class="fontBold font12 fonttxt_black">PARTY CODE</th>
+                      <th class="fontBold font12 fonttxt_black">PARTY NAME</th>
+                      <th class="fontBold font12 fonttxt_black">NARRATION</th>
+                      <th class="fontBold font12 fonttxt_black">ACTION</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      *ngFor="let item of partywiseNarrationEntry.controls?.['addPartywisenarrationentry'].controls let index=index"
+                      [formGroupName]="index"
+                    >
+                      <td>
+                        <div class="has-validation">
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            formControlName="matCertCode"
+                            class="form-control input_control font500 fonttxt_black font12"
+                          />
+                        </div>
+                      </td>
+                      <td>
+                        <div class="has-validation">
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            formControlName="matCertName"
+                            class="form-control input_control font500 fonttxt_black font12"
+                          />
+                        </div>
+                      </td>
+                      <td>
+                        <div
+                          class="input-group"
+                          [class.is-invalid]="(partywiseNarrationEntry.controls?.['addPartywisenarrationentry'].controls[index].get('partyCode').hasError('required') && partywiseNarrationEntry.controls?.['addPartywisenarrationentry'].controls[index].get('partyCode').touched) || partywiseNarrationEntry.controls?.['addPartywisenarrationentry'].controls[index].get('partyCode').errors?.['notFound']"
+                        >
+                          <input
+                            class="form-control input_control form-control font500 text-dark1 font12"
+                            type="text"
+                            upperCase
+                            formControlName="partyCode"
+                            [f1]="{ id: 'PARTYCODE', isSingleValue: true }"
+                          />
+                        </div>
+                        <!-- <div
+                          class="invalid-feedback d-block"
+                          *ngIf="(partywiseNarrationEntry.controls['addPartywisenarrationentry'].controls[index].get('partyCode').invalid && 
+                          partywiseNarrationEntry.controls['addPartywisenarrationentry'].controls[index].get('partyCode').touched) && !partywiseNarrationEntry.controls['addPartywisenarrationentry'].controls[index].get('partyCode').errors?.['notFound']"
+                        >
+                          Party code is require.
+                        </div> -->
+                        <div
+                          class="invalid-feedback d-block"
+                          *ngIf="partywiseNarrationEntry.controls['addPartywisenarrationentry'].controls[index].get('partyCode').errors?.['notFound']"
+                        >
+                          Party code is not valid.
+                        </div>
+                      </td>
+                      <td>
+                        <div class="has-validation">
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            formControlName="partyName"
+                            class="form-control input_control font500 fonttxt_black font12"
+                          />
+                        </div>
+                      </td>
+                      <td>
+                        <div class="has-validation">
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            formControlName="narration"
+                            class="form-control input_control font500 fonttxt_black font12"
+                          />
+                        </div>
+                      </td>
+                      <td>
+                        <div class="action_panel d-flex justify-content-center">
+                          <button
+                            type="button"
+                            class="btn action_btn d-flex bg_common_red mt-1"
+                            (click)="addParty()"
+                          >
+                            <img
+                              src="/assets/images/add.svg"
+                              alt="add"
+                              class="add_img"
+                            />
+                          </button>
+                          <button
+                            type="button"
+                            class="btn action_btn d-flex bg_common_red ms-1 mt-1"
+                            disabled
+                            (click)="deleteParty(index)"
+                          >
+                            <img
+                              src="/assets/images/trash.svg"
+                              alt="remove"
+                              class="delete_img"
+                            />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Bottom button start -->
+<app-buttons
+  [buttonsList]="buttonsList"
+  (eventTrigger)="buttonAction($event)"
+></app-buttons>
+<!-- Bottom button end -->

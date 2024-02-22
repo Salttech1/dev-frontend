@@ -1,0 +1,246 @@
+<section class="container">
+  <div class="container">
+    <div class="col-md-12">
+  <form [formGroup]="ExcessKmRunSelectionform">
+    <div class="d-flex justify-content-center">
+    <div class="row mb-2 g-3" formGroupName="reportParameters">
+      <div class="col-md-4">
+        <div
+          class="input-group"
+          [class.is-invalid]="
+            ExcessKmRunSelectionform.controls['reportParameters'].controls[
+              'Frmdate'
+            ].invalid &&
+            (ExcessKmRunSelectionform.controls['reportParameters'].controls[
+              'Frmdate'
+            ].touched ||
+              ExcessKmRunSelectionform.controls['reportParameters'].controls[
+                'Frmdate'
+              ].dirty)
+          "
+          appDate1
+        >
+          <span class="input-group-text leftform_lbl font500 font12"
+            ><span class="req_field common_color_txt fontBold font14">*</span
+            >From Date</span
+          >
+          <input
+            type="text"
+            class="form-control border-start-0 post_input_field font500 font12"
+            matInput
+            id="fromDateField"
+            [matDatepicker]="Frmdate"
+            formControlName="Frmdate"
+            (dateChange)="validateInvalidFormat($event,'fromDateField')" 
+          />
+          <div
+            class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+          >
+            <span class="input-group-addon">
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="Frmdate"
+                tabindex="-1"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #Frmdate tabindex="-1"></mat-datepicker>
+            </span>
+          </div>
+        </div>
+        <div
+          class="disInl me-2"
+          *ngIf="
+            ExcessKmRunSelectionform.controls['reportParameters'].controls[
+              'Frmdate'
+            ].invalid &&
+            (ExcessKmRunSelectionform.controls['reportParameters'].controls[
+              'Frmdate'
+            ].touched ||
+              ExcessKmRunSelectionform.controls['reportParameters'].controls[
+                'Frmdate'
+              ].dirty)
+          "
+        >
+          <div
+            class="errorField common_color_txt font12 font500 disInl"
+            *ngIf="ExcessKmRunSelectionform.controls['reportParameters'].controls['Frmdate'].errors && ExcessKmRunSelectionform.controls['reportParameters'].controls['Frmdate'].errors?.['required']"
+          >
+            From Date is required
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div
+          class="input-group"
+          [class.is-invalid]="
+            ExcessKmRunSelectionform.controls['reportParameters'].controls[
+              'Todate'
+            ].invalid &&
+            (ExcessKmRunSelectionform.controls['reportParameters'].controls[
+              'Todate'
+            ].touched ||
+              ExcessKmRunSelectionform.controls['reportParameters'].controls[
+                'Todate'
+              ].dirty)
+          "
+          appDate1
+        >
+          <span class="input-group-text leftform_lbl font500 font12"
+            ><span class="req_field common_color_txt fontBold font14">*</span>To
+            Date</span
+          >
+          <input
+            type="text"
+            class="form-control border-start-0 post_input_field font500 font12"
+            matInput
+            id="toDateField"
+            [matDatepicker]="ToDate"
+            formControlName="Todate"
+            (dateChange)="validateInvalidFormat($event,'toDateField')" 
+          />
+          <div
+            class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+          >
+            <span class="input-group-addon">
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="ToDate"
+                tabindex="-1"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #ToDate tabindex="-1"></mat-datepicker>
+            </span>
+          </div>
+        </div>
+        <div
+          class="disInl me-2"
+          *ngIf="
+            ExcessKmRunSelectionform.controls['reportParameters'].controls[
+              'Todate'
+            ].invalid &&
+            (ExcessKmRunSelectionform.controls['reportParameters'].controls[
+              'Todate'
+            ].touched ||
+              ExcessKmRunSelectionform.controls['reportParameters'].controls[
+                'Todate'
+              ].dirty)
+          "
+        >
+          <div
+            class="errorField common_color_txt font12 font500 disInl"
+            *ngIf="ExcessKmRunSelectionform.controls['reportParameters'].controls['Todate'].errors && ExcessKmRunSelectionform.controls['reportParameters'].controls['Todate'].errors?.['required']"
+          >
+            To Date is required
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4"></div>
+      <div class="col-md-4">
+        <div class="input-group"
+        >
+          <span class="input-group-text leftform_lbl font500 font12"
+            ><span class="req_field common_color_txt fontBold font14">*</span
+            >Petrol Rate(&#8377;)</span
+          >
+          <input
+            type="number"
+            class="form-control border-start-0 post_input_field font500 font12"
+            formControlName="petrol"
+            [decimalPoint]="{ decPlaces: '2' }"
+          />
+        </div>
+        <div
+          class="disInl me-2"
+          *ngIf="
+            ExcessKmRunSelectionform.controls['reportParameters'].controls[
+              'petrol'
+            ].invalid &&
+            (ExcessKmRunSelectionform.controls['reportParameters'].controls[
+              'petrol'
+            ].touched ||
+              ExcessKmRunSelectionform.controls['reportParameters'].controls[
+                'petrol'
+              ].dirty)
+          "
+        >
+          <div
+            class="errorField common_color_txt font12 font500 disInl"
+            *ngIf="ExcessKmRunSelectionform.controls['reportParameters'].controls['petrol'].errors?.min || ExcessKmRunSelectionform.controls['reportParameters'].controls['petrol'].errors?.['required']"
+          >
+            Value should be greater than zero
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="input-group">
+          <span class="input-group-text leftform_lbl font500 font12"
+            ><span class="req_field common_color_txt fontBold font14">*</span
+            >Deisel Rate(&#8377;)</span
+          >
+          <input
+            type="number"
+            class="form-control border-start-0 post_input_field font500 font12"
+            formControlName="diesel"
+            [decimalPoint]="{ decPlaces: '2' }"
+          />
+        </div>
+        <div
+          class="disInl me-2"
+          *ngIf="
+            ExcessKmRunSelectionform.controls['reportParameters'].controls[
+              'diesel'
+            ].invalid &&
+            (ExcessKmRunSelectionform.controls['reportParameters'].controls[
+              'diesel'
+            ].touched ||
+              ExcessKmRunSelectionform.controls['reportParameters'].controls[
+                'diesel'
+              ].dirty)
+          "
+        >
+          <div
+            class="errorField common_color_txt font12 font500 disInl"
+            *ngIf="ExcessKmRunSelectionform.controls['reportParameters'].controls['diesel'].errors?.min || ExcessKmRunSelectionform.controls['reportParameters'].controls['diesel'].errors?.['required']"
+          >
+            Value should be greater than zero
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </form>
+  </div>
+  </div>
+</section>
+<app-loader *ngIf="loaderToggle"></app-loader>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner text-center bg-white br-10 w-100">
+      <div class="flex justify-content-between">
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+          accesskey="w"
+          (click)="getReport(false)"
+        >
+          Do<span class="text-decoration-underline">w</span>nload
+        </button>
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white"
+          (click)="getReport(true)"
+          accesskey="p"
+        >
+          Print
+        </button>
+        <!-- <button type="submit" class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white" [disabled]="true" accesskey="p" >Preview</button> -->
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+          accesskey="x"
+          (click)="handleExitClick()"
+        >
+          E<span class="text-decoration-underline">x</span>it
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

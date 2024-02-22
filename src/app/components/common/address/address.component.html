@@ -1,0 +1,202 @@
+<form [formGroup]="addressForm">
+<div class="row" formGroupName="addressResponseBean">
+    <div [class]="classesResponsive">
+      <div class="mb-2">
+      <div class="input-group" [class.is-invalid]="
+      addressForm.controls['addressResponseBean'].controls['ad1'].invalid &&
+      addressForm.controls['addressResponseBean'].controls['ad1'].touched">
+        <span class="input-group-text leftform_lbl preinput_radius font500 text-dark1 font12"><span class="req_field common_color_txt  fontBold  font14">*</span>Address1</span>
+        <input type="text" class="form-control  border-start-0 post_input_field font500 text-dark1 font12" id="address1" formControlName="ad1" (change)="fieldValChange()" maxlength="30">
+      </div>
+      <div
+        *ngIf="addressForm.controls['addressResponseBean'].controls['ad1'].invalid && addressForm.controls['addressResponseBean'].controls['ad1'].touched">
+        <div class="errorField common_color_txt font12 font500"
+            *ngIf="addressForm.controls['addressResponseBean'].controls['ad1'].errors && addressForm.controls['addressResponseBean'].controls['ad1'].errors?.['required']">
+            * Address1 is required
+        </div>
+      </div>
+    </div>
+    </div>
+    <div [class]="classesResponsive">
+      <div class="mb-2">
+      <div class="input-group" [class.is-invalid]="
+      addressForm.controls['addressResponseBean'].controls['ad2'].invalid &&
+      addressForm.controls['addressResponseBean'].controls['ad2'].touched">
+        <span class="input-group-text leftform_lbl preinput_radius font500 text-dark1 font12"><span class="req_field common_color_txt  fontBold  font14">*</span>Address2</span>
+        <input type="text" class="form-control  border-start-0 post_input_field font500 text-dark1 font12" id="address2" formControlName="ad2" (change)="fieldValChange()" maxlength="30">
+      </div>
+       <div
+        *ngIf="addressForm.controls['addressResponseBean'].controls['ad2'].invalid && addressForm.controls['addressResponseBean'].controls['ad2'].touched">
+        <div class="errorField common_color_txt font12 font500"
+            *ngIf="addressForm.controls['addressResponseBean'].controls['ad2'].errors && addressForm.controls['addressResponseBean'].controls['ad2'].errors?.['required']">
+            * Address2 is required
+        </div>
+      </div>
+    </div>
+    </div>
+    <div [class]="classesResponsive">
+      <div class="mb-2">
+      <div class="input-group">
+        <span class="input-group-text leftform_lbl preinput_radius font500 text-dark1 font12">Address3</span>
+        <input type="text" class="form-control border-start-0 post_input_field font500 text-dark1 font12" id="address3" formControlName="ad3" (change)="fieldValChange()" maxlength="30">
+      </div>
+    </div>
+    </div>
+    <div [class]="classesResponsive">
+      <div class=" mb-2">
+      <div class="input-group">
+        <span class="input-group-text leftform_lbl font500 text-dark1 font12">Address4</span>
+        <input type="text" class="form-control  border-start-0 post_input_field font500 text-dark1 font12" id="address4" formControlName="ad4" (change)="fieldValChange()" maxlength="30">
+      </div>
+    </div>
+    </div>
+    <div [class]="classesResponsive">
+      <div class=" mb-2">
+      <div class="input-group">
+        <span class="input-group-text leftform_lbl preinput_radius font500 text-dark1 font12">Address5</span>
+        <input type="text" class="form-control  border-start-0 post_input_field font500 text-dark1 font12" id="address5" formControlName="ad5" (change)="fieldValChange()" maxlength="30">
+      </div>
+    </div>
+    </div>
+    <div [class]="classesResponsive">
+      <div class="mb-2">
+      <div class="input-group" [class.is-invalid]="
+      addressForm.controls['addressResponseBean'].controls['pincode'].invalid &&
+      addressForm.controls['addressResponseBean'].controls['pincode'].touched">
+        <span class="input-group-text leftform_lbl preinput_radius font500 text-dark1 font12"><span class="req_field common_color_txt  fontBold  font14">*</span>Pin Code</span>
+        <input type="text" class="form-control border-start-0 post_input_field font500 text-dark1 font12" id="pincode" formControlName="pincode" (change)="fieldValChange()" maxlength="10" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+      </div>
+      <div
+      *ngIf="addressForm.controls['addressResponseBean'].controls['pincode'].invalid && addressForm.controls['addressResponseBean'].controls['pincode'].touched">
+      <div class="errorField common_color_txt font12 font500"
+          *ngIf="addressForm.controls['addressResponseBean'].controls['pincode'].errors && addressForm.controls['addressResponseBean'].controls['pincode'].errors?.['required']">
+          * PinCode is required
+      </div>
+    </div>
+    </div>
+    </div>
+    <div [class]="classesResponsive">
+      <div class="mb-2">
+      <div class="input-group" [class.is-invalid]="
+        addressForm.controls['addressResponseBean'].controls['town'].invalid &&
+        addressForm.controls['addressResponseBean'].controls['town'].touched">
+        <span class="input-group-text leftform_lbl preinput_radius font500 text-dark1 font12"><span class="req_field common_color_txt  fontBold  font14">*</span>Town</span>
+        <app-f1 class="form-control border-start-0 border-end-0 post_input_field text-center-child font500 text-dark1 font12" [formControlName]="'town'" placeholder="" titleValue="{{_townsTable?.mainheader}}" [tableData]="_townsTable?.dataSet" [colHeader]="_townsColHead" (updatedSelectedValue)="updateListControl($event,addressForm.get('addressResponseBean.addrTownshipName'))" [inputBBC]="bringBackColumn" [dynaPopId]="'TOWNS'" [queryConditon]="''" (sendFieldValueChange)="inputFieldValueChange()" (change)="fieldValChange()" maxlength="20" [errorMessage]="'Invalid town code'"></app-f1>
+        <span class="position-relative span_divider"></span>
+        <input type="text" class="flex-30 form-control w-50 border-start-0 post_input_field font500 text-dark1 font12" id="TownName" formControlName="addrTownshipName" readonly tabindex="-1">
+      </div>
+      <div
+        *ngIf="addressForm.controls['addressResponseBean'].controls['town'].invalid && addressForm.controls['addressResponseBean'].controls['town'].touched">
+        <div class="errorField common_color_txt font12 font500"
+            *ngIf="addressForm.controls['addressResponseBean'].controls['town'].errors && addressForm.controls['addressResponseBean'].controls['town'].errors?.['required']">
+            * Town is required
+        </div>
+      </div>
+    </div>
+    </div>
+    <div [class]="classesResponsive">
+      <div class="mb-2">
+        <div class="input-group" [class.is-invalid]="
+        addressForm.controls['addressResponseBean'].controls['city'].invalid &&
+        addressForm.controls['addressResponseBean'].controls['city'].touched">
+          <span class="input-group-text leftform_lbl preinput_radius font500 text-dark1 font12"><span class="req_field common_color_txt  fontBold  font14">*</span>City</span>
+          <app-f1 class="text-center form-control  border-start-0 border-end-0 post_input_field text-center font500 text-dark1 font12 text-center-child" [formControlName]="'city'" (focusout)="onCityChange($event)" placeholder="" titleValue="{{_cityTable?.mainheader}}" [tableData]="_cityTable?.dataSet" [colHeader]="_cityColHead" (updatedSelectedValue)="updateListControl($event,addressForm.get('addressResponseBean.addrCityName'))" [inputBBC]="bringBackColumn" [dynaPopId]="'CITIES'" [queryConditon]="''" (sendFieldValueChange)="inputFieldValueChangeCity()" (change)="fieldValChange()" maxlength="5" [errorMessage]="'Invalid city code'" (keydown.tab)="checkIsCityBlank()" (keydown.enter)="checkIsCityBlank()"></app-f1>
+          <!-- <input type="text" class="form-control  border-start-0 border-end-0 post_input_field text-center font500 text-dark1 font12" id="cityCode" onclick="showmodal()" value="Mum" formControlName="city"> -->
+          <span class="position-relative span_divider"></span>
+          <input type="text" class="flex-30 form-control w-50 border-start-0 post_input_field font500 text-dark1 font12" id="" formControlName="addrCityName"  readonly tabindex="-1">
+        </div>
+        <div *ngIf="addressForm.controls['addressResponseBean'].controls['city'].invalid && addressForm.controls['addressResponseBean'].controls['city'].touched">
+          <div class="errorField common_color_txt font12 font500"
+              *ngIf="addressForm.controls['addressResponseBean'].controls['city'].errors && addressForm.controls['addressResponseBean'].controls['city'].errors?.['required']">
+              * City is required
+          </div>
+      </div>
+    </div>
+    </div>
+    <div [class]="classesResponsive">
+      <div class=" mb-2">
+      <div class="input-group" [class.is-invalid]="
+        addressForm.controls['addressResponseBean'].controls['state'].invalid &&
+        addressForm.controls['addressResponseBean'].controls['state'].touched">
+        <span class="input-group-text leftform_lbl preinput_radius font500 text-dark1 font12"><span class="req_field common_color_txt  fontBold  font14">*</span>State</span>
+        <app-f1 class="text-center-child form-control w_20 border-start-0 border-end-0 post_input_field text-center font500 text-dark1 font12" [formControlName]="'state'" placeholder="" titleValue="{{_stateTable?.mainheader}}" [tableData]="_stateTable?.dataSet" [colHeader]="_stateColHead" (updatedSelectedValue)="updateListControl($event,addressForm.get('addressResponseBean.adrStateName'))" [inputBBC]="bringBackColumn" [dynaPopId]="'STATES'" [queryConditon]="''" (sendFieldValueChange)="inputFieldValueChange()" (change)="fieldValChange()" maxlength="5" [errorMessage]="'Invalid state code'"></app-f1>
+        <!-- <input type="text" class="form-control w_20 border-start-0 border-end-0 post_input_field text-center font500 text-dark1 font12" id="stateCode" onclick="showmodal()" value="Maha" formControlName="state"> -->
+        <span class="position-relative span_divider"></span>
+        <input type="text" class="flex-30 form-control w-50 border-start-0 post_input_field font500 text-dark1 font12" id="stateName" formControlName="adrStateName" readonly tabindex="-1">
+      </div>
+      <div
+      *ngIf="addressForm.controls['addressResponseBean'].controls['state'].invalid && addressForm.controls['addressResponseBean'].controls['state'].touched">
+      <div class="errorField common_color_txt font12 font500"
+          *ngIf="addressForm.controls['addressResponseBean'].controls['state'].errors && addressForm.controls['addressResponseBean'].controls['state'].errors?.['required']">
+          * State is required
+      </div>
+    </div>
+    </div>
+    </div>
+    <div [class]="classesResponsive">
+      <div class=" mb-2">
+      <div class="input-group" [class.is-invalid]="
+      addressForm.controls['addressResponseBean'].controls['country'].invalid &&
+      addressForm.controls['addressResponseBean'].controls['country'].touched">
+        <span class="input-group-text leftform_lbl preinput_radius font500 text-dark1 font12"><span class="req_field common_color_txt  fontBold  font14">*</span>Country</span>
+        <app-f1 class="text-center-child form-control w_20  border-start-0 border-end-0 post_input_field text-center font500 text-dark1 font12"  [formControlName]="'country'" placeholder="" titleValue="{{_countryTable?.mainheader}}" [tableData]="_countryTable?.dataSet" [colHeader]="_countryColHead" (updatedSelectedValue)="updateListControl($event,addressForm.get('addressResponseBean.adrCountryName'))" [inputBBC]="bringBackColumn" [dynaPopId]="'NATIONS'" [queryConditon]="''" (sendFieldValueChange)="inputFieldValueChange()" (change)="fieldValChange()" maxlength="5" [errorMessage]="'Invalid country code'"></app-f1>
+        <!-- <input type="text" id="countryCode" onclick="showmodal()" value="India" formControlName="country"> -->
+        <span class="position-relative span_divider"></span>
+        <input type="text" class="flex-30 form-control w-50 w-sm-25 border-start-0 post_input_field font500 text-dark1 font12" id="countryName" formControlName="adrCountryName" readonly tabindex="-1">
+      </div>
+      <div
+      *ngIf="addressForm.controls['addressResponseBean'].controls['country'].invalid && addressForm.controls['addressResponseBean'].controls['country'].touched">
+      <div class="errorField common_color_txt font12 font500"
+          *ngIf="addressForm.controls['addressResponseBean'].controls['country'].errors && addressForm.controls['addressResponseBean'].controls['country'].errors?.['required']">
+          * Country is required
+      </div>
+    </div>
+    </div>
+    </div>
+    <div [class]="classesResponsive">
+      <div class=" mb-2">
+        <div class="input-group">
+          <span class="input-group-text leftform_lbl  preinput_radius font500 text-dark1 font12">Phone(Residence)</span>
+          <input type="text" class="form-control border-start-0 post_input_field font500 text-dark1 font12" id="phoneRes" formControlName="phoneres" (change)="fieldValChange()" oninput="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="30">
+        </div>
+      </div>
+    </div>
+    <div [class]="classesResponsive">
+      <div class=" mb-2">
+        <div class="input-group">
+          <span class="input-group-text leftform_lbl  preinput_radius font500 text-dark1 font12">Phone(Office)</span>
+          <input type="text" class="form-control border-start-0 post_input_field font500 text-dark1 font12" id="phoneOffice" formControlName="phoneoff" (change)="fieldValChange()" oninput="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="30">
+        </div>
+      </div>
+    </div>
+    <div [class]="classesResponsive">
+      <div class="mb-2">
+        <div class="input-group" [class.is-invalid]="
+        addressForm.controls['addressResponseBean'].controls['email'].invalid &&
+        addressForm.controls['addressResponseBean'].controls['email'].touched">
+          <span class="input-group-text leftform_lbl preinput_radius font500 text-dark1 font12">Email Id</span>
+          <input type="text" class="form-control border-start-0 post_input_field font500 text-dark1 font12" id="email"  formControlName="email" (change)="fieldValChange()" maxlength="50">
+        </div>
+        <div *ngIf="addressForm.controls['addressResponseBean'].controls['email'].invalid && addressForm.controls['addressResponseBean'].controls['email'].touched">
+          <div *ngIf="addressForm.controls['addressResponseBean'].controls['email'].errors && addressForm.controls['addressResponseBean'].controls['email'].errors['pattern']" class="errorField common_color_txt font12 font500">* Invalid Email</div>
+      </div>
+      </div>
+    </div>
+    <div [class]="classesResponsive">
+      <div class="mb-2">
+        <div class="input-group">
+          <span class="input-group-text leftform_lbl preinput_radius font500 text-dark1 font12">Fax No</span>
+          <input type="text" class="form-control border-start-0 post_input_field font500 text-dark1 font12" id="faxNo"  formControlName="fax" (change)="fieldValChange()"  maxlength="30">
+        </div>
+      </div>
+    </div>
+    <div [class]="classesResponsive">
+      <div class="mb-2">
+        <div class="input-group">
+          <span class="input-group-text leftform_lbl preinput_radius font500 text-dark1 font12">Mobile No</span>
+          <input type="text" class="form-control border-start-0 post_input_field font500 text-dark1 font12" id="mobileNo"  formControlName="phonemobile" (change)="fieldValChange()"  maxlength="15" >
+        </div>
+      </div>
+    </div>
+  </div>
+  </form>

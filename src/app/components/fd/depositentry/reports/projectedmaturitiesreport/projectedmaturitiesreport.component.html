@@ -1,0 +1,137 @@
+<section>
+    <div class="reports_detail_container">
+        <form [formGroup]="projectedMaturitiesReportForm">
+            <div
+                class="row"
+                formGroupName="reportParameters"
+            >
+                <div class="mb-2 col-md-8 col-lg-6 col-xl-5 col-xxl-5">
+                    <!-- <label class="form-label formlbl font600 text-dark1 pb-2 mb-0 font12">Company</label> -->
+                    <div>
+                        <div class="">
+                            <div class="input-group" [class.is-invalid]="
+                            projectedMaturitiesReportForm.controls['reportParameters'].controls['TxtCompanyCd'].invalid &&
+                            projectedMaturitiesReportForm.controls['reportParameters'].controls['TxtCompanyCd'].touched">
+                            <span class="input-group-text leftform_lbl font500 text-dark1 font12">Company</span>
+                                <app-f1
+                                    [formControlName]="'TxtCompanyCd'"
+                                    placeholder
+                                    class="form-control post_input_field border-end-0 border-start-0 d-flex"
+                                    titleValue="{{tableData?.mainheader}}"
+                                    [tableData]="tableData?.dataSet"
+                                    [colHeader]="columnHeader"
+                                    [inputBBC]="bringBackColumn"
+                                    (updatedSelectedValue)="updateCompanyList($event)"
+                                    [dynaPopId]="'COMPANY'"
+                                    [queryConditon]=coy_condition
+                                    id="companyCode"
+                                    [errorMessage]="'Invalid Company Code'"
+                                    (change)="updateOnChangeCompanyList($event)"
+                                ></app-f1>
+                                <span class="position-relative span_divider"></span>
+                                <input
+                                type="text"
+                                class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500 disabled_cls"
+                                id
+                                formControlName="companyName" tabindex="-1"
+                                readonly
+                            >
+                                
+                            </div>
+                            <div *ngIf="projectedMaturitiesReportForm.controls['reportParameters'].controls['TxtCompanyCd'].invalid && projectedMaturitiesReportForm.controls['reportParameters'].controls['TxtCompanyCd'].touched">
+                                <div
+                                    class="errorField common_color_txt font12 font500"
+                                    *ngIf="projectedMaturitiesReportForm.controls['reportParameters'].controls['TxtCompanyCd'].errors && projectedMaturitiesReportForm.controls['reportParameters'].controls['TxtCompanyCd'].errors?.['required']"
+                                >
+                                    * Company Code is required
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="mb-2 col-md-6 col-lg-5 col-xl-5 col-xxl-5">
+                            <div class>
+                                <div class="input-group">
+                                    <span class="input-group-text leftform_lbl font500 text-dark1 font12">Company Name</span>
+                                    <input
+                                        type="text"
+                                        class="form-control border-start-0 post_input_field"
+                                        id
+                                        formControlName="companyName"
+                                        readonly
+                                    >
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+                <div class="col-sm-12 col-lg-12 col-xl-12 col-xxl-12">
+                    <label class="form-label formlbl font600 text-dark1 pb-2 mb-0 font12">Date (format:YYYYMM)</label>
+                    <div class="row">
+                        <div class="mb-2 col-md-6 col-lg-4 col-xl-3 col-xxl-3">
+                            <div class="input-group"  [class.is-invalid]="
+                            projectedMaturitiesReportForm.controls['reportParameters'].controls['upToDate'].invalid &&
+                            projectedMaturitiesReportForm.controls['reportParameters'].controls['upToDate'].touched">
+                                <span class="input-group-text leftform_lbl font500 text-dark1 font12">Upto</span>
+                                <input
+                                    type="text"
+                                    class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                                    id="upToDateField"
+                                    matInput
+                                    [matDatepicker]="picker"
+                                    formControlName="upToDate"
+                                    name 
+                                >
+                                <div class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0">
+                                    <span class="input-group-addon">
+                                        <mat-datepicker-toggle
+                                            matSuffix
+                                            [for]="picker"  
+                                        ></mat-datepicker-toggle>
+                                        <mat-datepicker #picker startView="multi-year"  (monthSelected)="chosenMonthHandler($event, picker,projectedMaturitiesReportForm.get('reportParameters.upToDate'))"></mat-datepicker>
+                                    </span>
+                                </div>
+                            </div>
+                            <div
+                            *ngIf="projectedMaturitiesReportForm.controls['reportParameters'].controls['upToDate'].invalid && projectedMaturitiesReportForm.controls['reportParameters'].controls['upToDate'].touched">
+                            <div class="errorField common_color_txt font12 font500"
+                                *ngIf="projectedMaturitiesReportForm.controls['reportParameters'].controls['upToDate'].errors && projectedMaturitiesReportForm.controls['reportParameters'].controls['upToDate'].errors?.['required']">
+                                * UpTo Date is required
+                            </div>
+                         </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+<app-loader *ngIf="loaderToggle"></app-loader>
+<section class="action_section position-fixed w-100">
+    <div class="container">
+        <div class="action_conatiner text-center bg-white br-10">
+            <div class="flex justify-content-between">
+                <button
+                    type="submit"
+                    class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white exportcls first_letter_textdecorationone"
+                    (click)="getReport(false)"
+                    accesskey="w"
+                >
+                Do<span class="text-decoration-underline">w</span>nload</button>
+                <button
+                    type="submit"
+                    class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white exportcls"
+                    (click)="getReport(true)"
+                    accesskey="p"
+                >Print
+                </button>
+                <button
+                    type="submit"
+                    class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone"
+                    accesskey="x"
+                    (click)="handleExit()"
+                >
+                    E<span class="text-decoration-underline">x</span>it
+                </button>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,79 @@
+<section>
+    <div class="row">
+      <div class="col-md-12">
+        <form [formGroup]="queryForm">
+          <div class="row g-2">
+            <!-- From Month Start -->
+            <div class="col-lg-6">
+              <div class="input-group">
+                <span class="input-group-text leftform_lbl font500 font12"
+                  >From Month
+                </span>
+                <input
+                  type="text"
+                  formControlName="fromMonth"
+                  class="form-control w-50 border-start-0 post_input_field font500 font12"
+                />
+              </div>
+            </div>
+            <!-- From Month End -->
+            <!-- To Month Start -->
+            <div class="col-lg-6">
+                <div class="input-group">
+                  <span class="input-group-text leftform_lbl font500 font12"
+                    >To Month
+                  </span>
+                  <input
+                    type="text"
+                    formControlName="toMonth"
+                    class="form-control w-50 border-start-0 post_input_field font500 font12"
+                  />
+                </div>
+              </div>
+              <!-- To Month End -->
+            </div>
+        </form>
+      </div>
+    </div>
+  </section>
+  <section class="action_section position-fixed w-100">
+    <div class="container">
+      <div class="action_conatiner bg-white br-10 d-flex justify-content-center">
+        <button
+          *ngIf="_service.getAccess('Export')"
+          type="submit"
+          class="bg_common_red common_action_btn br-10 first_letter_textdecorationone"
+          [attr.accesskey]="loaderToggle == true ? '' : 'w'"
+          (click)="getReport(false)"
+        >
+          Do<u>w</u>nload
+        </button>
+        <button
+          *ngIf="_service.getAccess('Print')"
+          type="submit"
+          class="bg_common_red common_action_btn br-10"
+          (click)="getReport(true)"
+          [attr.accesskey]="loaderToggle == true ? '' : 'p'"
+        >
+          Print
+        </button>
+        <button
+          type="submit"
+          (click)="resetForm()"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone"
+          accesskey="t"
+        >
+          Rese<span class="text-decoration-underline">t</span>
+        </button>
+        <a
+          class="bg_common_red border-0 common_action_btn text-white br-10 first_letter_textdecorationone text-decoration-none"
+          [attr.accesskey]="loaderToggle == true ? '' : 'x'"
+          routerLink="/dashboard"
+        >
+          E<u>x</u>it
+        </a>
+      </div>
+    </div>
+  </section>
+  <app-loader *ngIf="loaderToggle"></app-loader>
+  

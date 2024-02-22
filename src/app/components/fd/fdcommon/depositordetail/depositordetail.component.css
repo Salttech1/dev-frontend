@@ -1,0 +1,81 @@
+.w_58 {
+    width: 58% !important
+}
+
+/* radio button css */
+.tab_content_panel .form-check {
+    margin-left: 30px !important;
+}
+
+/* .form-check-label {
+    padding-left: 13px;font-size: 12px;
+} */
+.w_20 {
+    width: 20% !important
+}
+
+@media only screen and (min-width:1200px) and (max-width:1500px) {
+    .tab_content_panel .form-check {
+        margin-left: 12px !important;
+    }
+}
+
+@media only screen and (min-width:999px) and (max-width:1100px) {
+    .remark_cls {
+        margin: 0 1.5%
+    }
+
+    .tabs_container .tab-content {
+        padding: 35px 30px;
+    }
+
+    .tab_content_panel .form-check {
+        margin-left: 12px !important;
+    }
+}
+
+@media only screen and (min-width:765px) and (max-width:998px) {
+
+    .tab_content_panel .tab_0,
+    .tab_content_panel .tab1,
+    .tab_content_panel .tab2 {
+        width: 100%;
+        margin: 0;
+    }
+
+    .depositor_container {
+        padding: 40px 25px;
+    }
+
+    .tabs_container .tab-content {
+        padding: 35px 20px;
+    }
+
+    .w-sm-25 {
+        width: 25% !important;
+    }
+}
+
+.tab_0 {
+    width: 27.6%;
+    margin-right: 2.16%;
+}
+
+.tab1 {
+    width: 27.6%;
+    margin-right: 2.16%;
+}
+
+.tab2 {
+    width: 40.41%;
+}
+
+@media only screen and (max-width:1100px) {
+    .tab_content_panel .tab_0,
+    .tab_content_panel .tab1,
+    .tab_content_panel .tab2 {
+        width: 50%;
+        margin: 0;
+        padding: 0 12px;
+    }
+}

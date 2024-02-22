@@ -1,0 +1,94 @@
+
+<section>
+    <div class="reports_detail_container">
+      <form [formGroup]="coveringLettersForMatRenForm">
+        <div class="row" formGroupName="reportParameters">
+           <div class="mb-3 col-md-12 col-lg-6 col-xl-6 col-xxl-6">
+                    <div class="">
+                        <div class="">
+                        
+                          <div class="input-group" 
+                          [class.is-invalid]="
+                          coveringLettersForMatRenForm.controls['reportParameters'].controls['CoyCode'].invalid &&
+                          coveringLettersForMatRenForm.controls['reportParameters'].controls['CoyCode'].touched">
+                            <span class="input-group-text leftform_lbl font500 text-dark1 font12">Company</span>
+                            <app-f1 id="company5" [formControlName]="'CoyCode'" placeholder="" (change)="updateOnChangeCompanyList($event)" class="form-control post_input_field border-start-0  border-end-0  d-flex" titleValue="{{tableData?.mainheader}}" [tableData]="tableData?.dataSet" [colHeader]="columnHeader"  [inputBBC]="bringBackColumn" (updatedSelectedValue)="updateCompanyList($event)" [dynaPopId]="'COMPANY'" [queryConditon]=coy_condition  id="companyCode" [errorMessage]="'Invalid Company Code'" ></app-f1>
+                            <span class="position-relative span_divider"></span>
+                            <input
+                            type="text"
+                            class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500 disabled_cls"
+                            id
+                            formControlName="CoyName" tabindex="-1"
+                            readonly
+                        >
+                          </div>
+                          <div
+                            *ngIf="coveringLettersForMatRenForm.controls['reportParameters'].controls['CoyCode'].invalid && coveringLettersForMatRenForm.controls['reportParameters'].controls['CoyCode'].touched">
+                            <div class="errorField common_color_txt font12 font500"
+                                *ngIf="coveringLettersForMatRenForm.controls['reportParameters'].controls['CoyCode'].errors && coveringLettersForMatRenForm.controls['reportParameters'].controls['CoyCode'].errors?.['required']">
+                                * Company Code is required
+                          </div>
+                          </div>
+                        </div>
+              
+                    </div>
+            </div>
+          <div class="mb-3 col-md-12 col-lg-6 col-xl-6 col-xxl-6">
+               <div class="">
+                  <div class="input-group"  [class.is-invalid]="
+                  coveringLettersForMatRenForm.controls['reportParameters'].controls['TranserNo'].invalid &&
+                  coveringLettersForMatRenForm.controls['reportParameters'].controls['TranserNo'].touched">
+                      <span class="input-group-text leftform_lbl font500 text-dark1 font12">Transer</span>
+                      <app-f1 [formControlName]="'TranserNo'" placeholder="" (click)="updateTranserList()" (change)="updateTranserListOnChange($event)" class="form-control post_input_field border-start-0 d-flex" titleValue="{{transferTableData?.mainheader}}" [tableData]="transferTableData?.dataSet" [colHeader]="transferColumnHeader"  [inputBBC]="bringBackColumn" [dynaPopId]="'TRANSER'" [queryConditon]=transNoCondition id="transerNo" [errorMessage]="'Invalid Transer No'"></app-f1>
+                  </div>
+                  <div
+                    *ngIf="coveringLettersForMatRenForm.controls['reportParameters'].controls['TranserNo'].invalid && coveringLettersForMatRenForm.controls['reportParameters'].controls['TranserNo'].touched">
+                    <div class="errorField common_color_txt font12 font500"
+                        *ngIf="coveringLettersForMatRenForm.controls['reportParameters'].controls['TranserNo'].errors && coveringLettersForMatRenForm.controls['reportParameters'].controls['TranserNo'].errors?.['required']">
+                        * TranserNo is required
+                    </div>
+                 </div>
+                </div>
+          </div>
+        <div class="col-xxl-12">
+          <!-- <label class="form-label formlbl font600 text-dark1 pb-1 mb-0 font12">Covering Letter Option</label> -->
+          <div class="row">
+            <div class="mb-3 col-md-12 col-lg-6 col-xl-6 col-xxl-6">
+                <div class="input-group">
+                    <span class="input-group-text leftform_lbl bg-transparent border-0 font600 text-dark1 font12 ps-0">Covering Letter Option</span>
+                    <div class="form-check d-flex align-items-center">
+                      <input type="radio" class="form-check-input font12 font500 position-relative" id="letterOption1" name="Maturity_Renewal" value="M" formControlName="Maturity_Renewal" (change)="optionSelect($event.target)">
+                      <label class="form-check-label" for="letterOption1">Maturity</label>
+                    </div>
+                    <div class="form-check d-flex align-items-center">
+                      <input type="radio" class="form-check-input font12 font500  position-relative" id="letterOption2" name="Maturity_Renewal" value="R" formControlName="Maturity_Renewal" (change)="optionSelect($event.target)">
+                      <label class="form-check-label" for="letterOption2">Renewal</label>
+                    </div>
+                  </div>
+                  <div
+                      *ngIf="coveringLettersForMatRenForm.controls['reportParameters'].controls['Maturity_Renewal'].invalid && coveringLettersForMatRenForm.controls['reportParameters'].controls['Maturity_Renewal'].touched">
+                      <div class="errorField common_color_txt font12 font500"
+                          *ngIf="coveringLettersForMatRenForm.controls['reportParameters'].controls['Maturity_Renewal'].errors && coveringLettersForMatRenForm.controls['reportParameters'].controls['Maturity_Renewal'].errors?.['required']">
+                          * Covering Letter option is required
+                      </div>
+                    </div>
+              </div>
+          </div>
+        </div>
+       </div>
+      </form>
+    </div>
+    <app-loader *ngIf="loaderToggle"></app-loader>
+    <section class="action_section position-fixed w-100">
+      <div class="container">
+          <div class="action_conatiner text-center bg-white br-10">
+              <div class="flex justify-content-between">
+                  <button type="submit" class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white exportcls first_letter_textdecorationone" (click)="getReport(false)" accesskey="w">Do<span class="text-decoration-underline">w</span>nload</button>
+                  <button type="submit" class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white exportcls" (click)="getReport(true)" accesskey="p">Print</button>
+                  <button type="submit" class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone"  accesskey="x" (click)="handleExit()">E<span class="text-decoration-underline">x</span>it</button>
+              </div>
+          </div>
+      </div>
+  </section>
+    <!-- <app-actionpanel [exportFormGroup]="coveringLettersForMatRenForm" (sendLoaderFlag)="updateLoaderFlag($event)" [printFormGroup]="coveringLettersForMatRenForm"></app-actionpanel> -->
+</section>

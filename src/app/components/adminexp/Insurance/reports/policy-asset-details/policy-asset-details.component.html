@@ -1,0 +1,88 @@
+<section class="container">
+    <form [formGroup]="PolicyAssetItems">
+      <div class="col-md-6" formGroupName="reportParameters">
+        <div
+          class="input-group has-validation"
+          [class.is-invalid]="
+          PolicyAssetItems.controls['reportParameters'].controls[
+              'TxtPolicyAssetItems'
+            ].invalid &&
+            (PolicyAssetItems.controls['reportParameters'].controls[
+              'TxtPolicyAssetItems'
+            ].touched ||
+            PolicyAssetItems.controls['reportParameters'].controls[
+                'TxtPolicyAssetItems'
+              ].dirty)
+          "
+        >
+          <span class="input-group-text leftform_lbl font500 text-dark1"
+            ><b class="text-danger">*</b>
+            PolicyId
+          </span>
+          <input
+            type="text"
+            class="form-control border-start-0"
+            formControlName="TxtPolicyAssetItems"
+            autofocus
+            [f1]="{ id: 'POLICYID', fill: 1 }"
+          />
+          <div
+            class="invalid-feedback d-block"
+            *ngIf="
+            PolicyAssetItems.controls['reportParameters'].controls[
+                'TxtPolicyAssetItems'
+              ].invalid &&
+              (PolicyAssetItems.controls['reportParameters'].controls[
+                'TxtPolicyAssetItems'
+              ].touched ||
+              PolicyAssetItems.controls['reportParameters'].controls[
+                  'TxtPolicyAssetItems'
+                ].dirty)
+            "
+          >
+            <div
+              *ngIf="PolicyAssetItems.controls['reportParameters'].controls['TxtPolicyAssetItems'].errors?.['required']"
+            >
+              PolicyId is required
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </section>
+  <app-loader *ngIf="loaderToggle"></app-loader>
+  <section class="action_section position-fixed w-100">
+    <div class="container">
+      <div class="action_conatiner text-center bg-white br-10 w-100">
+        <div class="flex justify-content-between">
+          <button
+            type="submit"
+            class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+            accesskey="w"
+            (click)="getReport(false)"
+          >
+            Do<span class="text-decoration-underline">w</span>nload
+          </button>
+          <button
+            type="submit"
+            class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white"
+            (click)="getReport(true)"
+            accesskey="p"
+          >
+            Print
+          </button>
+          <!-- <button type="submit" class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white" [disabled]="true" accesskey="p" >Preview</button> -->
+          <button
+            type="submit"
+            class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+            accesskey="x"
+            (click)="handleExitClick()"
+          >
+            E<span class="text-decoration-underline">x</span>it
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  

@@ -1,0 +1,439 @@
+<div *ngIf="isPdfViewerHide; then isPdfViewerContainerHide else isPdfViewerContainerShow"></div>
+<ng-template #isPdfViewerContainerHide>
+<section>
+    <div class="reports_detail_container">
+        <form [formGroup]="interestChequePrintingFormGroup">
+            <div
+                class="row"
+                formGroupName="reportParameters"
+            >
+                    <div class="mb-3 col-md-12 col-lg-8 col-xl-8 col-xxl-6">
+                            <div class="input-group" [class.is-invalid]="
+                            interestChequePrintingFormGroup.controls['reportParameters'].controls['coy'].invalid &&
+                            interestChequePrintingFormGroup.controls['reportParameters'].controls['coy'].touched">
+                                <span class="input-group-text leftform_lbl font500 text-dark1 font12">Company</span>
+                                <app-f1
+                                    [formControlName]="'coy'"
+                                    placeholder
+                                    class="form-control post_input_field border-end-0  border-start-0 d-flex"
+                                    titleValue="{{tableData?.mainheader}}"
+                                    [tableData]="tableData?.dataSet"
+                                    [colHeader]="columnHeader"
+                                    [inputBBC]="bringBackColumn"
+                                    (updatedSelectedValue)="updateCompanyList($event)"
+                                    [dynaPopId]="'COMPANY'"
+                                    [queryConditon]=coy_condition
+                                    id="companyCode"
+                                    [errorMessage]="'Invalid Company Code'"
+                                    (change)="updateOnChangeCompanyList($event)"
+                                ></app-f1>
+                                <span class="position-relative span_divider"></span>
+                                <input
+                                type="text" tabindex="-1"
+                                class="form-control  w-50 border-start-0 post_input_field font500 text-dark1 font12 diabled_cls diabled_cls"
+                                formControlName="companyName"
+                                readonly  
+                            >
+                            </div>
+                            <div *ngIf="interestChequePrintingFormGroup.controls['reportParameters'].controls['coy'].invalid && interestChequePrintingFormGroup.controls['reportParameters'].controls['coy'].touched">
+                                <div
+                                    class="errorField common_color_txt font12 font500"
+                                    *ngIf="interestChequePrintingFormGroup.controls['reportParameters'].controls['coy'].errors && interestChequePrintingFormGroup.controls['reportParameters'].controls['coy'].errors?.['required']"
+                                >
+                                    * Company Code is required
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="mb-3 col-md-6 col-lg-6 col-xl-5 col-xxl-4">
+                            <div class="input-group">
+                                <span class="input-group-text leftform_lbl font500 text-dark1 font12">Name</span>
+                            </div>
+                        </div> -->
+               
+                <div class="col-xl-12">
+                    <div>
+                        <div class="row">
+                            <div class="mb-3 col-md-6 col-lg-4 col-xl-4 col-xxl-3">
+                                <div class="input-group" [class.is-invalid]="
+                                interestChequePrintingFormGroup.controls['reportParameters'].controls['depFrom'].invalid &&
+                                interestChequePrintingFormGroup.controls['reportParameters'].controls['depFrom'].touched">
+                                    <span class="input-group-text leftform_lbl font500 text-dark1 font12">Depositor Code From</span>
+                                    <app-f1
+                                        [formControlName]="'depFrom'"
+                                        placeholder
+                                        class="form-control post_input_field border-start-0 d-flex"
+                                        titleValue="{{depositorFromTableData?.mainheader}}"
+                                        [tableData]="depositorFromTableData?.dataSet"
+                                        [colHeader]="depositorFromColumnHeader"
+                                        [inputBBC]="bringBackColumn"
+                                        [dynaPopId]="'DEPOSITORS'"
+                                        [queryConditon]=deptDyanPop
+                                        id="depositorFromCode"
+                                        [errorMessage]="'Invalid Depositor From Code'"
+                                    ></app-f1>
+                                </div>
+                                <div *ngIf="interestChequePrintingFormGroup.controls['reportParameters'].controls['depFrom'].invalid && interestChequePrintingFormGroup.controls['reportParameters'].controls['depFrom'].touched">
+                                    <div
+                                        class="errorField common_color_txt font12 font500"
+                                        *ngIf="interestChequePrintingFormGroup.controls['reportParameters'].controls['depFrom'].errors && interestChequePrintingFormGroup.controls['reportParameters'].controls['depFrom'].errors?.['required']"
+                                    >
+                                        * Depositor From Code is required
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3 col-md-6 col-lg-4 col-xl-4 col-xxl-3">
+                                <div class="input-group"  [class.is-invalid]="
+                                interestChequePrintingFormGroup.controls['reportParameters'].controls['depTo'].invalid &&
+                                interestChequePrintingFormGroup.controls['reportParameters'].controls['depTo'].touched">
+                                    <span class="input-group-text leftform_lbl font500 text-dark1 font12">Depositor Code Upto</span>
+                                    <app-f1
+                                        [formControlName]="'depTo'"
+                                        placeholder
+                                        class="form-control post_input_field border-start-0 d-flex"
+                                        titleValue="{{depositorUpToTableData?.mainheader}}"
+                                        [tableData]="depositorUpToTableData?.dataSet"
+                                        [colHeader]="depositorUpToColumnHeader"
+                                        [inputBBC]="bringBackColumn"
+                                        [dynaPopId]="'DEPOSITORS'"
+                                        [queryConditon]=deptDyanPop
+                                        id="UpToCode"
+                                        [errorMessage]="'Invalid Depositor To Code'"
+                                    ></app-f1>
+                                </div>
+                                <div *ngIf="interestChequePrintingFormGroup.controls['reportParameters'].controls['depTo'].invalid && interestChequePrintingFormGroup.controls['reportParameters'].controls['depTo'].touched">
+                                    <div
+                                        class="errorField common_color_txt font12 font500"
+                                        *ngIf="interestChequePrintingFormGroup.controls['reportParameters'].controls['depTo'].errors && interestChequePrintingFormGroup.controls['reportParameters'].controls['depTo'].errors?.['required']"
+                                    >
+                                        * Depositor UpTo Code is required
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3 col-md-6 col-lg-4 col-xl-4 col-xxl-3">
+                                <div class="row">
+                                    <div class="input-group"  [class.is-invalid]="
+                                    interestChequePrintingFormGroup.controls['reportParameters'].controls['startChequeNo'].invalid &&
+                                    interestChequePrintingFormGroup.controls['reportParameters'].controls['startChequeNo'].touched">
+                                        <span class="input-group-text leftform_lbl font500 text-dark1 font12">Start Cheque No</span>
+                                        <input
+                                            type="text"
+                                            class="form-control  w-50 border-start-0 post_input_field font500 text-dark1 font12"
+                                            formControlName="startChequeNo"
+                                            maxlength="9" id="startChequeNoId"
+                                            oninput="this.value=this.value.replace(/[^0-9]/g,'');"
+                                        >
+                                    </div>
+                                    <div *ngIf="interestChequePrintingFormGroup.controls['reportParameters'].controls['startChequeNo'].invalid && interestChequePrintingFormGroup.controls['reportParameters'].controls['startChequeNo'].touched">
+                                        <div
+                                            class="errorField common_color_txt font12 font500"
+                                            *ngIf="interestChequePrintingFormGroup.controls['reportParameters'].controls['startChequeNo'].errors && interestChequePrintingFormGroup.controls['reportParameters'].controls['startChequeNo'].errors?.['required']"
+                                        >
+                                            * Cheque No. is required
+                                        </div>
+                                    </div>
+                                    <div
+                                class="errorField common_color_txt font12 font500"
+                                *ngIf="interestChequePrintingFormGroup.controls['reportParameters'].controls['startChequeNo'].invalid && interestChequePrintingFormGroup.controls['reportParameters'].controls['startChequeNo'].errors?.['maxlength'] || interestChequePrintingFormGroup.controls['reportParameters'].controls['startChequeNo'].invalid && interestChequePrintingFormGroup.controls['reportParameters'].controls['startChequeNo'].errors?.['minlength']"
+                            >
+                                *Cheque No. minimum should be 6 Character. Current is
+                                    {{ interestChequePrintingFormGroup.controls['reportParameters'].controls['startChequeNo'].invalid && interestChequePrintingFormGroup.controls['reportParameters'].controls['startChequeNo'].errors?.['maxlength']?.actualLength || interestChequePrintingFormGroup.controls['reportParameters'].controls['startChequeNo'].invalid && interestChequePrintingFormGroup.controls['reportParameters'].controls['startChequeNo'].errors?.['minlength']?.actualLength }}
+                                    characters.
+                            </div>
+                            </div>
+                            </div>
+                            <div class="mb-3 col-md-6 col-lg-4 col-xl-4 col-xxl-3 ">
+                                <div class="row">
+                                    <div class="input-group" [class.is-invalid]="
+                                    interestChequePrintingFormGroup.controls['reportParameters'].controls['chequeDate'].invalid &&
+                                    interestChequePrintingFormGroup.controls['reportParameters'].controls['chequeDate'].touched">
+                                        <span class="input-group-text leftform_lbl font500 text-dark1 font12">Cheque Date</span>
+                                        <input
+                                            class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                                            id="chqDataField"
+                                            formControlName="chequeDate"
+                                            matInput
+                                            [matDatepicker]="pickerFrom"
+                                            name
+                                            
+                                        >
+                                        <div class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0">
+                                            <span class="input-group-addon">
+                                                <mat-datepicker-toggle
+                                                    matSuffix
+                                                    [for]="pickerFrom"
+                                                    tabindex="-1"
+                                                ></mat-datepicker-toggle>
+                                                <mat-datepicker #pickerFrom></mat-datepicker>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div
+                                    *ngIf="interestChequePrintingFormGroup.controls['reportParameters'].controls['chequeDate'].invalid && interestChequePrintingFormGroup.controls['reportParameters'].controls['chequeDate'].touched">
+                                    <div class="errorField common_color_txt font12 font500"
+                                        *ngIf="interestChequePrintingFormGroup.controls['reportParameters'].controls['chequeDate'].errors && interestChequePrintingFormGroup.controls['reportParameters'].controls['chequeDate'].errors?.['required']">
+                                        * Cheque Date is required
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6  col-lg-5 col-xl-5 col-xxl-3">
+                                <div class="input-group">
+                                    <span class="input-group-text leftform_lbl bg-transparent border-0 font500 text-dark1 font12 ps-0">Test Print (Yes/No)</span>
+                                    <div class="form-check d-flex align-items-center">
+                                        <input
+                                            type="radio"
+                                            class="form-check-input font12 font500 position-relative"
+                                            id="testPrintOption1"
+                                            name="testPrintOption"
+                                            [formControlName]="'testPrintOption'"
+                                            value="Y"
+                                        >
+                                        <label
+                                            class="form-check-label"
+                                            for="testPrintOption1"
+                                        >
+                                            Yes
+                                        </label>
+                                    </div>
+                                    <div class="form-check d-flex align-items-center">
+                                        <input
+                                            type="radio"
+                                            class="form-check-input font12 font500  position-relative"
+                                            id="testPrintOption2"
+                                            [formControlName]="'testPrintOption'"
+                                            name="testPrintOption"
+                                            value="N"
+                                        >
+                                        <label
+                                            class="form-check-label"
+                                            for="testPrintOption2"
+                                        >
+                                            No
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="br-10 bg-white p-3 pb-3 position-relative header_border mt-4">
+                <p class="fs-6 mb-0 position-absolute bg-white font600 header_br_title lh-24 font12">Printer Setting Detail</p>
+                <div class="printing_option">
+                    <label class="mb-0 font13 font600 text-dark1 mb-2  d-block">
+                        Create a form with the following Details
+                    </label>
+                </div>
+                <div class="printing_screen">
+                    <div class="row">
+                    <div class="col-md-6 col-lg-4 col-xl-4 col-xxl-4">
+                        <div class="row">
+                            <div class="input-group mb-2">
+                                <span class="input-group-text leftform_lbl font600 text-dark1 font12">Paper</span>
+                                <input
+                                    type="text"
+                                    class="form-control  w-50 border-start-0 post_input_field font500 text-dark1 font12"
+                                    value="Warrant"
+                                    disabled
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 col-xl-4 col-xxl-4">
+                        <div class="row">
+                            <div class="input-group mb-2">
+                                <span class="input-group-text leftform_lbl font600 text-dark1 font12">Paper Layout</span>
+                                <input
+                                    type="text"
+                                    class="form-control  w-50 border-start-0 post_input_field font500 text-dark1 font12"
+                                    value="Portrait"
+                                    disabled
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    <div>
+                        <label class="font500 text-dark1 font12 mb-2 font600">Paper Size</label>
+                        <div class="page_container row">
+                            <div class="col-md-6 col-lg-4 col-xl-4 col-xxl-4">
+                                <div class="row">
+                                    <div class="input-group mb-2">
+                                        <span class="input-group-text leftform_lbl font600 text-dark1 font12">Width</span>
+                                        <input
+                                            type="text"
+                                            class="form-control  w-50 border-start-0 post_input_field font500 text-dark1 font12"
+                                            value="35.71cms"
+                                            disabled
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 col-xl-4 col-xxl-4">
+                                <div class="row">
+                                    <div class="input-group mb-2">
+                                        <span class="input-group-text leftform_lbl font600 text-dark1 font12">Left</span>
+                                        <input
+                                            type="text"
+                                            class="form-control  w-50 border-start-0 post_input_field font500 text-dark1 font12"
+                                            value="0.00cms"
+                                            disabled
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 col-xl-4 col-xxl-4">
+                                <div class="row">
+                                    <div class="input-group mb-2">
+                                        <span class="input-group-text leftform_lbl font600 text-dark1 font12">Top</span>
+                                        <input
+                                            type="text"
+                                            class="form-control  w-50 border-start-0 post_input_field font500 text-dark1 font12"
+                                            value="0.00cms"
+                                            disabled
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 col-xl-4 col-xxl-4">
+                                <div class="row">
+                                    <div class="input-group mb-2">
+                                        <span class="input-group-text leftform_lbl font600 text-dark1 font12">Height</span>
+                                        <input
+                                            type="text"
+                                            class="form-control  w-50 border-start-0 post_input_field font500 text-dark1 font12"
+                                            value="9.32cms"
+                                            disabled
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 col-xl-4 col-xxl-4">
+                                <div class="row">
+                                    <div class="input-group mb-2">
+                                        <span class="input-group-text leftform_lbl font600 text-dark1 font12">Right</span>
+                                        <input
+                                            type="text"
+                                            class="form-control  w-50 border-start-0 post_input_field font500 text-dark1 font12"
+                                            value="0.00cms"
+                                            disabled
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 col-xl-4 col-xxl-4">
+                                <div class="row">
+                                    <div class="input-group mb-2">
+                                        <span class="input-group-text leftform_lbl font600 text-dark1 font12">Bottom</span>
+                                        <input
+                                            type="text"
+                                            class="form-control  w-50 border-start-0 post_input_field font500 text-dark1 font12"
+                                            value="0.00cms"
+                                            disabled
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+</ng-template>
+<ng-template #isPdfViewerContainerShow>
+    <div>
+        <div class="page">
+            <div class="paginatio_pdf_container d-flex w-100">
+                <nav>
+                    <button
+                        (click)="prevPage()"
+                        [disabled]="page === 1"
+                        class="previous bg_common_red br-10 px-3 me-1"
+                    >
+                        Prev
+                    </button>
+                    <button
+                        (click)="nextPage()"
+                        [disabled]="page === totalPages"
+                        class="next bg_common_red br-10  px-3 me-1"
+                    >
+                        Next
+                    </button>
+                    <p class="mb-0 font500 ms-1">{{ page }} / {{ totalPages }}</p>
+                </nav>
+            </div>
+            <pdf-viewer
+                [src]="src"
+                [original-size]="true"
+                [render-text]="true"
+                [rotation]="0"
+                [show-all]="false"
+                [fit-to-page]="true"
+                [zoom]="1"
+                [zoom-scale]="'page-width'"
+                [external-link-target]="'blank'"
+                [autoresize]="true"
+                [show-borders]="false"
+                class="pdf-viewer"
+                [page]="page"
+                (after-load-complete)="afterLoadComplete($event)"
+                class="pdf-viewer"
+            ></pdf-viewer>
+        </div>
+    </div>
+</ng-template>
+<app-loader *ngIf="loaderToggle"></app-loader>
+<section class="action_section position-fixed w-100">
+    <div class="container">
+        <div class="action_conatiner text-center bg-white br-10">
+            <div class="flex justify-content-between">
+                <button
+                    type="submit"
+                    class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+                    (click)="retrieve()"
+                    accesskey="r"
+                    [disabled]='disabledFlagRetrieve'
+                >
+                    Retreive
+                </button>
+                <button
+                    type="submit"
+                    class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone"
+                    (click)="reset()"
+                    accesskey="t"
+                    [disabled]='disabledFlagReset'
+                >
+                    Rese<span class="text-decoration-underline">t</span>
+                </button>
+                <button
+                    type="submit"
+                    class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone"
+                    (click)="cfioloPrint()"
+                    accesskey="o"
+                    [disabled]='disabledFlagcfioloPrint'
+                >CF<span class="text-decoration-underline">O</span>LIO Print
+                </button>
+                <button
+                    type="submit"
+                    class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+                    (click)="print()"
+                    accesskey="p"
+                    [disabled]='disabledFlagPrint'
+                >
+                    Print
+                </button>
+                <button
+                    type="submit"
+                    class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone"
+                    (click)="handleExit()"
+                    accesskey="x"
+                    [disabled]='disabledFlagExit'
+                >
+                    E<span class="text-decoration-underline">x</span>it
+                </button>
+            </div>
+        </div>
+    </div>
+</section>

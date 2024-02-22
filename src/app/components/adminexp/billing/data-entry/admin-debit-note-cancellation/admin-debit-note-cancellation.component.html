@@ -1,0 +1,401 @@
+<!-- <p>admin-debit-note-cancellation works!</p> -->
+
+<!-- Debit note cancellation  form-1 -->
+<section>
+  <div class="row">
+    <div class="col-md-12">
+      <form [formGroup]="debitNoteCancellation">
+        <div class="row g-2">
+          <div class="col-md-3">
+            <div
+              class="input-group"
+              [class.is-invalid]="(debitNoteCancellation.get('partytype')?.hasError('required') && debitNoteCancellation.get('partytype')?.touched) || debitNoteCancellation.get('partytype')?.errors?.['notFound']"
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                ><b class="text-danger">*</b>Party Type</span
+              >
+              <input
+                type="text"
+                name=""
+                upperCase
+                id="debitnotecancel_partyType"
+                [maxLength]="1"
+                class="form-control border-start-0 post_input_field font500 font12"
+                formControlName="partytype"
+                [f1]="{
+                  id: 'PARTTYPE',
+                  isSingleValue: true,
+                  subId: filter_partyType
+                }"
+                (focusout)="onLeavePartyType($event.target.value)"
+              />
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="(debitNoteCancellation.get('partytype')?.touched && debitNoteCancellation.get('partytype')?.invalid) && !debitNoteCancellation.get('partytype')?.errors?.['notFound']"
+            >
+              Party type is required.
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="debitNoteCancellation.get('partytype')?.errors?.['notFound']"
+            >
+              Party type is not valid.
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div
+              class="input-group"
+              [class.is-invalid]="
+                (debitNoteCancellation.get('partycode')?.hasError('required') &&
+                debitNoteCancellation.controls['partycode'].touched) || debitNoteCancellation.get('partycode')?.errors?.['notFound']
+              "
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                ><b class="text-danger">*</b>Party Code</span
+              >
+              <input
+                type="text"
+                id="debitnotecancel_partycode"
+                upperCase
+                [maxLength]="12"
+                class="form-control border-start-0 post_input_field font500 font12"
+                formControlName="partycode"
+                [f1]="{
+                  id: 'PARTYCODE',
+                  formData: debitNoteCancellation.get('partycodename'),
+                  isSingleValue: true,
+                  subId: filter.getParPartyType ? filter.getParPartyType : ''
+                }"
+                (focusout)="onLeavePartyCode($event.target.value)"
+              />
+              <span class="position-relative span_divider"></span>
+              <input
+                type="text"
+                class="form-control w-50 border-start-0 post_input_field font500 font12"
+                formControlName="partycodename"
+              />
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="
+                (debitNoteCancellation.get('partycode')?.touched &&
+                debitNoteCancellation.get('partycode')?.invalid) && !debitNoteCancellation.get('partycode')?.errors?.['notFound']
+              "
+            >
+              Party code is required.
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="debitNoteCancellation.get('partycode')?.errors?.['notFound']"
+            >
+              Party code is not valid.
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div
+              class="input-group"
+              [class.is-invalid]="
+               ( debitNoteCancellation.get('dbnoteser')?.hasError('required') &&
+                debitNoteCancellation.controls['dbnoteser'].touched) || debitNoteCancellation.get('dbnoteser')?.errors?.['notFound']
+              "
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                ><b class="text-danger">*</b>Debit Note #</span
+              >
+              <input
+                type="text"
+                upperCase
+                class="form-control border-start-0 post_input_field font500 font12"
+                name=""
+                id="debitnotecancel_debitNote"
+                formControlName="dbnoteser"
+                [maxLength]="10"
+                [f1]="{
+                  id: 'ADBNOTE',
+                  subId: filter.getDebitNote ? filter.getDebitNote : '',
+                  isSingleValue: true
+                }"
+              />
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="
+                (debitNoteCancellation.get('dbnoteser')?.touched &&
+                debitNoteCancellation.get('dbnoteser')?.invalid) && !debitNoteCancellation.get('dbnoteser')?.errors?.['notFound']
+              "
+            >
+              Debit note # is required.
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="debitNoteCancellation.get('dbnoteser')?.errors?.['notFound']"
+            >
+              Debit note # is not valid.
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Debit note cancellation form-2 -->
+<section *ngIf="initialMode">
+  <div class="row">
+    <div class="col-md-12 mt-4">
+      <!-- *ngIf="initialMode"  => use condition-->
+      <form [formGroup]="debitNoteCancellationHeader">
+        <div class="group_panel br-10 p-3 pt-4 position-relative">
+          <p class="bg-white font600 group_title mb-0 position-absolute">
+            Debit Notes Header
+          </p>
+          <!-- 1st Row -->
+          <div class="row g-2">
+            <div class="col-md-6">
+              <div class="input-group">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Party</span
+                >
+                <input
+                  type="text"
+                  class="form-control border-start-0 post_input_field font500 font12"
+                  name=""
+                  id=""
+                  formControlName="partycodename"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-group">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Building</span
+                >
+                <input
+                  type="text"
+                  class="form-control border-start-0 post_input_field font500 font12"
+                  name=""
+                  id=""
+                  formControlName="bldgcodename"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- 2nd Row -->
+          <div class="row g-2 mt-2">
+            <div class="col-md-6">
+              <div class="input-group">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Company</span
+                >
+                <input
+                  type="text"
+                  class="form-control border-start-0 post_input_field font500 font12"
+                  name=""
+                  id=""
+                  formControlName="coyname"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-group">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Project</span
+                >
+                <input
+                  type="text"
+                  class="form-control border-start-0 post_input_field font500 font12"
+                  name=""
+                  id=""
+                  formControlName="project"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- 3rd Row -->
+          <div class="row g-2 mt-2">
+            <div class="col-md-3">
+              <div class="input-group" appDate1>
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Invoice Bill Date</span
+                >
+                <input
+                  type="text"
+                  class="form-control border-start-0 post_input_field font500 font12"
+                  name=""
+                  id=""
+                  [autocomplete]="'off'"
+                  formControlName="invbilldt"
+                  matInput
+                  [matDatepicker]="pickerFrom"
+                />
+                <div
+                  class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                >
+                  <span class="input-group-addon">
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="pickerFrom"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #pickerFrom></mat-datepicker>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="input-group">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Bill Amt</span
+                >
+                <input
+                  type="text"
+                  class="form-control border-start-0 post_input_field font500 font12"
+                  name=""
+                  id=""
+                  formControlName="billamt"
+                />
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="input-group" appDate1>
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Debit Note Date</span
+                >
+                <input
+                  type="text"
+                  class="form-control border-start-0 post_input_field font500 font12"
+                  name=""
+                  id=""
+                  [autocomplete]="'off'"
+                  formControlName="debitNoteDate"
+                  matInput
+                  [matDatepicker]="pickerFrom1"
+                />
+                <div
+                  class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                >
+                  <span class="input-group-addon">
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="pickerFrom1"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #pickerFrom1></mat-datepicker>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="input-group">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Debit Amt</span
+                >
+                <input
+                  type="text"
+                  class="form-control border-start-0 post_input_field font500 font12"
+                  name=""
+                  id=""
+                  formControlName="dnamount"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- 4th Row -->
+          <div class="row g-2 mt-2">
+            <!-- <div class="col-md-3">
+              <div class="input-group">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Transer No. #</span
+                >
+                <input
+                  type="text"
+                  class="form-control border-start-0 post_input_field font500 font12"
+                  name=""
+                  id=""
+                  formControlName="dbnoteser"
+                />
+              </div>
+            </div> -->
+            <div class="col-md-6">
+              <div class="input-group">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Narration</span
+                >
+                <input
+                  type="text"
+                  class="form-control border-start-0 post_input_field font500 font12"
+                  name=""
+                  id=""
+                  formControlName="narration"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-group">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Description</span
+                >
+                <input
+                  type="text"
+                  class="form-control border-start-0 post_input_field font500 font12"
+                  name=""
+                  id=""
+                  formControlName="description1"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Debit note cancellation form-2 -->
+  <!-- <div class="row">
+    <div class="col-md-12 mt-4">
+      *ngIf="initialMode"  => use condition
+      <form [formGroup]="debitNoteCancellationHeader" *ngIf="initialMode">
+        <div class="group_panel br-10 p-3 pt-4 position-relative">
+          <p class="bg-white font600 group_title mb-0 position-absolute">
+            Description
+          </p>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  name=""
+                  id=""
+                  formControlName="description1"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div> -->
+</section>
+
+<!-- Button List -->
+<app-buttons
+  [buttonsList]="buttonsList"
+  (eventTrigger)="buttonAction($event)"
+></app-buttons>

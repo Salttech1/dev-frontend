@@ -1,0 +1,207 @@
+<section class="container">
+    <form [formGroup]="InsMaintExpenseReport">
+        <div class="mth_year_container d-flex justify-content-center">
+            <div class="row g-3" formGroupName="reportParameters">
+              <div
+                class="group_panel br-10 form_common_bg p-3 pt-4 position-relative"
+              >
+                <p class="bg-white font600 group_title mb-0 position-absolute">
+                  Report On
+                </p>
+                <div class="col-xl-12">
+                  <div class="input-group">
+                    <div class="my-2">
+                      <div class="form-check d-flex align-items-center">
+                        <input
+                          type="radio"
+                          class="form-check-input font12 font500 position-relative"
+                          id="InsuranceExp"
+                          name="ReportOn"
+                          value="InsuranceExp"
+                          formControlName="ReportOn"
+                        />
+                        <label
+                          class="form-check-label first_letter_textdecorationone"
+                          for="freshDepositId"
+                          accesskey="h"
+                        >
+                        Insurance Expiry
+                        </label>
+                      </div>
+                      <div class="form-check d-flex align-items-center">
+                        <input
+                          type="radio"
+                          class="form-check-input font12 font500 position-relative"
+                          id="MaintenanceExp"
+                          name="ReportOn"
+                          value="MaintenanceExp"
+                          formControlName="ReportOn"
+                        />
+                        <label
+                          class="form-check-label first_letter_textdecorationone"
+                          for="freshDepositId"
+                          accesskey="h"
+                        >
+                        Maintenance Expiry
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+                <div class="col-md-12">
+                    <div
+                      class="input-group flex-nowrap"
+                      appDate1
+                      [class.is-invalid]="
+                        (InsMaintExpenseReport.get('reportParameters.range')?.controls['FromDate']
+                          ?.invalid &&
+                          InsMaintExpenseReport.get('reportParameters.range')?.controls['FromDate']
+                            ?.touched) ||
+                        (InsMaintExpenseReport.get('reportParameters.range')?.controls['ToDate']?.invalid &&
+                        InsMaintExpenseReport.get('reportParameters.range')?.controls['ToDate']?.touched)
+                      "
+                    >
+                      <span class="input-group-text leftform_lbl font500 text-dark1"
+                        >Date Range</span
+                      >
+                      <div
+                        class="bg-white datepicker_field post_input_field flex-grow-1"
+                        [class.is-invalid]="
+                          (InsMaintExpenseReport.get('reportParameters.range')?.controls['FromDate']
+                            ?.invalid &&
+                            InsMaintExpenseReport.get('reportParameters.range')?.controls['FromDate']
+                              ?.touched) ||
+                          (InsMaintExpenseReport.get('reportParameters.range')?.controls['ToDate']
+                            ?.invalid &&
+                            InsMaintExpenseReport.get('reportParameters.range')?.controls['ToDate']?.touched)
+                        "
+                      >
+                        <span class="input-group-addon">
+                          <div mat-form-field appearance="fill" class="matForm">
+                            <mat-date-range-input
+                              [formGroup]="this.InsMaintExpenseReport.controls['reportParameters'].controls['range']"
+                              [rangePicker]="picker"
+                            >
+                              <input
+                                matStartDate
+                                formControlName="FromDate"
+                                placeholder="Start date"
+                              />
+                              <input
+                                matEndDate
+                                formControlName="ToDate"
+                                placeholder="End date"
+                              />
+                            </mat-date-range-input>
+                            <mat-datepicker-toggle
+                              matSuffix
+                              [for]="picker"
+                            ></mat-datepicker-toggle>
+                            <mat-date-range-picker #picker></mat-date-range-picker>
+                          </div>
+                        </span>
+                      </div>
+                    </div>
+                    <div
+                    *ngIf="
+                    InsMaintExpenseReport.controls['reportParameters'].get('range')?.invalid &&
+                    InsMaintExpenseReport.controls['reportParameters'].get('range')?.touched
+                    "
+                    >
+                      <div   class="errorField common_color_txt font12 font500 disInl"
+                      *ngIf="
+                      (InsMaintExpenseReport.get('reportParameters.range')?.controls['FromDate']?.invalid &&
+                          InsMaintExpenseReport.get('reportParameters.range')?.controls['FromDate']?.touched) ||
+                      (InsMaintExpenseReport.get('reportParameters.range')?.controls['ToDate']?.invalid &&
+                          InsMaintExpenseReport.get('reportParameters.range')?.controls['ToDate']?.touched)
+                      ">
+                        Proper Date is required
+                      </div>
+                    </div>
+                </div>
+                <div class="group_panel br-10 form_common_bg p-3 pt-4 position-relative">
+                  <p class="bg-white font600 group_title mb-0 position-absolute">
+                    Order By
+                  </p>
+                  <div class="col-xl-12">
+                    <div class="input-group">
+                      <div class="my-2">
+                        <div class="form-check d-flex align-items-center">
+                          <input
+                            type="radio"
+                            class="form-check-input font12 font500 position-relative"
+                            id="VehicleNo"
+                            name="OrderBy"
+                            value="VehicleNo"
+                            formControlName="OrderBy"
+                          />
+                          <label
+                            class="form-check-label first_letter_textdecorationone"
+                            for="freshDepositId"
+                            accesskey="h"
+                          >
+                          Vehicle No
+                          </label>
+                        </div>
+                        <div class="form-check d-flex align-items-center">
+                          <input
+                            type="radio"
+                            class="form-check-input font12 font500 position-relative"
+                            id="ExpiryDate"
+                            name="OrderBy"
+                            value="ExpiryDate"
+                            formControlName="OrderBy"
+                          />
+                          <label
+                            class="form-check-label first_letter_textdecorationone"
+                            for="freshDepositId"
+                            accesskey="h"
+                          >
+                          Expiry Date
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+            </div>
+        </div>
+    </form>
+</section>
+<app-loader *ngIf="loaderToggle"></app-loader>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner text-center bg-white br-10 w-100">
+      <div class="flex justify-content-between">
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+          accesskey="w"
+          (click)="getReport(false)"
+        >
+          Do<span class="text-decoration-underline">w</span>nload
+        </button>
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white"
+          (click)="getReport(true)"
+          accesskey="p"
+        >
+          Print
+        </button>
+        <!-- <button type="submit" class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white" [disabled]="true" accesskey="p" >Preview</button> -->
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+          accesskey="x"
+          (click)="handleExitClick()"
+        >
+          E<span class="text-decoration-underline">x</span>it
+        </button>
+      </div>
+    </div>
+  </div>
+

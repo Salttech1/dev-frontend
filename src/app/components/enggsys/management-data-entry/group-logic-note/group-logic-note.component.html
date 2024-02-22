@@ -1,0 +1,174 @@
+<!-- <p>group-logic-note works!</p> -->
+
+<section>
+  <div class="row">
+    <div class="col-md-12">
+      <form [formGroup]="groupLogicNote">
+        <div class="row g-2">
+          <div class="col-md-6">
+            <div
+              class="input-group"
+              [class.is-invalid]="(groupLogicNote.get('project')?.hasError('required') && groupLogicNote.get('project')?.touched) || groupLogicNote.get('project')?.errors?.['notFound']"
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                ><b class="text-danger">*</b>Project</span
+              >
+              <input
+                type="text"
+                name=""
+                id="logicNote_project"
+                upperCase
+                class="form-control border-start-0 post_input_field font500 font12"
+                formControlName="project"
+                [f1]="{
+                  id: 'BUILDINGS',
+                  isSingleValue: true,
+                  formData: groupLogicNote.get('projectName')
+                }"
+              />
+              <span class="position-relative span_divider"></span>
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control w-50 border-start-0 post_input_field font500 font12"
+                formControlName="projectName"
+              />
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="
+              (groupLogicNote.get('project')?.touched &&
+              groupLogicNote.get('project')?.invalid) && !groupLogicNote.get('project')?.errors?.['notFound']
+            "
+            >
+              Project is required.
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="groupLogicNote.get('project')?.errors?.['notFound']"
+            >
+              Project code is not valid.
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div
+              class="input-group"
+              [class.is-invalid]="(groupLogicNote.get('grouprac')?.hasError('required') && groupLogicNote.get('grouprac')?.touched) || groupLogicNote.get('grouprac')?.errors?.['notFound']"
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                ><b class="text-danger">*</b>Group RAC No</span
+              >
+              <input
+                type="text"
+                name=""
+                id="logicNote_rac"
+                upperCase
+                class="form-control border-start-0 post_input_field font500 font12"
+                formControlName="grouprac"
+                [f1]="{
+                  id: 'MATCERTGROUPLN',
+                  isSingleValue: true,
+                  formData: groupLogicNote.get('groupracName')
+                }"
+              />
+              <span class="position-relative span_divider"></span>
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control w-50 border-start-0 post_input_field font500 font12"
+                formControlName="groupracName"
+              />
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="(groupLogicNote.get('grouprac')?.touched && groupLogicNote.get('grouprac')?.invalid) && !groupLogicNote.get('grouprac')?.errors?.['notFound']"
+            >
+              Group RAC No. is required.
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="groupLogicNote.get('grouprac')?.errors?.['notFound']"
+            >
+              Group RAC No. is not valid.
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-2 mt-3" *ngIf="initialMode">
+          <div class="col-md-3">
+            <div class="input-group" appDate1>
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Date</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                [autocomplete]="'off'"
+                class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                matInput
+                [matDatepicker]="logicNoteDate"
+                formControlName="date"
+              />
+              <div class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0">
+                <span class="input-group-addon">
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="logicNoteDate"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #logicNoteDate></mat-datepicker>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-9">
+            <div class="input-group">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Description</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control border-start-0 post_input_field font500 font12"
+                formControlName="desc"
+              />
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <div class="input-group">
+                <span class="input-group-text leftform_lbl font500 text-dark1 font12">Scope of work</span>
+                <textarea name="" id=""  class="form-control border-start-0 post_input_field font500 font12" formControlName="scopeOfWork"></textarea>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="input-group">
+                <span class="input-group-text leftform_lbl font500 text-dark1 font12">Technical Description</span>
+                <textarea name="" id=""  class="form-control border-start-0 post_input_field font500 font12" formControlName="technicalDesc"></textarea>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="input-group">
+                <span class="input-group-text leftform_lbl font500 text-dark1 font12">Recommendation with Justification</span>
+                <textarea name="" id=""  class="form-control border-start-0 post_input_field font500 font12" formControlName="justification"></textarea>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Bottom button start -->
+<app-buttons
+  [buttonsList]="buttonsList"
+  (eventTrigger)="buttonAction($event)"
+></app-buttons>
+<!-- Bottom button end -->

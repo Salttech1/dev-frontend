@@ -1,0 +1,13 @@
+.common_action_btn-inner {
+    padding: 0.4rem 0.8rem;
+    font-size: 14px;
+    transition: all 0.2s;
+    color: #fff;
+    border: 0;
+  }
+
+
+  button.common_action_btn-inner:disabled {
+    background: #f6f7f8;
+    color: #cfd0d1 !important;
+  }

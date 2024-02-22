@@ -1,0 +1,218 @@
+<section>
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-6">
+      <form [formGroup]="futureCollectionForm">
+        <div class="row g-2">
+          <!-- building code and name -->
+          <div
+            class="input-group has-validation mt-4"
+            [class.is-invalid]="
+                    ( futureCollectionForm.get('bldgcode')?.hasError('required') &&
+                     futureCollectionForm.controls['bldgcode'].touched)|| futureCollectionForm.controls?.['bldgcode'].errors?.['notFound'] 
+                   "
+          >
+            <span
+              class="input-group-text leftform_lbl font500 text-dark1 font12"
+            >
+              <b><span class="text-danger">*</span></b
+              >Building
+            </span>
+            <input
+              appCommonAutoFocus
+              type="text"
+              formControlName="bldgcode"
+              class="form-control border-start-0 post_input_field font500 font12"
+              upperCase
+              [f1]="{
+                id: 'BUILDINGS',
+                formData: futureCollectionForm.get('blgdName')
+              }"
+              (focusout)="onLeaveBuildingCode($event.target.value)"
+            />
+            <span class="position-relative span_divider"></span>
+            <input
+              type="text"
+              class="form-control w-50 border-start-0 post_input_field font500 text-dark1 font12"
+              [formControlName]="'blgdName'"
+              tabindex="-1"
+            />
+          </div>
+          <div
+            class="errorField common_color_txt font12 font500 disInl"
+            *ngIf="futureCollectionForm.controls?.['bldgcode'].errors?.['notFound'] "
+          >
+            Invalid Building Code.
+          </div>
+        </div>
+        <!-- Wing -->
+        <div class="row g-2">
+          <div
+            class="input-group mt-4"
+            [class.is-invalid]="
+            futureCollectionForm.controls?.['wing'].errors?.['notFound'] 
+           "
+          >
+            <span
+              class="input-group-text leftform_lbl font500 text-dark1 font12"
+              >Wing &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </span>
+            <input
+              type="text"
+              formControlName="wing"
+              upperCase
+              class="form-control border-start-0 post_input_field font500 font12"
+              [f1]="{
+                id: 'BWINGS',
+                isSingleValue: true,
+                subId: queryString.getWing
+              }"
+              (focusout)="onLeaveWingCode($event.target.value)"
+            />
+          </div>
+          <div
+            class="errorField common_color_txt font12 font500 disInl"
+            *ngIf="futureCollectionForm.controls?.['wing'].errors?.['notFound'] "
+          >
+            Invalid wing .
+          </div>
+        </div>
+        <!-- Flat No -->
+        <div class="row g-2">
+          <div
+            class="input-group has-validation mt-4"
+            [class.is-invalid]="
+                     ( futureCollectionForm.get('flatNum')?.hasError('required') &&
+                      futureCollectionForm.controls['flatNum'].touched)
+                      || (futureCollectionForm.controls['flatNum'].touched &&futureCollectionForm.controls?.['flatNum'].errors?.['notFound'] )
+                    "
+          >
+            <span
+              class="input-group-text leftform_lbl font500 text-dark1 font12"
+            >
+              <b><span class="text-danger">*</span></b
+              >Flat No.
+            </span>
+            <input
+              type="text"
+              formControlName="flatNum"
+              class="form-control border-start-0 post_input_field font500 font12"
+              upperCase
+              [f1]="{
+                id: 'FLATSOLD',
+                formData: futureCollectionForm.get('ownerName'),
+                isSingleValue: true,
+                subId: queryString.getFlatNumber
+                  ? queryString.getFlatNumber
+                  : queryString.getWing
+              }"
+              (focusout)="onLeaveFlatNum($event.target.value)"
+            />
+            <span class="position-relative span_divider"></span>
+            <input
+              type="text"
+              class="form-control w-50 border-start-0 post_input_field font500 text-dark1 font12"
+              [formControlName]="'ownerName'"
+              tabindex="-1"
+            />
+          </div>
+          <div
+            class="errorField common_color_txt font12 font500 disInl"
+            *ngIf="futureCollectionForm.controls?.['flatNum'].errors?.['notFound'] "
+          >
+            Invalid flat Number.
+          </div>
+        </div>
+        <!-- From Date & To Date -->
+        <div class="row g-2">
+          <div class="col-md-6">
+            <div class="input-group mt-4" appDate1>
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >From Date</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control border-start-0 post_input_field font500 font12"
+                [autocomplete]="'off'"
+                matInput
+                [matDatepicker]="futureCollFrmDt"
+                formControlName="frmDate"
+              />
+              <div
+                class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+              >
+                <span class="input-group-addon">
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="futureCollFrmDt"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #futureCollFrmDt></mat-datepicker>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="input-group mt-4">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >To Date</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control border-start-0 post_input_field font500 font12"
+                [autocomplete]="'off'"
+                matInput
+                [matDatepicker]="futureCollToDt"
+                formControlName="toDate"
+              />
+              <div
+                class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+              >
+                <span class="input-group-addon">
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="futureCollToDt"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #futureCollToDt></mat-datepicker>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Loan Companies -->
+        <div class="row g-2">
+          <div class="input-group">
+            <div class="m-3">
+              <div class="form-check d-flex align-items-center">
+                <input
+                  type="radio"
+                  class="form-check-input font12 font500 position-relative cursor-pointer"
+                  formControlName="printType"
+                  [value]="receiptTypes[0].id"
+                />
+                <label
+                  class="form-check-label first_letter_textdecorationone mt-1"
+                  for="Policymattoday"
+                  accesskey="h"
+                >
+                  Loan Companies
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<app-buttons
+  [buttonsList]="buttonsList"
+  (eventTrigger)="buttonAction($event)"
+></app-buttons>
+
+<app-loader *ngIf="config.isLoading"></app-loader>

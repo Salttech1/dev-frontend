@@ -1,0 +1,467 @@
+<!--HTML for Broker Entry-->
+<section>
+  <div class="container">
+    <div class="row mb-3">
+      <div class="col-md-12">
+        <form [formGroup]="brokerSelectionsForm">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="input-group">
+                <span class="input-group-text leftform_lbl font500 font12"
+                  >Broker</span
+                >
+                <app-f1
+                  id="broker7"
+                  [formControlName]="'brokerId'"
+                  name="BrokerCode"
+                  class="form-control post_input_field border-end-0 border-start-0 d-flex"
+                  titleValue="{{ brokerIDF1List?.mainheader }}"
+                  [tableData]="brokerIDF1List?.dataSet"
+                  [colHeader]="brokerIDColHeadings"
+                  [inputBBC]="brokerIDF1Bbc"
+                  (updatedSelectedValue)="getBrokerID($event)"
+                  [dynaPopId]="'BROKERS'"
+                  [queryConditon]=""
+                  [errorMessage]="'Invalid Broker Codes'"
+                >
+                </app-f1>
+                <!-- <span class="position-relative span_divider"></span> -->
+                <!-- #fo2 -->
+                <input
+                  type="text"
+                  formControlName="brokerName"
+                  class="form-control w-50 border-start-0 post_input_field font500 font12"
+                />
+                <!-- <div
+                                    *ngIf="renewalSectionForm.controls['companyCode'].invalid && renewalSectionForm.controls['companyCode'].touched">
+                                    <div class="errorField common_color_txt font12 font500"
+                                        *ngIf="renewalSectionForm.controls['companyCode'].errors && renewalSectionForm.controls['companyCode'].errors?.['required']">
+                                        * Company Code is required
+                                    </div>
+                                </div> -->
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="row" *ngIf="initialMode">
+      <div class="col-md-12">
+        <div
+          class="group_panel br-10 form_common_bg p-3 pt-4 position-relative"
+        >
+          <p class="bg-white font600 group_title mb-0 position-absolute">
+            Broker Details
+          </p>
+          <div class="row">
+            <div class="col-md-12">
+              <form [formGroup]="brokerForm">
+                <div class="row">
+                  <div class="col-md-6 mb-2">
+                    <div
+                      class="input-group has-validation"
+                      [class.is-invalid]="
+                        brokerForm.controls['title'].invalid &&
+                        brokerForm.controls['title'].touched
+                      "
+                    >
+                      <span
+                        class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                      >
+                        <b>*</b> Title / Name</span
+                      >
+                      <!-- <input
+                        type="text"
+                        formControlName="title"
+                        class="form-control border-end-0 border-start-0 post_input_field font500 font12 "
+                        id="brokTitle"
+                      /> -->
+                      <app-f1
+                        id="brokerTitle"
+                        [formControlName]="'title'"
+                        name="title"
+                        class="form-control post_input_field border-end-0 border-start-0 d-flex border-end-0"
+                        titleValue="{{ borkerTitleF1List?.mainheader }}"
+                        [tableData]="borkerTitleF1List?.dataSet"
+                        [colHeader]="borkerTitleColHeadings"
+                        [inputBBC]="brokerTitleBbc"
+                        (updatedSelectedValue)="getBrokerTitle($event)"
+                        [dynaPopId]="'TITLES'"
+                        [queryConditon]="''"
+                        [errorMessage]="'Invalid Title Code'"
+                      >
+                      </app-f1>
+                      <span class="position-relative span_divider"></span>
+                      <input
+                        type="text"
+                        formControlName="name"
+                        class="form-control border-start-0 post_input_field w-50 font500 font12"
+                        id="brokName"
+                      />
+                      <!-- [inputfocus]="initFocus" -->
+                    </div>
+                    <div
+                      class="disInl me-2"
+                      *ngIf="
+                        brokerForm.controls['title'].invalid &&
+                        brokerForm.controls['title'].touched
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500 disInl"
+                        *ngIf="brokerForm.controls['title'].errors && brokerForm.controls['title'].errors?.['required']"
+                      >
+                        Title is required
+                      </div>
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="brokerForm.controls['title'].errors?.['maxlength']?.actualLength"
+                      >
+                        Max 50 Character allowed. Current is
+                        {{brokerForm.controls['title'].errors?.['maxlength']?.actualLength}}
+                        characters.
+                      </div>
+                    </div>
+                    <div
+                      class="disInl"
+                      *ngIf="
+                        brokerForm.controls['name'].invalid &&
+                        brokerForm.controls['name'].touched
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500 disInl"
+                        *ngIf="brokerForm.controls['name'].errors && brokerForm.controls['name'].errors?.['required']"
+                      >
+                        Name is required
+                      </div>
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="brokerForm.controls['name'].errors?.['maxlength']?.actualLength"
+                      >
+                        Max 50 Character allowed. Current is
+                        {{brokerForm.controls['name'].errors?.['maxlength']?.actualLength}}
+                        characters.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-2">
+                    <div
+                      class="input-group has-validation"
+                      [class.is-invalid]="
+                        brokerForm.controls['contactperson'].invalid &&
+                        brokerForm.controls['contactperson'].touched
+                      "
+                    >
+                      <span
+                        class="input-group-text leftform_lbl font500 font12 req"
+                        ><b>*</b>Contact Person</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        formControlName="contactperson"
+                      />
+                    </div>
+                    <div
+                      *ngIf="
+                        brokerForm.controls['contactperson'].invalid &&
+                        brokerForm.controls['contactperson'].touched
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="brokerForm.controls['contactperson'].errors && brokerForm.controls['name'].errors?.['required']"
+                      >
+                        Contact Person name is required
+                      </div>
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="brokerForm.controls['contactperson'].errors?.['maxlength']?.actualLength"
+                      >
+                        Max 50 Character allowed. Current is
+                        {{brokerForm.controls['contactperson'].errors?.['maxlength']?.actualLength}}
+                        characters.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-2">
+                    <div class="input-group">
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >Designation</span
+                      >
+                      <input
+                        type="text"
+                        formControlName="designation"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        id="brokDesignation"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-2">
+                    <div
+                      class="input-group has-validation"
+                      [class.is-invalid]="
+                        brokerForm.controls['pmtacnum'].invalid &&
+                        brokerForm.controls['pmtacnum'].touched
+                      "
+                    >
+                      <span
+                        class="input-group-text leftform_lbl font500 font12 req"
+                        ><b>*</b>PMT Account No.</span
+                      >
+                      <input
+                        type="text"
+                        formControlName="pmtacnum"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                      />
+                    </div>
+                    <div
+                      class="invalid-feedback d-block"
+                      *ngIf="
+                        brokerForm.controls['pmtacnum'].invalid &&
+                        brokerForm.controls['pmtacnum'].touched
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="brokerForm.controls['pmtacnum'].errors && brokerForm.controls['pmtacnum'].errors?.['required']"
+                      >
+                        PAN no. is required
+                      </div>
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="brokerForm.controls['pmtacnum'].errors?.['maxlength']"
+                      >
+                        PAN no. should be 10 Character. Current is
+                        {{ brokerForm.controls['pmtacnum'].errors?.['maxlength']?.actualLength}}
+                        characters.
+                      </div>
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="brokerForm.controls['pmtacnum'].errors?.['pattern'] && !brokerForm.controls['pmtacnum'].errors?.['maxlength']"
+                      >
+                        Please enter PAN no. in proper format.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-2">
+                    <div class="input-group">
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >RERA No.</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        maxlength="12"
+                        formControlName="rera"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-2">
+                    <div class="input-group">
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >GST No.</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        formControlName="gstno"
+                      />
+                    </div>
+                    <div
+                      *ngIf="
+                        brokerForm.controls['gstno'].invalid &&
+                        brokerForm.controls['gstno'].touched
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="brokerForm.controls['gstno'].errors?.['maxlength']"
+                      >
+                        GST no. should be 15 Character. Current is
+                        {{ brokerForm.controls['gstno'].errors?.['maxlength']?.actualLength}}
+                        characters.
+                      </div>
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="brokerForm.controls['gstno'].errors?.['pattern'] && !brokerForm.controls['gstno'].errors?.['maxlength']"
+                      >
+                        Please enter proper GST no.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="input-group pb-2">
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >Brokerage This Year / Last Year / Total</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 border-end-0 post_input_field text-end font500 font12"
+                        id="brokBrokerageThisYr"
+                        formControlName="brokthisyr"
+                      />
+                      <span class="position-relative span_divider"></span>
+                      <input
+                        type="text"
+                        class="form-control border-start-0 border-end-0 post_input_field text-end font500 font12"
+                        id="brokBrokerageLastYr"
+                        formControlName="broklastyr"
+                      />
+                      <span class="position-relative span_divider"></span>
+                      <input
+                        type="text"
+                        class="form-control border-start-0 border-end-0 post_input_field text-end font500 font12"
+                        id="brokBrokerageTotal"
+                        formControlName="broktodate"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="input-group pb-2">
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >TDS This Year / Last Year / Total
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 border-end-0 post_input_field text-end font500 font12"
+                        id="brokBrokerageThisYr"
+                        formControlName="tdsthisyr"
+                      />
+                      <span class="position-relative span_divider"></span>
+                      <input
+                        type="text"
+                        class="form-control border-start-0 border-end-0 post_input_field text-end font500 font12"
+                        id="brokBrokerageLastYr"
+                        formControlName="tdslastyr"
+                      />
+                      <span class="position-relative span_divider"></span>
+                      <input
+                        type="text"
+                        class="form-control border-start-0 border-end-0 post_input_field text-end font500 font12"
+                        id="brokBrokerageTotal"
+                        formControlName="tdstodate"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="input-group pb-2">
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >Business This Year &nbsp;&nbsp;/ Last Year /
+                        Total</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 border-end-0 post_input_field text-end font500 font12"
+                        id="brokBussinessThisYr"
+                        formControlName="bussthisyr"
+                      />
+                      <span class="position-relative span_divider"></span>
+                      <input
+                        type="text"
+                        class="form-control border-start-0 border-end-0 post_input_field text-end font500 font12"
+                        id="brokBussinessLastYr"
+                        formControlName="busslastyr"
+                      />
+                      <span class="position-relative span_divider"></span>
+                      <input
+                        type="text"
+                        class="form-control border-start-0 border-end-0 post_input_field text-end font500 font12"
+                        id="brokBussinessTotal"
+                        formControlName="busstodate"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div
+                      class="group_panel br-10 form_common_bg p-3 pt-4 mt-3 position-relative"
+                    >
+                      <p
+                        class="mb-0 position-absolute form_common_bg font600 group_title"
+                      >
+                        Permanent Address
+                      </p>
+                      <div class="row">
+                        <app-address
+                          (passAddressData)="getReceiveAddressData($event)"
+                          [addressFetchData]="addressData"
+                          [classesResponsive]="'col-md-6 col-xl-4'"
+                        >
+                        </app-address>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner text-center bg-white br-10">
+      <div class="flex justify-content-between">
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="a"
+          (click)="addBrokerDetails()"
+          [disabled]="initialMode"
+        >
+          Add
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="r"
+          (click)="retrieveBrokerDetails()"
+          [disabled]="initialMode"
+        >
+          Retrieve
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="d"
+          [disabled]="deleteDisabled"
+          (click)="handleDeleteClick()"
+        >
+          Delete
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="s"
+          [disabled]="!initialMode"
+          (click)="saveBroker()"
+        >
+          Save
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="b"
+          [disabled]="!initialMode"
+          (click)="handleBackClick()"
+        >
+          Back
+        </button>
+        <!-- <button
+          type="submit"
+          class="bg_common_red first_letter_textdecorationone border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="x"
+          [disabled]="initialMode"
+        >
+          E<u>x</u>it
+        </button> -->
+      </div>
+    </div>
+  </div>
+</section>

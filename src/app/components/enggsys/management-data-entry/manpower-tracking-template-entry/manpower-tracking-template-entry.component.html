@@ -1,0 +1,111 @@
+<!-- <p>manpower-tracking-template-entry works!</p> -->
+<section>
+  <div class="row">
+    <div class="col-md-12">
+      <form [formGroup]="manpowerTrackingTemplateEntryForm">
+        <div class="row g-2">
+          <div class="col-md-6">
+            <div
+              class="input-group"
+              [class.is-invalid]="(manpowerTrackingTemplateEntryForm.get('project')?.hasError('required') && manpowerTrackingTemplateEntryForm.get('project')?.touched) || manpowerTrackingTemplateEntryForm.get('project')?.errors?.['notFound']"
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                ><b class="text-danger">*</b>Project</span
+              >
+              <input
+                type="text"
+                name=""
+                id="manpower_project"
+                upperCase
+                formControlName="project"
+                class="form-control border-start-0 post_input_field font500 font12"
+                [f1]="{
+                  id: 'PROJECTS',
+                  formData: manpowerTrackingTemplateEntryForm.get('projectName')
+                }"
+              />
+              <span class="position-relative span_divider"></span>
+              <input
+                type="text"
+                name=""
+                id=""
+                formControlName="projectName"
+                class="form-control w-50 border-start-0 post_input_field font500 font12"
+              />
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="
+                manpowerTrackingTemplateEntryForm.get('project')?.touched &&
+                manpowerTrackingTemplateEntryForm.get('project')?.invalid &&
+                !manpowerTrackingTemplateEntryForm.get('project')?.errors[
+                  'notFound'
+                ]
+              "
+            >
+              Project code is required.
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="manpowerTrackingTemplateEntryForm.get('project')?.errors?.['notFound']"
+            >
+              Project code is not valid.
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div
+              class="input-group"
+              [class.is-invalid]="(manpowerTrackingTemplateEntryForm.get('groupCode')?.hasError('required') && manpowerTrackingTemplateEntryForm.get('groupCode')?.touched) || manpowerTrackingTemplateEntryForm.get('groupCode')?.errors?.['notFound']"
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                ><b class="text-danger">*</b>Group Code</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                upperCase
+                formControlName="groupCode"
+                class="form-control border-start-0 post_input_field font500 font12"
+                [f1]="{
+                  id: 'LTRACKGROUPS',
+                  formData:
+                    manpowerTrackingTemplateEntryForm.get('groupCodeName')
+                }"
+              />
+              <span class="position-relative span_divider"></span>
+              <input
+                type="text"
+                name=""
+                id=""
+                formControlName="groupCodeName"
+                class="form-control w-50 border-start-0 post_input_field font500 font12"
+              />
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="(manpowerTrackingTemplateEntryForm.get('groupCode')?.touched && manpowerTrackingTemplateEntryForm.get('groupCode')?.invalid) && !manpowerTrackingTemplateEntryForm.get('groupCode')?.errors?.['notFound']"
+            >
+              Group code is required.
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="manpowerTrackingTemplateEntryForm.get('groupCode')?.errors?.['notFound']"
+            >
+              Group code is not valid.
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Bottom button start -->
+<app-buttons
+  [buttonsList]="buttonsList"
+  (eventTrigger)="buttonAction($event)"
+></app-buttons>
+<!-- Bottom button end -->

@@ -1,0 +1,286 @@
+<section>
+  <div class="container">
+    <div class="row g-3">
+      <div class="col-md-12">
+        <form [formGroup]="interestChequeEntryForm">
+          <div class="row g-2">
+            <div class="col-lg-4 col-md-12">
+              <div
+                class="input-group has-validation"
+                [class.is-invalid]="
+                  interestChequeEntryForm.controls['coy'].invalid &&
+                  interestChequeEntryForm.controls['coy'].touched
+                "
+              >
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Company</span
+                >
+                <app-f1
+                  id="company7"
+                  [formControlName]="'coy'"
+                  name="coy"
+                  class="form-control post_input_field border-start-0 d-flex border-end-0"
+                  [titleValue]="compData?.mainheader"
+                  [tableData]="compData?.dataSet"
+                  [colHeader]="compHeader"
+                  [inputBBC]="bringBackColumn"
+                  (updatedSelectedValue)="updateCompanyList($event)"
+                  [dynaPopId]="'COMPANY'"
+                  [queryConditon]="coy_condition"
+                  [errorMessage]="'Invalid Company Code'"
+                ></app-f1>
+                <span class="position-relative span_divider"></span>
+                <input
+                  type="text"
+                  class="form-control bg-white w-50 border-start-0 post_input_field font500 text-dark1 font12"
+                  [class.is-invalid]="
+                    interestChequeEntryForm.controls['coy'].invalid &&
+                    interestChequeEntryForm.controls['coy'].touched
+                  "
+                  formControlName="companyName"
+                  tabindex="-1"
+                />
+              </div>
+              <div
+                *ngIf="
+                  interestChequeEntryForm.controls['coy'].invalid &&
+                  interestChequeEntryForm.controls['coy'].touched
+                "
+              >
+                <div
+                  class="invalid-feedback d-block"
+                  *ngIf="interestChequeEntryForm.controls['coy'].errors?.['required']"
+                >
+                  Company Code is required
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-12">
+              <div
+                class="input-group flex-nowrap"
+                [class.is-invalid]="
+                  (interestChequeEntryForm.get('range')?.controls['start']
+                    ?.invalid &&
+                    interestChequeEntryForm.get('range')?.controls['start']
+                      ?.touched) ||
+                  (interestChequeEntryForm.get('range')?.controls['end']
+                    ?.invalid &&
+                    interestChequeEntryForm.get('range')?.controls['end']
+                      ?.touched)
+                "
+              >
+                <span class="input-group-text leftform_lbl font500 text-dark1"
+                  >Date Range</span
+                >
+                <div
+                  class="bg-white datepicker_field post_input_field flex-grow-1"
+                  [class.is-invalid]="
+                    (interestChequeEntryForm.get('range')?.controls['start']
+                      ?.invalid &&
+                      interestChequeEntryForm.get('range')?.controls['start']
+                        ?.touched) ||
+                    (interestChequeEntryForm.get('range')?.controls['end']
+                      ?.invalid &&
+                      interestChequeEntryForm.get('range')?.controls['end']
+                        ?.touched)
+                  "
+                >
+                  <span class="input-group-addon">
+                    <div mat-form-field appearance="fill" class="matForm">
+                      <mat-date-range-input
+                        [formGroup]="
+                          this.interestChequeEntryForm.controls['range']
+                        "
+                        [rangePicker]="picker"
+                      >
+                        <input
+                          matStartDate
+                          formControlName="start"
+                          placeholder="Start date"
+                        />
+                        <input
+                          matEndDate
+                          formControlName="end"
+                          placeholder="End date"
+                        />
+                      </mat-date-range-input>
+                      <mat-datepicker-toggle
+                        matSuffix
+                        [for]="picker"
+                      ></mat-datepicker-toggle>
+                      <mat-date-range-picker #picker></mat-date-range-picker>
+                    </div>
+                  </span>
+                </div>
+              </div>
+              <div
+                *ngIf="
+                  interestChequeEntryForm.controls['range'].invalid &&
+                  interestChequeEntryForm.controls['range'].touched
+                "
+              >
+                <div
+                  class="invalid-feedback d-block"
+                  *ngIf="
+                    (interestChequeEntryForm.get('range').controls['start']
+                      ?.invalid &&
+                      interestChequeEntryForm.get('range').controls['start']
+                        ?.touched) ||
+                    (interestChequeEntryForm.get('range').controls['end']
+                      ?.invalid &&
+                      interestChequeEntryForm.get('range').controls['end']
+                        ?.touched)
+                  "
+                >
+                  Proper Date is required
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <div
+                class="input-group has-validation"
+                [class.is-invalid]="
+                  interestChequeEntryForm.controls['bankCode'].invalid &&
+                  interestChequeEntryForm.controls['bankCode'].touched
+                "
+              >
+                <span class="input-group-text leftform_lbl font500 text-dark1">
+                  Bank Code
+                </span>
+                <app-f1
+                  [formControlName]="'bankCode'"
+                  name="bankCode"
+                  class="form-control post_input_field border-start-0 d-flex"
+                  [titleValue]="bankData?.mainheader"
+                  [tableData]="bankData?.dataSet"
+                  [colHeader]="bankHeader"
+                  [inputBBC]="bankbringBackColumn"
+                  (updatedSelectedValue)="getBankCode($event)"
+                  [dynaPopId]="'BANKS'"
+                  [queryConditon]="bank_condition"
+                  [errorMessage]="'Invalid Bank Code'"
+                  (keyup.enter)="retrieveInterestChequeData()"
+                ></app-f1>
+                <div
+                  class="invalid-feedback d-block"
+                  *ngIf="
+                    interestChequeEntryForm.controls['bankCode'].invalid &&
+                    interestChequeEntryForm.controls['bankCode'].touched
+                  "
+                >
+                  <div
+                    *ngIf="interestChequeEntryForm.controls['bankCode'].errors?.['required']"
+                  >
+                    Bank code is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <div class="input-group has-validation">
+                <span class="input-group-text leftform_lbl font500 text-dark1">
+                  Pay mode
+                </span>
+                <select
+                  class="form-select form-control post_input_field border-start-0"
+                  formControlName="payMode"
+                >
+                  <option value="1">NEFT</option>
+                  <option value="2">Cheque</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="col-md-12">
+        <div class="br-10 group_panel p-3 position-relative">
+          <p class="bg-white font600 group_title mb-0 position-absolute">
+            Active Deposits
+          </p>
+          <div class="table-responsive">
+            <table class="row-border hover stripe table">
+              <thead>
+                <tr>
+                  <th>Company</th>
+                  <th>Depositor</th>
+                  <th>Depositor Name</th>
+                  <th>Interest</th>
+                  <th>Interest From</th>
+                  <th>Interest Upto</th>
+                  <th>Bank Code</th>
+                  <th>Cheque</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let cheque of chequeData; let i = index">
+                  <td>{{ cheque.coy }}</td>
+                  <td>{{ cheque.depositor }}</td>
+                  <td>{{ cheque.depositorName }}</td>
+                  <td>{{ cheque.interest }}</td>
+                  <td>{{ cheque.intfrom }}</td>
+                  <td>{{ cheque.intupto }}</td>
+                  <td>{{ cheque.bankcode }}</td>
+                  <td>
+                    <input
+                      type="text"
+                      #chIn
+                      id="{{ 'inputInd' + i }}"
+                      [(ngModel)]="chequeData[i].chqnum"
+                      (keyup.ArrowDown)="valueChangeInput(i)"
+                      maxlength="7"
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner text-center bg-white br-10">
+      <div class="flex justify-content-between">
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="r"
+          (click)="retrieveInterestChequeData()"
+          [disabled]="this.chequeData?.length"
+        >
+          Retrieve
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="s"
+          (click)="save()"
+          [disabled]="saveDisabled"
+        >
+          Save
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red first_letter_textdecorationone border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="t"
+          (click)="reset()"
+        >
+          Rese<span class="text-decoration-underline">t</span>
+        </button>
+        <a
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone text-decoration-none"
+          accesskey="x"
+          routerLink="/dashboard"
+        >
+          E<span class="text-decoration-underline">x</span>it
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+<app-loader *ngIf="loader"></app-loader>

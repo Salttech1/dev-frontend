@@ -1,0 +1,91 @@
+<section class="Recovery-Statement-wrapper">
+  <section class="form-section-wrapper">
+    <form [formGroup]="collectioninvoicereportForm">
+      <div class="container">
+        <div class="d-flex justify-content-center">
+          <div class="row">
+            <!-- <div class="col-md-3"></div> -->
+            <div class="col-md-12">
+              <!-- building code and name -->
+              <div
+                class="input-group has-validation mt-6"
+                [class.is-invalid]="
+                      ( collectioninvoicereportForm.get('ownerid')?.hasError('required') &&
+                       collectioninvoicereportForm.controls['ownerid'].touched)|| collectioninvoicereportForm.controls?.['ownerid'].errors?.['notFound'] 
+                     "
+              >
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >
+                  <b><span class="text-danger">*</span></b
+                  >Owner ID
+                </span>
+                <input
+                  appCommonAutoFocus
+                  type="text"
+                  formControlName="ownerid"
+                  class="form-control border-start-0 post_input_field font500 font12"
+                  upperCase
+                  [f1]="{
+                    id: 'FLATOWNERS',
+                    formData: collectioninvoicereportForm.get('ownerName')
+                  }"
+                />
+                <span class="position-relative span_divider"></span>
+                <input
+                  type="text"
+                  class="form-control w-50 border-start-0 post_input_field font500 text-dark1 font12"
+                  [formControlName]="'ownerName'"
+                  tabindex="-1"
+                />
+              </div>
+              <div
+                class="errorField common_color_txt font12 font500 disInl"
+                *ngIf="collectioninvoicereportForm.controls?.['ownerid'].errors?.['notFound'] "
+              >
+                Invalid Ownerid.
+              </div>
+              <!-- invoiceno -->
+              <div
+                class="input-group mt-4"
+                [class.is-invalid]="
+                    collectioninvoicereportForm.controls?.['invoiceno'].errors?.['notFound'] 
+                   "
+              >
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Invoice No
+                </span>
+                <input
+                  type="text"
+                  formControlName="invoiceno"
+                  upperCase
+                  class="form-control border-start-0 post_input_field font500 font12"
+                  [f1]="{
+                    id: 'BOOKINVOICE',
+                    isSingleValue: true,
+                    subId: queryString.invoiceno
+                  }"
+                />
+              </div>
+              <div
+                class="errorField common_color_txt font12 font500 disInl"
+                *ngIf="collectioninvoicereportForm.controls?.['invoiceno'].errors?.['notFound'] "
+              >
+                Invalid invoiceno .
+              </div>
+            </div>
+            <!-- <div class="col-md-2"></div> -->
+          </div>
+        </div>
+      </div>
+    </form>
+  </section>
+</section>
+
+<app-buttons
+  [buttonsList]="buttonsList"
+  (eventTrigger)="buttonAction($event)"
+></app-buttons>
+
+<app-loader *ngIf="config.isLoading"></app-loader>

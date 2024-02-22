@@ -1,0 +1,51 @@
+<section class="Recovery-Statement-wrapper">
+    <section class="form-section-wrapper">
+      <form [formGroup]="groupwiseCompositeReportForm">
+        <div class="container">
+          <div class="d-flex justify-content-center">
+            <div class="row">
+              <div class="col-md-12">
+                <!-- building code  -->
+                <div
+                  class="input-group mt-4"
+                  [class.is-invalid]="
+                      groupwiseCompositeReportForm.controls?.['bldgCode'].errors?.['notFound'] 
+                     "
+                >
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Building
+                  </span>
+                  <input
+                    type="text"
+                    formControlName="bldgCode"
+                    upperCase
+                    class="form-control border-start-0 post_input_field font500 font12"
+                    [f1]="{
+                      id: 'BUILDINGS',
+                      isSingleValue: true,
+                      subId: queryString.bldgCode
+                    }"
+                  />
+                </div>
+                <div
+                  class="errorField common_color_txt font12 font500 disInl"
+                  *ngIf="groupwiseCompositeReportForm.controls?.['bldgCode'].errors?.['notFound'] "
+                >
+                  Invalid bldgCode .
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </section>
+  </section>
+  
+  <app-buttons
+    [buttonsList]="buttonsList"
+    (eventTrigger)="buttonAction($event)"
+  ></app-buttons>
+  
+  <app-loader *ngIf="config.isLoading"></app-loader>
+  

@@ -1,0 +1,58 @@
+<section class="depositrenewal_section">
+    <div class="container">
+      <div class="form_depositor_container pb-2">
+        <form [formGroup]="prematureDepositForm" #formDirective="ngForm">
+            <div class="col-sm-12"  formGroupName="reportParameters">
+                <div class="col-md-12 col-sm-12 col-xl-12 col-xxl-12 pt-3">
+                    <div class="">
+                        <div class="">
+                            <div class="input-group" [class.is-invalid]="
+                            prematureDepositForm.controls['reportParameters'].controls['TxtCoyCode'].invalid &&
+                            prematureDepositForm.controls['reportParameters'].controls['TxtCoyCode'].touched
+                          ">
+                                <span class="input-group-text leftform_lbl font500 text-dark1 font12">Company</span>
+                                <app-f1
+                                id="company4"
+                                [formControlName]="'TxtCoyCode'"
+                                placeholder=""
+                                class="form-control post_input_field border-start-0 d-flex"
+                                titleValue="{{ compData?.mainheader }}"
+                                [tableData]="compData?.dataSet"
+                                [colHeader]="compHeader"
+                                [inputBBC]="bringBackColumn"
+                                [dynaPopId]="'COMPANY'"
+                                [queryConditon]="coy_condition"
+                                (updatedSelectedValue)="updateCompanyList($event)"
+                                [errorMessage]="'Invalid Company Code'"
+                              ></app-f1>
+                              <span class="position-relative span_divider"></span>
+                                <input ype="text" class="form-control w-50 border-start-0 post_input_field font500 text-dark1 font12"
+                                [formControlName]="'companyName'" tabindex="-1"/>
+                            </div>
+                            <div *ngIf="prematureDepositForm.controls['reportParameters'].controls['TxtCoyCode'].invalid && prematureDepositForm.controls['reportParameters'].controls['TxtCoyCode'].touched">
+                                <div class="errorField common_color_txt font12 font500"
+                                    *ngIf="prematureDepositForm.controls['reportParameters'].controls['TxtCoyCode'].errors && prematureDepositForm.controls['reportParameters'].controls['TxtCoyCode'].errors?.['required']">
+                                    * Company Code is required
+                                </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        </div>
+    </div>
+</section>
+
+  <app-loader *ngIf="loaderToggle"></app-loader>
+  <section class="action_section position-fixed w-100">
+    <div class="container">
+        <div class="action_conatiner text-center bg-white br-10 w-100">
+            <div class="flex justify-content-between">
+              <button type="submit" class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"  accesskey="w" (click)="getReport(false)">Do<span class="text-decoration-underline">w</span>nload</button>
+              <button type="submit" class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white" (click)="getReport(true)"  accesskey="p">Print</button>
+              <button type="submit" class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"  accesskey="x" (click)="handleExitClick()">E<span class="text-decoration-underline">x</span>it</button>
+            </div>
+        </div>
+    </div>
+</section>

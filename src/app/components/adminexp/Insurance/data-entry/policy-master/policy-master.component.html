@@ -1,0 +1,1825 @@
+<!--HTML for policy master Entry-->
+<section>
+  <div class="row">
+    <div class="col-md-12">
+      <form [formGroup]="policySelectionsForm">
+        <div class="row g-2">
+          <div class="col-lg-3 col-md-6">
+            <div class="input-group">
+              <span class="input-group-text leftform_lbl font500 font12"
+                >Policy ID</span
+              >
+              <input
+                type="text"
+                id="id_policyId"
+                formControlName="policyid"
+                name="txtPolicyId"
+                class="form-control post_input_field border-start-0"
+                [f1]="{ id: 'POLICYID' }"
+              />
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="
+                policySelectionsForm.get('policyid')?.touched &&
+                policySelectionsForm.get('policyid')?.invalid
+              "
+            >
+              This is required
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="mt-2" *ngIf="initialMode">
+    <form [formGroup]="policyForm">
+      <div class="row g-2">
+        <!-- status -->
+        <div class="col-lg-3 col-md-6">
+          <div
+            class="input-group"
+            [class.is-invalid]="
+              policyForm.get('status')?.touched &&
+              policyForm.get('status')?.errors
+            "
+          >
+            <span
+              class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+              ><b>*</b>Status</span
+            >
+            <input
+              type="text"
+              id="id_status"
+              name="txtStatus"
+              class="form-control post_input_field border-start-0"
+              formControlName="status"
+              [f1]="{ id: 'POLICYSTATUS' }"
+            />
+          </div>
+          <div class="invalid-feedback">Status is wrong/empty</div>
+        </div>
+
+        <!-- Prv.Policy# -->
+        <div class="col-lg-3 col-md-6">
+          <div
+            class="input-group has-validation"
+            [class.is-invalid]="
+              policyForm.get('prevpolicynumber')?.touched &&
+              policyForm.get('prevpolicynumber')?.errors
+            "
+          >
+            <span
+              class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+              ><b>*</b>Prv.Policy#</span
+            >
+            <input
+              type="text"
+              id="id_prevPolicyNum"
+              name="txtPrevPolicyNum"
+              class="form-control post_input_field border-start-0"
+              formControlName="prevpolicynumber"
+              [f1]="{ id: 'POLICYID1', des: 0, subId: filter_prevPolicy }"
+            />
+          </div>
+          <div class="invalid-feedback">
+            Previous policy number is wrong/empty
+          </div>
+        </div>
+
+        <!-- Policy# -->
+        <div class="col-lg-3 col-md-6">
+          <div
+            class="input-group has-validation"
+            [class.is-invalid]="
+              policyForm.get('policynumber')?.touched &&
+              policyForm.get('policynumber')?.errors
+            "
+          >
+            <span
+              class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+              ><b>*</b>Policy#</span
+            >
+            <input
+              type="text"
+              id="id_policyNum"
+              name="txtPolicyNum"
+              class="form-control post_input_field border-start-0"
+              formControlName="policynumber"
+            />
+          </div>
+          <div class="invalid-feedback">
+            <div *ngIf="policyForm.get('policynumber')?.errors?.['required']">
+              Policy number is wrong/empty
+            </div>
+            <div
+              *ngIf="policyForm.get('policynumber')?.errors?.['policyNumExists']"
+            >
+              {{policyForm.get('policynumber')?.errors?.['policyNumExists'].message}}
+            </div>
+          </div>
+        </div>
+
+        <!--Policy Type -->
+        <div class="col-lg-3 col-md-6">
+          <div
+            class="input-group has-validation"
+            [class.is-invalid]="
+              policyForm.get('policytype')?.touched &&
+              policyForm.get('policytype')?.errors
+            "
+          >
+            <span
+              class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+              ><b>*</b>Type</span
+            >
+            <input
+              type="text"
+              id="id_policyType"
+              name="txtPolicyType"
+              class="form-control post_input_field border-start-0"
+              [formControlName]="'policytype'"
+              [f1]="{ id: 'POLICYTYPE' }"
+            />
+          </div>
+          <div class="invalid-feedback">Policy type is wrong/empty</div>
+        </div>
+
+        <!--Policy Sub Type -->
+        <div class="col-lg-3 col-md-6">
+          <div
+            class="input-group has-validation"
+            [class.is-invalid]="
+              policyForm.get('policysubtype')?.touched &&
+              policyForm.get('policysubtype')?.errors
+            "
+          >
+            <span
+              class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+              ><b>*</b>Sub Type</span
+            >
+            <input
+              type="text"
+              id="id_policySubType"
+              name="txtPolicySubType"
+              class="form-control post_input_field border-start-0"
+              [formControlName]="'policysubtype'"
+              [f1]="{ id: 'POLICYSUBTYPE' }"
+            />
+          </div>
+          <div class="invalid-feedback">Policy sub type is wrong/empty</div>
+        </div>
+
+        <!-- Insurance Company -->
+        <div class="col-lg-3 col-md-6">
+          <div
+            class="input-group has-validation"
+            [class.is-invalid]="
+              policyForm.get('inscoy')?.touched &&
+              policyForm.get('inscoy')?.errors
+            "
+          >
+            <span
+              class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+              ><b>*</b>Ins.Company</span
+            >
+            <input
+              type="text"
+              id="id_insCoy"
+              name="txtInsCoy"
+              class="form-control post_input_field border-start-0"
+              [formControlName]="'inscoy'"
+              [f1]="{ id: 'INSCOMPANY' }"
+            />
+          </div>
+          <div class="invalid-feedback">Insurance company is wrong/empty</div>
+        </div>
+
+        <!-- Agent -->
+        <div class="col-lg-3 col-md-6">
+          <div
+            class="input-group has-validation"
+            [class.is-invalid]="
+              policyForm.get('agent')?.touched &&
+              policyForm.get('agent')?.errors
+            "
+          >
+            <span
+              class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+              ><b>*</b>Agent</span
+            >
+            <input
+              type="text"
+              id="id_agent"
+              name="txtAgent"
+              class="form-control post_input_field border-start-0"
+              [formControlName]="'agent'"
+              [f1]="{ id: 'INSAGENT' }"
+            />
+          </div>
+          <div class="invalid-feedback">Agent is wrong/empty</div>
+        </div>
+
+        <!-- Company -->
+        <div class="col-lg-3 col-md-6">
+          <div
+            class="input-group has-validation"
+            [class.is-invalid]="
+              policyForm.get('coycode')?.touched &&
+              policyForm.get('coycode')?.errors
+            "
+          >
+            <span
+              class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+              ><b>*</b>Company</span
+            >
+            <input
+              type="text"
+              id="id_coyCode"
+              name="txtCoyCode"
+              class="form-control post_input_field border-start-0"
+              formControlName="coycode"
+              [f1]="{ id: 'COMPANY', subId: filter_company }"
+              (blur)="clearBuilding()"
+            />
+          </div>
+          <div class="invalid-feedback">Company is wrong/empty</div>
+        </div>
+
+        <!-- Building -->
+        <div class="col-lg-3 col-md-6">
+          <div
+            class="input-group has-validation"
+            [class.is-invalid]="
+              policyForm.get('bldgcode')?.touched &&
+              policyForm.get('bldgcode')?.errors
+            "
+          >
+            <span
+              class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+              ><b>*</b>Building</span
+            >
+            <input
+              type="text"
+              id="id_bldgCode"
+              name="txtBldgCode"
+              class="form-control post_input_field border-start-0"
+              formControlName="bldgcode"
+              [f1]="{ id: 'BUILDINGS', subId: filter_bldg }"
+            />
+          </div>
+          <div class="invalid-feedback">Building is wrong/empty</div>
+        </div>
+
+        <!-- Period -->
+        <div class="col-lg-3 col-md-6">
+          <div
+            class="input-group flex-nowrap"
+            appDate1
+            [class.is-invalid]="
+              (policyForm.get('period')?.controls['fromdate']?.invalid &&
+                policyForm.get('period')?.controls['fromdate']?.touched) ||
+              (policyForm.get('period')?.controls['maturitydate']?.invalid &&
+                policyForm.get('period')?.controls['maturitydate']?.touched)
+            "
+          >
+            <span
+              class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+              ><b>*</b>Period</span
+            >
+            <div class="bg-white datepicker_field post_input_field">
+              <span class="input-group-addon">
+                <div mat-form-field appearance="fill" class="matForm">
+                  <mat-date-range-input
+                    [formGroup]="this.policyForm.controls['period']"
+                    [rangePicker]="picker"
+                  >
+                    <input
+                      class="font12"
+                      matStartDate
+                      formControlName="fromdate"
+                      placeholder="From date"
+                      name="start"
+                    />
+                    <input
+                      class="font12"
+                      matEndDate
+                      formControlName="maturitydate"
+                      placeholder="To date"
+                      name="end"
+                    />
+                  </mat-date-range-input>
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker"
+                  ></mat-datepicker-toggle>
+                  <mat-date-range-picker #picker></mat-date-range-picker>
+                </div>
+              </span>
+            </div>
+          </div>
+          <div class="invalid-feedback">
+            Date Invalid/Empty. Future date not allowed
+          </div>
+        </div>
+
+        <!-- Policy Value -->
+        <div class="col-lg-3 col-md-6">
+          <div
+            class="input-group has-validation"
+            [class.is-invalid]="
+              policyForm.controls['insuredval'].invalid &&
+              policyForm.controls['insuredval'].touched
+            "
+          >
+            <span
+              class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+              ><b>*</b>Policy Value</span
+            >
+            <input
+              type="number"
+              id="id_insuredVal"
+              name="txtPolicyValue"
+              class="form-control post_input_field border-start-0"
+              formControlName="insuredval"
+            />
+          </div>
+          <div
+            *ngIf="
+              policyForm.controls['insuredval'].invalid &&
+              policyForm.controls['insuredval'].touched
+            "
+          >
+            <div class="errorField common_color_txt font12 font500">
+              <div
+                *ngIf="policyForm.controls['insuredval'].errors && policyForm.controls['insuredval'].errors?.['required']"
+              >
+                Policy value required
+              </div>
+              <div
+                *ngIf="policyForm.controls['insuredval'].errors && policyForm.controls['insuredval'].errors?.['min']"
+              >
+                Policy value should be greater than 0
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Premium Frequency -->
+        <div class="col-lg-3 col-md-6">
+          <div
+            class="input-group has-validation"
+            [class.is-invalid]="
+              policyForm.get('premiumfreq')?.touched &&
+              policyForm.get('premiumfreq')?.errors
+            "
+          >
+            <span
+              class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+              ><b>*</b>Premium Freq.</span
+            >
+            <input
+              type="text"
+              id="id_premiumfreq"
+              name="txtPremFreq"
+              class="form-control post_input_field border-start-0"
+              [formControlName]="'premiumfreq'"
+              [f1]="{ id: 'POLICYPREMFREQ' }"
+            />
+          </div>
+          <div class="invalid-feedback">Premium frequency is wrong/empty</div>
+        </div>
+
+        <!-- Paid By -->
+        <div class="col-lg-3 col-md-6">
+          <div
+            class="input-group has-validation"
+            [class.is-invalid]="
+              policyForm.get('payby')?.touched &&
+              policyForm.get('payby')?.errors
+            "
+          >
+            <span
+              class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+              ><b>*</b>Paid By</span
+            >
+            <input
+              type="text"
+              id="id_payby"
+              name="txtPaidBy"
+              class="form-control post_input_field border-start-0"
+              [formControlName]="'payby'"
+              [f1]="{ id: 'POLICYPREMPDBY' }"
+            />
+          </div>
+          <div class="invalid-feedback">Paid by is wrong/empty</div>
+        </div>
+
+        <!-- Asset Location -->
+        <div class="col-lg-3 col-md-6">
+          <div
+            class="input-group has-validation"
+            [class.is-invalid]="
+              policyForm.controls['assetlocation'].invalid &&
+              policyForm.controls['assetlocation'].touched
+            "
+          >
+            <span
+              class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+              ><b>*</b>Asset Location</span
+            >
+            <input
+              type="text"
+              id="id_assetlocation"
+              name="txtAssetLocation"
+              class="form-control post_input_field border-start-0"
+              formControlName="assetlocation"
+            />
+          </div>
+          <div
+            *ngIf="
+              policyForm.controls['assetlocation'].invalid &&
+              policyForm.controls['assetlocation'].touched
+            "
+          >
+            <div
+              class="errorField common_color_txt font12 font500"
+              *ngIf="policyForm.controls['assetlocation'].errors && policyForm.controls['assetlocation'].errors?.['required']"
+            >
+              Asset location is wrong/empty
+            </div>
+          </div>
+        </div>
+
+        <!-- Cover Under -->
+        <div class="col-lg-3 col-md-6">
+          <div class="input-group">
+            <span
+              class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+              >Cover Under</span
+            >
+            <input
+              type="text"
+              id="id_covunder"
+              name="txtCoverUnder"
+              class="form-control post_input_field border-start-0"
+              formControlName="covunder"
+            />
+          </div>
+          <div>
+            <div
+              class="errorField common_color_txt font12 font500"
+              *ngIf="policyForm.controls['covunder'].errors?.['maxlength']?.actualLength"
+            >
+              Max 100 Character allowed. Current is
+              {{policyForm.controls['covunder'].errors?.['maxlength']?.actualLength}}
+              characters.
+            </div>
+          </div>
+        </div>
+
+        <!-- Deductible -->
+        <div class="col-lg-3 col-md-6">
+          <div class="input-group">
+            <span
+              class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+              >Deductible</span
+            >
+            <input
+              type="text"
+              id="id_deductible"
+              name="txtDeductible"
+              class="form-control post_input_field border-start-0"
+              formControlName="deductible"
+            />
+          </div>
+          <div>
+            <div
+              class="errorField common_color_txt font12 font500"
+              *ngIf="policyForm.controls['deductible'].errors?.['maxlength']?.actualLength"
+            >
+              Max 100 Character allowed. Current is
+              {{policyForm.controls['deductible'].errors?.['maxlength']?.actualLength}}
+              characters.
+            </div>
+          </div>
+        </div>
+
+        <!-- IT Section -->
+        <div class="col-lg-3 col-md-6">
+          <div class="input-group">
+            <span
+              class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+              >IT Section</span
+            >
+            <input
+              type="text"
+              id="itSection"
+              name="txtITSection"
+              class="form-control post_input_field border-start-0"
+              formControlName="it_section"
+            />
+          </div>
+          <div>
+            <div
+              class="errorField common_color_txt font12 font500"
+              *ngIf="policyForm.controls['it_section'].errors?.['maxlength']?.actualLength"
+            >
+              Max 25 Character allowed. Current is
+              {{policyForm.controls['it_section'].errors?.['maxlength']?.actualLength}}
+              characters.
+            </div>
+          </div>
+        </div>
+
+        <!-- Staff1 -->
+        <div class="col-lg-3 col-md-6">
+          <div
+            class="input-group has-validation"
+            [class.is-invalid]="
+              policyForm.get('staff1')?.touched &&
+              policyForm.get('staff1')?.errors
+            "
+          >
+            <span
+              class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+              ><b>*</b>Our Staff 1</span
+            >
+            <input
+              type="text"
+              id="id_staff1"
+              name="txtStaff1"
+              class="form-control post_input_field border-start-0"
+              [formControlName]="'staff1'"
+              [f1]="{ id: 'POLICYSTAFF' }"
+            />
+          </div>
+          <div class="invalid-feedback">Staff1 is wrong/empty</div>
+        </div>
+
+        <!-- Staff2 -->
+        <div class="col-lg-3 col-md-6">
+          <div class="input-group">
+            <span
+              class="input-group-text border-end-0 leftform_lbl font500 font12"
+              >Our Staff 2</span
+            >
+            <input
+              type="text"
+              id="id_staff2"
+              name="txtStaff2"
+              class="form-control post_input_field border-start-0"
+              [formControlName]="'staff2'"
+              [f1]="{ id: 'POLICYSTAFF' }"
+            />
+          </div>
+        </div>
+
+        <!-- Named Insured  -->
+        <div class="col-lg-3 col-md-6">
+          <div
+            class="input-group has-validation"
+            [class.is-invalid]="
+              policyForm.controls['personinsured'].invalid &&
+              policyForm.controls['personinsured'].touched
+            "
+          >
+            <span
+              class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+              ><b>*</b>Named Insured</span
+            >
+            <input
+              type="text"
+              id="id_personinsured"
+              name="txtNamedInsured"
+              class="form-control post_input_field border-start-0"
+              formControlName="personinsured"
+            />
+          </div>
+          <div
+            *ngIf="
+              policyForm.controls['personinsured'].invalid &&
+              policyForm.controls['personinsured'].touched
+            "
+          >
+            <div
+              class="errorField common_color_txt font12 font500"
+              *ngIf="policyForm.controls['personinsured'].errors && policyForm.controls['personinsured'].errors?.['required']"
+            >
+              Named Insured is wrong/empty
+            </div>
+          </div>
+        </div>
+
+        <!-- Nomination Details -->
+        <div class="col-lg-3 col-md-6">
+          <div class="input-group">
+            <span
+              class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+              >Nomination Details</span
+            >
+            <input
+              type="text"
+              id="id_nominationdet"
+              name="txtNominationDetails"
+              class="form-control post_input_field border-start-0"
+              formControlName="nominationdet"
+            />
+          </div>
+          <div>
+            <div
+              class="errorField common_color_txt font12 font500"
+              *ngIf="policyForm.controls['nominationdet'].errors?.['maxlength']?.actualLength"
+            >
+              Max 100 Character allowed. Current is
+              {{policyForm.controls['nominationdet'].errors?.['maxlength']?.actualLength}}
+              characters.
+            </div>
+          </div>
+        </div>
+
+        <!-- Pay Mode -->
+        <div class="col-lg-3 col-md-6">
+          <div
+            class="input-group has-validation"
+            [class.is-invalid]="
+              policyForm.get('paymode')?.touched &&
+              policyForm.get('paymode')?.errors
+            "
+          >
+            <span
+              class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+              ><b>*</b>Prem. Pay Mode</span
+            >
+            <input
+              type="text"
+              id="id_paymode"
+              name="txtPayMode"
+              class="form-control post_input_field border-start-0"
+              [formControlName]="'paymode'"
+              [f1]="{ id: 'PAYMODES' }"
+            />
+            <!-- <input
+              type="text"
+              id="id_payModeName"
+              name="txtPayModeName"
+              class="form-control post_input_field border-start-0"
+              formControlName="payModeName"
+            /> -->
+          </div>
+          <div class="invalid-feedback">Premium pay mode is wrong/empty</div>
+        </div>
+
+        <!-- Bank -->
+        <div class="col-lg-3 col-md-6">
+          <div class="input-group">
+            <span
+              class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+              >Bank</span
+            >
+            <input
+              type="text"
+              id="id_bank"
+              name="txtBank"
+              class="form-control post_input_field border-start-0"
+              formControlName="bank"
+            />
+            <!-- (keypress)="eventHandler($event)" -->
+          </div>
+          <div>
+            <div
+              class="errorField common_color_txt font12 font500"
+              *ngIf="policyForm.controls['bank'].errors?.['maxlength']?.actualLength"
+            >
+              Max 50 Character allowed. Current is
+              {{policyForm.controls['bank'].errors?.['maxlength']?.actualLength}}
+              characters.
+            </div>
+          </div>
+        </div>
+
+        <!-- Branch -->
+        <div class="col-lg-3 col-md-6">
+          <div class="input-group">
+            <span
+              class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+              >Branch</span
+            >
+            <input
+              type="text"
+              id="id_branch"
+              name="txtBranch"
+              class="form-control post_input_field border-start-0"
+              formControlName="branch"
+            />
+          </div>
+          <div>
+            <div
+              class="errorField common_color_txt font12 font500"
+              *ngIf="policyForm.controls['branch'].errors?.['maxlength']?.actualLength"
+            >
+              Max 50 Character allowed. Current is
+              {{policyForm.controls['branch'].errors?.['maxlength']?.actualLength}}
+              characters.
+            </div>
+          </div>
+        </div>
+
+        <!-- IFSC -->
+        <div class="col-lg-3 col-md-6">
+          <div class="input-group">
+            <span
+              class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+              >IFSC</span
+            >
+            <input
+              type="text"
+              id="id_ifsc"
+              name="txtIfsc"
+              class="form-control post_input_field border-start-0"
+              formControlName="ifsc"
+            />
+          </div>
+          <div>
+            <div
+              class="errorField common_color_txt font12 font500"
+              *ngIf="policyForm.controls['ifsc'].errors?.['maxlength']?.actualLength"
+            >
+              Max 20 Character allowed. Current is
+              {{policyForm.controls['ifsc'].errors?.['maxlength']?.actualLength}}
+              characters.
+            </div>
+          </div>
+        </div>
+
+        <!-- Account no -->
+        <div class="col-lg-3 col-md-6">
+          <div class="input-group">
+            <span
+              class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+              >Account no</span
+            >
+            <input
+              type="text"
+              id="id_acnumber"
+              name="txtAcnumber"
+              class="form-control post_input_field border-start-0"
+              formControlName="acnumber"
+            />
+          </div>
+          <div>
+            <div
+              class="errorField common_color_txt font12 font500"
+              *ngIf="policyForm.controls['acnumber'].errors?.['maxlength']?.actualLength"
+            >
+              Max 20 Character allowed. Current is
+              {{policyForm.controls['acnumber'].errors?.['maxlength']?.actualLength}}
+              characters.
+            </div>
+          </div>
+        </div>
+
+        <!-- Account name -->
+        <div class="col-lg-3 col-md-6">
+          <div class="input-group">
+            <span
+              class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+              >Account Name</span
+            >
+            <input
+              type="text"
+              id="id_accountName"
+              name="txtAcholderName"
+              class="form-control post_input_field border-start-0"
+              formControlName="acholdername"
+            />
+          </div>
+          <div>
+            <div
+              class="errorField common_color_txt font12 font500"
+              *ngIf="policyForm.controls['acholdername'].errors?.['maxlength']?.actualLength"
+            >
+              Max 50 Character allowed. Current is
+              {{policyForm.controls['acholdername'].errors?.['maxlength']?.actualLength}}
+              characters.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="tabs_container pt-2">
+            <div class="tabs_inner_container">
+              <ul class="nav nav-tabs">
+                <li class="nav-item">
+                  <a
+                    class="nav-link lh-20 active text-decoration-none font14 text-dark1 font500"
+                    data-bs-toggle="tab"
+                    href="#insPremPaySch"
+                    accesskey="p"
+                    (click)="navTab = 'insPremPaySch'"
+                    ><span class="text-decoration-underline">P</span>remium
+                    Schedule</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a
+                    class="nav-link lh-20 text-decoration-none font14 text-dark1 font500"
+                    data-bs-toggle="tab"
+                    href="#insAssetItem"
+                    accesskey="i"
+                    (click)="navTab = 'insAssetItem'"
+                    >Asset
+                    <span class="text-decoration-underline">I</span>tem</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <div class="tab-content">
+              <div class="tab-pane container active p-0" id="insPremPaySch">
+                <div
+                  class="premSchedule_section"
+                  formArrayName="insprempayschRequestBeanList"
+                >
+                  <div class="table-responsive">
+                    <table
+                      class="table table-bordered datatable table w-100 mb-0"
+                    >
+                      <thead class="table_head_position_sticky">
+                        <tr tabindex="0">
+                          <th tabindex="-1">#</th>
+                          <th class="fontBold font12 text-dark1 req">
+                            <b class="text-danger">*</b>
+                            Premium
+                          </th>
+                          <th class="fontBold font12 text-dark1 req">
+                            <b class="text-danger">*</b>
+                            Renewal Date
+                          </th>
+                          <th class="fontBold font12 text-dark1">Cert. No</th>
+                          <th class="fontBold font12 text-dark1">Transer</th>
+                          <th class="fontBold font12 text-dark1">Remark</th>
+                          <th class="fontBold font12 text-dark1">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr
+                          *ngFor="
+                            let item of premScheduleFormArr.controls;
+                            let index = index
+                          "
+                          [formGroupName]="index"
+                        >
+                          <td>
+                            <input
+                              class="border-0 input_control form-control font500 text-dark1 font12 max_wid_50"
+                              type="text"
+                              formControlName="linenumber"
+                              name="sr"
+                            />
+                          </td>
+                          <td>
+                            <input
+                              class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                              type="number"
+                              formControlName="payamt"
+                            />
+                            <div
+                              class="invalid-feedback d-block"
+                              *ngIf="
+                                premScheduleFormArr.controls[index].controls[
+                                  'payamt'
+                                ].invalid &&
+                                premScheduleFormArr.controls[index].controls[
+                                  'payamt'
+                                ].touched
+                              "
+                            >
+                              <div
+                                *ngIf="
+                                  premScheduleFormArr.controls[index].get(
+                                    'payamt'
+                                  )?.errors['required']
+                                "
+                              >
+                                Premium value required
+                              </div>
+                              <div
+                                *ngIf="
+                                  premScheduleFormArr.controls[index].get(
+                                    'payamt'
+                                  )?.errors['min']
+                                "
+                              >
+                                Premium value should be greater than 0
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <div
+                              class="input-group tbl_datepicker custom_picker border border-light"
+                              appDate1
+                              [class.is-invalid]="
+                                premScheduleFormArr.controls[index].controls[
+                                  'paydate'
+                                ].invalid &&
+                                premScheduleFormArr.controls[index].controls[
+                                  'paydate'
+                                ].touched
+                              "
+                            >
+                              <input
+                                class="form-control input_control border-0 form-control pre_input_field font500 text-dark1 font12"
+                                id=""
+                                matInput
+                                [matDatepicker]="pickerRenewalDate"
+                                formControlName="paydate"
+                              />
+                              <div
+                                class="datepicker_input_cutsom_icon border-0 input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                              >
+                                <span class="input-group-addon">
+                                  <mat-datepicker-toggle
+                                    matSuffix
+                                    [for]="pickerRenewalDate"
+                                    tabindex="-1"
+                                  ></mat-datepicker-toggle>
+                                  <mat-datepicker
+                                    #pickerRenewalDate
+                                  ></mat-datepicker>
+                                </span>
+                              </div>
+                            </div>
+                            <div
+                              class="invalid-feedback d-block"
+                              *ngIf="
+                                premScheduleFormArr.controls[index].controls[
+                                  'paydate'
+                                ].invalid &&
+                                premScheduleFormArr.controls[index].controls[
+                                  'paydate'
+                                ].touched
+                              "
+                            >
+                              <div
+                                *ngIf="
+                                  premScheduleFormArr.controls[index].get(
+                                    'paydate'
+                                  )?.errors['required']
+                                "
+                              >
+                                Renewal date is required/wrong
+                              </div>
+                            </div>
+                          </td>
+
+                          <td>
+                            <input
+                              class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                              type="text"
+                              formControlName="certnum"
+                            />
+                            <div
+                              class="invalid-feedback d-block"
+                              *ngIf="
+                                premScheduleFormArr.controls[index].controls[
+                                  'certnum'
+                                ].invalid &&
+                                premScheduleFormArr.controls[index].controls[
+                                  'certnum'
+                                ].touched
+                              "
+                            >
+                              <div
+                                class="errorField common_color_txt font12 font500"
+                              >
+                                <div
+                                  *ngIf="
+                                    premScheduleFormArr.controls[index].get(
+                                      'certnum'
+                                    )?.errors['maxlength'].actualLength
+                                  "
+                                >
+                                  Max 10 Character allowed
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <input
+                              class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                              type="text"
+                              oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                              formControlName="transer"
+                              readonly
+                            />
+                          </td>
+                          <td>
+                            <input
+                              class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                              type="text"
+                              formControlName="remark"
+                            />
+                            <div
+                              class="invalid-feedback d-block"
+                              *ngIf="
+                                premScheduleFormArr.controls[index].controls[
+                                  'remark'
+                                ].invalid &&
+                                premScheduleFormArr.controls[index].controls[
+                                  'remark'
+                                ].touched
+                              "
+                            >
+                              <div
+                                class="errorField common_color_txt font12 font500"
+                              >
+                                <div
+                                  *ngIf="
+                                    premScheduleFormArr.controls[index].get(
+                                      'remark'
+                                    )?.errors['maxlength'].actualLength
+                                  "
+                                >
+                                  Max 100 Character allowed
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <div
+                              class="action_panel d-flex justify-content-center"
+                            >
+                              <button
+                                type="button"
+                                class="border-0 bg-transparent ms-1 btn p-0 m-0 lh_0"
+                                (click)="
+                                  deleteRow(
+                                    index,
+                                    policyForm.controls.insprempayschRequestBeanList.controls[
+                                      index
+                                    ].get('linenumber').value
+                                  )
+                                "
+                              >
+                                <img
+                                  src="assets/images/delete.svg"
+                                  alt="remove"
+                                  class="delete_img"
+                                />
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="d-flex mt-2">
+                    <button
+                      type="button"
+                      class="btn btn-theme-light rounded-4 font12"
+                      (click)="addNewRow()"
+                    >
+                      Add Row
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane container fade p-0" id="insAssetItem">
+                <div
+                  class="assetItem_section"
+                  formArrayName="insassetiteminsuredRequestBeanList"
+                >
+                  <div class="table-responsive">
+                    <table class="table table-bordered m-0">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th
+                            scope="col"
+                            class="fontBold font12 text-dark1 max_wid_70"
+                          >
+                            <b class="text-danger">*</b>
+                            Sr
+                          </th>
+                          <th
+                            scope="col"
+                            class="fontBold font12 text-dark1 max_wid_70"
+                          >
+                            <b class="text-danger">*</b>
+                            Gr
+                          </th>
+                          <th
+                            scope="col"
+                            class="fontBold font12 text-dark1 max_wid_120"
+                          >
+                            <b class="text-danger">*</b>
+                            Gr.Name
+                          </th>
+                          <th
+                            scope="col"
+                            class="fontBold font12 text-dark1 max_wid_70"
+                          >
+                            <b class="text-danger">*</b>
+                            S.Sr
+                          </th>
+                          <th
+                            scope="col"
+                            class="fontBold font12 text-dark1 max_wid_100"
+                          >
+                            S.Gr
+                          </th>
+                          <th
+                            scope="col"
+                            class="fontBold font12 text-dark1 max_wid_120"
+                          >
+                            S.Gr Name
+                          </th>
+                          <th
+                            scope="col"
+                            class="fontBold font12 text-dark1 max_wid_120"
+                          >
+                            <b class="text-danger">*</b>
+                            Item
+                          </th>
+                          <th
+                            scope="col"
+                            class="fontBold font12 text-dark1 max_wid_120"
+                          >
+                            Brand
+                          </th>
+                          <th
+                            scope="col"
+                            class="fontBold font12 text-dark1 max_wid_120"
+                          >
+                            Item.Desc
+                          </th>
+                          <th
+                            scope="col"
+                            class="fontBold font12 text-dark1 max_wid_120"
+                          >
+                            Value
+                          </th>
+                          <th
+                            scope="col"
+                            class="fontBold font12 text-dark1 max_wid_120"
+                          >
+                            EPCGVal
+                          </th>
+                          <th
+                            scope="col"
+                            class="fontBold font12 text-dark1 max_wid_120"
+                          >
+                            Val.WithDuty
+                          </th>
+                          <th
+                            scope="col"
+                            class="fontBold font12 text-dark1 max_wid_70"
+                          >
+                            Rev.Val
+                          </th>
+                          <th
+                            scope="col"
+                            class="fontBold font12 text-dark1 max_wid_70"
+                          >
+                            Qty
+                          </th>
+                          <th
+                            scope="col"
+                            class="fontBold font12 text-dark1 max_wid_120"
+                          >
+                            QtyDesc
+                          </th>
+                          <th
+                            scope="col"
+                            class="fontBold font12 text-dark1 max_wid_70"
+                          >
+                            Purc Year
+                          </th>
+                          <th
+                            scope="col"
+                            class="fontBold font12 text-dark1 max_wid_140"
+                          >
+                            Purc Date
+                          </th>
+                          <th
+                            scope="col"
+                            class="fontBold font12 text-dark1 max_wid_140"
+                          >
+                            Remark
+                          </th>
+                          <th scope="col" class="fontBold font12 text-dark1">
+                            Action
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr
+                          *ngFor="
+                            let itemControl of assetItemFormArr.controls;
+                            let index = index
+                          "
+                          [formGroupName]="index"
+                        >
+                          <td>
+                            <input
+                              class="border-0 input_control form-control font500 text-dark1 font12 max_wid_50"
+                              formControlName="linenumber"
+                              name="linenumber"
+                            />
+                          </td>
+                          <td>
+                            <input
+                              class="border-0 input_control form-control font500 text-dark1 font12"
+                              type="text"
+                              formControlName="itemserial"
+                              name="itemserial"
+                            />
+                            <div
+                              class="invalid-feedback d-block"
+                              *ngIf="
+                                assetItemFormArr.controls[index].controls[
+                                  'itemserial'
+                                ].invalid &&
+                                assetItemFormArr.controls[index].controls[
+                                  'itemserial'
+                                ].touched
+                              "
+                            >
+                              <div
+                                class="errorField common_color_txt font12 font500"
+                              >
+                                <div
+                                  *ngIf="
+                                    assetItemFormArr.controls[index].get(
+                                      'itemserial'
+                                    )?.errors['maxlength'].actualLength
+                                  "
+                                >
+                                  Max 10 Character allowed
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <input
+                              type="text"
+                              class="font12 input_control form-control br-9 d-flex border-0"
+                              formControlName="groupcode"
+                              [f1]="{ id: 'INSGRCD', err: false }"
+                              name="gr"
+                            />
+                            <div
+                              class="invalid-feedback d-block"
+                              *ngIf="
+                                assetItemFormArr.controls[index].controls[
+                                  'groupcode'
+                                ].invalid &&
+                                assetItemFormArr.controls[index].controls[
+                                  'groupcode'
+                                ].touched
+                              "
+                            >
+                              <div
+                                class="errorField common_color_txt font12 font500"
+                              >
+                                <div
+                                  *ngIf="
+                                    assetItemFormArr.controls[index].get(
+                                      'groupcode'
+                                    )?.errors['maxlength'].actualLength
+                                  "
+                                >
+                                  Max 5 Character allowed
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <input
+                              class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                              type="text"
+                              formControlName="groupname"
+                              name="grName"
+                            />
+                            <div
+                              class="invalid-feedback d-block"
+                              *ngIf="
+                                assetItemFormArr.controls[index].controls[
+                                  'groupname'
+                                ].invalid &&
+                                assetItemFormArr.controls[index].controls[
+                                  'groupname'
+                                ].touched
+                              "
+                            >
+                              <div
+                                class="errorField common_color_txt font12 font500"
+                              >
+                                <div
+                                  *ngIf="
+                                    assetItemFormArr.controls[index].get(
+                                      'groupname'
+                                    )?.errors['maxlength'].actualLength
+                                  "
+                                >
+                                  Max 30 Character allowed
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <input
+                              class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                              type="text"
+                              oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                              formControlName="srno"
+                              name="ssr"
+                            />
+                            <div
+                              class="invalid-feedback d-block"
+                              *ngIf="
+                                assetItemFormArr.controls[index].controls[
+                                  'srno'
+                                ].invalid &&
+                                assetItemFormArr.controls[index].controls[
+                                  'srno'
+                                ].touched
+                              "
+                            >
+                              <div
+                                class="errorField common_color_txt font12 font500"
+                              >
+                                <div
+                                  *ngIf="
+                                    assetItemFormArr.controls[index].get(
+                                      'srno'
+                                    )?.errors['maxlength'].actualLength
+                                  "
+                                >
+                                  Max 5 Character allowed
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <input
+                              class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                              type="text"
+                              formControlName="subgroupcode"
+                              [f1]="{ id: 'INSSUBGRCD', err: false }"
+                              name="sGr"
+                            />
+                            <div
+                              class="invalid-feedback d-block"
+                              *ngIf="
+                                assetItemFormArr.controls[index].controls[
+                                  'subgroupcode'
+                                ].invalid &&
+                                assetItemFormArr.controls[index].controls[
+                                  'subgroupcode'
+                                ].touched
+                              "
+                            >
+                              <div
+                                class="errorField common_color_txt font12 font500"
+                              >
+                                <div
+                                  *ngIf="
+                                    assetItemFormArr.controls[index].get(
+                                      'subgroupcode'
+                                    )?.errors['maxlength'].actualLength
+                                  "
+                                >
+                                  Max 5 Character allowed
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <input
+                              class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                              type="text"
+                              formControlName="subgroupname"
+                              name="sGrName"
+                            />
+                            <div
+                              class="invalid-feedback d-block"
+                              *ngIf="
+                                assetItemFormArr.controls[index].controls[
+                                  'subgroupname'
+                                ].invalid &&
+                                assetItemFormArr.controls[index].controls[
+                                  'subgroupname'
+                                ].touched
+                              "
+                            >
+                              <div
+                                class="errorField common_color_txt font12 font500"
+                              >
+                                <div
+                                  *ngIf="
+                                    assetItemFormArr.controls[index].get(
+                                      'subgroupname'
+                                    )?.errors['maxlength'].actualLength
+                                  "
+                                >
+                                  Max 30 Character allowed
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <input
+                              class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                              type="text"
+                              formControlName="item"
+                            />
+                            <div
+                              class="invalid-feedback d-block"
+                              *ngIf="
+                                assetItemFormArr.controls[index].controls[
+                                  'item'
+                                ].invalid &&
+                                assetItemFormArr.controls[index].controls[
+                                  'item'
+                                ].touched
+                              "
+                            >
+                              <div
+                                class="errorField common_color_txt font12 font500"
+                              >
+                                <div
+                                  *ngIf="
+                                    assetItemFormArr.controls[index].get(
+                                      'item'
+                                    )?.errors['maxlength'].actualLength
+                                  "
+                                >
+                                  Max 50 Character allowed
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <input
+                              class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                              type="text"
+                              formControlName="brand"
+                            />
+                            <div
+                              class="invalid-feedback d-block"
+                              *ngIf="
+                                assetItemFormArr.controls[index].controls[
+                                  'brand'
+                                ].invalid &&
+                                assetItemFormArr.controls[index].controls[
+                                  'brand'
+                                ].touched
+                              "
+                            >
+                              <div
+                                class="errorField common_color_txt font12 font500"
+                              >
+                                <div
+                                  *ngIf="
+                                    assetItemFormArr.controls[index].get(
+                                      'brand'
+                                    )?.errors['maxlength'].actualLength
+                                  "
+                                >
+                                  Max 50 Character allowed
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <input
+                              class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                              type="text"
+                              formControlName="itemdesc"
+                            />
+                            <div
+                              class="invalid-feedback d-block"
+                              *ngIf="
+                                assetItemFormArr.controls[index].controls[
+                                  'itemdesc'
+                                ].invalid &&
+                                assetItemFormArr.controls[index].controls[
+                                  'itemdesc'
+                                ].touched
+                              "
+                            >
+                              <div
+                                class="errorField common_color_txt font12 font500"
+                              >
+                                <div
+                                  *ngIf="
+                                    assetItemFormArr.controls[index].get(
+                                      'itemdesc'
+                                    )?.errors['maxlength'].actualLength
+                                  "
+                                >
+                                  Max 1000 Character allowed
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <input
+                              class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                              type="number"
+                              oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                              formControlName="value"
+                            />
+                          </td>
+                          <td>
+                            <input
+                              class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                              type="number"
+                              oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                              formControlName="epcgvalue"
+                            />
+                          </td>
+                          <td>
+                            <input
+                              class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                              type="number"
+                              oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                              formControlName="valuewithduty"
+                            />
+                          </td>
+                          <td>
+                            <input
+                              class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                              type="number"
+                              oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                              formControlName="revisedvalue"
+                            />
+                          </td>
+                          <td>
+                            <input
+                              class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                              type="number"
+                              oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                              formControlName="qty"
+                            />
+                            <div
+                              class="invalid-feedback d-block"
+                              *ngIf="
+                                assetItemFormArr.controls[index].controls[
+                                  'qty'
+                                ].invalid &&
+                                assetItemFormArr.controls[index].controls[
+                                  'qty'
+                                ].touched
+                              "
+                            >
+                              <div
+                                class="errorField common_color_txt font12 font500"
+                              >
+                                <div
+                                  *ngIf="
+                                    assetItemFormArr.controls[index].get(
+                                      'qty'
+                                    )?.errors['maxlength'].actualLength
+                                  "
+                                >
+                                  Max 9 Character allowed
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <input
+                              class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                              type="text"
+                              formControlName="qtydesc"
+                            />
+                            <div
+                              class="invalid-feedback d-block"
+                              *ngIf="
+                                assetItemFormArr.controls[index].controls[
+                                  'qtydesc'
+                                ].invalid &&
+                                assetItemFormArr.controls[index].controls[
+                                  'qtydesc'
+                                ].touched
+                              "
+                            >
+                              <div
+                                class="errorField common_color_txt font12 font500"
+                              >
+                                <div
+                                  *ngIf="
+                                    assetItemFormArr.controls[index].get(
+                                      'qtydesc'
+                                    )?.errors['maxlength'].actualLength
+                                  "
+                                >
+                                  Max 50 Character allowed
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <input
+                              class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                              type="text"
+                              oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                              formControlName="purchaseyear"
+                            />
+                            <div
+                              class="invalid-feedback d-block"
+                              *ngIf="
+                                assetItemFormArr.controls[index].controls[
+                                  'purchaseyear'
+                                ].invalid &&
+                                assetItemFormArr.controls[index].controls[
+                                  'purchaseyear'
+                                ].touched
+                              "
+                            >
+                              <div
+                                class="errorField common_color_txt font12 font500"
+                              >
+                                <div
+                                  *ngIf="
+                                    assetItemFormArr.controls[index].get(
+                                      'purchaseyear'
+                                    )?.errors['maxlength'].actualLength
+                                  "
+                                >
+                                  Max 20 Character allowed
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <div
+                              class="input-group tbl_datepicker custom_picker border border-light"
+                              appDate1
+                              [class.is-invalid]="
+                                assetItemFormArr.controls[index].controls[
+                                  'purchasedate'
+                                ].invalid &&
+                                assetItemFormArr.controls[index].controls[
+                                  'purchasedate'
+                                ].touched
+                              "
+                            >
+                              <input
+                                class="form-control input_control border-0 form-control pre_input_field font500 text-dark1 font12"
+                                id=""
+                                matInput
+                                [matDatepicker]="pickerPurcDate"
+                                formControlName="purchasedate"
+                              />
+                              <div
+                                class="datepicker_input_cutsom_icon border-0 input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                              >
+                                <span class="input-group-addon">
+                                  <mat-datepicker-toggle
+                                    matSuffix
+                                    [for]="pickerPurcDate"
+                                    tabindex="-1"
+                                  ></mat-datepicker-toggle>
+                                  <mat-datepicker
+                                    #pickerPurcDate
+                                  ></mat-datepicker>
+                                </span>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <input
+                              class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                              type="text"
+                              formControlName="remark"
+                            />
+                            <div
+                              class="invalid-feedback d-block"
+                              *ngIf="
+                                assetItemFormArr.controls[index].controls[
+                                  'remark'
+                                ].invalid &&
+                                assetItemFormArr.controls[index].controls[
+                                  'remark'
+                                ].touched
+                              "
+                            >
+                              <div
+                                class="errorField common_color_txt font12 font500"
+                              >
+                                <div
+                                  *ngIf="
+                                    assetItemFormArr.controls[index].get(
+                                      'remark'
+                                    )?.errors['maxlength'].actualLength
+                                  "
+                                >
+                                  Max 100 Character allowed
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <div
+                              class="action_panel d-flex justify-content-center"
+                            >
+                              <button
+                                type="button"
+                                class="border-0 bg-transparent ms-1 btn p-0 m-0 lh_0"
+                                (click)="
+                                  deleteRow(
+                                    index,
+                                    assetItemFormArr.controls[index].get(
+                                      'linenumber'
+                                    ).value
+                                  )
+                                "
+                              >
+                                <img
+                                  src="assets/images/delete.svg"
+                                  alt="remove"
+                                  class="delete_img"
+                                />
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="d-flex mt-2">
+                    <button
+                      type="button"
+                      class="btn btn-theme-light rounded-4 font12"
+                      (click)="addNewRow()"
+                    >
+                      Add Row
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner text-center bg-white br-10">
+      <div class="flex justify-content-between">
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="a"
+          (click)="addPolicyDetails()"
+          [disabled]="initialMode"
+        >
+          Add
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="r"
+          (click)="retrievePolicyDetails()"
+          [disabled]="initialMode"
+        >
+          Retrieve
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="d"
+          disabled="true"
+          (click)="('')"
+        >
+          Delete
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="s"
+          [disabled]="!initialMode"
+          (click)="savePolicy()"
+        >
+          Save
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="b"
+          [disabled]="!initialMode"
+          (click)="handleBackClick()"
+        >
+          Back
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

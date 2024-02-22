@@ -1,0 +1,96 @@
+<section class="container">
+  <section class="form-section-wrapper">
+    <form [formGroup]="ReportCriteria">
+      <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+          <!-- building code -->
+          <div
+            class="input-group has-validation mt-4"
+            [class.is-invalid]="( ReportCriteria.get('bldgcode')?.hasError('required') && ReportCriteria.controls['bldgcode'].touched)|| ReportCriteria.controls?.['bldgcode'].errors?.['notFound'] 
+     "
+          >
+            <span
+              class="input-group-text leftform_lbl font500 text-dark1 font12"
+            >
+              <b><span class="text-danger">*</span></b
+              >Building
+            </span>
+            <input
+              appCommonAutoFocus
+              type="text"
+              formControlName="bldgCode"
+              class="form-control border-start-0 post_input_field font500 font12"
+              upperCase
+              [f1]="{
+                id: 'BUILDINGS',
+                multi: true
+              }"
+              (focusout)="onLeaveBuildingCode($event.target.value)"
+            />
+          </div>
+          <div
+            class="errorField common_color_txt font12 font500 disInl"
+            *ngIf="ReportCriteria.controls?.['bldgcode'].errors?.['notFound'] "
+          >
+            Invalid Building Code
+          </div>
+
+          <!-- wing -->
+          <div
+            class="input-group mt-4"
+            [class.is-invalid]="ReportCriteria.controls?.['wing'].errors?.['notFound'] "
+          >
+            <span
+              class="input-group-text leftform_lbl font500 text-dark1 font12"
+              >Wing &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </span>
+            <input
+              type="text"
+              formControlName="wing"
+              upperCase
+              class="form-control border-start-0 post_input_field font500 font12"
+              [f1]="{
+                id: 'BWINGS',
+                isSingleValue: true,
+                subId: filter_wing
+              }"
+            />
+          </div>
+          <div
+            class="errorField common_color_txt font12 font500 disInl"
+            *ngIf="ReportCriteria.controls?.['wing'].errors?.['notFound'] "
+          >
+            Invalid wing
+          </div>
+
+          <!-- Flat Num -->
+          <div class="input-group has-validation mt-4" [class.is-invalid]="">
+            <span
+              class="input-group-text leftform_lbl font500 text-dark1 font12"
+            >
+              <b></b>Flat Num
+            </span>
+            <input
+              appCommonAutoFocus
+              type="text"
+              formControlName="flatNum"
+              class="form-control border-start-0 post_input_field font500 font12"
+              upperCase
+              [f1]="{
+                id: 'FLATSOLD',
+                multi: true,
+                subId: filter_flat
+              }"
+            />
+          </div>
+        </div>
+      </div>
+    </form>
+  </section>
+</section>
+<app-buttons
+  [buttonsList]="buttonsList"
+  (eventTrigger)="buttonAction($event)"
+></app-buttons>
+<app-loader *ngIf="config.isLoading"></app-loader>

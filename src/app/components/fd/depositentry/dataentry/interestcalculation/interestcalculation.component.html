@@ -1,0 +1,216 @@
+<section>
+    <div *ngIf="isPdfViewerHide; then isPdfViewerContainerHide else isPdfViewerContainerShow "></div>
+    <ng-template #isPdfViewerContainerHide>
+        <div>
+            <form [formGroup]="interestCalculationFormGroup">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <!-- <label class="form-label formlbl font600 text-dark1 pb-2 mb-0 font12">Company</label> -->
+                        <div class="row">
+                            <div class="mb-3 col-md-12 col-lg-7 col-xl-6 col-xxl-5">
+                                <div class="input-group"  [class.is-invalid]="
+                                interestCalculationFormGroup.controls['companyCode'].invalid &&
+                                interestCalculationFormGroup.controls['companyCode'].touched
+                              ">
+                                    <span class="input-group-text leftform_lbl font500 text-dark1 font12">Company</span>
+                                    <!-- <input type="text" class="form-control border-start-0 post_input_field" id="receiptCode" onclick="showmodal()"> -->
+                                    <app-f1
+                                        [formControlName]="'companyCode'"
+                                        placeholder
+                                        class="form-control post_input_field border-start-0 d-flex"
+                                        titleValue="{{tableData?.mainheader}}"
+                                        [tableData]="tableData?.dataSet"
+                                        [colHeader]="columnHeader"
+                                        [inputBBC]="bringBackColumn"
+                                        [dynaPopId]="'COMPANY'"
+                                        [queryConditon]=coy_condition
+                                        [errorMessage]="'Invalid Company Code'"
+                                        id="companyCode"
+                                        (updatedSelectedValue)="updateListControl($event,interestCalculationFormGroup.get('companyName'))"
+                                        (change)="updateOnChangeCompanyList($event)"
+                                    ></app-f1>
+                                    <span class="position-relative span_divider"></span>
+                                    <input
+                                        type="text"
+                                        class="form-control w-50 border-start-0 post_input_field font500 text-dark1 font12 disabled_cls"
+                                        formControlName="companyName"
+                                        [readonly]="readonlyAttr"
+                                        tabindex="-1"
+                                    >
+                                </div>
+                                <div *ngIf="interestCalculationFormGroup.controls['companyCode'].invalid && interestCalculationFormGroup.controls['companyCode'].touched">
+                                    <div
+                                        class="errorField common_color_txt font12 font500"
+                                        *ngIf="interestCalculationFormGroup.controls['companyCode'].errors && interestCalculationFormGroup.controls['companyCode'].errors?.['required']"
+                                    >
+                                        * Company Code is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-12">
+                        <!-- <label class="form-label formlbl font600 text-dark1 pb-2 mb-0 font12">Date</label> -->
+                        <div class="mb-3 col-md-5 col-lg-5 col-xl-3 col-xxl-3">
+                            <div class>
+                                <div class>
+                                    <div class="input-group"  [class.is-invalid]="
+                                    interestCalculationFormGroup.controls['calCulateUpTo'].invalid &&
+                                    interestCalculationFormGroup.controls['calCulateUpTo'].touched">
+                                        <span class="input-group-text leftform_lbl font500 text-dark1 font12">Calculate UpTo</span>
+                                        <input
+                                            class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                                            formControlName="calCulateUpTo"
+                                            matInput
+                                            [matDatepicker]="pickerFrom"
+                                            name
+                                            id="calCulateUpToDate"
+                                        >
+                                        <div class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0">
+                                            <span class="input-group-addon">
+                                                <mat-datepicker-toggle
+                                                    matSuffix
+                                                    [for]="pickerFrom"
+                                                    tabindex="-1"
+                                                ></mat-datepicker-toggle>
+                                                <mat-datepicker #pickerFrom></mat-datepicker>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="interestCalculationFormGroup.controls['calCulateUpTo'].invalid && interestCalculationFormGroup.controls['calCulateUpTo'].touched">
+                                        <div
+                                            class="errorField common_color_txt font12 font500"
+                                            *ngIf="interestCalculationFormGroup.controls['calCulateUpTo'].errors && interestCalculationFormGroup.controls['calCulateUpTo'].errors?.['required']"
+                                        >
+                                            *CalCulate UpTo Date is required
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </ng-template>
+    <ng-template #isPdfViewerContainerShow>
+        <div>
+            <div class="page">
+                <div class="paginatio_pdf_container d-flex w-100">
+                    <nav>
+                        <button
+                            (click)="prevPage()"
+                            [disabled]="page === 1"
+                            class="previous bg_common_red br-10 px-3 me-1"
+                        >
+                            Prev
+                        </button>
+                        <button
+                            (click)="nextPage()"
+                            [disabled]="page === totalPages"
+                            class="next bg_common_red br-10  px-3 me-1"
+                        >
+                            Next
+                        </button>
+                        <p class="mb-0 font500 ms-1">{{ page }} / {{ totalPages }}</p>
+                    </nav>
+                </div>
+                <pdf-viewer
+                    [src]="src"
+                    [original-size]="true"
+                    [render-text]="true"
+                    [rotation]="0"
+                    [show-all]="false"
+                    [fit-to-page]="true"
+                    [zoom]="1"
+                    [zoom-scale]="'page-width'"
+                    [external-link-target]="'blank'"
+                    [autoresize]="true"
+                    [show-borders]="false"
+                    class="pdf-viewer"
+                    [page]="page"
+                    (after-load-complete)="afterLoadComplete($event)"
+                    class="pdf-viewer"
+                ></pdf-viewer>
+            </div>
+        </div>
+    </ng-template>
+</section>
+<app-loader *ngIf="loaderToggle"></app-loader>
+<section class="action_section position-fixed w-100">
+    <div class="container">
+        <div class="action_conatiner text-center bg-white br-10 d-flex justify-content-center">
+                <button
+                    type="submit"
+                    class="bg_common_red border-0 common_action_btn text-white br-10"
+                    (click)="calcInterest()"
+                    accesskey="c"
+                    [disabled]='disabledFlagCalcInterest'
+                >
+                    Calc Interest
+                </button>
+                <button
+                    type="submit"
+                    class="common_action_btn  br-10 border-0 bg_common_red text-white exportcls first_letter_textdecorationone"
+                    (click)="getReport(false)"
+                    accesskey="w"
+                    [disabled]='disabledFlagExport'
+                >
+                    Do<span class="text-decoration-underline">w</span>nload
+                </button>
+                <button
+                    type="submit"
+                    class="common_action_btn  br-10 border-0 bg_common_red text-white exportcls"
+                    (click)="getReport(true)"
+                    accesskey="p"
+                    [disabled]='disabledFlagPrint'
+                >Print
+                </button>
+                <button
+                    type="submit"
+                    class="common_action_btn  br-10 border-0 bg_common_red text-white exportcls"
+                    (click)="save()"
+                    [attr.accesskey]="loaderToggle ? '' :'s'"
+                    [disabled]='disabledFlagSave'
+                >
+                    Save
+                </button>
+                <button
+                    type="submit"
+                    class="bg_common_red border-0 common_action_btn text-white br-10 first_letter_textdecorationone"
+                    accesskey="x"
+                    (click)="handleExit()"
+                >
+                    E<u>x</u>it
+                </button>
+        </div>
+    </div>
+</section>
+<ng-template #SaveConfirmation>
+    <p class="font14 font500 fonttxt_black mb-0 p-4">
+        <span>
+          Do you wish to Save?
+        </span>
+        <ng-template #retrieveMessage>Do you wish to change Party Address?</ng-template>
+    </p>
+    <div class="d-flex justify-content-center p-3">
+        <button
+            type="button"
+            class="btn del_act_btn font14 font600 br-10 text-white bg_common_red me-3 px-4 firstletter_underline"
+            (click)="yesSave()"
+            accesskey="y"
+        >
+            Yes
+        </button>
+        <button
+            type="button"
+            class="px-3 btn del_act_btn modal_close_btn br-10 font14 font600 fonttxt_black px-4 firstletter_underline"
+            cdkFocusInitial
+            (click)="no()"
+            accesskey="n"
+        >
+            No
+        </button>
+    </div>
+</ng-template>

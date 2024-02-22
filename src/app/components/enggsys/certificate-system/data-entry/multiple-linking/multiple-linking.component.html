@@ -1,0 +1,122 @@
+<!-- <p>multiple-linking works!</p> -->
+<form [formGroup]="multiLinkingForm">
+    <!-- first section -->
+    <section>
+        <div class="row mt-1 mb-4 justify-content-center">
+            <div class="col-md-3"></div>
+            <!-- Cert No -->
+            <div class="col-md-6">
+                <div class="input-group" [class.is-invalid]="
+                  (multiLinkingForm.get('certificateNo')?.hasError('required') &&
+                    multiLinkingForm.get('certificateNo')?.touched) || multiLinkingForm.get('certificateNo')?.errors?.['notFound']
+                ">
+                    <span class="input-group-text leftform_lbl font500 text-dark1 font12"><b
+                            class="text-danger">*</b>Cert No:</span>
+                    <input appCommonAutoFocus type="text" upperCase id="id_certificateNo"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        formControlName="certificateNo"
+                        [f1]="{ id: 'CONTRACTID', subId: 'contt_closedate is null', isSingleValue: true }" />
+                    <div class="invalid-feedback d-block" *ngIf="
+                   ( multiLinkingForm.get('certificateNo')?.touched &&
+                    multiLinkingForm.get('certificateNo')?.invalid) && !multiLinkingForm.get('certificateNo')?.errors?.['notFound']
+                  ">
+                        Cert No. is required.
+                    </div>
+                    <div class="invalid-feedback d-block"
+                        *ngIf="multiLinkingForm.get('certificateNo')?.errors?.['notFound']">
+                        Cert No. is not valid.
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+    </section>
+    <!-- secound section -->
+    <section>
+        <div class="row ">
+            <div class="col-md-12" formArrayName="certificateDetails">
+                <div class="group_panel br-10 p-3 pt-4 position-relative form_common_bg">
+
+                    <div class="col-md-12">
+                        <div class="table-responsive group_panel form_common_bg stylishScroll">
+                            <table class="table table-bordered table-sm mb-0 custom-table-width">
+                                <thead class="table_head_position_sticky">
+                                    <tr tabindex="-1">
+                                        <th class="fontBold font12 fonttxt_black">Type</th>
+                                        <th class="fontBold font12 fonttxt_black">Cert/Auth No</th>
+                                        <th class="fontBold font12 fonttxt_black">Remarks</th>
+                                        <th class="fontBold font12 fonttxt_black">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of multiLinkingForm.controls?.['certificateDetails'].controls let index=index"
+                                        [formGroupName]="index">
+                                        <td>
+                                            <div class="input-group">
+                                                <input
+                                                    class="form-control input_control form-control font500 text-dark1 font12 "
+                                                    type="text" maxlength="50" formControlName="type" />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="text"
+                                                    class="form-control input_control font500 fonttxt_black font12"
+                                                    formControlName="certNo" />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input
+                                                    class="form-control input_control form-control font500 text-dark1 font12 text-end"
+                                                    type="text" maxlength="50" formControlName="remarks" />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="action_panel d-flex justify-content-center mt-1 d-none">
+                                                <button type="button" [disabled]="
+                                                    !multiLinkingForm.controls?.certificateDetails
+                                                      ?.valid || config.isProccesed || multiLinkingForm.controls?.certificateDetails
+                                                  " class="btn action_btn d-flex btn-success" (click)="addDetails()">
+                                                  <!--NS 22.05.2023-->
+                                                  <img src="assets/images/add.svg" alt="add" class="add_img" />
+                                                </button>
+                                                <button type="button" [disabled]="config.isProccesed"
+                                                  class="btn action_btn d-flex bg_common_red ms-1" (click)="removeDetails(index)">
+                                                  <!--NS 22.05.2023-->
+                                                  <img src="assets/images/trash.svg" alt="remove" class="delete_img" />
+                                                </button>
+                                              </div>
+                      
+                                              <div class="action_panel d-flex justify-content-center">
+                                                <button type="button" [disabled]="
+                                                    !multiLinkingForm.controls?.certificateDetails
+                                                      ?.valid || config.isProccesed
+                                                  " (click)="addDetails()" class="border-0 bg-transparent ms-1 btn p-0 m-0 lh_0 p-1">
+                                                  <img src="assets/images/plus.png" alt="add" />
+                                                </button>
+                                                <button type="button" [disabled]="config.isProccesed" (click)="removeDetails(index)"
+                                                  class="border-0 bg-transparent ms-1 btn p-0 m-0 lh_0 p-1">
+                                                  <img src="assets/images/delete.svg" alt="remove" class="delete_img" />
+                                                </button>
+                                              </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+</form>
+
+<!-- Bottom button start -->
+<app-buttons [buttonsList]="buttonsList" (eventTrigger)="buttonAction($event)"></app-buttons>
+<!-- Bottom button end -->
+
+<app-loader *ngIf="config.isLoading"></app-loader>

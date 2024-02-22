@@ -1,0 +1,8 @@
+.matForm {
+    display: flex;
+    align-items: center;
+    padding-left: 0.5rem;
+  }
+  .leftform_lbl{
+      min-width:8.5rem
+  }

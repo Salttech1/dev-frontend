@@ -1,0 +1,1150 @@
+<!-- <p>quote-party-entry works!</p> -->
+<section>
+  <div class="row">
+    <div class="col-md-12">
+      <form [formGroup]="quotePartyEntryForm">
+        <div class="row g-2">
+          <div class="col-md-6">
+            <div
+              class="input-group"
+              [class.is-invalid]="(quotePartyEntryForm.get('partyType')?.hasError('required') && quotePartyEntryForm.get('partyType')?.touched) || quotePartyEntryForm.get('partyType')?.errors?.['notFound']"
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                ><b class="text-danger">*</b>Party Type</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                upperCase
+                class="form-control border-start-0 post_input_field font500 font12"
+                formControlName="partyType"
+                [f1]="{
+                  id: 'BUILDINGS',
+                  formData: quotePartyEntryForm.get('partyTypeName')
+                }"
+              />
+              <span class="position-relative span_divider"></span>
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control w-50 border-start-0 post_input_field font500 font12"
+                formControlName="partyTypeName"
+              />
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="
+                  (quotePartyEntryForm.get('partyType')?.touched &&
+                  quotePartyEntryForm.get('partyType')?.invalid) && !quotePartyEntryForm.get('partyType')?.errors?.['notFound']
+                "
+            >
+              Party Type is required.
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="quotePartyEntryForm.get('partyType')?.errors?.['notFound']"
+            >
+              Party Type code is not valid.
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div
+              class="input-group"
+              [class.is-invalid]="(quotePartyEntryForm.get('partyCode')?.hasError('required') && quotePartyEntryForm.get('partyCode')?.touched) || quotePartyEntryForm.get('partyCode')?.errors?.['notFound']"
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                ><b class="text-danger">*</b>Party Code</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                upperCase
+                formControlName="partyCode"
+                class="form-control border-start-0 post_input_field font500 font12"
+                [f1]="{ id: 'BUILDINGS', isSingleValue: true }"
+              />
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="
+            (quotePartyEntryForm.get('partyCode')?.touched &&
+            quotePartyEntryForm.get('partyCode')?.invalid) && !quotePartyEntryForm.get('partyCode')?.errors?.['notFound']
+          "
+            >
+              Party code is required.
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="quotePartyEntryForm.get('partyCode')?.errors?.['notFound']"
+            >
+              Party code is not valid.
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-2">
+          <div class="pt-2">
+            <div [formGroup]="">
+              <!-- tab -->
+              <div class="tabs_container pt-2">
+                <div class="tabs_inner_container">
+                  <ul class="nav nav-tabs">
+                    <!-- Party Detail -->
+                    <li class="nav-item">
+                      <a
+                        class="nav-link lh-20 active text-decoration-none font14 text-dark1 font500 first_letter_textdecorationone"
+                        data-bs-toggle="tab"
+                        href="#partydetail"
+                        accesskey=""
+                      >
+                        <span class="text-decoration-underline"></span>Party
+                        Detail
+                      </a>
+                    </li>
+                    <!-- Address -->
+                    <li class="nav-item">
+                      <a
+                        class="nav-link lh-20 text-decoration-none font14 text-dark1 font500 first_letter_textdecorationone"
+                        data-bs-toggle="tab"
+                        href="#address"
+                        accesskey=""
+                      >
+                        <span class="text-decoration-underline"></span>Address
+                      </a>
+                    </li>
+                    <!-- Contact Info -->
+                    <li class="nav-item">
+                      <a
+                        class="nav-link lh-20 text-decoration-none font14 text-dark1 font500 first_letter_textdecorationone"
+                        data-bs-toggle="tab"
+                        href="#contactInfo"
+                        accesskey=""
+                      >
+                        <span class="text-decoration-underline"></span>Contact
+                        Info
+                      </a>
+                    </li>
+                    <!-- MSME Detail -->
+                    <li class="nav-item">
+                      <a
+                        class="nav-link lh-20 text-decoration-none font14 text-dark1 font500 first_letter_textdecorationone"
+                        data-bs-toggle="tab"
+                        href="#msmedetail"
+                        accesskey=""
+                      >
+                        <span class="text-decoration-underline"></span>MSME
+                        Details
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="tab-content">
+                  <!-- Party Detail Tab-->
+                  <div class="tab-pane container active p-0" id="partydetail">
+                    <div class="row g-2">
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <span
+                            class="input-group-text leftform_lbl font500 text-dark1 font12"
+                            >Name</span
+                          >
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            class="form-control border-start-0 post_input_field font500 font12"
+                            formControlName="name"
+                            [f1]="{id: 'TITLES', isSingleValue: true}"
+                          />
+                          <span class="position-relative span_divider"></span>
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            class="form-control w-50 border-start-0 post_input_field font500 font12"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <span
+                            class="input-group-text leftform_lbl font500 text-dark1 font12"
+                            >party Constitution</span
+                          >
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            class="form-control border-start-0 post_input_field font500 font12"
+                          />
+                        </div>
+                      </div>
+                      
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <span
+                            class="input-group-text leftform_lbl font500 text-dark1 font12"
+                            >Supplier Type</span
+                          >
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            class="form-control border-start-0 post_input_field font500 font12"
+                            formControlName=""
+                            [f1]="{id: ''}"
+                          />
+                          <span class="position-relative span_divider"></span>
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            class="form-control w-50 border-start-0 post_input_field font500 font12"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <span
+                            class="input-group-text leftform_lbl font500 text-dark1 font12"
+                            >City</span
+                          >
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            class="form-control border-start-0 post_input_field font500 font12"
+                          />
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <span
+                            class="input-group-text leftform_lbl font500 text-dark1 font12"
+                            >Pan</span
+                          >
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            class="form-control border-start-0 post_input_field font500 font12"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="input-group">
+                          <span
+                            class="input-group-text leftform_lbl font500 text-dark1 font12"
+                            >Ltd Company</span
+                          >
+                          
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="input-group">
+                          <span
+                            class="input-group-text leftform_lbl font500 text-dark1 font12"
+                            >Open Date</span
+                          >
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            class="form-control border-start-0 post_input_field font500 font12"
+                          />
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <span
+                            class="input-group-text leftform_lbl font500 text-dark1 font12"
+                            >GST No</span
+                          >
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            class="form-control border-start-0 post_input_field font500 font12"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="input-group">
+                          <span
+                            class="input-group-text leftform_lbl font500 text-dark1 font12"
+                            >Valid Party</span
+                          >
+                          
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="input-group">
+                          <span
+                            class="input-group-text leftform_lbl font500 text-dark1 font12"
+                            >Valid Minor</span
+                          >
+                          
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <span
+                            class="input-group-text leftform_lbl font500 text-dark1 font12"
+                            >TAN No</span
+                          >
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            class="form-control border-start-0 post_input_field font500 font12"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <span
+                            class="input-group-text leftform_lbl font500 text-dark1 font12"
+                            >MSME No</span
+                          >
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            class="form-control border-start-0 post_input_field font500 font12"
+                          />
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <span
+                            class="input-group-text leftform_lbl font500 text-dark1 font12"
+                            >Prof. Tax No</span
+                          >
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            class="form-control border-start-0 post_input_field font500 font12"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <span
+                            class="input-group-text leftform_lbl font500 text-dark1 font12"
+                            >Payee Bank1</span
+                          >
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            class="form-control border-start-0 post_input_field font500 font12"
+                            formControlName=""
+                            [f1]="{id: ''}"
+                          />
+                          <span class="position-relative span_divider"></span>
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            class="form-control w-50 border-start-0 post_input_field font500 font12"
+                          />
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <span
+                            class="input-group-text leftform_lbl font500 text-dark1 font12"
+                            >PF No</span
+                          >
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            class="form-control border-start-0 post_input_field font500 font12"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <span
+                            class="input-group-text leftform_lbl font500 text-dark1 font12"
+                            >Payee Branch1</span
+                          >
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            class="form-control border-start-0 post_input_field font500 font12"
+                          />
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <span
+                            class="input-group-text leftform_lbl font500 text-dark1 font12"
+                            >ESIC No</span
+                          >
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            class="form-control border-start-0 post_input_field font500 font12"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <span
+                            class="input-group-text leftform_lbl font500 text-dark1 font12"
+                            >Payee AcNum1</span
+                          >
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            class="form-control border-start-0 post_input_field font500 font12"
+                          />
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <span
+                            class="input-group-text leftform_lbl font500 text-dark1 font12"
+                            >Ser Tax Reg#</span
+                          >
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            class="form-control border-start-0 post_input_field font500 font12"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <span
+                            class="input-group-text leftform_lbl font500 text-dark1 font12"
+                            >Payee IFSC1</span
+                          >
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            class="form-control border-start-0 post_input_field font500 font12"
+                          />
+                        </div>
+                      </div>
+
+                      <div class="col-md-3">
+                        <div class="input-group">
+                          <span
+                            class="input-group-text leftform_lbl font500 text-dark1 font12"
+                            >Party VatNum</span
+                          >
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            class="form-control border-start-0 post_input_field font500 font12"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="input-group" appDate1>
+                          <span
+                            class="input-group-text leftform_lbl font500 text-dark1 font12"
+                            >From</span
+                          >
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            class="form-control border-start-0 post_input_field font500 font12"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <span
+                            class="input-group-text leftform_lbl font500 text-dark1 font12"
+                            >Payee Bank2</span
+                          >
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            class="form-control border-start-0 post_input_field font500 font12"
+                          />
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <span
+                            class="input-group-text leftform_lbl font500 text-dark1 font12"
+                            >Party tinNum</span
+                          >
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            class="form-control border-start-0 post_input_field font500 font12"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <span
+                            class="input-group-text leftform_lbl font500 text-dark1 font12"
+                            >Payee Branch2</span
+                          >
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            class="form-control border-start-0 post_input_field font500 font12"
+                          />
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <span
+                            class="input-group-text leftform_lbl font500 text-dark1 font12"
+                            >CIN</span
+                          >
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            class="form-control border-start-0 post_input_field font500 font12"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <span
+                            class="input-group-text leftform_lbl font500 text-dark1 font12"
+                            >Payee AcNum2</span
+                          >
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            class="form-control border-start-0 post_input_field font500 font12"
+                          />
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <span
+                            class="input-group-text leftform_lbl font500 text-dark1 font12"
+                            >Aadhar No</span
+                          >
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            class="form-control border-start-0 post_input_field font500 font12"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <span
+                            class="input-group-text leftform_lbl font500 text-dark1 font12"
+                            >Payee IFSC2</span
+                          >
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            class="form-control border-start-0 post_input_field font500 font12"
+                          />
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <span
+                            class="input-group-text leftform_lbl font500 text-dark1 font12"
+                            >Sales Tax Central #</span
+                          >
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            class="form-control border-start-0 post_input_field font500 font12"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <span
+                            class="input-group-text leftform_lbl font500 text-dark1 font12"
+                            >R C #</span
+                          >
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            class="form-control border-start-0 post_input_field font500 font12"
+                          />
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <span
+                            class="input-group-text leftform_lbl font500 text-dark1 font12"
+                            >Sales Tax State #</span
+                          >
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            class="form-control border-start-0 post_input_field font500 font12"
+                          />
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <!-- Address Tab -->
+                  <div class="tab-pane container fade p-0" id="address">
+                    <div
+                      class="group_panel br-10 form_common_bg p-2 position-relative"
+                    >
+                      <p
+                        class="mb-0 position-absolute form_common_bg font600 group_title"
+                      >
+                        Address
+                      </p>
+                      <div class="row g-2 pt-2">
+                        <div class="col-md-6">
+                          <div class="input-group">
+                            <span
+                              class="input-group-text border-end-0 leftform_lbl font500 font12"
+                              >Address</span
+                            >
+                            <input
+                              type="text"
+                              name=""
+                              id=""
+                              class="form-control border-start-0 post_input_field font500 font12"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="input-group">
+                            <span
+                              class="input-group-text leftform_lbl font500 text-dark1 font12"
+                              >State</span
+                            >
+                            <input
+                              type="text"
+                              name=""
+                              id=""
+                              class="form-control border-start-0 post_input_field font500 font12"
+                              formControlName=""
+                              [f1]="{id: 'STATES'}"
+                            />
+                            <span class="position-relative span_divider"></span>
+                            <input
+                              type="text"
+                              name=""
+                              id=""
+                              class="form-control w-50 border-start-0 post_input_field font500 font12"
+                            />
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <div class="input-group">
+                            <span
+                              class="input-group-text border-end-0 leftform_lbl font500 font12"
+                              >Address</span
+                            >
+                            <input
+                              type="text"
+                              name=""
+                              id=""
+                              class="form-control border-start-0 post_input_field font500 font12"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="input-group">
+                            <span
+                              class="input-group-text leftform_lbl font500 text-dark1 font12"
+                              >Country</span
+                            >
+                            <input
+                              type="text"
+                              name=""
+                              id=""
+                              class="form-control border-start-0 post_input_field font500 font12"
+                              formControlName=""
+                              [f1]="{id: 'NATIONS'}"
+                            />
+                            <span class="position-relative span_divider"></span>
+                            <input
+                              type="text"
+                              name=""
+                              id=""
+                              class="form-control w-50 border-start-0 post_input_field font500 font12"
+                            />
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <div class="input-group">
+                            <span
+                              class="input-group-text border-end-0 leftform_lbl font500 font12"
+                              >Address</span
+                            >
+                            <input
+                              type="text"
+                              name=""
+                              id=""
+                              class="form-control border-start-0 post_input_field font500 font12"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="input-group">
+                            <span
+                              class="input-group-text border-end-0 leftform_lbl font500 font12"
+                              >Phone Off.</span
+                            >
+                            <input
+                              type="text"
+                              name=""
+                              id=""
+                              class="form-control border-start-0 post_input_field font500 font12"
+                            />
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <div class="input-group">
+                            <span
+                              class="input-group-text border-end-0 leftform_lbl font500 font12"
+                              >Address</span
+                            >
+                            <input
+                              type="text"
+                              name=""
+                              id=""
+                              class="form-control border-start-0 post_input_field font500 font12"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="input-group">
+                            <span
+                              class="input-group-text border-end-0 leftform_lbl font500 font12"
+                              >Phone Res.</span
+                            >
+                            <input
+                              type="text"
+                              name=""
+                              id=""
+                              class="form-control border-start-0 post_input_field font500 font12"
+                            />
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <div class="input-group">
+                            <span
+                              class="input-group-text border-end-0 leftform_lbl font500 font12"
+                              >Address</span
+                            >
+                            <input
+                              type="text"
+                              name=""
+                              id=""
+                              class="form-control border-start-0 post_input_field font500 font12"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="input-group">
+                            <span
+                              class="input-group-text border-end-0 leftform_lbl font500 font12"
+                              >Mobile</span
+                            >
+                            <input
+                              type="text"
+                              name=""
+                              id=""
+                              class="form-control border-start-0 post_input_field font500 font12"
+                            />
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <div class="input-group">
+                            <span
+                              class="input-group-text leftform_lbl font500 text-dark1 font12"
+                              >Town</span
+                            >
+                            <input
+                              type="text"
+                              name=""
+                              id=""
+                              class="form-control border-start-0 post_input_field font500 font12"
+                              formControlName=""
+                              [f1]="{id: 'TOWNS'}"
+                            />
+                            <span class="position-relative span_divider"></span>
+                            <input
+                              type="text"
+                              name=""
+                              id=""
+                              class="form-control w-50 border-start-0 post_input_field font500 font12"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="input-group">
+                            <span
+                              class="input-group-text border-end-0 leftform_lbl font500 font12"
+                              >Fax</span
+                            >
+                            <input
+                              type="text"
+                              name=""
+                              id=""
+                              class="form-control border-start-0 post_input_field font500 font12"
+                            />
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <div class="input-group">
+                            <span
+                              class="input-group-text leftform_lbl font500 text-dark1 font12"
+                              >City</span
+                            >
+                            <input
+                              type="text"
+                              name=""
+                              id=""
+                              class="form-control border-start-0 post_input_field font500 font12"
+                            />
+                            <span class="position-relative span_divider"></span>
+                            <input
+                              type="text"
+                              name=""
+                              id=""
+                              class="form-control w-50 border-start-0 post_input_field font500 font12"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="input-group">
+                            <span
+                              class="input-group-text border-end-0 leftform_lbl font500 font12"
+                              >Email Id</span
+                            >
+                            <input
+                              type="text"
+                              name=""
+                              id=""
+                              class="form-control border-start-0 post_input_field font500 font12"
+                            />
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <div class="input-group">
+                            <span
+                              class="input-group-text border-end-0 leftform_lbl font500 font12"
+                              >Pin Code</span
+                            >
+                            <input
+                              type="text"
+                              name=""
+                              id=""
+                              class="form-control border-start-0 post_input_field font500 font12"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Contact Info Tab -->
+                  <div class="tab-pane container fade p-0" id="contactInfo">
+                    <div class="row g-2">
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <span
+                            class="input-group-text border-end-0 leftform_lbl font500 font12"
+                            >Head Contact Person</span
+                          >
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            class="form-control border-start-0 post_input_field font500 font12"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <span
+                            class="input-group-text border-end-0 leftform_lbl font500 font12"
+                            >Head Contact No</span
+                          >
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            class="form-control border-start-0 post_input_field font500 font12"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <span
+                            class="input-group-text border-end-0 leftform_lbl font500 font12"
+                            >Cordinator1</span
+                          >
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            class="form-control border-start-0 post_input_field font500 font12"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <span
+                            class="input-group-text border-end-0 leftform_lbl font500 font12"
+                            >Cordinator1 No</span
+                          >
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            class="form-control border-start-0 post_input_field font500 font12"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <span
+                            class="input-group-text border-end-0 leftform_lbl font500 font12"
+                            >Cordinator2</span
+                          >
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            class="form-control border-start-0 post_input_field font500 font12"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <span
+                            class="input-group-text border-end-0 leftform_lbl font500 font12"
+                            >Cordinator2 No</span
+                          >
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            class="form-control border-start-0 post_input_field font500 font12"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <span
+                            class="input-group-text border-end-0 leftform_lbl font500 font12"
+                            >Brand</span
+                          >
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            class="form-control border-start-0 post_input_field font500 font12"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- MSME Detail Tab -->
+                  <div class="tab-pane container fade p-0" id="msmedetail">
+                    <div
+                      class="group_panel br-10 p-2 position-relative form_common_bg"
+                    >
+                      <div class="row g-2">
+                        <div class="container mb-2">
+                          <div class="input-group justify-content-center">
+                            <div
+                              class="form-check form-check-inline"
+                              *ngFor="let item of config.quoteParty"
+                            >
+                              <input
+                                class="form-check-input position-relative cursor-pointer"
+                                type="radio"
+                                [value]="item.id"
+                              />
+                              <label class="form-check-label m-0" for="exTy1">
+                                {{ item.name }}
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="table-responsive group_panel form_common_bg stylishScroll custom-height"
+                      >
+                        <table class="table table-bordered table-sm mb-0">
+                          <thead>
+                            <tr>
+                              <th class="fontBold font12 fonttxt_black">
+                                Enterprise Type
+                              </th>
+                              <th class="fontBold font12 fonttxt_black">
+                                Enterprise Type Name
+                              </th>
+                              <th class="fontBold font12 fonttxt_black">
+                                Registration No
+                              </th>
+                              <th class="fontBold font12 fonttxt_black">
+                                Commencement Date
+                              </th>
+                              <th class="fontBold font12 fonttxt_black">
+                                End Date
+                              </th>
+                              <th class="fontBold font12 fonttxt_black">
+                                Action
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>
+                                <div class="input-group">
+                                  <input
+                                    type="text"
+                                    name=""
+                                    id=""
+                                    class="form-control input_control font500 fonttxt_black font12"
+                                  />
+                                </div>
+                              </td>
+                              <td>
+                                <div class="input-group">
+                                  <input
+                                    type="text"
+                                    name=""
+                                    id=""
+                                    class="form-control input_control font500 fonttxt_black font12"
+                                  />
+                                </div>
+                              </td>
+                              <td>
+                                <div class="input-group">
+                                  <input
+                                    type="text"
+                                    name=""
+                                    id=""
+                                    class="form-control input_control font500 fonttxt_black font12"
+                                  />
+                                </div>
+                              </td>
+                              <td>
+                                <div class="input-group">
+                                  <input
+                                    type="text"
+                                    name=""
+                                    id=""
+                                    class="form-control input_control font500 fonttxt_black font12"
+                                  />
+                                </div>
+                              </td>
+                              <td>
+                                <div class="input-group">
+                                  <input
+                                    type="text"
+                                    name=""
+                                    id=""
+                                    class="form-control input_control font500 fonttxt_black font12"
+                                  />
+                                </div>
+                              </td>
+
+                              <td>
+                                <div
+                                  class="action_panel d-flex justify-content-center"
+                                >
+                                  <button
+                                    type="button"
+                                    class="btn action_btn d-flex bg_common_red mt-1"
+                                  >
+                                    <!-- (click)="logicNoteAdd()" -->
+                                    <img
+                                      src="/assets/images/add.svg"
+                                      alt="add"
+                                      class="add_img"
+                                    />
+                                  </button>
+                                  <button
+                                    type="button"
+                                    class="btn action_btn d-flex bg_common_red ms-1 mt-1"
+                                  >
+                                    <!-- (click)="deleteParty(index)" -->
+                                    <img
+                                      src="/assets/images/trash.svg"
+                                      alt="remove"
+                                      class="delete_img"
+                                    />
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Bottom button start -->
+<app-buttons
+  [buttonsList]="buttonsList"
+  (eventTrigger)="buttonAction($event)"
+></app-buttons>
+<!-- Bottom button end -->

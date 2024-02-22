@@ -1,0 +1,61 @@
+<section class="content_section mst_res">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row g-3">
+          <div class="col-md-12">
+            <div class="fav_panel">
+              <h4 class="h4 lh_30 mb-0 fs-4 font500 mb-3">Favourites</h4>
+              <div class="favourites_list">
+                <div class="row g-2">
+                  <div
+                    class="col-xl-2 col-lg-2 col-md-3 col-6"
+                    *ngFor="let item of favList"
+                    [title]="item.desc"
+                  >
+                    <a
+                      class="fav_list_container br-20 bg-white"
+                      [routerLink]="'/' + item.url"
+                    >
+                      <!-- <div class="br-10 d-inline-flex fav_list_icon">
+                        <img src="assets/images/fav.svg" alt="fav" />
+                      </div> -->
+                      <span
+                        class="fav_txt font12 font500 lh-23 overflow-hidden text-black"
+                      >
+                        {{ item.desc }}
+                      </span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="bg-theme-light br-20 p-3">
+              <div class="d-flex align-items-start">
+                <p class="font500 mb-0">
+                  Select the options and mark them as your favourite
+                </p>
+                <img
+                  src="assets/images/fav1.svg"
+                  alt="fav"
+                  class="fav_icon ms-3"
+                />
+              </div>
+              <button
+                class="btn btn-theme btn-sm mt-2 px-3"
+                routerLink="/shared/favourite"
+              >
+                Add Favourite
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content_section_left">
+        <section class="favourites_section"></section>
+      </div>
+    </div>
+  </div>
+</section>

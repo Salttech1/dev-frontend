@@ -1,0 +1,696 @@
+<form [formGroup]="purchaseBillAdjustment">
+  <div class="form_container">
+    <div class="row g-2 mb-3">
+      <div class="col-md-6 col-lg-4">
+        <div
+          class="input-group has-validation"
+          [class.is-invalid]="
+            purchaseBillAdjustment.get('partycode')?.touched &&
+            purchaseBillAdjustment.get('partycode')?.invalid
+          "
+        >
+          <span
+            class="input-group-text leftform_lbl font500 text-dark1 font12"
+            ><span class="text-danger font500 font12">* </span>Party Code</span
+          >
+          <input
+            #partycode
+            appCommonAutoFocus
+            type="text"
+            class="form-control border-start-0 br-10"
+            formControlName="partycode"
+            [f1]="{ id: 'PARTYCODE', subId: partySubId }"
+          />
+        </div>
+        <div class="invalid-feedback">Please enter proper code</div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div
+          class="input-group has-validation"
+          [class.is-invalid]="
+            purchaseBillAdjustment.get('entry')?.touched &&
+            purchaseBillAdjustment.get('entry')?.invalid
+          "
+        >
+          <span
+            class="input-group-text leftform_lbl font500 text-dark1 font12"
+            ><span class="text-danger font500 font12">* </span>Bill Entry #</span
+          >
+          <input
+            type="text"
+            class="form-control border-start-0 br-10"
+            formControlName="entry"
+            [f1]="{
+              id: 'BILLENTNO',
+              subId: billSubId
+            }"
+          />
+        </div>
+        <div class="invalid-feedback">
+          <ng-container
+            *ngIf="purchaseBillAdjustment.get('entry')?.errors?.['required']"
+          >
+            Please enter proper Bill no.
+          </ng-container>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="input-group">
+          <span
+            class="input-group-text leftform_lbl font500 text-dark1 font12"
+            >Company</span
+          >
+          <input
+            type="text"
+            class="form-control border-start-0 br-10"
+            formControlName="coy"
+            [f1]="{ id: 'COMPANY' }"
+          />
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="input-group">
+          <span
+            class="input-group-text leftform_lbl font500 text-dark1 font12"
+            >Building</span
+          >
+          <input
+            type="text"
+            class="form-control border-start-0 br-10"
+            formControlName="bldgcode"
+            [f1]="{ id: 'BUILDINGS' }"
+          />
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="input-group">
+          <span
+            class="input-group-text leftform_lbl font500 text-dark1 font12"
+            >Bill Type</span
+          >
+          <input
+            upperCase
+            type="text"
+            class="form-control border-start-0 br-10"
+            formControlName="billtype"
+          />
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="input-group">
+          <span
+            class="input-group-text leftform_lbl font500 text-dark1 font12"
+            >Supp Bill</span
+          >
+          <input
+            upperCase
+            type="text"
+            class="form-control border-start-0 br-10"
+            id="suppBill"
+            formControlName="suppbill"
+          />
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="input-group" appDate1>
+          <span
+            class="input-group-text leftform_lbl font500 text-dark1 font12"
+            >Date</span
+          >
+          <input
+            class="form-control border-start-0 br-10 border-start-0 post_input_field font500 text-dark1 font12"
+            id="formDateField"
+            formControlName="suppBillDate"
+            matInput
+            [matDatepicker]="pickerFrom"
+          />
+          <div
+            class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+          >
+            <span class="input-group-addon">
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="pickerFrom"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #pickerFrom></mat-datepicker>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="input-group">
+          <span
+            class="input-group-text leftform_lbl font500 text-dark1 font12"
+            >Amount</span
+          >
+          <input
+            type="text"
+            class="text-end form-control border-start-0 br-10"
+            id="amountVal"
+            formControlName="amount"
+          />
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="input-group">
+          <span
+            class="input-group-text leftform_lbl font500 text-dark1 font12"
+            >Retention</span
+          >
+          <input
+            type="text"
+            class="form-control border-start-0 br-10 text-end"
+            id
+            formControlName="retention"
+          />
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="input-group">
+          <span
+            class="input-group-text leftform_lbl font500 text-dark1 font12"
+            >TDS %</span
+          >
+          <input
+            type="text"
+            class="form-control border-start-0 br-10"
+            id
+            formControlName="tdsperc"
+          />
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="input-group">
+          <span
+            class="input-group-text leftform_lbl font500 text-dark1 font12"
+            >TDS Amt</span
+          >
+          <input
+            type="text"
+            class="form-control border-start-0 br-10"
+            id
+            formControlName="tdsamt"
+          />
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="input-group">
+          <span
+            class="input-group-text leftform_lbl font500 text-dark1 font12"
+            >Narration</span
+          >
+          <input
+            type="text"
+            class="form-control border-start-0 br-10"
+            formControlName="naration"
+          />
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="input-group">
+          <span
+            class="input-group-text leftform_lbl font500 text-dark1 font12"
+            >Party GST</span
+          >
+          <input
+            type="text"
+            class="form-control border-start-0 br-10"
+            formControlName="partyGst"
+          />
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="input-group">
+          <span
+            class="input-group-text leftform_lbl font500 text-dark1 font12"
+            >State</span
+          >
+          <input
+            type="text"
+            class="form-control border-start-0 br-10"
+            formControlName="state"
+            [f1]="{ id: 'STATES', des: 1 }"
+          />
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="input-group">
+          <span
+            class="input-group-text leftform_lbl font500 text-dark1 font12"
+            >Debit Type</span
+          >
+          <input
+            type="text"
+            class="form-control border-start-0 br-10"
+            formControlName="debitType"
+            [f1]="{ id: 'DEBITTO' }"
+          />
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="input-group">
+          <span
+            class="input-group-text leftform_lbl font500 text-dark1 font12"
+            >CE Indent</span
+          >
+          <input
+            type="text"
+            class="form-control border-start-0 br-10"
+            formControlName="ceIndent"
+          />
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="input-group">
+          <span
+            class="input-group-text leftform_lbl font500 text-dark1 font12"
+            >Material</span
+          >
+          <input
+            type="text"
+            class="form-control border-start-0 br-10"
+            formControlName="material"
+            [f1]="{ id: 'MATGROUPS' }"
+          />
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="input-group">
+          <span
+            class="input-group-text leftform_lbl font500 text-dark1 font12"
+            >Level2</span
+          >
+          <input
+            type="text"
+            class="form-control border-start-0 br-10"
+            formControlName="level2"
+            [f1]="{ id: 'MATCODES' }"
+          />
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="input-group">
+          <span
+            class="input-group-text leftform_lbl font500 text-dark1 font12"
+            >U O M</span
+          >
+          <input
+            type="text"
+            class="form-control border-start-0 br-10 border-start-0 br-10"
+            formControlName="uom"
+          />
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="input-group">
+          <span
+            class="input-group-text leftform_lbl font500 text-dark1 font12"
+            >Quantity</span
+          >
+          <input
+            type="text"
+            class="form-control border-start-0 br-10 text-end"
+            id
+            formControlName="quantity"
+          />
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="input-group">
+          <span
+            class="input-group-text leftform_lbl font500 text-dark1 font12"
+            >Item Rate</span
+          >
+          <input
+            type="text"
+            class="form-control border-start-0 br-10"
+            id
+            formControlName="itemRate"
+          />
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="input-group">
+          <span
+            class="input-group-text leftform_lbl font500 text-dark1 font12"
+            >Value</span
+          >
+          <input
+            type="text"
+            class="form-control border-start-0 br-10 text-end"
+            formControlName="value"
+          />
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="input-group">
+          <span
+            class="input-group-text leftform_lbl font500 text-dark1 font12"
+            >TCS Amt</span
+          >
+          <input
+            type="text"
+            class="form-control border-start-0 br-10 text-end"
+            id
+            formControlName="tcsAmt"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- tab -->
+    <div class="row col-md-12 custom">
+      <div class="tabs_container">
+        <div class="tabs_inner_container">
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a
+                class="nav-link lh-20 active text-decoration-none font14 text-dark1 font500 first_letter_textdecorationone"
+                data-bs-toggle="tab"
+                href="#itemGSTBreakUpDetails"
+                accesskey="g"
+                (click)="navTab = 'itemGSTBreakUpDetails'"
+              >
+                Item /<span class="text-decoration-underline">G</span>ST BreakUp
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link lh-20 text-decoration-none font14 text-dark1 font500 first_letter_textdecorationone"
+                data-bs-toggle="tab"
+                href="#challandetails"
+                accesskey="c"
+                (click)="navTab = 'challandetails'"
+              >
+                <u>C</u>hallan Details
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="tab-content">
+          <div class="tab-pane container active p-0" id="itemGSTBreakUpDetails">
+            <div class="gstBreakup_section">
+              <div class="table-responsive">
+                <div class="view" formArrayName="itemDetailBreakUp">
+                  <div class="table-responsive wrapper">
+                    <table class="table table-bordered m-0">
+                      <thead class="table_head_position_sticky">
+                        <tr tabindex="0">
+                          <th tabindex="-1">#</th>
+                          <th class="fontBold font12 text-dark1">HSN</th>
+                          <th class="fontBold font12 text-dark1">
+                            Item Desc
+                          </th>
+                          <th class="fontBold font12 text-dark1 text-end">
+                            Item Amt
+                          </th>
+                          <th class="fontBold font12 text-dark1">
+                            Discount
+                          </th>
+                          <th class="fontBold font12 text-dark1 max_wid_120">
+                            FOTO Amt
+                          </th>
+                          <th class="fontBold font12 text-dark1 max_wid_120">
+                            Taxable Amt
+                          </th>
+                          <th class="fontBold font12 text-dark1 max_wid_150">
+                            CGST%
+                          </th>
+                          <th class="fontBold font12 text-dark1">Amt</th>
+                          <th class="fontBold font12 text-dark1 max_wid_150">
+                            SGST%
+                          </th>
+                          <th class="fontBold font12 text-dark1">Amt</th>
+                          <th class="fontBold font12 text-dark1 max_wid_150">
+                            IGST %
+                          </th>
+                          <th class="fontBold font12 text-dark1">Amt</th>
+                          <th class="fontBold font12 text-dark1 max_wid_150">
+                            UGST %
+                          </th>
+                          <th class="fontBold font12 text-dark1">Amt</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr
+                          *ngFor="
+                            let item of purchaseBillAdjustment.controls
+                              .itemDetailBreakUp.controls;
+                            let index = index
+                          "
+                          [formGroupName]="index"
+                        >
+                          <td>
+                            {{ index + 1 }}
+                          </td>
+                          <td>
+                            <input
+                              class="form-control"
+                              type="text"
+                              formControlName="hsncode"
+                              title="{{
+                                purchaseBillAdjustment.controls.itemDetailBreakUp.controls[
+                                  index
+                                ].get('hsncode')?.value
+                              }}"
+                            />
+                          </td>
+                          <td>
+                            <input
+                              class="form-control"
+                              type="text"
+                              formControlName="hsndesc"
+                              title="{{
+                                purchaseBillAdjustment.controls.itemDetailBreakUp.controls[
+                                  index
+                                ].get('hsndesc')?.value
+                              }}"
+                            />
+                          </td>
+                          <td>
+                            <input
+                              class="form-control text-end"
+                              type="text"
+                              value="0"
+                              formControlName="amount"
+                            />
+                          </td>
+                          <td>
+                            <input
+                              class="form-control text-end"
+                              type="text"
+                              value="0"
+                              formControlName="discountamt"
+                            />
+                          </td>
+                          <td>
+                            <input
+                              class="form-control text-end"
+                              type="text"
+                              value="0"
+                              formControlName="fotoamt"
+                            />
+                          </td>
+                          <td>
+                            <input
+                              class="form-control text-end"
+                              type="text"
+                              value="0"
+                              formControlName="taxableamt"
+                            />
+                          </td>
+                          <td>
+                            <input
+                              class="form-control text-end"
+                              type="text"
+                              value="0"
+                              id="cgstpercId"
+                              formControlName="cgstperc"
+                            />
+                          </td>
+                          <td>
+                            <input
+                              class="form-control text-end"
+                              type="text"
+                              value="0"
+                              formControlName="cgstamt"
+                            />
+                          </td>
+                          <td>
+                            <input
+                              class="form-control text-end"
+                              type="text"
+                              value="0"
+                              formControlName="sgstperc"
+                            />
+                          </td>
+                          <td>
+                            <input
+                              class="form-control text-end"
+                              type="text"
+                              value="0"
+                              formControlName="sgstamt"
+                            />
+                          </td>
+                          <td>
+                            <input
+                              class="form-control text-end"
+                              type="text"
+                              value="0"
+                              formControlName="igstperc"
+                            />
+                          </td>
+                          <td>
+                            <input
+                              class="form-control text-end"
+                              type="text"
+                              value="0"
+                              formControlName="igstamt"
+                            />
+                          </td>
+                          <td>
+                            <input
+                              class="form-control text-end"
+                              type="text"
+                              value="0"
+                              id="ugstpercId"
+                              formControlName="ugstperc"
+                            />
+                          </td>
+                          <td>
+                            <input
+                              class="form-control text-end"
+                              type="text"
+                              value="0"
+                              formControlName="ugstamt"
+                            />
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane container fade p-0" id="challandetails">
+            <div class="challan_section" formArrayName="challan">
+              <div class="row">
+                <div class="col-xl-6">
+                  <div class="table-responsive table_wrapper">
+                    <table
+                      class="table table-bordered datatable table m-0"
+                      style="width: 100%"
+                    >
+                      <thead>
+                        <tr tabindex="0">
+                          <th>#</th>
+                          <th class="fontBold font12 text-dark1">
+                            challan #
+                          </th>
+                          <th class="fontBold font12 text-dark1">
+                            challan Dt
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr
+                          *ngFor="
+                            let item of purchaseBillAdjustment.controls.challan
+                              .controls;
+                            let index = index
+                          "
+                          [formGroupName]="index"
+                        >
+                          <td>{{ index + 1 }}</td>
+                          <td>
+                            <div class="input-group border border-light">
+                              <input
+                                class="border-0 form-control input_control form-control font500 text-dark1 font12"
+                                type="text"
+                                formControlName="dcno"
+                              />
+                            </div>
+                          </td>
+                          <td>
+                            <div
+                              class="input-group tbl_datepicker custom_picker border border-light"
+                              appDate1
+                            >
+                              <input
+                                class="form-control input_control border-0 form-control pre_input_field font500 text-dark1 font12"
+                                id="challandt_{{ index }}"
+                                matInput
+                                [matDatepicker]="pickerChallanDate"
+                                formControlName="dcdate"
+                              />
+                              <div
+                                class="datepicker_input_cutsom_icon border-0 input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                              >
+                                <span class="input-group-addon">
+                                  <mat-datepicker-toggle
+                                    matSuffix
+                                    [for]="pickerChallanDate"
+                                    tabindex="-1"
+                                  ></mat-datepicker-toggle>
+                                  <mat-datepicker
+                                    #pickerChallanDate
+                                  ></mat-datepicker>
+                                </span>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+<app-loader *ngIf="loaderToggle"></app-loader>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner bg-white br-10 d-flex justify-content-center">
+      <button
+        type="submit"
+        class="bg_common_red common_action_btn br-10"
+        accesskey="r"
+        (click)="retrieve()"
+        [disabled]="fetchedPurchaseBill"
+      >
+        Retrieve
+      </button>
+      <button
+        type="submit"
+        class="bg_common_red common_action_btn br-10"
+        accesskey="s"
+        (click)="save()"
+        [disabled]="!fetchedPurchaseBill"
+      >
+        Save
+      </button>
+      <button
+        type="submit"
+        class="bg_common_red common_action_btn br-10"
+        accesskey="b"
+        (click)="back()"
+        [disabled]="!fetchedPurchaseBill"
+      >
+        Back
+      </button>
+      <a
+        class="bg_common_red common_action_btn br-10 text-white border-0 first_letter_textdecorationone text-decoration-none"
+        accesskey="x"
+        routerLink="/dashboard"
+      >
+        E<u>x</u>it
+      </a>
+    </div>
+  </div>
+</section>

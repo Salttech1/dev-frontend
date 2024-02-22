@@ -1,0 +1,33 @@
+.matForm {
+    display: flex;
+    align-items: center;
+    padding-left: 0.5rem;
+  }
+  .input-group-text {
+    border-radius: 9px 0px 0px 9px;
+  }
+  
+  .input-group input {
+    text-transform: uppercase;
+  }
+  
+  .input-group-text.req > b {
+    color: red;
+  }
+  
+  .disInl {
+    display: inline-block;
+  }
+  
+  .is-invalid,
+  .is-invalid > .input-group-text,
+  .is-invalid > .form-control,
+  .is-invalid > app-f1 {
+    border-color: red;
+  }
+  
+table input {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 2px 8px;
+}

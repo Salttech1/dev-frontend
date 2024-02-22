@@ -1,0 +1,98 @@
+<section class="container">
+  <section class="form-section-wrapper">
+    <form [formGroup]="ReportCriteria">
+      <div class="row d-flex justify-content-center">
+        <div class="col-md-4">
+          <!-- building code -->
+          <div
+            class="input-group mt-4"
+            [class.is-invalid]="(ReportCriteria.get('bldgCode')?.hasError('required') && ReportCriteria.controls['bldgCode'].touched)|| ReportCriteria.controls?.['bldgCode'].errors?.['notFound'] 
+             "
+          >
+            <span
+              class="input-group-text leftform_lbl font500 text-dark1 font12"
+            >
+              <b></b>Buildings
+            </span>
+            <input
+              appCommonAutoFocus
+              type="text"
+              formControlName="bldgCode"
+              class="form-control border-start-0 post_input_field font500 font12"
+              upperCase
+              [f1]="{
+                id: 'SALESBLDG',
+                multi: true
+              }"
+              (focusout)="onLeaveBuildingCode($event.target.value)"
+            />
+          </div>
+          <div
+            class="errorField common_color_txt font12 font500 disInl"
+            *ngIf="ReportCriteria.controls?.['bldgCode'].errors?.['notFound'] "
+          >
+            Invalid Building Code
+          </div>
+
+          <!-- wing -->
+
+          <div
+            class="input-group mt-4"
+            [class.is-invalid]="ReportCriteria.controls?.['wing'].errors?.['notFound'] "
+          >
+            <span
+              class="input-group-text leftform_lbl font500 text-dark1 font12"
+              >Wing &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </span>
+            <input
+              id="id_wing"
+              type="text"
+              formControlName="wing"
+              upperCase
+              class="form-control border-start-0 post_input_field font500 font12"
+              [f1]="{
+                id: 'BWINGS',
+                subId: filter_wing,
+                multi: true
+              }"
+            />
+          </div>
+          <div
+            class="errorField common_color_txt font12 font500 disInl"
+            *ngIf="ReportCriteria.controls?.['wing'].errors?.['notFound'] "
+          >
+            Invalid wing
+          </div>
+
+          <!-- yearMonth -->
+          <div class="col-md-7">
+            <div class="input-group mt-4">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >YearMonth</span
+              >
+
+              <input
+                oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                type="text"
+                id="id_yearMonth"
+                maxlength="6"
+                name="txtYearMonth"
+                class="form-control post_input_field border-start-0"
+                formControlName="yearMonth"
+              />
+              
+              </div>
+           
+          </div>
+        </div>
+        
+      </div>
+    </form>
+  </section>
+</section>
+<app-buttons
+  [buttonsList]="buttonsList"
+  (eventTrigger)="buttonAction($event)"
+></app-buttons>
+<app-loader *ngIf="config.isLoading"></app-loader>

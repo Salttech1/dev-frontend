@@ -1,0 +1,36 @@
+
+  <div class="custom_modal" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+    <div class="modal-content" >
+      <div class="modal_container">
+        <div class="modal-header p-0">
+            <span mat-dialog-title class="modal-title font600 font14 mb-0" id="staticBackdropLabel ">{{data.title}}</span>
+            <button type="button" class="btn-close" mat-button mat-dialog-close aria-label="Close" tabindex="-1" ></button> 
+        </div>
+        <ng-container *ngIf = "data.isF1Pressed">
+          <mat-dialog-content class="mat-typography modal-lg">
+            <div class="px-0 pt-2">
+              <ng-container [ngTemplateOutlet]="data.template"></ng-container>
+            </div>
+          </mat-dialog-content>
+        </ng-container>
+        <ng-container  *ngIf = "!data.isF1Pressed">
+          <mat-dialog-content class="mat-typography modal-lg">
+            <div class="modal-body py-4">
+              <ng-container >
+              <img [src]="imagePath" width="50" height="50" style="padding: 5px">
+                {{data.message}}</ng-container>
+            </div>
+          </mat-dialog-content>
+          <div class="text-center modal_ok_btn pb-3" align="end" *ngIf="!data.confirmationDialog">
+            <button mat-button (click)="dialog.close()" cdkFocusInitial class="bg_common_red text-white border-0 p-2 font600 br-10 px-4">Ok</button>
+          </div>
+          <div class="text-center modal_ok_btn pb-3" align="end" *ngIf="data.confirmationDialog">
+            <button mat-button (click)="dialog.close()" cdkFocusInitial class="btn del_act_btn fs-6 font600 br-10 text-white bg_common_red me-4" (click)="onConfirm()">Yes</button>
+            <button mat-button (click)="dialog.close()"  class="btn del_act_btn del_act_cancel_btn br-10 fs-6 font600 text-dark1" (click)="onDismiss()">No</button>
+          </div>
+        </ng-container>
+        </div>
+    </div>
+  </div>
+  
+  

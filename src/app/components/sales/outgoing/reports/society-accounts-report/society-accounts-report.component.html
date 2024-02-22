@@ -1,0 +1,187 @@
+<section>
+  <form [formGroup]="queryForm">
+        <!-- Proprietor Start -->
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3 col-xxl-12">
+          <div
+            class="input-group"
+            [class.is-invalid]="
+                          queryForm.controls['proprietor'].invalid &&
+                          queryForm.controls['proprietor'].touched || queryForm.invalid &&
+                          queryForm.touched && queryForm.errors?.['atLeastOneFilter'] 
+                        "
+          >
+            <span
+              class="input-group-text leftform_lbl font500 text-dark1 font12"
+              >Proprietor</span
+            >
+            <input
+              type="text"
+              id="proprietor"
+              class="form-control border-start-0"
+              formControlName="proprietor"
+              [f1]="{ id: 'PROPRIETORS'}"              
+              (focusout)="filterPropcodeForCompany()"
+              appCommonAutoFocus
+            />
+          </div>
+          <div
+            class="invalid-feedback d-block"
+            *ngIf="
+              queryForm.controls['proprietor'].invalid &&
+              queryForm.controls['proprietor'].touched
+            "
+          >
+            <div
+              *ngIf="queryForm.controls['proprietor'].errors?.['notFound']"
+            >
+              Not Found
+            </div>
+          </div>
+        </div>
+        <!-- Proprietor End -->
+        <!-- Company Start -->
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3 col-xxl-12">
+          <div
+            class="input-group"
+            [class.is-invalid]="
+                                        queryForm.controls['company'].invalid &&
+                                        queryForm.controls['company'].touched || queryForm.invalid &&
+                                        queryForm.touched && queryForm.errors?.['atLeastOneFilter'] 
+                                      "
+          >
+            <span
+              class="input-group-text leftform_lbl font500 text-dark1 font12"
+              >Company</span
+            >
+            <input
+              type="text"
+              id="company"
+              class="form-control border-start-0"
+              formControlName="company"
+              [f1]="{ id: 'COMPANY', subId: companyFilter  }"
+              appCommonAutoFocus
+            />
+            
+          </div>
+          <div
+            class="invalid-feedback d-block"
+            *ngIf="
+              queryForm.controls['company'].invalid &&
+              queryForm.controls['company'].touched
+            "
+          >
+            <div
+              *ngIf="queryForm.controls['company'].errors?.['notFound']"
+            >
+              Not Found
+            </div>
+          </div>
+        </div>
+        <!-- Company End -->
+        <!-- Date Upto Start -->
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3 col-xxl-3">
+          <div
+            class="input-group"
+            [class.is-invalid]="
+              queryForm.controls['dateUpto'].invalid &&
+              queryForm.controls['dateUpto'].touched
+            "
+            appDate1
+          >
+            <span
+              class="input-group-text leftform_lbl font500 text-dark1 font12"
+              >Date Upto</span
+            >
+            <input
+              type="text"
+              [autocomplete]="'off'"
+              class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+              id="dateUpto"
+              matInput
+              [matDatepicker]="pickerDateUpto"
+              formControlName="dateUpto"
+            />
+            <div
+              class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+            >
+              <span class="input-group-addon">
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="pickerDateUpto"
+                  tabindex="-1"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #pickerDateUpto></mat-datepicker>
+              </span>
+            </div>
+          </div>
+          <!-- Date Upto End -->
+        </div>
+        <!-- Text to be displayed-->
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <!-- <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">  </div>col-lg-12 col-xl-12 col-xxl-12"> -->
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3 col-xxl-3">
+          <div
+            class="input-group"
+          >
+            <span
+              class="input-group-text leftform_lbl font500 text-dark1 font12"
+              >Note: Only those transactions whose banking is done will be taken into consideration<br>
+              Report also contain JV's  data<br>
+              Outgoing: OUTG+PROP+NATX+TRFE<br>      SocMaint: SOCI+MANT<br>        Share: SHAY  <br>
+              ApexInfra: APEX+INFR<br>                          InfraColl: INAP<br>                 Auxi: AUXI<br>          Sink: SINK</span
+            >
+            <!-- <input
+              type="text"
+              id="note"
+              class="form-control border-start-0"
+              formControlName="note"
+            /> -->
+            
+          </div>
+        </div>
+  </form>
+</section>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner bg-white br-10 d-flex justify-content-center">
+      <button
+        *ngIf="_service.getAccess('Export')"
+        type="submit"
+        class="bg_common_red common_action_btn br-10 first_letter_textdecorationone"
+        [attr.accesskey]="loaderToggle == true ? '' : 'w'"
+        (click)="generateOutgoingBills()"
+      >
+        Do<u>w</u>nload
+      </button>
+      <button
+        *ngIf="_service.getAccess('Print')"
+        type="submit"
+        class="bg_common_red common_action_btn br-10"
+        (click)="getReport(true)"
+        [attr.accesskey]="loaderToggle == true ? '' : 'p'"
+      >
+        Print
+      </button>
+      <button
+        type="submit"
+        (click)="resetForm()"
+        class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone"
+        accesskey="t"
+      >
+        Rese<span class="text-decoration-underline">t</span>
+      </button>
+      <a
+        class="bg_common_red border-0 common_action_btn text-white br-10 first_letter_textdecorationone text-decoration-none"
+        [attr.accesskey]="loaderToggle == true ? '' : 'x'"
+        routerLink="/dashboard"
+      >
+        E<u>x</u>it
+      </a>
+    </div>
+  </div>
+</section>
+<app-loader *ngIf="loaderToggle"></app-loader>

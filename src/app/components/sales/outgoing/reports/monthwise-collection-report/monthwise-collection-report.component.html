@@ -1,0 +1,269 @@
+<section>
+  <div class="row">
+    <div class="col-md-12">
+      <form [formGroup]="queryForm">
+        <div class="row g-3">
+          <!-- Building Code Start -->
+          <div class="col-lg-4 col-sm-6">
+            <div
+              class="input-group"
+              [class.is-invalid]="
+                        queryForm.controls['bldgCode'].invalid &&
+                        queryForm.controls['bldgCode'].touched || queryForm.invalid &&
+                        queryForm.touched && queryForm.errors?.['atLeastOneFilter'] 
+                      "
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Building Code</span
+              >
+              <input
+                type="text"
+                id="bldgCode"
+                class="form-control border-start-0"
+                formControlName="bldgCode"
+                [f1]="{ id: 'BUILDINGS' }"
+                (focusout)="setSubidBldgcode()"
+                appCommonAutoFocus
+              />
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="
+                queryForm.controls['bldgCode'].invalid &&
+                queryForm.controls['bldgCode'].touched
+              "
+            >
+              <div *ngIf="queryForm.controls['bldgCode'].errors?.['notFound']">
+                Not Found
+              </div>
+            </div>
+          </div>
+          <!-- Building Code End -->
+          <!-- Wing Start -->
+          <div class="col-lg-4 col-sm-6">
+            <div class="input-group">
+              <span class="input-group-text leftform_lbl font500 font12"
+                >wing
+              </span>
+              <input
+                type="text"
+                formControlName="wing"
+                class="form-control w-50 border-start-0 post_input_field font500 font12"
+                [f1]="{ id: 'BWINGS', subId: subidBldgcode }"
+                (focusout)="setSubidBldgcodeAndWing()"
+              />
+            </div>
+          </div>
+          <!-- Wing End -->
+          <!-- flatNum Start -->
+          <div class="col-lg-4 col-sm-6">
+            <div
+              class="input-group"
+              [class.is-invalid]="
+                        queryForm.controls['flatNum'].invalid &&
+                        queryForm.controls['flatNum'].touched || queryForm.invalid &&
+                        queryForm.touched && queryForm.errors?.['atLeastOneFilter'] 
+                      "
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Flat Number</span
+              >
+              <input
+                type="text"
+                id="flatNum"
+                class="form-control border-start-0"
+                formControlName="flatNum"
+                [f1]="{ id: 'FLATSOLD', subId: subidBldgcodeAndWing, multi: true  }"
+                appCommonAutoFocus
+              />
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="
+                queryForm.controls['flatNum'].invalid &&
+                queryForm.controls['flatNum'].touched
+              "
+            >
+              <div *ngIf="queryForm.controls['flatNum'].errors?.['notFound']">
+                Not Found
+              </div>
+            </div>
+          </div>
+          <!-- FlatNum End -->
+          <!-- Receipt From & To Date Start  -->
+          <div class="col-lg-4 col-sm-6">
+            <div
+              class="input-group flex-nowrap"
+              appDate1
+              [class.is-invalid]="
+                (queryForm.get('range')?.controls['FromDate']?.invalid &&
+                  queryForm.get('range')?.controls['FromDate']
+                    ?.touched) ||
+                (queryForm.get('range')?.controls['ToDate']?.invalid &&
+                  queryForm.get('range')?.controls['ToDate']?.touched)
+              "
+            >
+              <span class="input-group-text leftform_lbl font500 text-dark1"
+                >Receipt Date</span
+              >
+              <div
+                class="bg-white datepicker_field post_input_field flex-grow-1"
+                [class.is-invalid]="
+                  (queryForm.get('range')?.controls['FromDate']
+                    ?.invalid &&
+                    queryForm.get('range')?.controls['FromDate']
+                      ?.touched) ||
+                  (queryForm.get('range')?.controls['ToDate']?.invalid &&
+                    queryForm.get('range')?.controls['ToDate']?.touched)
+                "
+              >
+                <span class="input-group-addon">
+                  <div mat-form-field appearance="fill" class="matForm">
+                    <mat-date-range-input
+                      [formGroup]="this.queryForm.controls['range']"
+                      [rangePicker]="picker"
+                    >
+                      <input
+                        matStartDate
+                        formControlName="FromDate"
+                        placeholder="From date"
+                      />
+                      <input
+                        matEndDate
+                        formControlName="ToDate"
+                        placeholder="To date"
+                      />
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="picker"
+                    ></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                  </div>
+                </span>
+              </div>
+            </div>
+            <div
+              *ngIf="
+                queryForm.controls['range'].invalid &&
+                queryForm.controls['range'].touched
+              "
+            >
+              <div
+                class="invalid-feedback d-block"
+                *ngIf="
+                  (queryForm.get('range').controls['FromDate']
+                    ?.invalid &&
+                    queryForm.get('range').controls['FromDate']
+                      ?.touched) ||
+                  (queryForm.get('range').controls['ToDate']?.invalid &&
+                    queryForm.get('range').controls['ToDate']?.touched)
+                "
+              >
+                Proper Date is required
+              </div>
+            </div>
+          </div>
+          <!-- <div class="col-lg-4 col-sm-6">
+            <div
+              class="input-group flex-nowrap"
+              appDate1
+              [class.is-invalid]="
+                (queryForm.get('range')?.controls['suppBillFromDate']
+                  ?.invalid &&
+                  queryForm.get('range')?.controls['suppBillFromDate']
+                    ?.touched) ||
+                (queryForm.get('range')?.controls['suppBillToDate']?.invalid &&
+                  queryForm.get('range')?.controls['suppBillToDate']?.touched)
+              "
+            >
+              <span class="input-group-text leftform_lbl font500 text-dark1"
+                >Authorisation Date
+              </span>
+              <div
+                class="bg-white datepicker_field post_input_field flex-grow-1"
+                [class.is-invalid]="
+                  (queryForm.get('range')?.controls['suppBillFromDate']
+                    ?.invalid &&
+                    queryForm.get('range')?.controls['suppBillFromDate']
+                      ?.touched) ||
+                  (queryForm.get('range')?.controls['suppBillToDate']
+                    ?.invalid &&
+                    queryForm.get('range')?.controls['suppBillToDate']?.touched)
+                "
+              >
+                <span class="input-group-addon">
+                  <div mat-form-field appearance="fill" class="matForm">
+                    <mat-date-range-input
+                      [formGroup]="this.queryForm.controls['range']"
+                      [rangePicker]="picker"
+                    >
+                      <input
+                        matStartDate
+                        formControlName="suppBillFromDate"
+                        placeholder="From date"
+                      />
+                      <input
+                        matEndDate
+                        formControlName="suppBillToDate"
+                        placeholder="To date"
+                      />
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="picker"
+                    ></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                  </div>
+                </span>
+              </div>
+            </div>
+          </div> -->
+          <!-- Receipt From & To Date End -->
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner bg-white br-10 d-flex justify-content-center">
+      <button
+        *ngIf="_service.getAccess('Export')"
+        type="submit"
+        class="bg_common_red common_action_btn br-10 first_letter_textdecorationone"
+        [attr.accesskey]="loaderToggle == true ? '' : 'w'"
+        (click)="getReport(false)"
+      >
+        Do<u>w</u>nload
+      </button>
+      <button
+        *ngIf="_service.getAccess('Print')"
+        type="submit"
+        class="bg_common_red common_action_btn br-10"
+        (click)="getReport(true)"
+        [attr.accesskey]="loaderToggle == true ? '' : 'p'"
+      >
+        Print
+      </button>
+      <button
+        type="submit"
+        (click)="resetForm()"
+        class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone"
+        accesskey="t"
+      >
+        Rese<span class="text-decoration-underline">t</span>
+      </button>
+      <a
+        class="bg_common_red border-0 common_action_btn text-white br-10 first_letter_textdecorationone text-decoration-none"
+        [attr.accesskey]="loaderToggle == true ? '' : 'x'"
+        routerLink="/dashboard"
+      >
+        E<u>x</u>it
+      </a>
+    </div>
+  </div>
+</section>
+<app-loader *ngIf="loaderToggle"></app-loader>

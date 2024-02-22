@@ -1,0 +1,478 @@
+<form [formGroup]="depositDischargeFormGroup">
+    <div class="row mb-2">
+        <div class="mb-2 col-md-12 col-lg-5 col-xl-5 col-xxl-5">
+            <div class>
+                <div class>
+                    <div class="input-group" [class.is-invalid]="
+                    depositDischargeFormGroup.controls['companyCode'].invalid &&
+                    depositDischargeFormGroup.controls['companyCode'].touched">
+                        <span class="input-group-text leftform_lbl font500 text-dark1 font12">Company</span>
+                        <app-f1
+                            maxlength="7"
+                            [formControlName]="'companyCode'"
+                            placeholder
+                            class="form-control post_input_field border-start-0 d-flex"
+                            titleValue="{{tableData?.mainheader}}"
+                            [tableData]="tableData?.dataSet"
+                            [colHeader]="columnHeader"
+                            [inputBBC]="bringBackColumn"
+                            (updatedSelectedValue)="updateCompanyList($event)"
+                            [dynaPopId]="'COMPANY'"
+                            [queryConditon]=coy_condition
+                            [errorMessage]="'Invalid Company Code'"
+                            id="company3"  (change)="updateOnChangeCompanyList($event)"
+                        ></app-f1>
+                        <span class="position-relative span_divider"></span>
+                        <input
+                            type="text"
+                            class="form-control  w-50 border-start-0 post_input_field font500 text-dark1 font12 disabled_cls"
+                            [readonly]="readonlyAttr"
+                            tabindex="-1"
+                            formControlName="companyName"
+                            id="compName"
+                        >
+                    </div>
+                    <div *ngIf="depositDischargeFormGroup.controls['companyCode'].invalid && depositDischargeFormGroup.controls['companyCode'].touched">
+                        <div
+                            class="errorField common_color_txt font12 font500"
+                            *ngIf="depositDischargeFormGroup.controls['companyCode'].errors && depositDischargeFormGroup.controls['companyCode'].errors?.['required']"
+                        >
+                            * Company Code is required
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mb-2 col-md-12 col-lg-5 col-xl-5 col-xxl-5">
+            <div class>
+                <div class>
+                    <div class="input-group" [class.is-invalid]="
+                    depositDischargeFormGroup.controls['depositorId'].invalid &&
+                    depositDischargeFormGroup.controls['depositorId'].touched">
+                        <span class="input-group-text leftform_lbl font500 text-dark1 font12">Depositor</span>
+                        <app-f1
+                            maxlength="6"
+                            [formControlName]="'depositorId'"
+                            type="text"
+                            class="form-control post_input_field border-start-0 d-flex"
+                            (updatedSelectedValue)="updateListControl($event,depositDischargeFormGroup.get('name'))"
+                            titleValue="{{depositorTableData?.mainheader}}"
+                            [tableData]="depositorTableData?.dataSet"
+                            [colHeader]="deptColumnHeader"
+                            [inputBBC]="depositorTableData?.bringBackColumn"
+                            [dynaPopId]="'DEPOSITORS'"
+                            [queryConditon]=deptDyanPop
+                            [errorMessage]="'Invalid Depositor Code'" (click)="updateDepositorList()" (change)="updateDepositorOnChange($event)"
+                        ></app-f1>
+                        <span class="position-relative span_divider"></span>
+                        <input
+                            type="text"
+                            class="form-control w-50 border-start-0 post_input_field font500 text-dark1 font12 disabled_cls"
+                            formControlName="name"
+                            [readonly]="readonlyAttr"
+                            tabindex="-1"
+                        >
+                    </div>
+                    <div *ngIf="depositDischargeFormGroup.controls['depositorId'].invalid && depositDischargeFormGroup.controls['depositorId'].touched">
+                        <div
+                            class="errorField common_color_txt font12 font500"
+                            *ngIf="depositDischargeFormGroup.controls['depositorId'].errors && depositDischargeFormGroup.controls['depositorId'].errors?.['required']"
+                        >
+                            * Depositor Id is required
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mb-2 col-md-6 col-lg-2 col-xl-2 col-xxl-2">
+            <div class="d-flex justify-content-end  justify-content-md-start  justify-content-lg-end  justify-content-xl-end justify-content-xxl-end">
+                <div class="checkbox_custom">
+                    <input
+                        class="form-check-input"
+                        type="checkbox"
+                        name="provisionEntry"
+                        id="provisionEntry"
+                        formControlName="isProvision"
+                        (keypress)="chekBoxToggle($event)"
+                    >
+                    <label
+                        for="provisionEntry"
+                        class="form-check-label ps-2 ms-1 font500 opacity-75"
+                    >
+                        Provision Entry
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section>
+        <ng-container *ngIf="tabContentFlag">
+            <div
+                id="activeDeposits"
+                *ngIf="activeDepositsContainer"
+            >
+                <div class="master_container">
+                    <div class="pt-50">
+                        <div class="deposits_panel br-10 bg-white p-3 pb-3 position-relative header_border">
+                            <p class="fs-6 mb-0 position-absolute bg-white font600 deposits_title lh-24 font12">Active Deposits</p>
+                            <div class="d-flex w-100 justify-content-end deposit_charge_top mb-3">
+                                <div class="search_table_list">
+                                    <div class="input-group">
+                                        <span class="input-group-text  preinput_radius leftform_lbl font500 text-dark1 font12 pre_lbl_field global_search">Search</span>
+                                        <input
+                                            type="text"
+                                            class="form-control border-start-0 post_input_field lh-30 namefilter"
+                                            id="globalSearchActive"
+                                            (keyup)="tblSearch('globalSearchActive','activeDepositsTable')"
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table_container table_wrapper table-responsive-xl table-responsive-lg table-responsive-md table-responsive-sm">
+                                <table
+                                    #activeDepositTbl
+                                    id="activeDepositsTable"
+                                    class="table table-striped"
+                                    style="width:100%"
+                                    datatable
+                                    [dtOptions]="dtOptions"
+                                    dt-instance="dtInstance"
+                                >
+                                    <thead>
+                                        <tr tabindex="-1">
+                                            <th></th>
+                                            <th class="font500 font12 text-dark1">Receipt</th>
+                                            <th class="font500 font12 text-dark1">Deposit Amt</th>
+                                            <th class="text-center font500 font12 text-dark1">Interest</th>
+                                            <th class="font500 font12 text-dark1">Tran ser#</th>
+                                            <th class="font500 font12 text-dark1">Dep Date</th>
+                                            <th class="font500 font12 text-dark1">Mat Date</th>
+                                            <th class="font500 font12 text-dark1 max_wid_150">Dis Date</th>
+                                            <th class="font500 font12 text-dark1">Int. Rate</th>
+                                            <th class="text-center font500 font12 text-dark1">DD Charges</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let i of  fetchRetrievedData ;let j = index">
+                                            <td>
+                                                <input
+                                                    class="form-check-input activetbl-chk-input"
+                                                    type="checkbox"
+                                                    name="activeChkBox_{{j}}"
+                                                    id="activeChkBox_{{j}}"
+                                                    value
+                                                    (change)="chekedCount(j,$event,datePipe.transform(i.matdate,'yyyy-MM-dd'))"
+                                                    [(ngModel)]="i.Checked"
+                                                    [ngModelOptions]="{standalone: true}"
+                                                    (keypress)="onEnterTriggerCheckedCount($event,j,$event,datePipe.transform(i.matdate,'yyyy-MM-dd'))"
+                                                >
+                                            </td>
+                                            <td class="font500 font12 text-dark1 text-start">{{i.receiptnum}}</td>
+                                            <td class="font500 font12 text-dark1 text-end">{{i.depamount}}</td>
+                                            <td class="font500 font12 text-dark1 text-end">0</td>
+                                            <td class="font500 font12 text-dark1"></td>
+                                            <td class="font500 font12 text-dark1">
+                                                {{datePipe.transform(i.depdate,'dd/MM/yyyy')}}
+                                            </td>
+                                            <td class="font500 font12 text-dark1">
+                                                {{datePipe.transform(i.matdate,'dd/MM/yyyy')}}
+                                            </td>
+                                            <td class="font500 font12 text-dark1">
+                                                <div class="input-group tbl_datepicker res_minwid">
+                                                    <input
+                                                        type="text"
+                                                        class="preinput_radius date_container form-control  post_input_field font500 text-dark1 font12"
+                                                        id="disdate_{{j}}"
+                                                        matInput
+                                                        [matDatepicker]="picker1"
+                                                        name="disdate_{{j}}"
+                                                        (dateChange)="dateValidation(j,$event,datePipe.transform($event.target.value,'yyyy-MM-dd'),datePipe.transform(i.depdate,'yyyy-MM-dd'),datePipe.transform(i.matdate,'yyyy-MM-dd'),i.receiptnum)"
+                                                        [(ngModel)]="i.disDate"
+                                                        [ngModelOptions]="{standalone: true}"
+                                                        tabindex="0"
+                                                        (keydown)="getKeyCode($event)"
+                                                    >
+                                                    <div class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0">
+                                                        <span class="input-group-addon">
+                                                            <mat-datepicker-toggle
+                                                                matSuffix
+                                                                [for]="picker1"
+                                                                tabindex="-1"
+                                                            ></mat-datepicker-toggle>
+                                                            <mat-datepicker #picker1></mat-datepicker>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="font500 font12 text-dark1 text-end">
+                                                <input
+                                                    type="text"
+                                                    class="font12 date_container form-control br-9 d-flex text-end res_minwid"
+                                                    id="interestRate_{{j}}"
+                                                    [(ngModel)]="i.interestrate"
+                                                    [ngModelOptions]="{standalone: true}"
+                                                    (focusout)="chkInterestRateVal($event,i.receiptnum,datePipe.transform(i.matdate,'yyyy-MM-dd'),datePipe.transform(i.disDate,'yyyy-MM-dd'),j,i.compareIntRate)"
+                                                    tabindex="0"
+                                                    oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                                                    (keydown)="getKeyCode($event)"  maxlength="5"
+                                                >
+                                            </td>
+                                            <td class="text-center font500 font12 text-dark1">
+                                                <input
+                                                    type="text"
+                                                    class="font12 date_container form-control br-9 d-flex text-end res_minwid"
+                                                    [(ngModel)]="i.ddCharges"
+                                                    [ngModelOptions]="{standalone: true}"
+                                                    tabindex="0"
+                                                    oninput="this.value=this.value.replace(/[^0-9]/g,'');"
+                                                    (focusout)="ddCharges(i.ddCharges,i.depamount,j)"
+                                                    id="ddCharges_{{j}}"
+                                                    (keydown)="getKeyCode($event)" maxlength="9"
+                                                >
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                id="calcInterest"
+                *ngIf="calcInterestContainer"
+            >
+                <div class="form_content_container">
+                    <div class="pt-50">
+                        <div class="deposits_panel br-10 bg-white p-3 pb-3 position-relative header_border">
+                            <p class="fs-6 mb-0 position-absolute bg-white font600 deposits_title lh-24 font12">Active Deposits</p>
+                            <div class="d-flex w-100 justify-content-end deposit_charge_top mb-3">
+                                <div class="search_table_list me-3">
+                                    <div class="input-group">
+                                        <span class="input-group-text  preinput_radius leftform_lbl font500 text-dark1 font12 pre_lbl_field global_search">Search</span>
+                                        <input
+                                            type="text"
+                                            class="form-control border-start-0 post_input_field lh-30 namefilter"
+                                            id="globalSearchCalcText"
+                                            (keyup)="tblSearch('globalSearchCalcText','calcInterestTable')"
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table_container table_wrapper table-responsive">
+                                <table
+                                    id="calcInterestTable"
+                                    class="table  table-striped"
+                                    style="width:100%"
+                                    datatable
+                                    [dtOptions]="dtOptions"
+                                    dt-instance="dtInstance"
+                                >
+                                    <thead>
+                                        <tr tabindex="0">
+                                            <th tabindex="-1"></th>
+                                            <th class="font500 font12 text-dark1">Receipt#</th>
+                                            <th class="font500 font12 text-dark1">Breakup Type</th>
+                                            <th class="font500 font12 text-dark1 text-end">Amount</th>
+                                            <th class="font500 font12 text-dark1">Dis Date</th>
+                                            <th class="font500 font12 text-dark1 max_wid_120">Bank Code</th>
+                                            <th class="font500 font12 text-dark1 max_wid_120">Cheque#</th>
+                                            <th class="font500 font12 text-dark1 max_wid_150 ">Chq Date</th>
+                                            <th class="font500 font12 text-dark1">Trans Ser#</th>
+                                            <th class="font500 font12 text-dark1 max_wid_30 text-end">G</th>
+                                            <!-- <th class="font500 font12 text-dark1">Deposit Amt</th> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let i of calInterestFetchData; let calcIndex=index">
+                                            <td>
+                                                <input
+                                                    class="form-check-input"
+                                                    type="checkbox"
+                                                    name="chkCalcInt1"
+                                                    id="chkCalcInt_{{calcIndex}}" (keypress)="onEnterToggleCalcIntChkBox($event,i.receiptNumber,calcIndex)"
+                                                    (change)="toggleCalcIntChkBox(i.receiptNumber,calcIndex)"
+                                                    checked tabindex="0"
+                                                >
+                                            </td>
+                                            <td class="font500 font12 text-dark1">{{i.receiptNumber}}</td>
+                                            <td class="font500 font12 text-dark1">{{i.breakupType}}</td>
+                                            <td class="font500 font12 text-dark1 text-end">{{i.amount}}</td>
+                                            <td class="font500 font12 text-dark1">{{i.dischargeDate}}</td>
+                                            <td>
+                                                <app-f1
+                                                    [(ngModel)]="i.bankCode"
+                                                    [ngModelOptions]="{standalone: true}"
+                                                    id="bankCode_{{calcIndex}}"
+                                                    [formControlEnable]="false"
+                                                    placeholder
+                                                    class="font12 date_container form-control br-9 d-flex res_minwid"
+                                                    titleValue="{{bankTableData?.mainheader}}"
+                                                    [tableData]="bankTableData?.dataSet"
+                                                    [colHeader]="bankCodeColumnHeader"
+                                                    [inputBBC]="bringBackColumn"
+                                                    [dynaPopId]="'BANKS'"
+                                                    [queryConditon]=bankQueryCodition
+                                                    [errorMessage]="'Invalid Bank Code'"
+                                                    (updatedSelectedValue)="groupBankCodeUpdateValue($event,calcIndex,i.viewGrpNo)"
+                                                    (sendFieldValueChange)="getBankCodeFielsValueChange(i.viewGrpNo)"
+                                                    (change)="getBankCodeFielsValueChange(i.viewGrpNo,$event,calcIndex)"
+                                                    (keydown)="getKeyCodeCalcInterest($event)" maxlength="8"
+                                                    tabindex="0"
+                                                ></app-f1>
+                                            </td>
+                                            <td>
+                                                <app-f1
+                                                    [(ngModel)]="i.cheque"
+                                                    [ngModelOptions]="{standalone: true}"
+                                                    id="cheque_{{calcIndex}}"
+                                                    [formControlEnable]="false"
+                                                    placeholder
+                                                    class="font12 date_container form-control br-9 d-flex res_minwid"
+                                                    titleValue="{{chequeTableData?.mainheader}}"
+                                                    [tableData]="chequeTableData?.dataSet"
+                                                    [colHeader]="chequeColumnHeader"
+                                                    [inputBBC]="bringBackColumn"
+                                                    [dynaPopId]="'BANKS'"
+                                                    [queryConditon]=bankQueryCodition
+                                                    [errorMessage]="'Invalid cheque number'"
+                                                    (focusTrigger)="chequeList($event, i.bankCode,calcIndex)"
+                                                    [dynaPopId]="'CHEQUENUMS'"
+                                                    [queryConditon]="chequeQueryCondition"
+                                                    (modalClosedTrigger)="clearBankCode($event,calcIndex,i.viewGrpNo)"
+                                                    (updatedSelectedValue)="groupChequeUpdateValue($event,calcIndex,i.viewGrpNo)"
+                                                    (change)="groupChequeNoFieldValueChange(i.viewGrpNo,$event,calcIndex)"
+                                                    (keydown)="getKeyCodeCalcInterest($event)" maxlength="10"
+                                                ></app-f1>
+                                                <!-- <input type="text"  class="font12 date_container form-control br-9 d-flex text-end" oninput="this.value=this.value.replace(/[^0-9]/g,'');" [(ngModel)]="i.cheque" [ngModelOptions]="{standalone: true}"> -->
+                                            </td>
+                                            <td class="font500 font12 text-dark1">
+                                                <div class="input-group tbl_datepicker res_minwid">
+                                                    <input
+                                                        type="text"
+                                                        class="preinput_radius date_container form-control  post_input_field font500 text-dark1 font12"
+                                                        id="chqDate_{{calcIndex}}"
+                                                        [(ngModel)]="i.chqDate"
+                                                        [ngModelOptions]="{standalone: true}"
+                                                        matInput
+                                                        [matDatepicker]="chqDate1"
+                                                        (dateChange)="validateChqDate(datePipe.transform(i.chqDate,'yyyy-MM-dd'),calcIndex, $event,i.viewGrpNo,calcIndex)"
+                                                        tabindex="0" (keydown)="getKeyCodeCalcInterest($event)"
+                                                    >
+                                                    <div class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0">
+                                                        <span class="input-group-addon">
+                                                            <mat-datepicker-toggle
+                                                                matSuffix
+                                                                [for]="chqDate1"
+                                                                tabindex="-1"
+                                                            ></mat-datepicker-toggle>
+                                                            <mat-datepicker #chqDate1></mat-datepicker>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="font500 font12 text-dark1 res_minwid">
+                                                <input
+                                                    type="text"
+                                                    [(ngModel)]="i.transer"
+                                                    [ngModelOptions]="{standalone: true}"
+                                                    class="font12  p-0 form-control br-9 d-flex text-start border-0 bg-transparent"
+                                                    readonly
+                                                    tabindex="-1"
+                                                >
+                                            </td>
+                                            <td class="font500 font12 text-dark1">
+                                                <input
+                                                    type="text"
+                                                    [(ngModel)]="i.viewGrpNo"
+                                                    [ngModelOptions]="{standalone: true}"
+                                                    class="font12 p-0 form-control br-9 d-flex text-end border-0 bg-transparent"
+                                                    readonly
+                                                    tabindex="-1"
+                                                >
+                                            </td>
+                                            <!-- <td class="font500 font12 text-dark1">{{i.depositAmount}}</td> -->
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </section>
+    <app-loader *ngIf="loaderToggle"></app-loader>
+    <section class="action_section position-fixed w-100">
+        <div class="container">
+            <div class="action_conatiner text-center bg-white br-10 w-100">
+                <div class="flex justify-content-between">
+                    <button
+                        type="submit"
+                        class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+                        (click)="retrieve()"
+                        accesskey="r"
+                        [disabled]='disabledFlagRetrieve'
+                    >
+                        Retreive
+                    </button>
+                    <button
+                        type="submit"
+                        class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+                        (click)="calcInterest()"
+                        accesskey="c"
+                        [disabled]='disabledFlagCalcInterest'
+                    >
+                        Calc Interest
+                    </button>
+                    <button
+                        type="submit"
+                        class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+                        (click)="nextGroup()"
+                        accesskey="n"
+                        [disabled]='disabledFlagNextGroup'
+                    >
+                        Next Group
+                    </button>
+                    <button
+                        type="submit"
+                        class="bg_common_red first_letter_textdecorationone border-0 common_action_btn text-white br-10 ms-1"
+                        accesskey="t"
+                        [disabled]='disabledFlagReset'
+                        (click)="reset()"
+                    >
+                        Rese<span class="text-decoration-underline">t</span>
+                    </button>
+                    <button
+                        type="submit"
+                        class="bg_common_red border-0 text-white br-10 ms-1 common_action_btn"
+                        (click)="save()"
+                        accesskey="s"
+                        [disabled]='disabledFlagSave'
+                    >
+                        Save
+                    </button>
+                    <button
+                        type="submit"
+                        class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+                        accesskey="b"
+                        (click)="back()"
+                        [disabled]='disabledFlagBack'
+                    >
+                        Back
+                    </button>
+                    <button
+                    type="submit"
+                    class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone"
+                    accesskey="x"
+                    (click)="handleExit()"   [disabled]='disabledFlagExit'
+                >
+                    E<span class="text-decoration-underline">x</span>it
+                </button>
+                </div>
+            </div>
+        </div>
+    </section>
+</form>

@@ -1,0 +1,230 @@
+<section class="ReportDisplaysection">
+  <div class="container">
+    <div class="row mb-3 justify-content-center">
+      <div class="col-md-6">
+        <div class="br-10 group_panel p-3 position-relative pt-9">
+          <p class="bg-white font600 group_title mb-0 position-absolute">
+            Report Display Option
+          </p>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="input-group">
+                <form [formGroup]="reportSelection">
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input font12 font500 position-relative"
+                      type="radio"
+                      name="inlineRadioOptions"
+                      id="inlineRadio1"
+                      formControlName="inlineRadioOptions"
+                      value="option1"
+                      (click)="setEnabledisableControl()"
+                    />
+                    <label class="form-check-label" for="inlineRadio1"
+                      >Account Number</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input font12 font500 position-relative"
+                      type="radio"
+                      name="inlineRadioOptions"
+                      id="inlineRadio2"
+                      formControlName="inlineRadioOptions"
+                      value="option2"
+                    />
+                    <label class="form-check-label" for="inlineRadio2"
+                      >Consumer Number</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input font12 font500 position-relative"
+                      type="radio"
+                      name="inlineRadioOptions"
+                      id="inlineRadio3"
+                      formControlName="inlineRadioOptions"
+                      value="option3"
+                    />
+                    <label class="form-check-label" for="inlineRadio3"
+                      >MeterNo Wise</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input font12 font500 position-relative"
+                      type="radio"
+                      name="inlineRadioOptions"
+                      id="inlineRadio4"
+                      formControlName="inlineRadioOptions"
+                      value="option4"
+                    />
+                    <label class="form-check-label" for="inlineRadio4"
+                      >Consumer # Locationwise</label
+                    >
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mb-3 justify-content-center">
+      <div class="col-md-4">
+        <div
+          class="br-10 form_common_bg group_panel p-3 position-relative pt-9"
+        >
+          <p class="bg-white font600 group_title mb-0 position-absolute">
+            Selection Details
+          </p>
+          <form [formGroup]="selectiondetails">
+            <div formGroupName="reportParameters">
+              <div class="row g-3">
+                <div class="col-md-12">
+                  <div class="input-group p-1"*ngIf="disableBillTypeFlag">
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      >billType</span
+                    >
+                    <app-f1
+                      id="billType"
+                      [formControlName]="'billType'"
+                      name="Bill Type"
+                      class="form-control post_input_field border-start-0 d-flex"
+                      titleValue="{{ billTypeF1List?.mainheader }}"
+                      [tableData]="billTypeF1List?.dataSet"
+                      [colHeader]="billTypeColHeadings"
+                      [inputBBC]="billTypeF1abc"
+                      (updatedSelectedValue)="displayBillType($event)"
+                      [dynaPopId]="'OVERHEADS'"
+                      [queryConditon]="''"
+                      [errorMessage]="'Invalid Bill Type'"
+                    >
+                    </app-f1>
+                  </div>
+                  <div class="input-group p-1"*ngIf="disableConsumerNoFlag">
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      >consumerNO</span
+                    >
+                    <app-f1
+                      id="connectionNo"
+                      [formControlName]="'connectionNo'"
+                      name="connection No"
+                      class="form-control post_input_field border-start-0 d-flex"
+                      titleValue="{{ billTypeF1List?.mainheader }}"
+                      [tableData]="ConnTableDataList?.dataSet"
+                      [colHeader]="ConnColumnHeader"
+                      [inputBBC]="ConnnoF1abc"
+                      (updatedSelectedValue)="displayConncode($event)"
+                      [dynaPopId]="'CONSUMERNO'"
+                      [queryConditon]="''"
+                      [errorMessage]="'Invalid Connection No'"
+                    >
+                    </app-f1>
+                  </div>
+                  <div class="input-group p-1"*ngIf="disableAccountnoflag">
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      >Account No</span
+                    >
+                    <app-f1
+                      id="accountno"
+                      [formControlName]="'accountno'"
+                      name="connection No"
+                      class="form-control post_input_field border-start-0 d-flex"
+                      titleValue="{{ ConnTableDataList?.mainheader }}"
+                      [tableData]="ConnTableDataList?.dataSet"
+                      [colHeader]="ConnColumnHeader"
+                      [inputBBC]="ConnnoF1abc"
+                      (updatedSelectedValue)="displayConncode($event)"
+                      [dynaPopId]="'CONSUMERNO'"
+                      [queryConditon]="''"
+                      [errorMessage]="'Invalid Connection No'"
+                    >
+                    </app-f1>
+                  </div>
+                  <div class="input-group p-1" *ngIf="disableLocationFlag">
+                    <div class="input-group">
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >location</span
+                      >
+                      <app-f1
+                        id="location"
+                        [formControlName]="'location'"
+                        name="location"
+                        class="form-control post_input_field border-start-0 d-flex"
+                        titleValue="{{ locationF1List?.mainheader }}"
+                        [tableData]="locationF1List?.dataSet"
+                        [colHeader]="locationColHeadings"
+                        [inputBBC]="locationF1abc"
+                        [dynaPopId]="'CONSITE'"
+                        [queryConditon]="''"
+                        [errorMessage]="'Invalid Location'"
+                        
+                      >
+                      </app-f1>
+                    </div>
+                  </div>
+                  <div class="input-group p-1"*ngIf="disableMeterNoFlag">
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      >Meter No</span
+                    >
+                    <app-f1
+                      id="connectionNo"
+                      [formControlName]="'meterno'"
+                      name="connection No"
+                      class="form-control post_input_field border-start-0 d-flex"
+                      titleValue="{{ meternoF1List?.mainheader }}"
+                      [tableData]="meternoF1List?.dataSet"
+                      [colHeader]="meternoColHeadings"
+                      [inputBBC]="meternoF1abc"
+                      (updatedSelectedValue)="displayConnocodeFromMeterdynapop($event)"
+                      [dynaPopId]="'METERNO'"
+                      [queryConditon]="''"
+                      [errorMessage]="'Invalid Meter No'"
+                    >
+                    </app-f1>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<app-loader *ngIf="loaderToggle"></app-loader>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner text-center bg-white br-10 w-100">
+      <div class="flex justify-content-between">
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+          accesskey="w"
+          (click)="dispalySingleValueFromTable()"
+        >
+          Do<span class="text-decoration-underline">w</span>nload
+        </button>
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white"
+          (click)="getReport(true)"
+          accesskey="p"
+        >
+          Print
+        </button>
+        <!-- <button type="submit" class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white" [disabled]="true">File</button> -->
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+          accesskey="x"
+          (click)="handleExitClick()"
+        >
+          E<span class="text-decoration-underline">x</span>it
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

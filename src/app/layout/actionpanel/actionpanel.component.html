@@ -1,0 +1,24 @@
+<section class="action_section position-fixed w-100">
+    <div class="container">
+        <div class="action_conatiner text-center bg-white br-10">
+            <div class="flex justify-content-between">
+
+                <app-add  (resetErrorContainField)="resetAddErrorField($event)" [getValidationFormGroup]="reterieveFormData" [getAddChkAPI]="addChkApiUrl" [screenName]="screenName"  [paramsPassed]="getParamsValue" [addValidationFormGroup]="addValidationChk"></app-add>
+                <app-retrieve [getRetrieveFormData]="reterieveFormData" [getRetrieveAPI]="getRetrieveApiUrl" (sendRetrievedData)="getRetrieveData($event)" [getRetrievePostBody]="sendRetrievePostBody" [apiMethodChk]="getApiMethodString"></app-retrieve>
+                <app-calcinterest (calcInterestClickTrigger)="getIsCalcInterestClickTrigger()"></app-calcinterest>
+                <app-newdeposit></app-newdeposit>
+                <app-export [getExportFormGroup]="exportFormGroup" (loaderFlag)="updateLoaderFlag($event)"></app-export>
+                <app-print [getPrintFormGroup]="printFormGroup" (loaderFlag)="updateLoaderFlag($event)"></app-print>
+                <app-list></app-list>
+                <app-delete></app-delete>
+                <!-- *ngIf="isSave" -->
+                <app-save  [storedReterievedFormData]="reterieveFormData" [getSaveDataAction]="shareActionSaveData" [getSavedAPIUrl]="savedApiUrl" [savedfgFlagCheck]="savedFgValidationFlag" ></app-save>
+                <!-- *ngIf="isReset" -->
+               <app-reset ></app-reset>
+                <!-- *ngIf="isBack" -->
+                <!-- <ng-container #backTemplate></ng-container> -->
+                 <app-back  [getReterieveFormaData]="reterieveFormData" (senBackClick)="triggerBackClick()"></app-back>
+            </div>
+        </div>
+    </div>
+</section>

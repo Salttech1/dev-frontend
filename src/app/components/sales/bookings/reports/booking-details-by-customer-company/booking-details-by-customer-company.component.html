@@ -1,0 +1,44 @@
+<section class="container">
+  <section class="form-section-wrapper">
+    <form [formGroup]="ReportCriteria">
+      <div class="row d-flex justify-content-center">
+        <div class="col-md-6">
+          
+          <div
+            class="input-group mt-4"
+            [class.is-invalid]="(ReportCriteria.get('custCoy')?.hasError('required') && ReportCriteria.controls['custCoy'].touched)|| ReportCriteria.controls?.['custCoy'].errors?.['notFound'] 
+           "
+          >
+            <span
+              class="input-group-text leftform_lbl font500 text-dark1 font12"
+            >
+              <b class="text-danger">*</b>Customer Company
+            </span>
+            <input
+              appCommonAutoFocus
+              type="text"
+              formControlName="custCoy"
+              class="form-control border-start-0 post_input_field font500 font12"
+              upperCase
+              [f1]="{
+                id: 'CUSTOMERCOY',
+                isSingleValue: true
+              }"
+            />
+          </div>
+          <div
+            class="errorField common_color_txt font12 font500 disInl"
+            *ngIf="ReportCriteria.controls?.['custCoy'].errors?.['notFound'] "
+          >
+            Invalid Customer Company
+          </div>
+        </div>
+      </div>
+    </form>
+  </section>
+</section>
+<app-buttons
+  [buttonsList]="buttonsList"
+  (eventTrigger)="buttonAction($event)"
+></app-buttons>
+<app-loader *ngIf="config.isLoading"></app-loader>

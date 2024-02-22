@@ -1,0 +1,165 @@
+<section class="container">
+    <form [formGroup]="VehicleRep">
+      <div class="mth_year_container d-flex justify-content-center">
+        <div class="col-6">
+          <div class="row g-3">
+            <div class="col-md-12 col-sm-12 col-xl-12 col-xxl-12">
+              <div
+                class="input-group"
+                [class.is-invalid]="
+                  VehicleRep.controls['TxtCompany'].invalid &&
+                  VehicleRep.controls['TxtCompany'].touched
+                "
+              >
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Company</span
+                >
+                <input
+                  type="text"
+                  class="form-control border-start-0 post_input_field"
+                  formControlName="TxtCompany"
+                  [f1]="{ id: 'COMPANY', multi: true }"
+                  id="TxtCompany"
+                />
+              </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xl-12 col-xxl-12">
+              <div class="">
+                <div class="">
+                  <div
+                    class="input-group"
+                    [class.is-invalid]="
+                      VehicleRep.controls['TxtVehicle'].invalid &&
+                      VehicleRep.controls['TxtVehicle'].touched
+                    "
+                  >
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Vehicle</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0 post_input_field"
+                      formControlName="TxtVehicle"
+                      [f1]="{ id: 'VEHLIST' , multi: true}"
+                      id="TxtVehicle"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div
+                class="input-group flex-nowrap"
+                appDate1
+                [class.is-invalid]="
+                  (VehicleRep.get('range')?.controls['FromDate']
+                    ?.invalid &&
+                    VehicleRep.get('range')?.controls['FromDate']
+                      ?.touched) ||
+                  (VehicleRep.get('range')?.controls['ToDate']?.invalid &&
+                    VehicleRep.get('range')?.controls['ToDate']?.touched)
+                "
+              >
+                <span class="input-group-text leftform_lbl font500 text-dark1"
+                  >Date Range</span
+                >
+                <div
+                  class="bg-white datepicker_field post_input_field flex-grow-1"
+                  [class.is-invalid]="
+                    (VehicleRep.get('range')?.controls['FromDate']
+                      ?.invalid &&
+                      VehicleRep.get('range')?.controls['FromDate']
+                        ?.touched) ||
+                    (VehicleRep.get('range')?.controls['ToDate']
+                      ?.invalid &&
+                      VehicleRep.get('range')?.controls['ToDate']?.touched)
+                  "
+                >
+                  <span class="input-group-addon">
+                    <div mat-form-field appearance="fill" class="matForm">
+                      <mat-date-range-input
+                        [formGroup]="this.VehicleRep.controls['range']"
+                        [rangePicker]="picker"
+                      >
+                        <input
+                          matStartDate
+                          formControlName="FromDate"
+                          placeholder="Start date"
+                        />
+                        <input
+                          matEndDate
+                          formControlName="ToDate"
+                          placeholder="End date"
+                        />
+                      </mat-date-range-input>
+                      <mat-datepicker-toggle
+                        matSuffix
+                        [for]="picker"
+                      ></mat-datepicker-toggle>
+                      <mat-date-range-picker #picker></mat-date-range-picker>
+                    </div>
+                  </span>
+                </div>
+              </div>
+              <div
+                *ngIf="
+                  VehicleRep.controls['range'].invalid &&
+                  VehicleRep.controls['range'].touched
+                "
+              >
+                <div
+                  class="invalid-feedback d-block"
+                  *ngIf="
+                    (vehicleRep.get('range').controls['FromDate']?.invalid &&
+                      vehicleRep.get('range').controls['FromDate']
+                        ?.touched) ||
+                    (vehicleRep.get('range').controls['ToDate']?.invalid &&
+                      vehicleRep.get('range').controls['ToDate']?.touched)
+                  "
+                >
+                  Proper Date is required
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </section>
+  
+  <app-loader *ngIf="loaderToggle"></app-loader>
+  <section class="action_section position-fixed w-100">
+    <div class="container">
+      <div class="action_conatiner text-center bg-white br-10 w-100">
+        <div class="flex justify-content-between">
+          <button
+            type="submit"
+            class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+            accesskey="w"
+            (click)="getReport(false)"
+          >
+            Do<span class="text-decoration-underline">w</span>nload
+          </button>
+          <button
+            type="submit"
+            class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white"
+            (click)="getReport(true)"
+            accesskey="p"
+          >
+            Print
+          </button>
+          <button
+            type="submit"
+            class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+            accesskey="x"
+            (click)="handleExitClick()"
+          >
+            E<span class="text-decoration-underline">x</span>it
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+  

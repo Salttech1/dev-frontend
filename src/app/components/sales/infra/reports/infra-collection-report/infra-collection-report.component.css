@@ -1,0 +1,26 @@
+.input-group .form-control.is-invalid {
+  z-index: 0;
+}
+
+.matForm {
+  display: flex;
+  align-items: center;
+  padding-left: 0.5rem;
+}
+
+.form-check-label {
+  margin-left: 0;
+  font-weight: 500;
+}
+
+.form-check-input[type="radio"]:after {
+  display: none;
+}
+
+.form-check-input:checked[type="radio"] {
+  border-width: 4px;
+}
+
+.input-group > .form-control {
+  border-radius: 0 9px 9px 0;
+}

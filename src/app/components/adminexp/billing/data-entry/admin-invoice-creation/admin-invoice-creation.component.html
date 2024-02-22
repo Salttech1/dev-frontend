@@ -1,0 +1,641 @@
+<!-- <p>admin-invoice-creation works!</p> -->
+
+<!-- admin invoice creation section-1 -->
+<form [formGroup]="invoiceCreation">
+  <section>
+    <div class="row">
+      <div class="col-md-12">
+        <!-- Radio Btn  -->
+        <div class="container mb-2">
+          <div class="input-group justify-content-center">
+            <div class="form-check form-check-inline" *ngFor="let item of config.invoiceType">
+              <input class="form-check-input position-relative cursor-pointer" type="radio" [value]="item.id"
+                formControlName="invoiceType" (change)="invoiceTypeChange(item.id)" />
+              <label class="form-check-label m-0" for="exTy1">
+                {{ item.name }}
+              </label>
+            </div>
+
+            <div class="form-check-inline">
+              <div class="form-check d-flex align-items-center">
+                <input type="checkbox" checked formControlName="subtitle"
+                  class="form-check-input font12 font500 position-relative cursor-pointer" />
+                <label class="form-check-label first_letter_textdecorationone mt-1">Addn. Narr</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Table Section -->
+        <div *ngIf="config.isRegular" class="col-md-12">
+          <div class="group_panel br-10 form_common_bg p-3 pt-4 position-relative">
+            <div class="table-responsive group_panel default-table-height stylishScroll">
+              <table class="table table-bordered table-sm">
+                <thead class="table_head_position_sticky">
+                  <tr tabindex="-1">
+                    <th class="fontBold font12 fonttxt_black">Tick YN</th>
+                    <th class="fontBold font12 fonttxt_black">Bill Type</th>
+                    <th class="fontBold font12 fonttxt_black">
+                      Bill Type Name
+                    </th>
+                    <th class="fontBold font12 fonttxt_black">Coy Code</th>
+                    <th class="fontBold font12 fonttxt_black">Party</th>
+                    <th class="fontBold font12 fonttxt_black">Party Name</th>
+                    <th class="fontBold font12 fonttxt_black">Bill Desc</th>
+                    <th class="fontBold font12 fonttxt_black">Qty</th>
+                    <th class="fontBold font12 fonttxt_black">Rate</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="
+                      let item of config.regularInvoiceList;
+                      let i = index
+                    " [ngClass]="{ 'highlighted-row': selectedRowIndex === i }">
+                    <td>
+                      <input type="checkbox" [checked]="selectedRowIndex === i" (click)="selectRow(i, item, $event)" />
+                    </td>
+                    <td>{{ item.biilType }}</td>
+                    <td>
+                      {{
+                      item.biilType == "T" ? "Tax Invoice" : "Bill of Supply"
+                      }}
+                    </td>
+                    <td>{{ item.companyCode }}</td>
+                    <td>{{ item.partyCode }}</td>
+                    <td>{{ item.partyName }}</td>
+                    <td>{{ item.billDesc }}</td>
+                    <td>{{ item.qty }}</td>
+                    <td>{{ item.rate }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="input-group justify-content-center">
+              <button type="button" (click)="setValueFromTemplate()" class="btn action_btn d-flex ms-1">
+                <img src="../../../../../../assets/images/down-arrow.png"
+                  style="height: 1rem; width: 2rem; margin-top: 1rem" alt="" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- admin invoice creation section-2 -->
+  <section>
+    <div class="row mt-4">
+      <div class="col-md-12">
+        <div class="row g-2">
+          <div class="col-md-12">
+            <div class="input-group" [class.is-invalid]="
+            ( invoiceCreation.get('coy')?.hasError('required') &&
+             invoiceCreation.controls['coy'].touched)|| invoiceCreation.controls?.['coy'].errors?.['notFound']
+           ">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">Company</span>
+              <input type="text" id="" class="form-control border-start-0 br-9" formControlName="coy" upperCase [f1]="{
+                  id: 'COMPANY',
+                  formData: invoiceCreation.get('coyname')
+                }" (focusout)="setSerialNumber()" />
+              <span class="position-relative span_divider"></span>
+              <input type="text" class="form-control w-50 border-start-0 post_input_field font500 font12"
+                formControlName="coyname" />
+            </div>
+            <div class="errorField common_color_txt font12 font500 disInl"
+              *ngIf="invoiceCreation.controls?.['coy'].errors?.['notFound'] ">
+              Invalid company code.
+            </div>
+            <div class="errorField common_color_txt font12 font500 disInl"
+              *ngIf="invoiceCreation.controls?.['coy']?.hasError('required') && invoiceCreation.controls['coy'].touched  ">
+              Company code is required.
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="input-group" [class.is-invalid]="
+            ( invoiceCreation.get('partytype')?.hasError('required') &&
+             invoiceCreation.controls['partytype'].touched)|| invoiceCreation.controls?.['partytype'].errors?.['notFound']
+           ">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">Party Type</span>
+              <input type="text" class="form-control border-start-0 post_input_field font500 font12" upperCase
+                formControlName="partytype" [f1]="{ id: 'PARTTYPE', isSingleValue: true }"
+                (focusout)="setSerialNumber()" />
+            </div>
+            <div class="errorField common_color_txt font12 font500 disInl"
+              *ngIf="invoiceCreation.controls?.['partytype'].errors?.['notFound'] ">
+              Invalid party type.
+            </div>
+            <div class="errorField common_color_txt font12 font500 disInl"
+              *ngIf="invoiceCreation.controls?.['partytype']?.hasError('required') && invoiceCreation.controls['partytype'].touched  ">
+              Party type is required.
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="input-group" [class.is-invalid]="
+            ( invoiceCreation.get('partycode')?.hasError('required') &&
+             invoiceCreation.controls['partycode'].touched)|| invoiceCreation.controls?.['partycode'].errors?.['notFound']
+           ">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">Party Name</span>
+              <input type="text" upperCase class="form-control border-start-0 post_input_field font500 font12"
+                formControlName="partycode" [f1]="{
+                  id: 'PARTYCODE',
+                  formData: invoiceCreation.get('partyname'),
+                  isSingleValue: true,
+                  subId: filters.getPartyName ? filters.getPartyName : ''
+                }" (focusout)="setSerialNumber()" />
+              <span class="position-relative span_divider"></span>
+              <input type="text" class="form-control w-50 border-start-0 post_input_field font500 font12"
+                formControlName="partyname" />
+            </div>
+            <div class="errorField common_color_txt font12 font500 disInl"
+              *ngIf="invoiceCreation.controls?.['partycode'].errors?.['notFound'] ">
+              Invalid party name.
+            </div>
+            <div class="errorField common_color_txt font12 font500 disInl"
+              *ngIf="invoiceCreation.controls?.['partycode']?.hasError('required') && invoiceCreation.controls['partycode'].touched  ">
+              Party name is required.
+            </div>
+          </div>
+        </div>
+        <div class="row g-2 mt-2">
+          <div class="col-md-12">
+            <div class="input-group" [class.is-invalid]="
+            ( invoiceCreation.get('bldgcode')?.hasError('required') &&
+             invoiceCreation.controls['bldgcode'].touched)|| invoiceCreation.controls?.['bldgcode'].errors?.['notFound']
+           ">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">Building Code</span>
+              <input type="text" upperCase class="form-control post_input_field border-start-0 font500 font12"
+                formControlName="bldgcode" [f1]="{
+                  id: 'BUILDINGS',
+                  formData: invoiceCreation.get('bldgname'),
+                  isSingleValue: true
+                }" (focusout)="setSerialNumber()" />
+              <span class="position-relative span_divider"></span>
+              <input type="text" class="form-control w-50 border-start-0 post_input_field font500 font12"
+                formControlName="bldgname" />
+            </div>
+            <div class="errorField common_color_txt font12 font500 disInl"
+              *ngIf="invoiceCreation.controls?.['bldgcode'].errors?.['notFound'] ">
+              Invalid building code.
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-2 g-2">
+          <div class="col-md-4">
+            <div class="input-group" [class.is-invalid]="
+            ( invoiceCreation.get('invoicenum')?.hasError('required') &&
+             invoiceCreation.controls['invoicenum'].touched)|| invoiceCreation.controls?.['invoicenum'].errors?.['notFound']
+           ">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">Invoice Num</span>
+              <input type="text" class="form-control border-start-0 post_input_field font500 font12" upperCase
+                formControlName="invoicenum" [f1]="{
+                  id: 'TAXINVOICEBILLNO',
+                  isSingleValue: true,
+                  subId: filters.getInvoice
+                }" />
+            </div>
+            <div class="errorField common_color_txt font12 font500 disInl"
+              *ngIf="invoiceCreation.controls?.['invoicenum'].errors?.['notFound'] ">
+              Invalid invoice number.
+            </div>
+
+            <div class="errorField common_color_txt font12 font500 disInl"
+              *ngIf="invoiceCreation.controls?.['invoicenum']?.hasError('required') && invoiceCreation.controls['invoicenum'].touched  ">
+              Invoice number is required.
+            </div>
+          </div>
+          <div class="col">
+            <div class="input-group" appDate1
+              [class.is-invalid]="  invoiceCreation.controls?.['invdate']?.hasError('required') && invoiceCreation.controls['invdate'].touched|| invoiceCreation.get('invdate')?.hasError('matDatepickerParse')">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">Invoice Date</span>
+              <input type="text" class="form-control border-start-0 post_input_field font500 font12" matInput
+                [matDatepicker]="pickerInv" formControlName="invdate" (dateChange)="updateFromToDate()" />
+              <div
+                class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0">
+                <span class="input-group-addon">
+                  <mat-datepicker-toggle matSuffix [for]="pickerInv"></mat-datepicker-toggle>
+                  <mat-datepicker #pickerInv></mat-datepicker>
+                </span>
+              </div>
+            </div>
+            <div class="invalid-feedback d-block" *ngIf="
+          invoiceCreation.controls?.['invdate']?.hasError('required') && invoiceCreation.controls['invdate'].touched
+          ">
+            Invoice date is required.
+            </div>
+            <div class="invalid-feedback d-block" *ngIf="
+            invoiceCreation.get('invdate')?.hasError('matDatepickerParse')
+          ">
+              Invalid date
+            </div>
+          </div>
+          <div class="col">
+            <div class="input-group" appDate1
+              [class.is-invalid]=" invoiceCreation.get('invfromdate')?.hasError('matDatepickerParse') ||  invoiceCreation?.hasError('invalidMonthInvFromDate')">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">Invoice From</span>
+              <input type="text" class="form-control border-start-0 post_input_field font500 font12" name="" id=""
+                matInput [matDatepicker]="pickerInvFrom" formControlName="invfromdate" />
+              <div
+                class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0">
+                <span class="input-group-addon">
+                  <mat-datepicker-toggle matSuffix [for]="pickerInvFrom"></mat-datepicker-toggle>
+                  <mat-datepicker #pickerInvFrom></mat-datepicker>
+                </span>
+              </div>
+            </div>
+            <div class="invalid-feedback d-block" *ngIf="
+            invoiceCreation.get('invfromdate')?.hasError('matDatepickerParse')
+          ">
+              Invalid date
+            </div>
+            <div class="invalid-feedback d-block" *ngIf="
+            invoiceCreation.hasError('invalidMonthInvFromDate')
+          ">
+              Invalid month for Invoice From date.
+            </div>
+          </div>
+          <div class="col">
+            <div class="input-group" appDate1
+              [class.is-invalid]=" invoiceCreation.get('invtodate')?.hasError('matDatepickerParse') || invoiceCreation?.hasError('invalidMonthInvToDate') ||  invoiceCreation?.hasError('invalidDateOrder')">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">Invoice To</span>
+              <input type="text" class="form-control border-start-0 post_input_field font500 font12" name="" id=""
+                matInput [matDatepicker]="pickerInvTo" formControlName="invtodate" />
+              <div
+                class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0">
+                <span class="input-group-addon">
+                  <mat-datepicker-toggle matSuffix [for]="pickerInvTo"></mat-datepicker-toggle>
+                  <mat-datepicker #pickerInvTo></mat-datepicker>
+                </span>
+              </div>
+            </div>
+            <div class="invalid-feedback d-block" *ngIf="
+            invoiceCreation?.hasError('matDatepickerParse')
+          ">
+              Invalid date
+            </div>
+            <div class="invalid-feedback d-block" *ngIf="
+            invoiceCreation?.hasError('invalidMonthInvToDate')
+          ">
+              Invalid month for Invoice to date.
+            </div>
+            <div class="invalid-feedback d-block" *ngIf="
+            invoiceCreation?.hasError('invalidDateOrder')
+          ">
+              Invoice to date cannot be less than Invoice from date.
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-2 g-2">
+          <div class="col-md-3">
+            <div class="input-group">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">Invoice Amt</span>
+              <input type="text" class="form-control border-start-0 post_input_field font500 font12" name="" id=""
+                formControlName="invamt" />
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="input-group">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">Transer No</span>
+              <input type="text" class="form-control border-start-0 post_input_field font500 font12"
+                formControlName="transerno" />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="input-group">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">Remarks</span>
+              <input type="text" maxlength="50" class="form-control border-start-0 post_input_field font500 font12"
+                name="" id="" formControlName="remark" />
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-2 g-2">
+          <div class="col-md-4">
+            <div class="input-group">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">Model No</span>
+              <input type="text" class="form-control border-start-0 post_input_field font500 font12" name="" id=""
+                formControlName="modelno" />
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="input-group">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">Car No</span>
+              <input type="text" class="form-control border-start-0 post_input_field font500 font12" name="" id=""
+                formControlName="carno" />
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="input-group">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">Chasis No</span>
+              <input type="text" class="form-control border-start-0 post_input_field font500 font12" name="" id=""
+                formControlName="chasisno" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Table Section -->
+        <div class="col-md-12 mt-3" formArrayName="invoiceBreakupList">
+          <div class="table-responsive table-sm allocation-table group_panel table-sm form_common_bg allocation-table">
+            <table class="table table-bordered datatable table-sm t-1">
+              <thead class="table_head_position_sticky">
+                <tr tabindex="-1">
+                  <th class="fontBold font12 fonttxt_black">Sr. No.</th>
+                  <th class="fontBold font12 fonttxt_black"><span class="text-danger">*</span> Code</th>
+                  <th class="fontBold font12 fonttxt_black">Description</th>
+                  <th class="fontBold font12 fonttxt_black">AC Major</th>
+                  <th class="fontBold font12 fonttxt_black">Minor Type</th>
+                  <th class="fontBold font12 fonttxt_black">AC Minor</th>
+                  <th class="fontBold font12 fonttxt_black">GSTYN</th>
+                  <th class="fontBold font12 fonttxt_black">Quantity</th>
+                  <th class="fontBold font12 fonttxt_black">Rate</th>
+                  <th class="fontBold font12 fonttxt_black">Amount</th>
+                  <th class="fontBold font12 fonttxt_black">HSN Code</th>
+                  <th class="fontBold font12 fonttxt_black">CGST Per</th>
+                  <th class="fontBold font12 fonttxt_black">CGST Amt</th>
+                  <th class="fontBold font12 fonttxt_black">SGST Per</th>
+                  <th class="fontBold font12 fonttxt_black">SGST Amt</th>
+                  <th class="fontBold font12 fonttxt_black">IGST Per</th>
+                  <th class="fontBold font12 fonttxt_black">IGST Amt</th>
+                  <th class="fontBold font12 fonttxt_black">UGST Per</th>
+                  <th class="fontBold font12 fonttxt_black">UGST Amt</th>
+                  <th class="fontBold font12 fonttxt_black">GST Total</th>
+                  <th class="fontBold font12 fonttxt_black">Grand Total</th>
+                  <th class="fontBold font12 fonttxt_black">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of invoiceCreation.controls?.['invoiceBreakupList'].controls let index=index"
+                  [formGroupName]="index">
+                  <td>
+                    <div class="text-center">
+                      {{ index + 1 }}
+                    </div>
+                  </td>
+                  <td>
+                    <div class="input-group"
+                      [class.is-invalid]="(invoiceCreation.controls?.['invoiceBreakupList'].controls[index].get('billCode').errors?.['notFound']) || (invoiceCreation.controls?.['invoiceBreakupList'].controls[index].get('billCode').hasError('required') && invoiceCreation.controls?.['invoiceBreakupList'].controls[index].get('billCode').touched)">
+
+                      <input autofocus [id]="'table_code'+index" class="form-control input_control form-control font500 text-dark1 font12 text-end"
+                        type="text" maxlength="50" formControlName="billCode" [f1]="{ id: 'TAXINVOICEACMAJOR' ,isSingleValue:true,multiValue:[
+                        {index:2, name: invoiceCreation.controls?.['invoiceBreakupList'].controls[index].get('billDesc') },
+                        {index:1, name: invoiceCreation.controls?.['invoiceBreakupList'].controls[index].get('acMajor') },
+
+                        ]}" />
+                    </div>
+                    <div class="errorField common_color_txt font12 font500 disInl"
+                      *ngIf="invoiceCreation.controls?.['invoiceBreakupList'].controls[index].get('billCode').errors?.['notFound']">
+                      Invalid code.
+                    </div>
+                    <div class="errorField common_color_txt font12 font500 disInl"
+                      *ngIf="invoiceCreation.controls?.['invoiceBreakupList'].controls[index].get('billCode').hasError('required') && invoiceCreation.controls?.['invoiceBreakupList'].controls[index].get('billCode').touched">
+                      Code is required.
+                    </div>
+                  </td>
+                  <td>
+                    <div class="input-group">
+                      <input class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                        type="text" maxlength="50" formControlName="billDesc" />
+                    </div>
+                  </td>
+                  <td>
+                    <div class="input-group">
+                      <input class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                        type="text" maxlength="50" formControlName="acMajor" />
+                    </div>
+                  </td>
+                  <td>
+                    <div class="input-group"
+                      [class.is-invalid]="invoiceCreation.controls?.['invoiceBreakupList'].controls[index].get('minorType').errors?.['notFound']">
+                      <input class="form-control input_control form-control font500 text-dark1 font12 text-end"
+                        type="text" maxlength="50" formControlName="minorType"
+                        [f1]="{ id: 'VALIDMINOR',isSingleValue:true }" />
+                    </div>
+                    <div class="errorField common_color_txt font12 font500 disInl"
+                      *ngIf="invoiceCreation.controls?.['invoiceBreakupList'].controls[index].get('minorType').errors?.['notFound']">
+                      Invalid minor type.
+                    </div>
+                  </td>
+                  <td>
+                    <div class="input-group"
+                      [class.is-invalid]="invoiceCreation.controls?.['invoiceBreakupList'].controls[index].get('acMinor').errors?.['notFound']">
+
+                      <input class="form-control input_control form-control font500 text-dark1 font12 text-end"
+                        type="text" maxlength="50" formControlName="acMinor"
+                        [f1]="{ id: 'ACMINOR',isSingleValue:true }" />
+                    </div>
+                    <div class="errorField common_color_txt font12 font500 disInl"
+                      *ngIf="invoiceCreation.controls?.['invoiceBreakupList'].controls[index].get('acMinor').errors?.['notFound']">
+                      Invalid AC Minor.
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      <button type="button" class="btn">
+                        <input type="checkbox" (change)="onGSTYNCheckboxChange(item,$event)"  formControlName="gstyn"
+                          class="form-check-input font12 font500 position-relative cursor-pointer chk" />
+                      </button>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="input-group">
+                      <input class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                        type="text" maxlength="50" formControlName="qty"  oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');" (focusout)="invoiceBreakupCalculation(item)" />
+                    </div>
+                  </td>
+                  <td>
+                    <div class="input-group">
+                      <input class="border-0 input_control form-control font500 text-dark1 font12 text-end" type="text"
+                        maxlength="50"  oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');" formControlName="rate" (focusout)="invoiceBreakupCalculation(item)" />
+                    </div>
+                  </td>
+                  <td>
+                    <div class="input-group">
+                      <input class="border-0 input_control form-control font500 text-dark1 font12 text-end" type="text"
+                        maxlength="50"  oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"  formControlName="ammount" />
+                    </div>
+                  </td>
+                  <td>
+                    <div class="input-group"
+                      [class.is-invalid]="invoiceCreation.controls?.['invoiceBreakupList'].controls[index].get('hsnSac').errors?.['notFound']">
+
+                      <input class=" input_control form-control font500 text-dark1 font12 text-end" type="text"
+                        maxlength="50" formControlName="hsnSac" [f1]="{ id: 'HSNSAC',isSingleValue:true }" />
+                    </div>
+                    <div class="errorField common_color_txt font12 font500 disInl"
+                      *ngIf="invoiceCreation.controls?.['invoiceBreakupList'].controls[index].get('hsnSac').errors?.['notFound']">
+                      Invalid hsnSac code.
+                    </div>
+                  </td>
+                  <td>
+                    <div class="input-group">
+                      <input class="border-0 input_control form-control font500 text-dark1 font12 text-end" type="text"
+                        maxlength="50"  oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');" formControlName="cgst"  oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');" (focusout)="invoiceBreakupCalculation(item,'cgst')" />
+                    </div>
+                  </td>
+                  <td>
+                    <div class="input-group">
+                      <input class="border-0 input_control form-control font500 text-dark1 font12 text-end" type="text"
+                        maxlength="50"  oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');" formControlName="cgstAmt" />
+                    </div>
+                  </td>
+                  <td>
+                    <div class="input-group">
+                      <input class="border-0 input_control form-control font500 text-dark1 font12 text-end" type="text"
+                        maxlength="50"  oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');" formControlName="sgst" (focusout)="invoiceBreakupCalculation(item,'sgst')" />
+                    </div>
+                  </td>
+                  <td>
+                    <div class="input-group">
+                      <input class="border-0 input_control form-control font500 text-dark1 font12 text-end" type="text"
+                        maxlength="50"  oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');" formControlName="sgstAmt" />
+                    </div>
+                  </td>
+                  <td>
+                    <div class="input-group">
+                      <input class="border-0 input_control form-control font500 text-dark1 font12 text-end" type="text"
+                        maxlength="50" formControlName="igst"  oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');" (focusout)="invoiceBreakupCalculation(item)" />
+                    </div>
+                  </td>
+                  <td>
+                    <div class="input-group">
+                      <input class="border-0 input_control form-control font500 text-dark1 font12 text-end" type="text"
+                        maxlength="50" formControlName="igstAmt" oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');" />
+                    </div>
+                  </td>
+                  <td>
+                    <div class="input-group">
+                      <input class="border-0 input_control form-control font500 text-dark1 font12 text-end" type="text"
+                        maxlength="50" formControlName="ugst"  oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');" (focusout)="invoiceBreakupCalculation(item)" />
+                    </div>
+                  </td>
+                  <td>
+                    <div class="input-group">
+                      <input class="border-0 input_control form-control font500 text-dark1 font12 text-end"  oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');" type="text"
+                        maxlength="50" formControlName="ugstAmt" />
+                    </div>
+                  </td>
+                  <td>
+                    <div class="input-group">
+                      <input class="border-0 input_control form-control font500 text-dark1 font12 text-end" type="text"
+                        maxlength="50" oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');" formControlName="gstTotal" />
+                    </div>
+                  </td>
+                  <td>
+                    <div class="input-group">
+                      <input class="border-0 input_control form-control font500 text-dark1 font12 text-end" type="text"
+                        maxlength="50" formControlName="grandTotal" oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');" />
+                    </div>
+                  </td>
+                  <td>
+                    <div class="action_panel d-flex justify-content-center">
+                      <button type="button" [disabled]="
+                          invoiceCreation.controls?.invoiceBreakupList
+                            ?.invalid
+                        " (click)="addInvoiceBreakupList()" class="border-0 bg-transparent ms-1 btn p-0 m-0 lh_0 p-1">
+                        <img src="assets/images/plus.png" alt="add" />
+                      </button>
+                      <button type="button" [disabled]="index==0" (click)="removeInvoiceBreakupList(index,item)"
+                        class="border-0 bg-transparent ms-1 btn p-0 m-0 lh_0 p-1">
+                        <img src="assets/images/delete.svg" alt="remove" class="delete_img" />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Bottom Form -->
+        <div class="row mt-2 g-2">
+          <div class="col-md-4">
+            <div class="input-group">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">Total Base Amt</span>
+              <input type="text" class="form-control border-start-0 post_input_field font500 font12" name="" id=""
+                formControlName="totalbaseamt" />
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="input-group">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">CGST</span>
+              <input type="text" class="form-control border-start-0 post_input_field font500 font12" name="" id=""
+                formControlName="cgst" />
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="input-group">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">SGST</span>
+              <input type="text" class="form-control border-start-0 post_input_field font500 font12" name="" id=""
+                formControlName="sgst" />
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="input-group">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">IGST</span>
+              <input type="text" class="form-control border-start-0 post_input_field font500 font12" name="" id=""
+                formControlName="igst" />
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="input-group">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">UGST</span>
+              <input type="text" class="form-control border-start-0 post_input_field font500 font12" name="" id=""
+                formControlName="ugst" />
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="input-group">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">Total Amt</span>
+              <input type="text" class="form-control border-start-0 post_input_field font500 font12" name="" id=""
+                formControlName="totalamt" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</form>
+
+<!-- Bottom form section -->
+<app-buttons [buttonsList]="buttonsList" (eventTrigger)="buttonAction($event)"></app-buttons>
+
+<app-loader *ngIf="config.isLoading"></app-loader>
+
+
+
+<!-- Button trigger modal -->
+<button type="button" id="printProcess" class="btn btn-primary d-none" data-bs-toggle="modal"
+  data-bs-target="#exampleModal">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title bold" id="exampleModalLabel">Intercompany Invoice type</h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container mb-2">
+          <div class="input-group justify-content-center">
+            <div class="form-check form-check-inline" *ngFor="let item of config.invoiceTypeList">
+              <input class="form-check-input position-relative cursor-pointer" [(ngModel)]="config.invoiceTypePrint"
+                type="radio" [value]="item.id" />
+              <label class="form-check-label m-0" for="exTy1">
+                {{ item.name }}
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-danger" (click)="onPrintClick()"
+          data-bs-dismiss="modal">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

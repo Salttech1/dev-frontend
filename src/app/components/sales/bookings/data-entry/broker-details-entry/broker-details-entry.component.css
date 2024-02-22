@@ -1,0 +1,22 @@
+.input-group-text {
+  border-radius: 9px 0px 0px 9px;
+}
+
+.input-group input {
+  text-transform: uppercase;
+}
+
+.input-group-text.req > b {
+  color: red;
+}
+
+.disInl {
+  display: inline-block;
+}
+
+.is-invalid,
+.is-invalid > .input-group-text,
+.is-invalid > .form-control,
+.is-invalid > app-f1 {
+  border-color: red;
+}

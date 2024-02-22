@@ -1,0 +1,92 @@
+<section class="container">
+    <form [formGroup]="Pendinglcauthorisations">
+        <div formGroupName="reportParameters">
+          <div class="row d-flex justify-content-center">
+            <div class="col-md-6">
+              <div
+                class="group_panel br-10 form_common_bg p-3 pt-3 position-relative"
+              >
+                <p
+                  class="bg-white font600 group_title mb-0 position-absolute"
+                ></p>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="input-group">
+                      <span
+                        class="input-group-text leftform_lbl font500 text-dark1 font12"
+                        >Building Code</span
+                      >
+                      <input
+                        type="text"
+                        id="Pendinglcauthorisations_bldg"
+                        class="form-control border-start-0 post_input_field"
+                        formControlName="bldgCode"
+                        [f1]="{ id: 'BUILDINGS', multi: true }"
+                        autocomplete="off"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="col-md-12">
+                    <div class="mt-1" *ngIf="_service.getAccess('Export')">
+                    <p class="font600 group_title mb-1">Export Type :</p>
+                    <div
+                      class="form-check form-check-inline"
+                      *ngFor="let item of exportTypes"
+                    >
+                      <input
+                        class="form-check-input position-relative cursor-pointer"
+                        type="radio"
+                        [value]="item.id"
+                        formControlName="exportType"
+                      />
+                      <label class="form-check-label m-0" for="exTy1">
+                        {{ item.name }}
+                      </label>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </form>
+  </section>
+
+  <app-loader *ngIf="loaderToggle"></app-loader>
+
+  <app-buttons [buttonsList]="buttonsList" (eventTrigger)="buttonAction($event)"></app-buttons>
+
+  <!-- <section class="action_section position-fixed w-100">
+    <div class="container">
+      <div class="action_conatiner text-center bg-white br-10 w-100">
+        <div class="flex justify-content-between">
+          <button
+            type="submit"
+            class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+            accesskey="w"
+            (click)="getReport(false)"
+          >
+            Do<span class="text-decoration-underline">w</span>nload
+          </button>
+          <button
+            type="submit"
+            class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white"
+            (click)="getReport(true)"
+            accesskey="p"
+          >
+            Print
+          </button>
+          <button
+            type="submit"
+            class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+            accesskey="x"
+            (click)="handleExitClick()"
+          >
+            E<span class="text-decoration-underline">x</span>it
+          </button>
+        </div>
+      </div>
+    </div>
+  </section> -->

@@ -1,0 +1,469 @@
+<!-- <p>admin-advance-payment-passing works!</p> -->
+
+<!-- admin-advance-payment-passing form start -->
+<section>
+  <div class="row">
+    <div class="col-md-12">
+      <form [formGroup]="adminAdvancePaymentPassingForm">
+        <div class="row g-2">
+          <div class="col-lg-4">
+            <div
+              class="input-group"
+              [class.is-invalid]="(adminAdvancePaymentPassingForm.get('coy')?.hasError('required') && adminAdvancePaymentPassingForm.controls['coy'].touched) || adminAdvancePaymentPassingForm.get('coy')?.errors?.['notFound']"
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Company</span
+              >
+              <input
+                appCommonAutoFocus
+                type="text"
+                upperCase
+                formControlName="coy"
+                class="form-control border-start-0 post_input_field font500 font12 custom-input-width"
+                [f1]="{
+                  id: 'COMPANY',
+                  formData: adminAdvancePaymentPassingForm.get('coyname')
+                }"
+                (focusout)="onLeaveCompany($event.target.value)"
+              />
+              <span class="position-relative span_divider"></span>
+              <input
+                type="text"
+                upperCase
+                class="form-control w-50 border-start-0 post_input_field font500 text-dark1 font12"
+                tabindex="-1"
+                formControlName="coyname"
+              />
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="adminAdvancePaymentPassingForm.get('coy')?.errors?.['notFound']"
+            >
+              Code not valid.
+            </div>
+          </div>
+          <div class="col-lg-2">
+            <div class="input-group" [class.is-invalid]="(adminAdvancePaymentPassingForm.get('partytype')?.hasError('required') && adminAdvancePaymentPassingForm.controls['partytype'].touched) || adminAdvancePaymentPassingForm.get('partytype')?.errors?.['notFound']">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Party Type</span
+              >
+              <input
+                type="text"
+                upperCase
+                formControlName="partytype"
+                class="form-control border-start-0 post_input_field font500 font12"
+                [f1]="{
+                  id: 'PARTTYPE',
+                  subId: filter_partyType,
+                  isSingleValue: true
+                }"
+                (focusout)="onLeavePartyType($event.target.value)"
+              />
+            </div>
+            <div class="invalid-feedback d-block" *ngIf="adminAdvancePaymentPassingForm.get('partytype')?.errors?.['notFound']">Code not valid.</div>
+          </div>
+          <div class="col-lg-6">
+            <div class="input-group" [class.is-invalid]="(adminAdvancePaymentPassingForm.get('partycode')?.hasError('required') && adminAdvancePaymentPassingForm.controls['partycode'].touched) || adminAdvancePaymentPassingForm.get('partycode')?.errors?.['notFound']">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Party Code</span
+              >
+              <input
+                type="text"
+                formControlName="partycode"
+                upperCase
+                class="form-control border-start-0 post_input_field font500 font12"
+                [f1]="{
+                  id: 'PARTYCODE',
+                  formData: adminAdvancePaymentPassingForm.get('partyname'),
+                  subId: filters.getParPartyType
+                }"
+                (focusout)="onLeavePartyCode($event.target.value)"
+              />
+              <span class="position-relative span_divider"></span>
+              <input
+                type="text"
+                class="form-control w-50 border-start-0 post_input_field font500 text-dark1 font12"
+                tabindex="-1"
+                formControlName="partyname"
+              />
+            </div>
+            <div class="invalid-feedback d-block" *ngIf="adminAdvancePaymentPassingForm.get('partycode')?.errors?.['notFound']">Code not valid.</div>
+
+          </div>
+          <div class="col-lg-6">
+            <div class="input-group" [class.is-invalid]="(adminAdvancePaymentPassingForm.get('bldgcode')?.hasError('required') && adminAdvancePaymentPassingForm.controls['bldgcode'].touched) || adminAdvancePaymentPassingForm.get('bldgcode')?.errors?.['notFound']">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Bldg Code</span
+              >
+              <input
+                type="text"
+                upperCase
+                formControlName="bldgcode"
+                class="form-control border-start-0 post_input_field font500 font12"
+                [f1]="{ id: 'BUILDINGS', formData: adminAdvancePaymentPassingForm.get('bldgname'), subId: filters.getBldg ? filters.getBldg : ''}"
+                (focusout)="onLeaveBldgCode($event.target.value)"
+              />
+              <span class="position-relative span_divider"></span>
+              <input
+                type="text"
+                class="form-control w-50 border-start-0 post_input_field font500 text-dark1 font12"
+                formControlName="bldgname"
+              />
+            </div>
+            <div class="invalid-feedback d-block" *ngIf="adminAdvancePaymentPassingForm.get('bldgcode')?.errors?.['notFound']">Code not valid.</div>
+          </div>
+          <div class="col-lg-3">
+            <div class="input-group">
+              <div
+                class="input-group"
+                [class.is-invalid]="
+                 ( adminAdvancePaymentPassingForm
+                    .get('pinvno')
+                    ?.hasError('required') &&
+                  adminAdvancePaymentPassingForm.controls['pinvno'].touched) || adminAdvancePaymentPassingForm.get('pinvno')?.errors?.['notFound']
+                "
+              >
+                <span
+                  class="input-group-text border-end-0 leftform_lbl font500 font12"
+                  ><b class="text-danger">*</b>P. Invoice #</span
+                >
+                <input
+                  type="text"
+                  id=""
+                  name=""
+                  class="form-control border-start-0 br-9"
+                  formControlName="pinvno"
+                  [f1]="{
+                    id: 'ADVANCEINVOICE',
+                    isSingleValue: true,
+                    subId: filters.getSerial ? filters.getSerial : ''
+                  }"
+                  (focusout)="onLeavePInvoice($event.target.value)"
+                />
+              </div>
+              <div
+                class="invalid-feedback d-block"
+                *ngIf="
+                 ( adminAdvancePaymentPassingForm.get('pinvno')?.touched &&
+                  adminAdvancePaymentPassingForm.get('pinvno')?.invalid) && !adminAdvancePaymentPassingForm.get('pinvno')?.errors?.['notFound']"
+              >
+                P. invoice required.
+              </div>
+              <div class="invalid-feedback d-block" *ngIf="adminAdvancePaymentPassingForm.get('pinvno')?.errors?.['notFound']">Code not valid.</div>
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="input-group">
+              <div
+                class="input-group"
+                [class.is-invalid]="
+                  (adminAdvancePaymentPassingForm
+                    .get('ser')
+                    ?.hasError('required') &&
+                  adminAdvancePaymentPassingForm.controls['ser'].touched) || adminAdvancePaymentPassingForm.get('ser')?.errors?.['notFound']
+                "
+              >
+                <span
+                  class="input-group-text border-end-0 leftform_lbl font500 font12"
+                  ><b class="text-danger">*</b>Serial #</span
+                >
+                <input
+                  type="text"
+                  id=""
+                  name=""
+                  upperCase
+                  appCommonAutoFocus
+                  class="form-control border-start-0 br-9"
+                  formControlName="ser"
+                  [f1]="{
+                    id: 'ADMADVANCEPAYMENT',
+                    subId: filters.getSerial ? filters.getSerial : '',
+                    isSingleValue: true
+                  }"
+                />
+              </div>
+              <div
+                class="invalid-feedback d-block"
+                *ngIf="
+                  (adminAdvancePaymentPassingForm.get('ser')?.touched &&
+                  adminAdvancePaymentPassingForm.get('ser')?.invalid) && !adminAdvancePaymentPassingForm.get('ser')?.errors?.['notFound']">
+                Serial no required.
+              </div>
+              <div
+                class="invalid-feedback d-block"
+                *ngIf="adminAdvancePaymentPassingForm.get('ser')?.errors?.['notFound']">
+                Code not valid.
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+<!-- admin-advance-payment-passing form end -->
+
+<!-- after click on retrive button then open form start -->
+<section>
+  <div class="row">
+    <div class="col-md-12">
+      <!-- *ngIf="initialMode" -->
+      <form [formGroup]="fetchAdminAdvancePaymentPassing" *ngIf="initialMode">
+        <div class="row mt-3">
+          <div class="col-lg-3">
+            <div
+              class="input-group"
+              appDate1
+              [class.is-invalid]="
+                fetchAdminAdvancePaymentPassing
+                  .get('pinvdate')
+                  ?.hasError('required') &&
+                fetchAdminAdvancePaymentPassing.controls['pinvdate'].touched
+              "
+            >
+              <span class="input-group-text leftform_lbl font500 font12"
+                >P. Invoice Date</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                matInput
+                [matDatepicker]="pickerForm1"
+                class="form-control br-9"
+                formControlName="pinvdate"
+              />
+              <div
+                class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+              >
+                <span class="input-group-addon">
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="pickerForm1"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #pickerForm1></mat-datepicker>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="input-group">
+              <span class="input-group-text leftform_lbl font500 font12"
+                >Order by</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control text-uppercase br-9"
+                formControlName="orderby"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-lg-3">
+            <div class="input-group">
+              <span class="input-group-text leftform_lbl font500 font12"
+                >Advance Amt</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control br-9"
+                formControlName="advanceamt"
+              />
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="input-group">
+              <span class="input-group-text leftform_lbl font500 font12"
+                >Basic Amt</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control br-9"
+                formControlName="basicamt"
+              />
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="input-group">
+              <span class="input-group-text leftform_lbl font500 font12"
+                >GST%</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control br-9"
+                formControlName="gstperc"
+              />
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="input-group">
+              <span class="input-group-text leftform_lbl font500 font12"
+                >GST Amt</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control br-9"
+                formControlName="gstamt"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-lg-3">
+            <div class="input-group">
+              <span class="input-group-text leftform_lbl font500 font12"
+                >TDS ACMajor</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control br-9"
+                formControlName="tdsacmajor"
+              />
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="input-group">
+              <span class="input-group-text leftform_lbl font500 font12"
+                >TDS%</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control br-9"
+                formControlName="tdsperc"
+              />
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="input-group">
+              <span class="input-group-text leftform_lbl font500 font12"
+                >TDS Amount</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control br-9"
+                formControlName="tdsamount"
+              />
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="input-group">
+              <span class="input-group-text leftform_lbl font500 font12"
+                >Pay Amount</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control br-9"
+                formControlName="paidamount"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-lg-3">
+            <div class="input-group">
+              <span class="input-group-text leftform_lbl font500 font12"
+                >Freight/Other Chgs</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control br-9"
+                formControlName="fotoamount"
+              />
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div
+              class="input-group"
+              [class.is-invalid]="
+                fetchAdminAdvancePaymentPassing
+                  .get('date')
+                  ?.hasError('required') &&
+                fetchAdminAdvancePaymentPassing.controls['date'].touched
+              "
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                ><b class="text-danger">*</b>Date</span
+              ><input
+                type="text"
+                class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                id
+                matInput
+                [matDatepicker]="pickerForm"
+                formControlName="date"
+                [max]="maxDate"
+              />
+              <div
+                class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+              >
+                <span class="input-group-addon">
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="pickerForm"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #pickerForm></mat-datepicker>
+                </span>
+              </div>
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="
+                fetchAdminAdvancePaymentPassing.get('date')?.invalid &&
+                fetchAdminAdvancePaymentPassing.get('date')?.touched
+              "
+            >
+              Date is Required.
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="input-group">
+              <span class="input-group-text leftform_lbl font500 font12"
+                >Narration</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control text-uppercase br-9"
+                formControlName="narration"
+              />
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+<!-- after click on retrive button then open form end -->
+
+<!-- Bottom button start -->
+<app-buttons
+  [buttonsList]="buttonsList"
+  (eventTrigger)="buttonAction($event)"
+></app-buttons>
+<!-- Bottom button end -->

@@ -1,0 +1,827 @@
+<!-- admin-selections form start -->
+<form [formGroup]="billEntryForm">
+  <section>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row g-3">
+          <div class="col-md-12">
+            <div class="row g-2">
+              <div class="col-lg-3 col-md-6">
+                <div class="input-group" [class.is-invalid]="
+                    (billEntryForm.get('coyCode')?.hasError('required') &&
+                      billEntryForm.controls['coyCode'].touched) || billEntryForm.get('coyCode')?.errors?.['notFound']
+                  ">
+                  <span class="input-group-text leftform_lbl font500 text-dark1 font12"><b
+                      class="text-danger">*</b>Company</span>
+                  <input appCommonAutoFocus type="text" upperCase id="id_CoyCode" [maxLength]="5"
+                    class="form-control border-start-0 post_input_field font500 font12" formControlName="coyCode"
+                    [f1]="{ id: 'COMPANY', isSingleValue: true }" (focusout)="setValueOnLeaveInputFiled()" />
+                  <div class="invalid-feedback d-block" *ngIf="
+                     ( billEntryForm.get('coyCode')?.touched &&
+                      billEntryForm.get('coyCode')?.invalid) && !billEntryForm.get('coyCode')?.errors?.['notFound']
+                    ">
+                    Company code is required.
+                  </div>
+                  <div class="invalid-feedback d-block" *ngIf="billEntryForm.get('coyCode')?.errors?.['notFound']">
+                    Company Code is not valid.
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-md-6">
+                <div class="input-group" [class.is-invalid]="
+                   ( (billEntryForm
+                      .get('partyType')
+                      ?.hasError('required') &&
+                      billEntryForm.controls['partyType'].touched) )||
+                      billEntryForm.get('partyType')?.errors?.['notFound']
+                  ">
+                  <span class="input-group-text leftform_lbl font500 text-dark1 font12"><b
+                      class="text-danger">*</b>Party Type</span>
+                  <input type="text" id="id_PartyType" upperCase [maxLength]="1"
+                    class="form-control border-start-0 post_input_field font500 font12" formControlName="partyType"
+                    [f1]="{
+                      id: 'PARTTYPE',
+                      subId: filter_partyType,
+                      isSingleValue: true
+                    }" (keypress)="partyTypeKeyPress($event,'normal')" (focusout)="setValueOnLeaveInputFiled()" />
+                  <div class="invalid-feedback d-block" *ngIf="
+                     ( billEntryForm.get('partyType')?.touched &&
+                      billEntryForm.get('partyType')?.invalid) && !billEntryForm.get('partyType')?.errors?.['notFound']
+                    ">
+                    Party type is required.
+                  </div>
+                  <div class="invalid-feedback d-block" *ngIf="billEntryForm.get('partyType')?.errors?.['notFound']">
+                    Party type is not valid.</div>
+                </div>
+              </div>
+
+              <div class="col-lg-6 col-md-6">
+                <div class="input-group"
+                  [class.is-invalid]="
+                    (billEntryForm
+                      .get('partyCode')
+                      ?.hasError('required') &&
+                      billEntryForm.controls['partyCode'].touched) ||billEntryForm.get('partyCode')?.errors?.['notFound'] ">
+                  <span class="input-group-text leftform_lbl font500 font12"><b class="text-danger">*</b>Party
+                    Code</span>
+                  <input type="text" id=""  (focusout)="setValueOnLeaveInputFiled()" upperCase formControlName="partyCode" [maxLength]="12"
+                    class="form-control post_input_field border-start-0 font500 font12" [f1]="{
+                      id: 'PARTYCODE',
+                      formData: billEntryForm.get('partyName'),
+                      subId: filters.getPartyType
+                    }" />
+                  <span class="position-relative span_divider"></span>
+
+                  <input type="text" formControlName="partyName"
+                    class="form-control w-50 border-start-0 post_input_field font500 font12" />
+                </div>
+
+                <div class="invalid-feedback d-block" *ngIf="
+                    (billEntryForm.get('partyCode')?.touched &&
+                    billEntryForm.get('partyCode')?.invalid) && !billEntryForm.get('partyCode')?.errors?.['notFound']
+                  ">
+                  Party code is required.
+                </div>
+                <div class="invalid-feedback d-block" *ngIf="billEntryForm.get('partyCode')?.errors?.['notFound']">Party
+                  code
+                  not valid.</div>
+              </div>
+
+              <div class="col-md-5 ">
+                <div class="input-group" [class.is-invalid]="
+                    (billEntryForm
+                      .get('bldgCode')
+                      ?.hasError('required') &&
+                      billEntryForm.controls['bldgCode'].touched) ||
+                      billEntryForm.get('bldgCode')?.errors?.['notFound']
+                  ">
+                  <span class="input-group-text leftform_lbl font500 text-dark1 font12"><b class="text-danger">*</b>Bldg
+                    Code<Code></Code></span>
+                  <input (focusout)="setValueOnLeaveInputFiled()" type="text" id="" [maxLength]="4" upperCase class="form-control border-start-0 br-9" formControlName="bldgCode"
+                    [f1]="{
+                      id: 'BUILDINGS',
+                      formData: billEntryForm.get('bldgName'),
+                      subId: filters.getBldg ? filters.getBldg : ''
+                    }" />
+                  <span class="position-relative span_divider"></span>
+                  <input type="text" class="form-control w-50 border-start-0 post_input_field font500 font12"
+                    formControlName="bldgName" />
+                </div>
+                <div class="invalid-feedback d-block" *ngIf="
+                (billEntryForm.get('bldgCode')?.touched &&
+                billEntryForm.get('bldgCode')?.invalid) && !billEntryForm.get('bldgCode')?.errors?.['notFound']
+              ">
+                  Bldg code required.
+                </div>
+                <div class="invalid-feedback d-block" *ngIf="billEntryForm.get('bldgCode')?.errors?.['notFound']">Bldg
+                  Code
+                  not valid.</div>
+              </div>
+
+              <div class="col-md ">
+                <div class="input-group" [class.is-invalid]="
+               ( (billEntryForm
+                  .get('suppBillNo')
+                  ?.hasError('required') &&
+                  billEntryForm.controls['suppBillNo'].touched) )
+              ">
+                  <span class="input-group-text leftform_lbl font500 text-dark1 font12"><b
+                      class="text-danger">*</b>Invoice #</span>
+                  <input type="text" (focusout)="setValueOnLeaveInputFiled()"
+                  maxlength="16"
+                  id="invoice_Num"
+                    class="form-control w-50 border-start-0 post_input_field font500 font12"
+                    formControlName="suppBillNo"
+                    [f1]="{ id: 'ADMININVOICE', isSingleValue: true , subId: filters.getInvoiceByFilter ? filters.getInvoiceByFilter : ''}" />
+                  <!-- <div class="invalid-feedback d-block" *ngIf="billEntryForm.get('suppBillNo')?.errors?.['notFound']
+                    ">
+                    Invoice number is not valid.
+                  </div> -->
+                  <div class="invalid-feedback d-block" *ngIf="
+                  (billEntryForm.get('suppBillNo')?.touched &&
+                  billEntryForm.get('suppBillNo')?.invalid) && !billEntryForm.get('suppBillNo')?.errors?.['notFound']
+                ">
+                    Invoice number is required.
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md ">
+                <div class="input-group" [class.is-invalid]="
+                (billEntryForm
+                  .get('serNo')
+                  ?.hasError('required') &&
+                  billEntryForm.controls['serNo'].touched) ||
+                  billEntryForm.get('serNo')?.errors?.['notFound']
+              ">
+                  <span class="input-group-text leftform_lbl font500 text-dark1 font12">Serial #</span>
+                  <input type="text" id=""  oninput="this.value = this.value.replace(/[^a-zA-Z0-9.]/g, '').replace(/(\..*)\./g, '$1');" upperCase [maxLength]="10" class="form-control border-start-0 br-9" formControlName="serNo"
+                    [f1]="{ id: 'ADMBILLS', isSingleValue: true, subId: filters.getSerialNumByFilter ? filters.getSerialNumByFilter : '' }" />
+                  <div class="invalid-feedback d-block" *ngIf="billEntryForm.get('serNo')?.errors?.['notFound']
+                    ">
+                    Serial number is not valid.
+                  </div>
+                  <div class="invalid-feedback d-block" *ngIf="
+                  (billEntryForm.get('serNo')?.touched &&
+                  billEntryForm.get('serNo')?.invalid) && !billEntryForm.get('serNo')?.errors?.['notFound']
+                ">
+                    Serial number is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <!-- admin-selections form end -->
+
+  <section *ngIf="config.isBillEntryShow">
+    <div class="row">
+      <div class="col-md-12 mt-2">
+
+        <div class="row mt-2 g-2">
+          <div class="col-lg-3 col-md-6">
+            <div class="input-group">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">Party GST No</span>
+              <input type="text" id="id_gstNo" name="txtGstNo" class="form-control post_input_field border-start-0"
+                formControlName="partyGstNo" />
+            </div>
+          </div>
+
+          <div class="col-lg-6 col-md-6">
+            <div class="input-group">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">State</span>
+              <input type="text" id="id_state" name="txtState" class="form-control post_input_field border-start-0"
+                formControlName="state" />
+              <span class="position-relative span_divider"></span>
+              <input type="text" formControlName="stateName"
+                class="form-control w-50 border-start-0 post_input_field font500 font12" />
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="input-group">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">Order by</span>
+              <input type="text" id="id_orderBy" maxlength="10" name="txtOrderBY"
+                class="form-control post_input_field border-start-0" formControlName="orderBy" />
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="input-group" [class.is-invalid]="billEntryForm.get('refPartyType')?.errors?.['notFound']">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">Ref. Party Type</span>
+              <input maxlength="5" type="text" upperCase id="id_refPartyType" formControlName="refPartyType" name="txtRefPartyType"
+                class="form-control border-start-0 post_input_field font500 font12" [f1]="{
+                  id: 'PARTTYPE',
+                  subId: filter_partyType,
+                  isSingleValue: true
+                }" (keypress)="partyTypeKeyPress($event,'ref')" (focusout)="setValueOnLeaveInputFiled()" />
+            </div>
+            <div class="invalid-feedback d-block" *ngIf="billEntryForm.get('refPartyType')?.errors?.['notFound']">
+              Ref party type not
+              valid.</div>
+          </div>
+
+          <div class="col-lg-6 col-md-6">
+            <div class="input-group" [class.is-invalid]="billEntryForm.get('refPartyCode')?.errors?.['notFound']">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">Ref. Party Code</span>
+              <input maxlength="12" type="text" id="id_RefPartyCode" upperCase formControlName="refPartyCode" name="txtRefPartyCode"
+                class="form-control post_input_field border-start-0 font500 font12" [f1]="{
+                  id: 'PARTYCODE',
+                  formData: billEntryForm.get('refPartyName'),
+                  subId: filters.getRefPartyType
+                }" />
+              <span class="position-relative span_divider"></span>
+              <input type="text" formControlName="refPartyName"
+                class="form-control w-50 border-start-0 post_input_field font500 font12" />
+            </div>
+            <div class="invalid-feedback d-block" *ngIf="billEntryForm.get('refPartyCode')?.errors?.['notFound']">
+              Ref party code not
+              valid.</div>
+          </div>
+
+          <!-- Supply Type -->
+          <div class="col-lg-3 col-md-6">
+            <div class="input-group"
+              [class.is-invalid]="(billEntryForm.get('exptype')?.hasError('required') && billEntryForm.get('exptype')?.touched) || billEntryForm.get('exptype')?.errors?.['notFound']">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12"><b class="text-danger">*</b>Supply
+                Type</span>
+              <input  maxlength="1" type="text" id="id_supplyType" upperCase formControlName="exptype" name="txtSupplyType"
+                class="form-control post_input_field border-start-0" [f1]="{
+                  id: 'SUPPLYTYPE',
+                  subId: filter_suppType,
+                  isSingleValue: true
+                }" />
+            </div>
+            <div class="invalid-feedback d-block"
+              *ngIf="(billEntryForm.get('exptype')?.touched && billEntryForm.get('exptype')?.invalid) && !billEntryForm.get('exptype')?.errors?.['notFound']">
+              Bill Type required.</div>
+            <div class="invalid-feedback d-block" *ngIf="billEntryForm.get('exptype')?.errors?.['notFound']">Code not
+              valid.</div>
+          </div>
+
+          <!-- Bill Type -->
+          <div class="col-lg-3 col-md-6">
+            <div class="input-group"
+              [class.is-invalid]="(billEntryForm.get('billType')?.hasError('required') && billEntryForm.get('billType')?.touched) || billEntryForm.get('billType')?.errors?.['notFound']">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12"><b class="text-danger">*</b>Bill
+                Type</span>
+              <input maxlength="1" type="text" id="id_billType" upperCase formControlName="billType" name="txtBillType"
+                class="form-control post_input_field border-start-0" [f1]="{
+                  id: 'ADMBILLTYPES',
+                  subId: filter_billType,
+                  isSingleValue: true
+                }" />
+            </div>
+            <div class="invalid-feedback d-block"
+              *ngIf="(billEntryForm.get('billType')?.touched && billEntryForm.get('billType')?.invalid) && !billEntryForm.get('billType')?.errors?.['notFound']">
+              Bill Type required.</div>
+            <div class="invalid-feedback d-block" *ngIf="billEntryForm.get('billType')?.errors?.['notFound']">Code not
+              valid.</div>
+          </div>
+
+          <!-- Invoice Date -->
+          <div class="col-lg-3 col-md-6">
+            <div class="input-group" [class.is-invalid]="
+                billEntryForm.get('suppbilldt')?.touched &&
+                billEntryForm.get('suppbilldt')?.invalid
+              " appDate1>
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12"><b class="text-danger">*</b>Invoice
+                Date</span>
+              <input type="text" id="invoiceDate" [autocomplete]="'off'"
+                class="form-control border-start-0 rounded-0 post_input_field font500 text-dark1 font12" matInput
+                [max]="maxDate" [matDatepicker]="invoiceDate" formControlName="suppbilldt" />
+              <div class="input-group-append bg-white post_input_field datepicker_field border-start-0"
+                [class.is-invalid]="
+                  billEntryForm.get('suppbilldt')?.touched &&
+                  billEntryForm.get('suppbilldt')?.errors
+                ">
+                <span class="input-group-addon">
+                  <mat-datepicker-toggle matSuffix [for]="invoiceDate"></mat-datepicker-toggle>
+                  <mat-datepicker #invoiceDate></mat-datepicker>
+                </span>
+              </div>
+            </div>
+            <div class="invalid-feedback" [class.d-block]="
+                billEntryForm.get('suppbilldt')?.touched &&
+                billEntryForm.get('suppbilldt')?.invalid
+              ">
+              <div class="invalid-feedback d-block" *ngIf="billEntryForm.get('suppbilldt')?.errors?.['required']">
+                Invoice date is required
+              </div>
+              <div class="invalid-feedback d-block" *ngIf="
+                  billEntryForm.get('suppbilldt')?.hasError('matDatepickerMax')
+                ">
+                Bill Date can’t be greater than today’s date
+              </div>
+            </div>
+          </div>
+
+          <!-- Invoice Amount -->
+          <div class="col-lg-3 col-md-6">
+            <div class="input-group"
+              [class.is-invalid]="billEntryForm.get('invoiceAmt')?.touched && billEntryForm.get('invoiceAmt')?.errors?.['required']">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12 "><b class="text-danger">*</b>Invoice
+                Amt</span>
+              <input type="text" maxlength="15"
+                oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                id="id_invoiceAmt" maxlength="15" name="txtInvoiceAmt"
+                class="form-control post_input_field border-start-0 text-end" formControlName="invoiceAmt" />
+            </div>
+            <div class="invalid-feedback d-block"
+              *ngIf="billEntryForm.get('invoiceAmt')?.touched && billEntryForm.get('invoiceAmt')?.errors?.['required']">
+              Invoice amount is required
+            </div>
+          </div>
+
+          <!-- Expense A/c -->
+          <div class="col-lg-3 col-md-6">
+            <div class="input-group"
+              [class.is-invalid]="(billEntryForm.get('acmajor')?.touched && billEntryForm.get('acmajor')?.errors?.['required']) || billEntryForm.get('acmajor')?.errors?.['notFound']">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12"><b class="text-danger">*</b>Expense
+                A/c</span>
+              <input maxlength="10" type="text" id="id_expenseAc" formControlName="acmajor" name="txtExpenseAc"
+                class="form-control post_input_field border-start-0"
+                [f1]="{ id: config.isSales?'SALES_ACMAJOR':'ACMAJOR', isSingleValue: true }"
+                (focusout)="onLeaveAcMajor($event.target.value,false)" />
+            </div>
+
+            <div class="invalid-feedback d-block"
+              *ngIf="billEntryForm.get('acmajor')?.touched && billEntryForm.get('acmajor')?.errors?.['required']">
+              Expense A/c is required
+            </div>
+            <div class="invalid-feedback d-block" *ngIf="billEntryForm.get('acmajor')?.errors?.['notFound']">
+              Expense A/c Code is not
+              valid.</div>
+
+          </div>
+
+          <!-- Min Type -->
+          <div class="col-lg-3 col-md-6">
+            <div class="input-group"
+              [class.is-invalid]="(billEntryForm.get('minType')?.touched && billEntryForm.get('minType')?.errors?.['required']) || billEntryForm.get('minType')?.errors?.['notFound']">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">Min Type</span>
+              <input maxlength="1" type="text" id="id_minType" formControlName="minType" name="txtMinType"
+                class="form-control post_input_field border-start-0" [f1]="{
+                  id: 'VALIDMINOR',
+                  subId: filter_minType,
+                  isSingleValue: true
+                }" (focusout)="onLeaveMinType($event.target.value)" />
+            </div>
+
+
+            <div class="invalid-feedback d-block"
+              *ngIf="billEntryForm.get('minType')?.touched && billEntryForm.get('minType')?.errors?.['required']">
+              Min type code is required
+            </div>
+            <div class="invalid-feedback d-block" *ngIf="billEntryForm.get('minType')?.errors?.['notFound']">
+              Min type code is not
+              valid.</div>
+          </div>
+
+          <!-- AC Minor -->
+          <div class="col-lg-3 col-md-6">
+            <div class="input-group"
+              [class.is-invalid]="(billEntryForm.get('acMinor')?.touched && billEntryForm.get('acMinor')?.errors?.['required'])||billEntryForm.get('acMinor')?.errors?.['notFound']">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">AC Minor</span>
+              <input maxlength="50" type="text" id="id_acMinor" formControlName="acMinor" name="txtAcMinor"
+                class="form-control post_input_field border-start-0" [f1]="{
+                  id: 'ACMINOR',
+                  subId: filter_acminor,
+                  isSingleValue: true
+                }" />
+            </div>
+            <div class="invalid-feedback d-block"
+              *ngIf="billEntryForm.get('acMinor')?.touched && billEntryForm.get('acMinor')?.errors?.['required']">
+              AC minor code is required
+            </div>
+            <div class="invalid-feedback d-block" *ngIf="billEntryForm.get('acMinor')?.errors?.['notFound']">
+              AC minor code is not
+              valid.</div>
+          </div>
+
+          <!-- Exp class -->
+          <div class="col-lg-3 col-md-6">
+            <div class="input-group" [class.is-invalid]=" billEntryForm.get('expClass')?.touched && billEntryForm.get('expClass')?.errors?.['required'] || billEntryForm.get('expClass')?.errors?.['notFound']">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">Exp class</span>
+              <input maxlength="5" type="text" id="id_expClass" formControlName="expClass" name="txtExpClass"
+                class="form-control post_input_field border-start-0" [f1]="{ id: 'DETAILTYPE', isSingleValue: true }"
+                (focusout)="onLeaveExpClass($event.target.value)" />
+            </div>
+            <div class="invalid-feedback d-block"
+            *ngIf="billEntryForm.get('expClass')?.touched && billEntryForm.get('expClass')?.errors?.['required']">
+            Exp class is required
+          </div>
+            <div class="invalid-feedback d-block" *ngIf="billEntryForm.get('expClass')?.errors?.['notFound']">
+              Exp class is not
+              valid.</div>
+          </div>
+
+          <!-- Exp ID -->
+          <div class="col-lg-3 col-md-6">
+            <div class="input-group" [class.is-invalid]="billEntryForm.get('expId')?.touched && billEntryForm.get('expId')?.errors?.['required'] || billEntryForm.get('expId')?.errors?.['notFound']">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">Exp ID</span>
+              <input   (focusout)="onLeaveExpID($event.target.value,true)" maxlength="25" type="text" id="id_expId" formControlName="expId" name="txtExpId"
+                class="form-control post_input_field border-start-0" [f1]="{
+                  id: 'SUNDATA',
+                  subId: filter_expId?filter_expId:'',
+                  isSingleValue: true
+                }" />
+            </div>
+            <div class="invalid-feedback d-block"
+            *ngIf="billEntryForm.get('expId')?.touched && billEntryForm.get('expId')?.errors?.['required']">
+            Exp Id is required
+          </div>
+            <div class="invalid-feedback d-block" *ngIf="billEntryForm.get('expId')?.errors?.['notFound']">
+              Exp ID is not
+              valid.</div>
+          </div>
+
+          <!-- Period -->
+          <div class="col-lg-3 col-md-6">
+            <div class="input-group has-validation flex-nowrap" appDate1 [class.is-invalid]="billEntryForm.get('period.uptodate')?.errors?.['required'] || billEntryForm.get('period.uptodate').hasError('matEndDateInvalid')">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">Period</span>
+
+              <span class="br-10 datepicker_field input-group-addon w-100"  [class.is-invalid]="billEntryForm.get('period.uptodate')?.errors?.['required'] || billEntryForm.get('period.uptodate').hasError('matEndDateInvalid')" >
+                <div mat-form-field appearance="fill" class="matForm" >
+                  <mat-date-range-input [formGroup]="this.billEntryForm.controls['period']" [rangePicker]="picker1" >
+                    <input class="font12"  id="period" appDate1 matStartDate formControlName="fromdate" placeholder="From Date" />
+                    <input class="font12" id="periodTo" appDate1 matEndDate formControlName="uptodate" placeholder="To Date" />
+                  </mat-date-range-input>
+                  <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                  <mat-date-range-picker #picker1></mat-date-range-picker>
+                </div>
+              </span>
+            </div>
+            <div class="invalid-feedback d-block"  *ngIf="billEntryForm.get('period.uptodate').hasError('matEndDateInvalid')">
+              ToDate cann’t be less than FromDate.
+            </div>
+            <div class="invalid-feedback d-block"  *ngIf="billEntryForm.get('period.uptodate')?.errors?.['required']">
+              Period from date and to date is required
+            </div>
+          </div>
+
+          <!-- TDS AC Major -->
+          <div class="col-lg-3 col-md-6">
+            <div class="input-group"
+              [class.is-invalid]="(billEntryForm.get('tdsAcMajor')?.touched && billEntryForm.get('tdsAcMajor')?.errors?.['required']) || billEntryForm.get('tdsAcMajor')?.errors?.['notFound']">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">TDS ACMajor</span>
+              <input maxlength="10" (focusout)="onLeaveTDSACMajor($event.target.value)" type="text" id="id_tdsAcMajor"  formControlName="tdsAcMajor" name="txtTdsAcMajor"
+                class="form-control post_input_field border-start-0" [f1]="{ id: 'TDSACMAJOR', isSingleValue: true }" />
+            </div>
+
+            <div class="invalid-feedback d-block"
+              *ngIf="billEntryForm.get('tdsAcMajor')?.touched && billEntryForm.get('tdsAcMajor')?.errors?.['required']">
+              TDS Ac major is required
+            </div>
+            <div class="invalid-feedback d-block" *ngIf="billEntryForm.get('tdsAcMajor')?.errors?.['notFound']">
+              TDS Ac major is not
+              valid.</div>
+          </div>
+
+          <!-- TDS % -->
+          <div class="col-lg-3 col-md-6">
+            <div class="input-group"
+              [class.is-invalid]="billEntryForm.get('tdsPerc')?.touched && billEntryForm.get('tdsPerc')?.errors?.['required']">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">TDS %</span>
+              <input maxlength="6" type="text"  id="id_tdsPerc" name="txtTdsPerc"
+                (focusout)="onLeaveTDS($event.target.value)"
+                class="form-control post_input_field border-start-0 text-end" formControlName="tdsPerc" />
+            </div>
+            <div class="invalid-feedback d-block"
+              *ngIf="billEntryForm.get('tdsPerc')?.touched && billEntryForm.get('tdsPerc')?.errors?.['required']">
+              TDS percentage is required
+            </div>
+          </div>
+
+          <!-- TDS Amount -->
+          <div class="col-lg-3 col-md-6">
+            <div class="input-group">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">TDS Amount</span>
+              <input maxlength="15" type="text" id="id_tdsAmount"  (focusout)="onLeaveTDSAmt($event.target.value)"  name="txtTdsAmount"
+                class="form-control post_input_field border-start-0  text-end"  formControlName="tdsAmount" />
+            </div>
+          </div>
+
+          <!-- Paid Advance -->
+          <div class="col-lg-3 col-md-6">
+            <div class="input-group">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">Paid Advn</span>
+              <input maxlength="15" type="text" id="id_PaidAdvn" name="txtPaidAdvn"
+                class="form-control post_input_field border-start-0 text-end" formControlName="paidAdvn" />
+            </div>
+          </div>
+
+          <!-- Adjusted Advn -->
+          <div class="col-lg-3 col-md-6">
+            <div class="input-group">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">Adjusted Advn</span>
+              <input  maxlength="15" type="text" id="id_AdjustedAdvn" name="txtAdjustedAdvn"
+                class="form-control post_input_field border-start-0 text-end" formControlName="adjustedAdvn" />
+            </div>
+          </div>
+
+          <!-- Bal Advn -->
+          <div class="col-lg-3 col-md-6">
+            <div class="input-group">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">Bal Advn</span>
+              <input maxlength="15" type="text" id="id_BalAdvn" name="txtBalAdvn"
+                class="text-end form-control post_input_field border-start-0" formControlName="balAdvn" />
+            </div>
+          </div>
+
+          <!--  Adjust Advn -->
+          <div class="col-lg-3 col-md-6">
+            <div class="input-group" [class.is-invalid]="billEntryForm?.hasError('invalidAdjustAdvn')">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">Adjust Advn</span>
+              <input maxlength="15" type="text"
+                oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                id="id_adjustAdvn" name="txtAdjustAdvn" class="form-control post_input_field border-start-0 text-end"
+                formControlName="adjustAdvn" />
+            </div>
+            <div class="invalid-feedback d-block" *ngIf="
+            billEntryForm?.hasError('invalidAdjustAdvn')
+          ">
+              Adjust advance is not greater than Paid Advn amount.
+            </div>
+          </div>
+
+          <!-- Narration -->
+          <div class="col-lg-6 col-md-6">
+            <div class="input-group">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">Narration</span>
+              <input type="text" id="id_Narration" maxlength="40" name="txtNarration"
+                class="form-control post_input_field border-start-0" formControlName="narration" />
+            </div>
+          </div>
+
+          <!-- Freight/Other Chrges -->
+          <div class="col-lg-3 col-md-6">
+            <div class="input-group">
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12">Freight/Other Chrges</span>
+              <input maxlength="7" type="text"
+                oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                id="id_otherCharg" name="txtOtherCharg" class="form-control post_input_field border-start-0 text-end"
+                formControlName="otherCharg" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 mt-4" formArrayName="admbillList">
+
+        <div class="group_panel br-10 p-3 pt-4 position-relative form_common_bg">
+          <p class="bg-white font600 group_title mb-0 position-absolute">
+            Bill Details
+          </p>
+
+          <div class="col-md-12">
+            <div class="table-responsive group_panel form_common_bg fixed-height-table stylishScroll">
+              <table class="table table-bordered table-sm mb-0 custom-table-width ">
+                <thead class="table_head_position_sticky">
+                  <tr tabindex="-1">
+                    <th class="fontBold font12 fonttxt_black"> <b class="text-danger">*</b>HSN/SAC Code</th>
+                    <th class="fontBold font12 fonttxt_black" style="width: 12%;">Item Desc</th>
+                    <th class="fontBold font12 fonttxt_black custom-width">UOM</th>
+                    <th class="fontBold font12 fonttxt_black custom-width">Qty</th>
+                    <th class="fontBold font12 fonttxt_black">Rate</th>
+                    <th class="fontBold font12 fonttxt_black"><b class="text-danger">*</b>Amount</th>
+                    <th class="fontBold font12 fonttxt_black">Discount Amt</th>
+                    <th class="fontBold font12 fonttxt_black"><b class="text-danger">*</b>Taxable Amt</th>
+                    <th class="fontBold font12 fonttxt_black">CGST%</th>
+                    <th class="fontBold font12 fonttxt_black">CGST Amt</th>
+                    <th class="fontBold font12 fonttxt_black">SGST%</th>
+                    <th class="fontBold font12 fonttxt_black">SGST Amt</th>
+                    <th class="fontBold font12 fonttxt_black">IGST%</th>
+                    <th class="fontBold font12 fonttxt_black">IGST Amt</th>
+                    <th class="fontBold font12 fonttxt_black">UGST%</th>
+                    <th class="fontBold font12 fonttxt_black">UGST Amt</th>
+                    <th class="fontBold font12 fonttxt_black">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of billEntryForm.controls?.['admbillList'].controls let index=index"
+                    [formGroupName]="index">
+                    <td>
+                      <div class="input-group"
+                        [class.is-invalid]="(billEntryForm.controls?.['admbillList'].controls[index].get('hsnsaccode').errors?.['notFound']) || (billEntryForm.controls?.['admbillList'].controls[index].get('hsnsaccode').hasError('required') && billEntryForm.controls?.['admbillList'].controls[index].get('hsnsaccode').touched)">
+
+                        <input class="form-control input_control form-control font500 text-dark1 font12 " oninput="this.value = this.value.replace(/[^a-zA-Z0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                        type="text"
+                        [id]="'hsnCode'+index"
+                          maxlength="15" (focusout)="getGSTPercentage($event.target.value,item)"
+                          formControlName="hsnsaccode" [f1]="{ id: 'HSNSAC' ,isSingleValue:true,multiValue:[
+                        {index:1, name: billEntryForm.controls?.['admbillList'].controls[index].get('itemdesc') },
+                        ]}" />
+                      </div>
+                      <div class="errorField common_color_txt font12 font500 disInl"
+                        *ngIf="billEntryForm.controls?.['admbillList'].controls[index].get('hsnsaccode').errors?.['notFound']">
+                        HSN/SAC code is invalid.
+                      </div>
+                      <div class="errorField common_color_txt font12 font500 disInl"
+                        *ngIf="billEntryForm.controls?.['admbillList'].controls[index].get('hsnsaccode').hasError('required') && billEntryForm.controls?.['admbillList'].controls[index].get('hsnsaccode').touched">
+                        HSN/SAC code is required.
+                      </div>
+                    </td>
+                    <td>
+                      <div class="has-validation">
+                        <input type="text" class="form-control input_control font500 fonttxt_black font12"
+                          formControlName="itemdesc" />
+                      </div>
+                    </td>
+                    <td>
+                      <div class="input-group"
+                        [class.is-invalid]="(billEntryForm.controls?.['admbillList'].controls[index].get('uom').errors?.['notFound']) || (billEntryForm.controls?.['admbillList'].controls[index].get('uom').hasError('required') && billEntryForm.controls?.['admbillList'].controls[index].get('uom').touched)">
+                        <input  class="form-control input_control form-control font500 text-dark1 font12 text-end"
+                          type="text" oninput="this.value = this.value.replace(/[^a-zA-Z.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="10" formControlName="uom" [f1]="{ id: 'UNITS' ,isSingleValue:true
+                      }" />
+                      </div>
+                      <div class="errorField common_color_txt font12 font500 disInl"
+                        *ngIf="billEntryForm.controls?.['admbillList'].controls[index].get('uom').errors?.['notFound']">
+                        Invalid code.
+                      </div>
+
+                    </td>
+                    <td>
+                      <div class="has-validation">
+                        <input
+                          oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                          type="text" class="form-control input_control font500 fonttxt_black font12 text-end"
+                          formControlName="dbqty"  (focusout)="onRateQuntityChange(item)" />
+                      </div>
+                    </td>
+                    <td>
+                      <div class="has-validation">
+                        <input
+                          oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                          type="text" (focusout)="calculatedBillDetails(item)"
+                          class="form-control input_control font500 fonttxt_black font12 text-end"  (focusout)="onRateQuntityChange(item)" formControlName="rate" />
+                      </div>
+                    </td>
+                    <td>
+                      <div class="has-validation"
+                        [class.is-invalid]="billEntryForm.controls?.['admbillList'].controls[index].get('amount').hasError('required') && billEntryForm.controls?.['admbillList'].controls[index].get('amount').touched">
+                        <input type="text"
+                          oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                          (focusout)="calculatedBillDetails(item)"
+                          class="form-control input_control font500 fonttxt_black font12 text-end" formControlName="amount" />
+                      </div>
+                      <div class="errorField common_color_txt font12 font500 disInl"
+                        *ngIf="billEntryForm.controls?.['admbillList'].controls[index].get('amount').hasError('required') && billEntryForm.controls?.['admbillList'].controls[index].get('amount').touched">
+                        Amount is required.
+                      </div>
+                    </td>
+                    <td>
+                      <div class="has-validation">
+                        <input
+                          oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                          type="text" (focusout)="calculatedBillDetails(item)"
+                          class="form-control input_control font500 fonttxt_black font12 text-end"
+                          formControlName="discountamt" />
+                      </div>
+                    </td>
+                    <td>
+                      <div class="has-validation">
+                        <input
+                          oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                          type="text" (focusout)="calculatedBillDetails(item)"
+                          class="form-control input_control font500 fonttxt_black font12 text-end"
+                          formControlName="taxableamt" />
+                      </div>
+                    </td>
+                    <td>
+                      <div class="has-validation">
+                        <input
+                          oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                          type="text" (focusout)="calculatedBillDetails(item)"
+                          class="form-control input_control font500 fonttxt_black font12 text-end" formControlName="cgstperc" />
+                      </div>
+                    </td>
+                    <td>
+                      <div class="has-validation">
+                        <input
+                          oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                          type="text" class="form-control input_control font500 fonttxt_black font12 text-end"
+                          formControlName="cgstamt" />
+                      </div>
+                    </td>
+                    <td>
+                      <div class="has-validation">
+                        <input
+                          oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                          type="text" class="form-control input_control font500 fonttxt_black font12 text-end"
+                          formControlName="sgstperc"  (focusout)="calculatedBillDetails(item)"/>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="has-validation">
+                        <input
+                          oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                          type="text" class="form-control input_control font500 fonttxt_black font12 text-end"
+                          formControlName="sgstamt" />
+                      </div>
+                    </td>
+                    <td>
+                      <div class="has-validation">
+                        <input
+                          oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                          type="text" class="form-control input_control font500 fonttxt_black font12 text-end"
+                          formControlName="igstperc" (focusout)="calculatedBillDetails(item)" />
+                      </div>
+                    </td>
+                    <td>
+                      <div class="has-validation">
+                        <input
+                          oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                          type="text" class="form-control input_control font500 fonttxt_black font12 text-end"
+                          formControlName="igstamt" />
+                      </div>
+                    </td>
+                    <td>
+                      <div class="has-validation">
+                        <input
+                          oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                          type="text" class="form-control input_control font500 fonttxt_black font12 text-end"
+                          formControlName="ugstperc"  (focusout)="calculatedBillDetails(item)"/>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="has-validation">
+                        <input
+                          oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                          type="text" class="form-control input_control font500 fonttxt_black font12 text-end"
+                          formControlName="ugstamt" />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div class="action_panel d-flex justify-content-center">
+                        <button type="button" class="btn action_btn d-flex bg_common_red mt-1"
+                          (click)="addBillEntryList()">
+
+                          <img src="/assets/images/add.svg" alt="add" class="add_img" />
+                        </button>
+                        <button [disabled]="index==0" type="button"
+                          class="btn action_btn d-flex bg_common_red ms-1 mt-1"
+                          (click)="removeBillEntryList(index,item)">
+                          <!-- (click)="deleteItem(i)" -->
+                          <img src="/assets/images/trash.svg" alt="remove" class="delete_img" />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</form>
+<!-- Bottom button start -->
+<app-buttons [buttonsList]="buttonsList" (eventTrigger)="buttonAction($event)"></app-buttons>
+<!-- Bottom button end -->
+
+<app-loader *ngIf="config.isLoading"></app-loader>
+
+
+<!-- Button trigger modal -->
+<button type="button" id="gstFlag" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Launch demo modal
+</button>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title bold" id="exampleModalLabel">Choose GST flag</h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container mb-2">
+          <div class="input-group justify-content-center">
+            <div class="form-check form-check-inline" *ngFor="let item of config.gstnFlagList">
+              <input class="form-check-input position-relative cursor-pointer" [(ngModel)]="config.gstnFlag"
+                type="radio" [value]="item.id" />
+              <label class="form-check-label m-0" for="exTy1">
+                {{ item.name }}
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button"  class="btn btn-sm btn-danger" (click)="setGSTFlag()" data-bs-dismiss="modal">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

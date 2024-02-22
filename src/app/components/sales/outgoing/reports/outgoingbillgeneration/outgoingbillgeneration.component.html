@@ -1,0 +1,203 @@
+<section>
+  <!-- <div class="row"> -->
+  <!-- <div class="col-md-12"> -->
+  <form [formGroup]="queryForm">
+    <!-- <div class="form_container"> -->
+      <!-- <div class="row" *ngIf="initialMode"> -->
+        <!-- Flat Owner From Start -->
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3 col-xxl-12">
+          <div
+            class="input-group"
+            [class.is-invalid]="
+                          queryForm.controls['flatownerfrom'].invalid &&
+                          queryForm.controls['flatownerfrom'].touched || queryForm.invalid &&
+                          queryForm.touched && queryForm.errors?.['atLeastOneFilter'] 
+                        "
+          >
+            <span
+              class="input-group-text leftform_lbl font500 text-dark1 font12"
+              >Flat Owner From</span
+            >
+            <input
+              type="text"
+              id="flatownerfrom"
+              class="form-control border-start-0"
+              formControlName="flatownerfrom"
+              [f1]="{ id: 'UNITOWNERID', subId: ownerTypeCondition }"
+              (focusout)="setBillDate()"
+              appCommonAutoFocus
+            />
+          </div>
+          <div
+            class="invalid-feedback d-block"
+            *ngIf="
+              queryForm.controls['flatownerfrom'].invalid &&
+              queryForm.controls['flatownerfrom'].touched
+            "
+          >
+            <div
+              *ngIf="queryForm.controls['flatownerfrom'].errors?.['notFound']"
+            >
+              Not Found
+            </div>
+          </div>
+        </div>
+        <!-- Flat Owner From End -->
+        <!-- Flat Owner Upto Start -->
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3 col-xxl-12">
+          <div
+            class="input-group"
+            [class.is-invalid]="
+                                        queryForm.controls['flatownerupto'].invalid &&
+                                        queryForm.controls['flatownerupto'].touched || queryForm.invalid &&
+                                        queryForm.touched && queryForm.errors?.['atLeastOneFilter'] 
+                                      "
+          >
+            <span
+              class="input-group-text leftform_lbl font500 text-dark1 font12"
+              >Flat Owner Upto</span
+            >
+            <input
+              type="text"
+              id="flatownerupto"
+              class="form-control border-start-0"
+              formControlName="flatownerupto"
+              [f1]="{ id: 'UNITOWNERID', subId: ownerTypeCondition }"
+              appCommonAutoFocus
+            />
+            <!-- (focusout)="setSubidBldgcode()" -->
+          </div>
+          <div
+            class="invalid-feedback d-block"
+            *ngIf="
+              queryForm.controls['flatownerupto'].invalid &&
+              queryForm.controls['flatownerupto'].touched
+            "
+          >
+            <div
+              *ngIf="queryForm.controls['flatownerupto'].errors?.['notFound']"
+            >
+              Not Found
+            </div>
+          </div>
+        </div>
+        <!-- Flat Owner Upto End -->
+        <!-- Bill Date Start -->
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3 col-xxl-3">
+          <div
+            class="input-group"
+            [class.is-invalid]="
+              queryForm.controls['billDate'].invalid &&
+              queryForm.controls['billDate'].touched
+            "
+            appDate1
+          >
+            <span
+              class="input-group-text leftform_lbl font500 text-dark1 font12"
+              >Bill Date</span
+            >
+            <input
+              type="text"
+              [autocomplete]="'off'"
+              class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+              id="billDate"
+              matInput
+              [matDatepicker]="pickerBillDate"
+              formControlName="billDate"
+              [disabled]="this.billType == 'F'"
+            />
+            <div
+              class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+            >
+              <span class="input-group-addon">
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="pickerBillDate"
+                  tabindex="-1"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #pickerBillDate></mat-datepicker>
+              </span>
+            </div>
+          </div>
+
+          <!-- <div
+              *ngIf="
+                queryForm.controls['billDate'].invalid &&
+                queryForm.controls['billDate'].touched
+              "
+            >
+              <div
+                class="invalid-feedback d-block font12 font500"
+                *ngIf="queryForm.get('billDate')?.errors?.['selectDate']"
+              >
+                Specify Either Date Range or As on date
+              </div>
+            </div> -->
+
+          <!-- Bill Date End -->
+          <!-- Car Park Checkbox Start -->
+          <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3 col-xxl-3">
+            <div class="form-check">
+              <input
+                formControlName="checked"
+                class="form-check-input"
+                type="checkbox"
+                [defaultChecked]="this.billType=='F'"
+                [value]="this.billType=='F'" 
+              />
+              <label class="form-check-label" for="flexCheckDefault">
+                CarPark
+              </label>
+              <!-- 
+              -->
+            </div>
+          </div>
+          <!-- (change)="getsupplimetryflag($event)" -->
+          <!-- Car Park Checkbox End -->
+        </div>
+      <!-- </div> -->
+    <!-- </div> -->
+  </form>
+  <!-- </div> -->
+  <!-- </div> -->
+</section>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner bg-white br-10 d-flex justify-content-center">
+      <button
+        *ngIf="_service.getAccess('Export')"
+        type="submit"
+        class="bg_common_red common_action_btn br-10 first_letter_textdecorationone"
+        [attr.accesskey]="loaderToggle == true ? '' : 'w'"
+        (click)="generateOutgoingBills()"
+      >
+        Do<u>w</u>nload
+      </button>
+      <button
+        *ngIf="_service.getAccess('Print')"
+        type="submit"
+        class="bg_common_red common_action_btn br-10"
+        (click)="getReport(true)"
+        [attr.accesskey]="loaderToggle == true ? '' : 'p'"
+      >
+        Print
+      </button>
+      <button
+        type="submit"
+        (click)="resetForm()"
+        class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone"
+        accesskey="t"
+      >
+        Rese<span class="text-decoration-underline">t</span>
+      </button>
+      <a
+        class="bg_common_red border-0 common_action_btn text-white br-10 first_letter_textdecorationone text-decoration-none"
+        [attr.accesskey]="loaderToggle == true ? '' : 'x'"
+        routerLink="/dashboard"
+      >
+        E<u>x</u>it
+      </a>
+    </div>
+  </div>
+</section>
+<app-loader *ngIf="loaderToggle"></app-loader>

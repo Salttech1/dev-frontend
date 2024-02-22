@@ -1,0 +1,380 @@
+<!-- <p>payment-list-generation works!</p> -->
+<section>
+  <div class="row">
+    <div class="col-md-12">
+      <form [formGroup]="paymentListGeneration">
+        <div class="row g-2">
+          <div class="container mb-2">
+            <div class="input-group justify-content-center">
+              <div
+                class="form-check form-check-inline"
+                *ngFor="let item of config.paymentList"
+              >
+                <input
+                  class="form-check-input position-relative cursor-pointer"
+                  type="radio"
+                  [value]="item.id"
+                  formControlName="paymentList"
+                />
+                <label class="form-check-label m-0" for="exTy1">
+                  {{ item.name }}
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-2">
+          <div class="col-md-4">
+            <div
+              class="input-group"
+              [class.is-invalid]="(paymentListGeneration.get('building')?.hasError('required') && paymentListGeneration.get('building')?.touched) || paymentListGeneration.get('building')?.errors?.['notFound']"
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                ><b class="text-danger">*</b>Building</span
+              >
+              <input
+                type="text"
+                name=""
+                id="paymentList_building"
+                upperCase
+                class="form-control border-start-0 post_input_field font500 font12"
+                formControlName="building"
+                [f1]="{ id: 'BUILDINGS', isSingleValue: true }"
+              />
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="(paymentListGeneration.get('building')?.touched && paymentListGeneration.get('building')?.invalid) && !paymentListGeneration.get('building')?.errors?.['notFound']"
+            >
+              Building code is required.
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="paymentListGeneration.get('building')?.errors?.['notFound']"
+            >
+              Building code is not valid.
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div
+              class="input-group"
+              [class.is-invalid]="(paymentListGeneration.get('group')?.hasError('required') && paymentListGeneration.get('group')?.touched) || paymentListGeneration.get('group')?.errors?.['notFound']"
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                ><b class="text-danger">*</b>Group</span
+              >
+              <input
+                type="text"
+                name=""
+                id="paymentList_group"
+                upperCase
+                class="form-control border-start-0 post_input_field font500 font12"
+                formControlName="group"
+                [f1]="{ id: 'GROUPCODE', isSingleValue: true }"
+              />
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="(paymentListGeneration.get('group')?.touched && paymentListGeneration.get('group')?.invalid) && !paymentListGeneration.get('group')?.errors?.['notFound']"
+            >
+              Group code is required.
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="paymentListGeneration.get('group')?.errors?.['notFound']"
+            >
+              Group code is not valid.
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="input-group">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >List No.</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                upperCase
+                class="form-control border-start-0 post_input_field font500 font12"
+                formControlName="listNo"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-2 mt-1">
+          <div class="col-md-4">
+            <div
+              class="input-group"
+              appDate1
+              [class.is-invalid]="
+                paymentListGeneration
+                  .get('durationFrom')
+                  ?.hasError('required') &&
+                paymentListGeneration.get('durationFrom')?.touched
+              "
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                ><b class="text-danger">*</b>Duration From</span
+              >
+              <input
+                type="text"
+                name=""
+                id="paymentList_durationFrm"
+                formControlName="durationFrom"
+                class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                [autocomplete]="'off'"
+                matInput
+                [matDatepicker]="durationFrom"
+              />
+              <div
+                class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+              >
+                <span class="input-group-addon">
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="durationFrom"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #durationFrom></mat-datepicker>
+                </span>
+              </div>
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="
+                paymentListGeneration.get('durationFrom')?.touched &&
+                paymentListGeneration.get('durationFrom')?.invalid
+              "
+            >
+              Duration form is required.
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div
+              class="input-group"
+              appDate1
+              [class.is-invalid]="
+                paymentListGeneration
+                  .get('durationUpto')
+                  ?.hasError('required') &&
+                paymentListGeneration.get('durationUpto')?.touched
+              "
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                ><b class="text-danger">*</b>Upto</span
+              >
+              <input
+                type="text"
+                name=""
+                id="paymentList_durationUpto"
+                formControlName="durationUpto"
+                class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                [autocomplete]="'off'"
+                matInput
+                [matDatepicker]="durationUpto"
+              />
+              <div
+                class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+              >
+                <span class="input-group-addon">
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="durationUpto"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #durationUpto></mat-datepicker>
+                </span>
+              </div>
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="
+                paymentListGeneration.get('durationUpto')?.touched &&
+                paymentListGeneration.get('durationUpto')?.invalid
+              "
+            >
+              Duration upto is required.
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="input-group">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >List transer</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                formControlName="listTranser"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-2 mt-1" *ngIf="initialMode">
+          <div
+            class="group_panel br-10 p-3 pt-4 position-relative form_common_bg"
+          >
+            <div class="col-md-12">
+              <div
+                class="table-responsive group_panel form_common_bg stylishScroll"
+              >
+                <table class="table table-bordered table-sm mb-0">
+                  <thead>
+                    <tr>
+                      <th class="fontBold font12 fonttxt_black">DocTp</th>
+                      <th class="fontBold font12 fonttxt_black">Code</th>
+                      <th class="fontBold font12 fonttxt_black">
+                        Material / Work Name
+                      </th>
+                      <th class="fontBold font12 fonttxt_black">Party</th>
+                      <th class="fontBold font12 fonttxt_black">
+                        Supplier / Contractor Name
+                      </th>
+                      <th class="fontBold font12 fonttxt_black">Document #</th>
+                      <th class="fontBold font12 fonttxt_black">Doc. Date</th>
+                      <th class="fontBold font12 fonttxt_black">
+                        Cert / Auth Amt
+                      </th>
+                      <th class="fontBold font12 fonttxt_black">Pay Amt</th>
+                      <th class="fontBold font12 fonttxt_black">Pay</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <div class="input-group">
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            class="form-control input_control font500 fonttxt_black font12"
+                            formControlName="docTp"
+                          />
+                        </div>
+                      </td>
+                      <td>
+                        <div class="input-group">
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            class="form-control input_control font500 fonttxt_black font12"
+                            formControlName="code"
+                          />
+                        </div>
+                      </td>
+                      <td>
+                        <div class="input-group">
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            class="form-control input_control font500 fonttxt_black font12"
+                            formControlName="materialWorkName"
+                          />
+                        </div>
+                      </td>
+                      <td>
+                        <div class="input-group">
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            class="form-control input_control font500 fonttxt_black font12"
+                            formControlName="party"
+                          />
+                        </div>
+                      </td>
+                      <td>
+                        <div class="input-group">
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            class="form-control input_control font500 fonttxt_black font12"
+                            formControlName="supplierName"
+                          />
+                        </div>
+                      </td>
+                      <td>
+                        <div class="input-group">
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            class="form-control input_control font500 fonttxt_black font12"
+                            formControlName="document"
+                          />
+                        </div>
+                      </td>
+                      <td>
+                        <div class="input-group">
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            class="form-control input_control font500 fonttxt_black font12"
+                            formControlName="docDate"
+                          />
+                        </div>
+                      </td>
+                      <td>
+                        <div class="input-group">
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            class="form-control input_control font500 fonttxt_black font12"
+                            formControlName="certAmt"
+                          />
+                        </div>
+                      </td>
+                      <td>
+                        <div class="input-group">
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            class="form-control input_control font500 fonttxt_black font12"
+                            formControlName="payAmt"
+                          />
+                        </div>
+                      </td>
+                      <td>
+                        <div class="input-group">
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            class="form-control input_control font500 fonttxt_black font12"
+                            formControlName="pay"
+                          />
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Bottom button start -->
+<app-buttons
+  [buttonsList]="buttonsList"
+  (eventTrigger)="buttonAction($event)"
+></app-buttons>
+<!-- Bottom button end -->

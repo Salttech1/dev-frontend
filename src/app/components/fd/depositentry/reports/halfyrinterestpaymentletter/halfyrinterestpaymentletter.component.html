@@ -1,0 +1,181 @@
+<section>
+    <div class="reports_detail_container">
+        <form [formGroup]="halfYrInterestReportFormGroup">
+            <div
+            class="row"
+          
+        >
+        <div class="mb-3 col-md-12 col-lg-8 col-xl-8 col-xxl-6">
+            <div class="input-group" [class.is-invalid]="
+            halfYrInterestReportFormGroup.controls['coy'].invalid &&
+            halfYrInterestReportFormGroup.controls['coy'].touched">
+                <span class="input-group-text leftform_lbl font500 text-dark1 font12">Company</span>
+                <app-f1
+                    [formControlName]="'coy'"
+                    placeholder
+                    class="form-control post_input_field border-end-0  border-start-0 d-flex"
+                    titleValue="{{tableData?.mainheader}}"
+                    [tableData]="tableData?.dataSet"
+                    [colHeader]="columnHeader"
+                    [inputBBC]="bringBackColumn"
+                    (updatedSelectedValue)="updateCompanyList($event)"
+                    [dynaPopId]="'COMPANY'"
+                    [queryConditon]=coy_condition
+                    id="companyCode"
+                    [errorMessage]="'Invalid Company Code'"
+                    (change)="updateOnChangeCompanyList($event)"
+                ></app-f1>
+                <span class="position-relative span_divider"></span>
+                <input
+                type="text" tabindex="-1"
+                class="form-control  w-50 border-start-0 post_input_field font500 text-dark1 font12 diabled_cls diabled_cls"
+                formControlName="companyName"
+                readonly  
+            >
+            </div>
+            <div *ngIf=" halfYrInterestReportFormGroup.controls['coy'].invalid &&  halfYrInterestReportFormGroup.controls['coy'].touched">
+                <div
+                    class="errorField common_color_txt font12 font500"
+                    *ngIf=" halfYrInterestReportFormGroup.controls['coy'].errors &&  halfYrInterestReportFormGroup.controls['coy'].errors?.['required']"
+                >
+                    * Company Code is required
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-12">
+            <div>
+                <div class="row">
+                    <div class="mb-3 col-md-6 col-lg-4 col-xl-4 col-xxl-3">
+                        <div class="input-group" [class.is-invalid]="
+                        halfYrInterestReportFormGroup.controls['depFrom'].invalid &&
+                        halfYrInterestReportFormGroup.controls['depFrom'].touched">
+                            <span class="input-group-text leftform_lbl font500 text-dark1 font12">Depositor Code From</span>
+                            <app-f1
+                                [formControlName]="'depFrom'"
+                                placeholder
+                                class="form-control post_input_field border-start-0 d-flex"
+                                titleValue="{{depositorFromTableData?.mainheader}}"
+                                [tableData]="depositorFromTableData?.dataSet"
+                                [colHeader]="depositorFromColumnHeader"
+                                [inputBBC]="bringBackColumn"
+                                [dynaPopId]="'DEPOSITORS'"
+                                [queryConditon]=deptDyanPop
+                                id="depositorFromCode"
+                                [errorMessage]="'Invalid Depositor From Code'"
+                            ></app-f1>
+                        </div>
+                        <div *ngIf="halfYrInterestReportFormGroup.controls['depFrom'].invalid && halfYrInterestReportFormGroup.controls['depFrom'].touched">
+                            <div
+                                class="errorField common_color_txt font12 font500"
+                                *ngIf="halfYrInterestReportFormGroup.controls['depFrom'].errors && halfYrInterestReportFormGroup.controls['depFrom'].errors?.['required']"
+                            >
+                                * Depositor From Code is required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3 col-md-6 col-lg-4 col-xl-4 col-xxl-3">
+                        <div class="input-group"  [class.is-invalid]="
+                        halfYrInterestReportFormGroup.controls['depTo'].invalid &&
+                        halfYrInterestReportFormGroup.controls['depTo'].touched">
+                            <span class="input-group-text leftform_lbl font500 text-dark1 font12">Depositor Code Upto</span>
+                            <app-f1
+                                [formControlName]="'depTo'"
+                                placeholder
+                                class="form-control post_input_field border-start-0 d-flex"
+                                titleValue="{{depositorUpToTableData?.mainheader}}"
+                                [tableData]="depositorUpToTableData?.dataSet"
+                                [colHeader]="depositorUpToColumnHeader"
+                                [inputBBC]="bringBackColumn"
+                                [dynaPopId]="'DEPOSITORS'"
+                                [queryConditon]=deptDyanPop
+                                id="UpToCode"
+                                [errorMessage]="'Invalid Depositor To Code'"
+                            ></app-f1>
+                        </div>
+                        <div *ngIf="halfYrInterestReportFormGroup.controls['depTo'].invalid && halfYrInterestReportFormGroup.controls['depTo'].touched">
+                            <div
+                                class="errorField common_color_txt font12 font500"
+                                *ngIf="halfYrInterestReportFormGroup.controls['depTo'].errors && halfYrInterestReportFormGroup.controls['depTo'].errors?.['required']"
+                            >
+                                * Depositor UpTo Code is required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3 col-md-6 col-lg-4 col-xl-4 col-xxl-3 ">
+                        <div class="row">
+                            <div class="input-group" [class.is-invalid]="
+                            halfYrInterestReportFormGroup.controls['chequeDate'].invalid &&
+                            halfYrInterestReportFormGroup.controls['chequeDate'].touched">
+                                <span class="input-group-text leftform_lbl font500 text-dark1 font12">Cheque Date</span>
+                                <input
+                                    class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                                    id="chqDataField"
+                                    formControlName="chequeDate"
+                                    matInput
+                                    [matDatepicker]="pickerFrom"
+                                    name
+                                    
+                                >
+                                <div class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0">
+                                    <span class="input-group-addon">
+                                        <mat-datepicker-toggle
+                                            matSuffix
+                                            [for]="pickerFrom"
+                                            tabindex="-1"
+                                        ></mat-datepicker-toggle>
+                                        <mat-datepicker #pickerFrom></mat-datepicker>
+                                    </span>
+                                </div>
+                            </div>
+                            <div
+                            *ngIf="halfYrInterestReportFormGroup.controls['chequeDate'].invalid && halfYrInterestReportFormGroup.controls['chequeDate'].touched">
+                            <div class="errorField common_color_txt font12 font500"
+                                *ngIf="halfYrInterestReportFormGroup.controls['chequeDate'].errors && halfYrInterestReportFormGroup.controls['chequeDate'].errors?.['required']">
+                                * Cheque Date is required
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+          
+        </form>
+    </div>
+
+</section>
+
+<app-loader *ngIf="loaderToggle"></app-loader>
+<section class="action_section position-fixed w-100">
+    <div class="container">
+        <div class="action_conatiner text-center bg-white br-10">
+            <div class="flex justify-content-between">
+                <button
+                    type="submit"
+                    class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+                    (click)="getReport(false)"
+                    accesskey="w"
+                >
+                Do<span class="text-decoration-underline">w</span>nload
+                </button>
+                <button
+                    type="submit"
+                    class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+                    (click)="getReport(true)"
+                    accesskey="p"
+                >
+                    Print
+                </button>
+                <button
+                    type="submit"
+                    class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone"
+                    (click)="handleExit()"
+                    accesskey="x"
+                >
+                    E<span class="text-decoration-underline">x</span>it
+                </button>
+            </div>
+        </div>
+    </div>
+</section>

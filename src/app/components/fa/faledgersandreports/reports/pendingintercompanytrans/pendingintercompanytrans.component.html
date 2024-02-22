@@ -1,0 +1,69 @@
+<section>
+  <form [formGroup]="qf">
+    <div class="row g-3 justify-content-center">
+      <div class="col-sm-7">
+        <div
+          class="input-group"
+          appDate1
+          [class.is-invalid]="
+            qf.controls['asOnDate'].invalid && qf.controls['asOnDate'].touched
+          "
+        >
+          <span class="input-group-text leftform_lbl font500 text-dark1 font12"
+            ><span class="text-danger font500 font12">*</span>As on Date</span
+          >
+          <input
+            class="form-control border-start-0 borer-end-0 post_input_field font500 text-dark1 font12"
+            id="formDateField"
+            matInput
+            [matDatepicker]="pickerFrom"
+            formControlName="asOnDate"
+          />
+          <div
+            class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+          >
+            <span class="input-group-addon">
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="pickerFrom"
+                tabindex="-1"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #pickerFrom></mat-datepicker>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</section>
+<app-loader *ngIf="loaderToggle"></app-loader>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner text-center bg-white br-10 w-100">
+      <div class="flex justify-content-between">
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+          [attr.accesskey]="loaderToggle == true ? '' : 'w'"
+          (click)="getReport(false)"
+        >
+          Do<u>w</u>nload
+        </button>
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white"
+          (click)="getReport(true)"
+          [attr.accesskey]="loaderToggle == true ? '' : 'p'"
+        >
+          Print
+        </button>
+        <a
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white text-decoration-none first_letter_textdecorationone"
+          [attr.accesskey]="loaderToggle == true ? '' : 'x'"
+          routerLink="/dashboard"
+          >E<u>x</u>it
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,82 @@
+<section class="container">
+  <section class="form-section-wrapper">
+    <form [formGroup]="ReportCriteria">
+      <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+          <!-- City -->
+          <div class="input-group mt-4">
+            <span
+              class="input-group-text leftform_lbl font500 text-dark1 font12"
+            >
+              <b class="text-danger">*</b>City
+            </span>
+            <input
+              type="text"
+              formControlName="city"
+              class="form-control border-start-0 br-9"
+              upperCase
+              [f1]="{
+                id: 'BLDGREGION',
+                multi: true
+              }"
+            />
+          </div>
+
+          <div
+            class="input-group flex-nowrap mt-4"
+            appDate1
+            [class.is-invalid]="
+              (ReportCriteria.get('date')?.controls['fromDate']?.invalid &&
+                ReportCriteria.get('date')?.controls['fromDate']?.touched) ||
+              (ReportCriteria.get('date')?.controls['toDate']?.invalid &&
+                ReportCriteria.get('date')?.controls['toDate']?.touched)
+            "
+          >
+            <span
+              class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+              ><b class="text-danger">*</b>Date</span
+            >
+            <div class="bg-white datepicker_field post_input_field">
+              <span class="input-group-addon">
+                <div mat-form-field appearance="fill" class="matForm">
+                  <mat-date-range-input
+                    [formGroup]="ReportCriteria.controls['date']"
+                    [rangePicker]="picker"
+                  >
+                    <input
+                      class="font12"
+                      matStartDate
+                      formControlName="fromDate"
+                      placeholder="From date"
+                    />
+                    <input
+                      class="font12"
+                      matEndDate
+                      formControlName="toDate"
+                      placeholder="To date"
+                    />
+                  </mat-date-range-input>
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker"
+                  ></mat-datepicker-toggle>
+                  <mat-date-range-picker #picker></mat-date-range-picker>
+                </div>
+              </span>
+            </div>
+          </div>
+          <div class="invalid-feedback">
+            Date Invalid/Empty. Future date not allowed
+          </div>
+        </div>
+      </div>
+    </form>
+  </section>
+</section>
+<app-buttons
+  [buttonsList]="buttonsList"
+  (eventTrigger)="buttonAction($event)"
+></app-buttons>
+<app-loader *ngIf="config.isLoading"></app-loader>
+

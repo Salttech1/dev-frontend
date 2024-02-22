@@ -1,0 +1,121 @@
+<!-- <p>logic-note-addtional-information works!</p> -->
+<section>
+  <div class="row">
+    <div class="col-md-12">
+      <form [formGroup]="logicNoteAdditionalInformationForm">
+        <div class="row g-2">
+          <div class="col-md-6">
+            <div
+              class="input-group"
+              [class.is-invalid]="(logicNoteAdditionalInformationForm.get('project')?.hasError('required') && logicNoteAdditionalInformationForm.get('project')?.touched) || logicNoteAdditionalInformationForm.get('project')?.errors?.['notFound']"
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                ><b class="text-danger">*</b>Project</span
+              >
+              <input
+                type="text"
+                name=""
+                id="logicNote_project"
+                upperCase
+                formControlName="project"
+                class="form-control border-start-0 post_input_field font500 font12"
+                [f1]="{ id: 'MATCERTLNPROJECTCODE', isSingleValue: true }"
+                (focusout)="onLeaveProject($event.target.value)"
+              />
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="(logicNoteAdditionalInformationForm.get('project')?.touched && logicNoteAdditionalInformationForm.get('project')?.invalid) && !logicNoteAdditionalInformationForm.get('project')?.errors?.['notFound']"
+            >
+              Project code is required.
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="logicNoteAdditionalInformationForm.get('project')?.errors?.['notFound']"
+            >
+              Project code is not valid.
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div
+              class="input-group"
+              [class.is-invalid]="(logicNoteAdditionalInformationForm.get('racno')?.hasError('required') && logicNoteAdditionalInformationForm.get('racno')?.touched) || logicNoteAdditionalInformationForm.get('racno')?.errors?.['notFound']"
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                ><b class="text-danger">*</b>RAC No.</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                upperCase
+                class="form-control border-start-0 post_input_field font500 font12"
+                formControlName="racno"
+                [f1]="{
+                  id: 'MATCERTLOGICNOTE',
+                  subId: filters.getracno ? filters.getracno : '',
+                  formData: logicNoteAdditionalInformationForm.get('racnoDesc')
+                }"
+              />
+              <span class="position-relative span_divider"></span>
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control w-50 border-start-0 post_input_field font500 font12"
+                formControlName="racnoDesc"
+              />
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="(logicNoteAdditionalInformationForm.get('racno')?.touched && logicNoteAdditionalInformationForm.get('racno')?.invalid) && !logicNoteAdditionalInformationForm.get('racno')?.errors?.['notFound']"
+            >
+              RAC no is required.
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="logicNoteAdditionalInformationForm.get('racno')?.errors?.['notFound']"
+            >
+              RAC no is not valid.
+            </div>
+          </div>
+        </div>
+        <div class="row g-2 mt-1">
+          <div class="col-md-12">
+            <div class="input-group">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                ><b class="text-danger">*</b>Additional info file path</span
+              >
+              <input
+                type="file"
+                name=""
+                id=""
+                class="form-control border-start-0 post_input_field font500 font12"
+                formControlName="file"
+              />
+              <span class="position-relative span_divider"></span>
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control w-50 border-start-0 post_input_field font500 font12"
+                formControlName="fileDesc"
+              />
+            </div>
+            <div class="invalid-feedback d-block" *ngIf="logicNoteAdditionalInformationForm.get('')">Additional info file path is required.</div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Bottom button start -->
+<app-buttons
+  [buttonsList]="buttonsList"
+  (eventTrigger)="buttonAction($event)"
+></app-buttons>
+<!-- Bottom button end -->

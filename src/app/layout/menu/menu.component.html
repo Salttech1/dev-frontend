@@ -1,0 +1,136 @@
+<section class="d-none d-md-block">
+  <div class="position-relative">
+    <div class="section_menu">
+      <ul
+        class="d-flex list-group flex-row text-nowrap section_menu_items_ul"
+        id="section_menu_ul"
+        #section_menu_ul
+        *ngIf="menu"
+      >
+        <li class="menu_li list-unstyled" *ngFor="let i of menu; let c = index">
+          <a
+            class="d-flex text-dark1"
+            routerLink="{{ i.description | trimwhitespace }}"
+            *ngIf="!i.sub_menu?.length"
+            ><span class="font500 menu_text position-relative">
+              {{ i.description }}
+            </span>
+          </a>
+          <button
+            class="d-flex"
+            *ngIf="i.sub_menu?.length"
+            (click)="subMenuList(i.sub_menu, c, i.description)"
+          >
+            <span class="font500 menu_text position-relative">
+              {{ i.description }}
+            </span>
+            <span class="border-0 span_arrow" *ngIf="i.sub_menu?.length">
+              <img src="assets/images/d_arrow.svg" alt="Down" />
+            </span>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <ng-container *ngIf="menuListContainer">
+    <div class="position-relative menu_list_wrapper">
+      <div
+        class="menu_list_container br-20 bg-white position-absolute w-100 mt-3"
+      >
+        <div class="d-flex">
+          <div class="menu_list_left_container col-md-3">
+            <ul class="menu_list_ul_item ps-0 mb-0">
+              <li
+                class="menu_list_li_items list-unstyled"
+                *ngFor="let l1 of level1; let j = index"
+              >
+                <a
+                  class="menu_list_li_items_a text-black text-decoration-none position-relative"
+                  routerLink="{{ l0Link | trimwhitespace }}/{{
+                    l1.description | trimwhitespace
+                  }}"
+                  *ngIf="!l1?.sub_menu?.length"
+                  ><span class="font500 menu_text position-relative">
+                    {{ l1.description }}
+                  </span>
+                </a>
+
+                <button
+                  type="button"
+                  class="menu_list_li_items_a text-black text-decoration-none position-relative"
+                  *ngIf="l1?.sub_menu?.length"
+                  (click)="subMenuL2(l1.sub_menu, j, l1.description)"
+                  [ngClass]="{ active: isValue == j }"
+                >
+                  <span class="menu_list_txt font500 font12">
+                    {{ l1.description }}
+                  </span>
+                  <img
+                    src="assets/images/d_arrow.svg"
+                    alt=""
+                    style="transform: rotate(-90deg)"
+                  />
+                </button>
+              </li>
+            </ul>
+          </div>
+          <div class="menu_list_right_container col-md-9">
+            <div class="submenu_levels_container">
+              <div class="row d-block">
+                <div
+                  class="col-md-6 col-lg-6 col-xl-4 float-start"
+                  *ngFor="let l2 of level2"
+                >
+                  <ng-container
+                    *ngIf="l2.sub_menu === undefined; else level3_link"
+                  >
+                    <div
+                      class="levels_title font12 fontBold text-left text-dark1 d-inline-flex"
+                    >
+                      <a
+                        class="text-decoration-none text-dark1"
+                        routerLink="{{ l0Link | trimwhitespace }}/{{
+                          l1Link | trimwhitespace
+                        }}/{{ l2.description | trimwhitespace }}"
+                        (click)="subMenuHide()"
+                        >{{ l2.description }}</a
+                      >
+                    </div>
+                  </ng-container>
+                  <ng-template #level3_link>
+                    <div
+                      class="levels_title font12 fontBold text-left text-dark1 d-inline-flex"
+                    >
+                      {{ l2.description }}
+                    </div>
+                  </ng-template>
+                  <ng-container *ngIf="l2?.sub_menu?.length">
+                    <ul class="levels_ul_items">
+                      <li
+                        class="levels_li_item list-style-bullet pt-2"
+                        *ngFor="let l3 of l2.sub_menu"
+                      >
+                        <a
+                          routerLink="{{ l0Link | trimwhitespace }}/{{
+                            l1Link | trimwhitespace
+                          }}/{{ l2.description | trimwhitespace }}/{{
+                            l3.description | trimwhitespace
+                          }}"
+                          class="font500 text-decoration-none text-dark1 font12 levels_li_items_a"
+                          (click)="subMenuHide()"
+                          ><span>{{ l3.description }}</span></a
+                        >
+                      </li>
+                    </ul>
+                  </ng-container>
+                </div>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</section>
+<app-loader *ngIf="loader"></app-loader>

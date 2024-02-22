@@ -1,0 +1,228 @@
+<section class="auxiliary-bill-generation-wrapper">
+    <section class="form-section-wrapper">
+      <form [formGroup]="createReportForm">
+        <div class="container">
+          <div class="input-group justify-content-center">
+            <div class="m-2">
+              <div class="form-check d-flex align-items-center">
+                <input
+                  type="radio"
+                  class="form-check-input font12 font500 position-relative cursor-pointer"
+                  name="name"
+                  formControlName="printType"
+                  [value]="receiptTypes[1].id"
+                />
+                <label
+                  class="form-check-label first_letter_textdecorationone mt-1"
+                  for="Policymattoday"
+                  accesskey="h"
+                >
+                  Receipt Print
+                </label>
+              </div>
+            </div>
+            <div class="m-2">
+              <div class="form-check d-flex align-items-center">
+                <input
+                  type="radio"
+                  name="name"
+                  class="form-check-input font12 font500 position-relative cursor-pointer"
+                  formControlName="printType"
+                  [value]="receiptTypes[0].id"
+                />
+                <label
+                  class="form-check-label first_letter_textdecorationone mt-1"
+                  for="Policymattoday"
+                  accesskey="h"
+                >
+                  Voucher Print
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+              <!-- building code and name -->
+              <div
+                class="input-group has-validation mt-4"
+                [class.is-invalid]="
+                ( createReportForm.get('bldgcode')?.hasError('required') &&
+                 createReportForm.controls['bldgcode'].touched)|| createReportForm.controls?.['bldgcode'].errors?.['notFound'] 
+               "
+              >
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >
+                  <b><span class="text-danger">*</span></b
+                  >Building
+                </span>
+                <input
+                  appCommonAutoFocus
+                  type="text"
+                  formControlName="bldgcode"
+                  class="form-control border-start-0 post_input_field font500 font12"
+                  upperCase
+                  [f1]="{
+                    id: 'BUILDINGS',
+                    formData: createReportForm.get('blgdName')
+                  }"
+                  (focusout)="onLeaveBuildingCode($event.target.value)"
+                />
+                <span class="position-relative span_divider"></span>
+                <input
+                  type="text"
+                  class="form-control w-50 border-start-0 post_input_field font500 text-dark1 font12"
+                  [formControlName]="'blgdName'"
+                  tabindex="-1"
+                />
+              </div>
+              <div
+                class="errorField common_color_txt font12 font500 disInl"
+                *ngIf="createReportForm.controls?.['bldgcode'].errors?.['notFound'] "
+              >
+                Invalid Building Code.
+              </div>
+              <!-- wing -->
+              <div
+                class="input-group mt-4"
+                [class.is-invalid]="
+              createReportForm.controls?.['wing'].errors?.['notFound'] 
+             "
+              >
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Wing &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </span>
+                <input
+                  type="text"
+                  formControlName="wing"
+                  upperCase
+                  class="form-control border-start-0 post_input_field font500 font12"
+                  [f1]="{
+                    id: 'BWINGS',
+                    subId: queryString.getWing
+                  }"
+                  (focusout)="onLeaveWingCode($event.target.value)"
+                />
+              </div>
+              <div
+                class="errorField common_color_txt font12 font500 disInl"
+                *ngIf="createReportForm.controls?.['wing'].errors?.['notFound'] "
+              >
+                Invalid wing .
+              </div>
+              <!-- flat no -->
+              <div
+                class="input-group has-validation mt-4"
+                [class.is-invalid]="
+                 ( createReportForm.get('flatNum')?.hasError('required') &&
+                  createReportForm.controls['flatNum'].touched)
+                  || (createReportForm.controls['flatNum'].touched &&createReportForm.controls?.['flatNum'].errors?.['notFound'] )
+                "
+              >
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >
+                  <b><span class="text-danger">*</span></b
+                  >Flat No.
+                </span>
+                <input
+                  type="text"
+                  formControlName="flatNum"
+                  class="form-control border-start-0 post_input_field font500 font12"
+                  upperCase
+                  [f1]="{
+                    id: 'FLATUNITSOLD',
+                    formData: createReportForm.get('ownerName'),
+                    subId: queryString.getFlatNumber
+                      ? queryString.getFlatNumber
+                      : queryString.getWing
+                  }"
+                  (focusout)="onLeaveFlatNum($event.target.value)"
+                />
+                <span class="position-relative span_divider"></span>
+                <input
+                  type="text"
+                  class="form-control w-50 border-start-0 post_input_field font500 text-dark1 font12"
+                  [formControlName]="'ownerName'"
+                  tabindex="-1"
+                />
+              </div>
+              <div
+                class="errorField common_color_txt font12 font500 disInl"
+                *ngIf="createReportForm.controls?.['flatNum'].errors?.['notFound'] "
+              >
+                Invalid flat Number.
+              </div>
+              <!-- Receipt number -->
+              <div class="input-group mt-4"   [class.is-invalid]="
+              ( createReportForm.get('recnum')?.hasError('required') &&
+               createReportForm.controls['recnum'].touched)
+               || (createReportForm.controls['recnum'].touched &&createReportForm.controls?.['recnum'].errors?.['notFound'] )
+             ">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  ><span class="text-danger">*</span>Receipt No.
+                </span>
+                <input
+                  type="text"
+                  formControlName="recnum"
+                  class="form-control border-start-0 post_input_field font500 font12"
+                  [f1]="{
+                    id: 'SALESRECEIPTS',
+                    subId: queryString.getReceiptNum
+                  }"
+                />
+              </div>
+              <div
+              class="errorField common_color_txt font12 font500 disInl"
+              *ngIf="createReportForm.controls?.['recnum'].errors?.['notFound'] "
+            >
+              Invalid receipt Number.
+            </div>
+            <div class="form-check mt-4">
+                <input
+                  class="form-check-input position-relative"
+                  type="checkbox"
+                  name="name"
+                  id="billRadio5"
+                  value="Parking"
+                  formControlName="report"
+                />
+                <label class="form-check-label" for="billRadio5">
+                     Print Parking
+                </label>
+              </div>
+              <!-- export types -->
+              <div class="mt-4" *ngIf="_service.getAccess('Export')">
+                <p class="bg-white font600 group_title mb-1">Export Type</p>
+  
+                <div
+                  class="form-check form-check-inline"
+                  *ngFor="let item of exportTypes"
+                >
+                  <input
+                    class="form-check-input position-relative cursor-pointer"
+                    type="radio"
+                    [value]="item.id"
+                    formControlName="exportType"
+                  />
+                  <label class="form-check-label m-0" for="exTy1">
+                    {{ item.name }}
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </section>
+  </section>
+  
+  <app-buttons
+    [buttonsList]="buttonsList"
+    (eventTrigger)="buttonAction($event)"
+  ></app-buttons>
+  
+  <app-loader *ngIf="config.isLoading"></app-loader>

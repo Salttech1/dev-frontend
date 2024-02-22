@@ -1,0 +1,70 @@
+.auxiliary-receipt-wrapper {
+  .date-icon-inside {
+    position: absolute !important;
+    right: 1% !important;
+  }
+
+
+  .custom-input-width {
+    width: 5rem !important;
+  }
+  .custom-dropdown-width {
+    width: 5rem !important;
+  }
+
+
+  .prefix {
+    position: absolute;
+    right: 50%; /* Adjust the left offset as needed */
+    top: 50%;
+    transform: translateY(-50%);
+    color: gray; /* Adjust the color as needed */
+  }
+
+  .error-font-size {
+    font-size: 12px;
+  }
+
+  .form-control {
+    font-size: 12px;
+    font-weight: 500;
+    color: #212529;
+  }
+}
+
+.allocation-table{
+  height: 300px;
+}
+
+/* For Table CSS */
+table.datatable tbody td {
+  padding-top: 1px !important;
+  padding-bottom: 1px !important;
+  vertical-align: middle;
+}
+
+table.datatable.table-bordered tr th {
+  vertical-align: middle;
+  line-height: 5px;
+  border-bottom: 2px solid #120e0e !important;
+}
+
+.table_head_position_sticky {
+  position: sticky;
+  top: 0;
+  opacity: 1;
+  overflow-y: auto;
+  background-color: #e9ecef;
+  color: black;
+  z-index: 1;
+  text-align: center;
+}
+
+
+
+.input_control {
+  line-height: 16px;
+  padding: 1px;
+}
+
+

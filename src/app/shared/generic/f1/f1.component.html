@@ -1,0 +1,45 @@
+<ng-container *ngIf="formControlEnable; else formControlDisable">
+  <input
+    #fo1
+    [type]="type"
+    [placeholder]="placeholder"
+    [value]="inputVal"
+    [maxlength]="maxlength"
+    (click)="viewModalDialog(titleValue)"
+    [formControl]="control"
+    [disabled]="disabledVal"
+    [ngClass]="{ fieldLoader: fieldLoaderDisplay }"
+    [(ngModel)]="currentField"
+    [readOnly]="readOnly"
+    style="width: 100%; border: none; text-transform: uppercase"
+    (ngModelChange)="
+      triggerUpperCase && (currentField = $event?.toString().toUpperCase())
+    "
+    (focus)="focusF1Field()"
+  />
+</ng-container>
+<ng-template #formControlDisable>
+  <input
+    [type]="type"
+    [placeholder]="placeholder"
+    [maxlength]="maxlength"
+    (click)="viewModalDialog(titleValue)"
+    [disabled]="disabledVal"
+    [ngClass]="{ fieldLoader: fieldLoaderDisplay }"
+    [(ngModel)]="value"
+    style="width: 100%; border: none; text-transform: uppercase"
+    (focus)="focusF1Field()"
+    autofocus
+  />
+</ng-template>
+
+<ng-template #TableListContainer>
+  <app-generictable
+    [columnHeader]="colHeader"
+    [tableData]="tableData"
+    [multiSelect]="multiSelect"
+    (selectedRowData)="updatedRowData($event)"
+    (fieldDataEntered)="updateFieldValue($event)"
+    (modalClose)="closeModal()"
+  ></app-generictable>
+</ng-template>

@@ -1,0 +1,343 @@
+<section class="depositrenewal_section">
+    <div class="container">
+      <div class="form_depositor_container pb-2">
+        <ng-container *ngIf="!pdfView">
+          <div class="d-flex justify-content-center">
+            <form [formGroup]="lcauthForm">
+              <div class="col-sm-12" formGroupName="reportParameters">
+                <div class="col-md-12 col-sm-12 col-xl-12 col-xxl-8 pt-3">
+                  <div class="checkbox_custom">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      name="provisionEntry"
+                      id="provisionEntry"
+                      formControlName="unprintLCAuth"
+                      (change)="enableFields($event)"
+                      appCommonAutoFocus
+                    />
+                    <label
+                      for="provisionEntry"
+                      class="form-check-label ps-2 ms-1 font500"
+                    >
+                      Print Unprinted LC Authorisations
+                    </label>
+                  </div>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xl-12 col-xxl-12 pt-3">
+                  <div class="">
+                    <div class="">
+                      <div
+                        class="input-group"
+                        [class.is-invalid]="
+                          lcauthForm.get('reportParameters')?.controls[
+                            'LCauthFromDate'
+                          ].invalid &&
+                          lcauthForm.get('reportParameters')?.controls[
+                            'LCauthFromDate'
+                          ].touched
+                        "
+                      >
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >LC Authorisation From Date</span
+                        >
+                        <input
+                          class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                          [autocomplete]="'off'"
+                          id="fromDateField"
+                          formControlName="LCauthFromDate"
+                          matInput
+                          [matDatepicker]="pickerFrom"
+                          name=""
+                          ng-change="changeEvent($event)"
+                          (dateChange)="
+                            validateInvalidFormat(
+                              $event,
+                              'fromDateField',
+                              'Invalid From Date'
+                            )
+                          "
+                        />
+                        <div
+                          class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                        >
+                          <span class="input-group-addon">
+                            <mat-datepicker-toggle
+                              matSuffix
+                              [for]="pickerFrom"
+                              tabindex="-1"
+                            ></mat-datepicker-toggle>
+                            <mat-datepicker #pickerFrom></mat-datepicker>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xl-12 col-xxl-12 pt-3">
+                  <div class="">
+                    <div class="">
+                      <div
+                        class="input-group"
+                        [class.is-invalid]="
+                          lcauthForm.get('reportParameters')?.controls[
+                            'LCauthToDate'
+                          ].invalid &&
+                          lcauthForm.get('reportParameters')?.controls[
+                            'LCauthToDate'
+                          ].touched
+                        "
+                      >
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >LC Authorisation To Date</span
+                        >
+                        <input
+                          type="text"
+                          [autocomplete]="'off'"
+                          class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                          id="toDateField"
+                          matInput
+                          [min]="minDate"
+                          [matDatepicker]="pickerTo"
+                          formControlName="LCauthToDate"
+                          name=""
+                          (dateChange)="
+                            validateInvalidFormat(
+                              $event,
+                              'toDateField',
+                              'Invalid To Date'
+                            )
+                          "
+                        />
+                        <div
+                          class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                        >
+                          <span class="input-group-addon">
+                            <mat-datepicker-toggle
+                              matSuffix
+                              [for]="pickerTo"
+                              tabindex="-1"
+                            ></mat-datepicker-toggle>
+                            <mat-datepicker #pickerTo></mat-datepicker>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xl-12 col-xxl-12 pt-3">
+                  <div class="">
+                    <div class="">
+                      <div
+                        class="input-group"
+                        [class.is-invalid]="
+                          lcauthForm.get('reportParameters')?.controls['LCauthFrom']
+                            .invalid &&
+                          lcauthForm.get('reportParameters')?.controls['LCauthFrom']
+                            .touched
+                        "
+                      >
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          ><span class="text-danger font500 font12">*</span
+                          >LC Authorisations From</span
+                        >
+                        <input
+                        upperCase
+                          type="text"
+                          id="authFId"
+                          class="form-control border-start-0"
+                          formControlName="LCauthFrom"
+                          [f1]="{ id: 'LCAUTHNO', subId: authNCon, fill: 1 }"
+                        />
+                      </div>
+                      <div
+                        *ngIf="
+                          lcauthForm.get('reportParameters')?.controls['LCauthFrom']
+                            .invalid &&
+                          lcauthForm.get('reportParameters')?.controls['LCauthFrom']
+                            .touched
+                        "
+                      >
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="lcauthForm.get('reportParameters')?.controls['LCauthFrom'].errors && lcauthForm.get('reportParameters')?.controls['LCauthFrom'].errors?.['required']"
+                        >
+                          * LC Authorisations From is required
+                        </div>
+                      </div>
+                      <div
+                        class="invalid-feedback d-block"
+                        *ngIf="
+                          lcauthForm.get('reportParameters')?.controls['LCauthFrom']
+                            .invalid &&
+                          lcauthForm.get('reportParameters')?.controls['LCauthFrom']
+                            .touched
+                        "
+                      >
+                        <div
+                          *ngIf="lcauthForm.get('reportParameters')?.controls['LCauthFrom'].errors?.['notFound']"
+                        >
+                          * Invalid LC Authorisation Number
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xl-12 col-xxl-12 pt-3">
+                  <div class="">
+                    <div class="">
+                      <div
+                        class="input-group"
+                        [class.is-invalid]="
+                          lcauthForm.get('reportParameters')?.controls['LCauthTo']
+                            .invalid &&
+                          lcauthForm.get('reportParameters')?.controls['LCauthTo']
+                            .touched
+                        "
+                      >
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >LC Authorisations To</span
+                        >
+                        <input
+                        upperCase
+                          type="text"
+                          id="matGroup123"
+                          class="form-control border-start-0"
+                          formControlName="LCauthTo"
+                          [f1]="{ id: 'LCAUTHNO', subId: authNCon, fill: 1 }"
+                        />
+                      </div>
+                      <div class="invalid-feedback">
+                        <div
+                          *ngIf="lcauthForm.get('reportParameters')
+                        ?.controls['LCauthTo'].errors?.['maxNumber']"
+                        >
+                          starting LC authorisation number cannot be greater than
+                          ending LC authorisation number
+                        </div>
+                        <div
+                          *ngIf="lcauthForm.get('reportParameters')
+                        ?.controls['LCauthTo'].errors?.['notFound']"
+                        >
+                          not Found
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="pdfView">
+          <div class="page">
+            <div class="paginatio_pdf_container d-flex w-100">
+              <nav>
+                <button
+                  (click)="prevPage()"
+                  [disabled]="page === 1"
+                  class="previous bg_common_red br-10 px-3 me-1"
+                >
+                  Prev
+                </button>
+                <button
+                  (click)="nextPage()"
+                  [disabled]="page === totalPages"
+                  class="next bg_common_red br-10 px-3 me-1"
+                >
+                  Next
+                </button>
+                <p class="mb-0 font500 ms-1">{{ page }} / {{ totalPages }}</p>
+              </nav>
+            </div>
+            <pdf-viewer
+              [src]="src"
+              [original-size]="true"
+              [render-text]="true"
+              [rotation]="0"
+              [show-all]="false"
+              [fit-to-page]="true"
+              [zoom]="1"
+              [zoom-scale]="'page-width'"
+              [external-link-target]="'blank'"
+              [autoresize]="true"
+              [show-borders]="false"
+              class="pdf-viewer"
+              [page]="page"
+              (after-load-complete)="afterLoadComplete($event)"
+              class="pdf-viewer"
+            ></pdf-viewer>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </section>
+  
+  <app-loader *ngIf="loaderToggle"></app-loader>
+  <section class="action_section position-fixed w-100">
+    <div class="container">
+      <div
+        class="action_conatiner text-center bg-white br-10 w-100 d-flex justify-content-center"
+      >
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 bg_common_red text-white"
+          [attr.accesskey]="loaderToggle ? '' : 'v'"
+          (click)="view()"
+          *ngIf="btnArr[0]"
+        >
+          View
+        </button>
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 bg_common_red text-white first_letter_textdecorationone"
+          [attr.accesskey]="loaderToggle ? '' : 'w'"
+          (click)="getReport(false)"
+          *ngIf="btnArr[1]"
+        >
+          Do<span class="text-decoration-underline">w</span>nload
+        </button>
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 bg_common_red text-white"
+          [attr.accesskey]="loaderToggle ? '' : 'p'"
+          (click)="getReport(true)"
+          *ngIf="btnArr[3]"
+        >
+          Print
+        </button>
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 bg_common_red text-white first_letter_textdecorationone"
+          (click)="printCompleted()"
+          *ngIf="btnArr[2]"
+          [attr.accesskey]="loaderToggle ? '' : 'c'"
+        >
+          Pnt. <u>C</u>ompleted
+        </button>
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 bg_common_red text-white"
+          [attr.accesskey]="loaderToggle ? '' : 'b'"
+          (click)="back()"
+          *ngIf="btnArr[4]"
+        >
+          Back
+        </button>
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 bg_common_red text-white first_letter_textdecorationone"
+          [attr.accesskey]="loaderToggle ? '' : 'x'"
+          (click)="handleExitClick()"
+          *ngIf="btnArr[5]"
+        >
+          E<span class="text-decoration-underline">x</span>it
+        </button>
+      </div>
+    </div>
+  </section>
+  

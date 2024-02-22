@@ -1,0 +1,52 @@
+.matForm {
+  display: flex;
+  align-items: center;
+  padding-left: 0.5rem;
+}
+
+.flex-nowrap {
+  flex-wrap: nowrap;
+}
+
+.input-group-append {
+  width: 100%;
+}
+
+.table-responsive {
+  height: 50vh;
+}
+
+table th {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+table td {
+  font-size: 12px;
+  vertical-align: middle;
+}
+
+table input {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 2px 8px;
+}
+
+.table > :not(caption) > * > * {
+  padding: 0.3rem;
+}
+
+.is-invalid,
+.is-invalid > .input-group-text,
+.is-invalid > app-f1 {
+  border-color: red;
+}
+
+.form-text {
+  margin-top: 0.25rem;
+  font-size: 0.875em;
+}
+
+.input-group .form-control.is-invalid{
+  z-index: 0;
+}

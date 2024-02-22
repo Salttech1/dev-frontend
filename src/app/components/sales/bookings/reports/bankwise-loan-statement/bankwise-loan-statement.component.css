@@ -1,0 +1,33 @@
+.input-group-text {
+    border-radius: 9px 0px 0px 9px;
+  }
+  
+ /* for date picker control   - start */
+ .matForm {
+    display: flex;
+    align-items: center;
+    padding-left: 0.5rem;
+  }
+  
+  .form-text {
+    margin-top: 0.25rem;
+    font-size: 0.875em;
+  }
+  
+  .flex-nowrap {
+    flex-wrap: nowrap;
+  }
+  
+  .max_wid_50 {
+    min-width: 50px;
+  }
+  
+  .max_wid_70 {
+    min-width: 70px;
+  }
+  
+  .max_wid_100 {
+    min-width: 100px;
+  }
+  
+  /* for date picker control   - End */

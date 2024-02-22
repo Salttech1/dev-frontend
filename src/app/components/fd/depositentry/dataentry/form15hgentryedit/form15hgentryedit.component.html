@@ -1,0 +1,415 @@
+<section class="depositrenewal_section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <form [formGroup]="form15hgSectionEntryForm">
+          <div class="row g-2">
+            <div class="col-md-8 col-lg-5">
+              <div class="input-group" [class.is-invalid]="
+              form15hgSectionEntryForm.controls['companyCode'].invalid &&
+              form15hgSectionEntryForm.controls['companyCode'].touched
+            ">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Company</span
+                >
+                <app-f1
+                  id="company4"
+                  [formControlName]="'companyCode'"
+                  placeholder=""
+                  class="form-control post_input_field border-start-0 border-end-0 d-flex"
+                  titleValue="{{ compData?.mainheader }}"
+                  [tableData]="compData?.dataSet"
+                  [colHeader]="compHeader"
+                  [inputBBC]="bringBackColumn"
+                  (updatedSelectedValue)="updateCompanyList($event)"
+                  [dynaPopId]="'COMPANY'"
+                  [queryConditon]="coy_condition"
+                  [errorMessage]="'Invalid Company Code'"
+                  (click)="checkIsDepositorSelected()"
+                ></app-f1>
+                <span class="position-relative span_divider"></span>
+                <input
+                  type="text"
+                  class="form-control w-50 border-start-0 post_input_field font500 text-dark1 font12 disabled_cls"
+                  [formControlName]="'companyName'"
+                  tabindex="-1" [readonly]="readonlyAttr" 
+                />
+              </div>
+              <div
+              *ngIf="
+                form15hgSectionEntryForm.controls['companyCode'].invalid &&
+                form15hgSectionEntryForm.controls['companyCode'].touched
+              "
+            >
+              <div
+                class="errorField common_color_txt font12 font500"
+                *ngIf="form15hgSectionEntryForm.controls['companyCode'].errors && form15hgSectionEntryForm.controls['companyCode'].errors?.['required']"
+              >
+                * Company Code is required
+              </div>
+            </div>
+            </div>
+            <div class="col-md-3">
+              <div class="input-group">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Acc. Year</span
+                >
+                <input
+                  type="text"
+                  class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                  [formControlName]="'acyear'"
+                  (click)="checkIsDepositorSelected()"
+                  maxlength="8"
+                  oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                />
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="input-group">
+                <div class="form-check d-flex align-items-center">
+                  <input
+                    type="radio"
+                    class="form-check-input font12 font500 position-relative"
+                    name="formType"
+                    [formControlName]="'formType'"
+                    value="H" id="15HRadio"
+                    (click)="checkIsDepositorSelected()"
+                  />
+                  <label class="form-check-label" for="15HRadio">15H</label>
+                </div>
+                <div class="form-check d-flex align-items-center">
+                  <input
+                    type="radio"
+                    class="form-check-input font12 font500 position-relative"
+                    name="formType"
+                    [formControlName]="'formType'"
+                    value="G" id="15GRadio"
+                    (click)="checkIsDepositorSelected()"
+                  />
+                  <label class="form-check-label" for="15GRadio">15G</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-8 col-lg-5">
+              <div class="input-group">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Quarter</span
+                >
+                <app-f1
+                  [formControlName]="'quaterId'"
+                  type="text"
+                  class="form-control post_input_field border-start-0 border-end-0 d-flex"
+                  (updatedSelectedValue)="updateQuarter()"
+                  titleValue="{{ quaterData?.mainheader }}"
+                  [tableData]="quaterData?.dataSet"
+                  [colHeader]="quaterColumnHeader"
+                  [inputBBC]="quaterData?.bringBackColumn"
+                  [dynaPopId]="'FDTDSQ'"
+                  [queryConditon]="quarter_condition"
+                  [errorMessage]="'Invalid Quarter Code'"
+                  (click)="checkIsDepositorSelected()"
+                ></app-f1>
+                <span class="position-relative span_divider"></span>
+                <input
+                  type="text"
+                  class="form-control w-50 border-start-0 post_input_field font500 text-dark1 font12 disabled_cls"
+                  [formControlName]="'quaterName'" [readonly]="readonlyAttr" 
+                  tabindex="-1"
+                />
+              </div>
+            </div>
+            <div class="col-md-8 col-lg-5">
+              <div class="input-group"  [class.is-invalid]="
+              form15hgSectionEntryForm.controls['depositorId'].invalid &&
+              form15hgSectionEntryForm.controls['depositorId'].touched">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Depositor</span
+                >
+                <app-f1
+                  [formControlName]="'depositorId'"
+                  type="text"
+                  class="form-control post_input_field border-start-0 border-end-0 d-flex"
+                  (updatedSelectedValue)="updateDepositorList($event)"
+                  titleValue="{{ depositorTableData?.mainheader }}"
+                  [tableData]="depositorTableData?.dataSet"
+                  [colHeader]="deptColumnHeader"
+                  [inputBBC]="depositorTableData?.bringBackColumn"
+                  [dynaPopId]="'DEPOSITORS'"
+                  [queryConditon]="deptDyanPop"
+                  [errorMessage]="'Invalid Depositor Code'"
+                  id="depositor12"
+                ></app-f1>
+                <span class="position-relative span_divider"></span>
+                <input
+                  type="text"
+                  class="form-control w-50 border-start-0 post_input_field font500 text-dark1 font12 disabled_cls"
+                  [formControlName]="'depositorName'"
+                  tabindex="-1" [readonly]="readonlyAttr"
+                />
+             
+              </div>
+              <div
+              *ngIf="
+                form15hgSectionEntryForm.controls['depositorId'].invalid &&
+                form15hgSectionEntryForm.controls['depositorId'].touched
+              "
+            >
+              <div
+                class="errorField common_color_txt font12 font500"
+                *ngIf="form15hgSectionEntryForm.controls['depositorId'].errors && form15hgSectionEntryForm.controls['depositorId'].errors?.['required']"
+              >
+                * Depositor Id is required
+              </div>
+            </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div
+      class="row justify-content-center border rounded-theme m-0 mt-3"
+      *ngIf="showSave"
+    >
+      <div class="col-md-12 col-lg-5">
+        <form [formGroup]="form15hgDetailsForm">
+          <div class="deposit_renewals pt-2 mt-1">
+            <div class="row">
+              <div class="col-md-6 col-lg-12 col-xl-12">
+                <div class="input-group mb-2 pb-2">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Unique ID No.</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                    [formControlName]="'uniqueid'"
+                    readonly
+                  />
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-12 col-xl-12">
+                <div class="input-group mb-2 pb-2">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Whether Assessed to Tax</span
+                  >
+                  <select [formControlName]="'assessedyn'">
+                    <option value="Y">Y</option>
+                    <option value="N">N</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-12 col-xl-12">
+                <div class="input-group mb-2 pb-2">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Latest Assessment Year</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                    [formControlName]="'assessyear'"
+                    maxlength="4"
+                    oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                    (keydown.tab)="scrollPage(300)"
+                    id="test123"
+                  />
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-12 col-xl-12">
+                <div class="input-group mb-2 pb-2">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Estimated Income</span
+                  >
+                  <input
+                    type="number"
+                    class="form-control border-start-0 post_input_field font500 text-dark1 font12 text-end"
+                    [formControlName]="'estimatedIncome'"
+                  />
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-12 col-xl-12">
+                <div class="input-group mb-2 pb-2">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Estimated Total Income</span
+                  >
+                  <input
+                    type="number"
+                    class="form-control border-start-0 post_input_field font500 text-dark1 font12 text-end"
+                    [formControlName]="'estimatedtotIncome'"
+                  />
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-12 col-xl-12">
+                <div class="input-group mb-2 pb-2">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Total Form Filed</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0 post_input_field font500 text-dark1 font12 text-end"
+                    [formControlName]="'totalFormFiled'"
+                  />
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-12 col-xl-12">
+                <div class="input-group mb-2 pb-2">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Total Income for which Form Filed</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0 post_input_field font500 text-dark1 font12 text-end"
+                    [formControlName]="'incomeFormFiled'"
+                  />
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-12 col-xl-12">
+                <div class="input-group mb-2 pb-2">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Date of Declaration Recd.</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                    id=""
+                    matInput
+                    [matDatepicker]="declDate"
+                    formControlName="datedeclReceived"
+                  />
+                  <div
+                    class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                  >
+                    <span class="input-group-addon">
+                      <mat-datepicker-toggle
+                        matSuffix
+                        [for]="declDate"
+                      ></mat-datepicker-toggle>
+                      <mat-datepicker #declDate></mat-datepicker>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-12 col-xl-12">
+                <div class="input-group mb-2 pb-2">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Amt of Income Paid</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0 post_input_field font500 text-dark1 font12 text-end"
+                    [formControlName]="'amtincomepaid'"
+                  />
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-12 col-xl-12">
+                <div class="input-group mb-2 pb-2">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Date on which Income Paid</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                    id=""
+                    matInput
+                    [matDatepicker]="incomeDate"
+                    formControlName="dateIncomePaid"
+                  />
+                  <div
+                    class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                  >
+                    <span class="input-group-addon">
+                      <mat-datepicker-toggle
+                        matSuffix
+                        [for]="incomeDate"
+                      ></mat-datepicker-toggle>
+                      <mat-datepicker #incomeDate></mat-datepicker>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner text-center bg-white br-10">
+      <div class="flex justify-content-between">
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          [disabled]="showSave"
+          accesskey="a"
+          (click)="handleAddClick()"
+        >
+          Add
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          [disabled]="showSave"
+          accesskey="r"
+          (click)="handleRetrieveClick()"
+        >
+          Retrieve
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone"
+          [disabled]="showSave"
+          (click)="handleDeleteClick()"
+          accesskey="t"
+        >
+          Dele<span class="text-decoration-underline">t</span>e
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          [disabled]="!showSave"
+          accesskey="s"
+          (click)="handleSaveClick()"
+        >
+          Save
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          [disabled]="enableBack"
+          accesskey="b"
+          (click)="handleBackClick()"
+        >
+          Back
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone"
+          [disabled]="showSave"
+          accesskey="x"
+          (click)="handleExitClick()"
+        >
+          E<span class="text-decoration-underline">x</span>it
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<app-loader *ngIf="loader"></app-loader>

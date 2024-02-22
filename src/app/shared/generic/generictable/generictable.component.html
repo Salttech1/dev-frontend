@@ -1,0 +1,57 @@
+<div class="search_container">
+  <div class="row g-2">
+    <div class="col-md-12">
+      <div class="input-group">
+        <span
+          class="input-group-text preinput_radius leftform_lbl font500 text-dark1 font12 pre_lbl_field global_search"
+          >Search</span
+        >
+        <input
+          type="text"
+          autocomplete="off"
+          class="form-control border-start-0 post_input_field lh-30 namefilter"
+          id="globalSearchtext"
+        />
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="input-group">
+        <span
+          class="input-group-text preinput_radius leftform_lbl px-3 py-1 font500 text-dark1 font12 pre_lbl_field lh-30"
+          >Code</span
+        >
+        <input
+          type="text"
+          class="form-control border-start-0 post_input_field lh-30 namefilter"
+          id="searchCodetext"
+        />
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="input-group">
+        <span
+          class="input-group-text preinput_radius leftform_lbl px-3 py-1 font500 text-dark1 font12 pre_lbl_field lh-30"
+          >Name</span
+        >
+        <input
+          type="text"
+          class="form-control border-start-0 post_input_field lh-30"
+          id="searchNametext"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="table_container pt-2">
+    <div class="table_wrapper">
+      <table
+        *ngIf="tableData"
+        #dt
+        class="table generictbl table-striped"
+        style="width: 100%"
+        datatable
+        [dtOptions]="dtOptions"
+        dt-instance="dtInstance"
+      ></table>
+    </div>
+  </div>
+</div>

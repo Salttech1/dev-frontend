@@ -1,0 +1,269 @@
+<!-- <p>party-info-entry works!</p> -->
+<section>
+  <div class="row">
+    <div class="col-md-12">
+      <form [formGroup]="partyInfoEntry">
+        <div class="row g-2">
+          <div class="container mb-2">
+            <div class="input-group justify-content-center">
+              <span>Cert Type : </span>
+              <div
+                class="form-check form-check-inline"
+                *ngFor="let item of config.partyType"
+              >
+                <input
+                  class="form-check-input position-relative cursor-pointer"
+                  type="radio"
+                  [value]="item.id"
+                  formControlName="partyType"
+                />
+                <label class="form-check-label m-0" for="exTy1">
+                  {{ item.name }}
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row g-2">
+          <div class="col-md-6">
+            <div
+              class="input-group"
+              [class.is-invalid]="(partyInfoEntry.get('project')?.hasError('required') &&  partyInfoEntry.get('project')?.touched) ||  partyInfoEntry.get('project')?.errors?.['notFound']"
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                ><b class="text-danger">*</b>Project</span
+              >
+              <input
+                type="text"
+                name=""
+                id="partyInfo_project"
+                class="form-control border-start-0 post_input_field font500 font12"
+                upperCase
+                formControlName="project"
+                [f1]="{
+                  id: 'BUILDINGS',
+                  isSingleValue: true,
+                  formData: partyInfoEntry.get('projectName')
+                }"
+              />
+              <span class="position-relative span_divider"></span>
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control w-50 border-start-0 post_input_field font500 font12"
+                formControlName="projectName"
+              />
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf=" (partyInfoEntry.get('project')?.touched &&  partyInfoEntry.get('project')?.invalid) && !partyInfoEntry.get('project')?.errors?.['notFound']"
+            >
+              Project Code is required.
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf=" partyInfoEntry.get('project')?.errors?.['notFound']"
+            >
+              Project Code is not valid.
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div
+              class="input-group"
+              [class.is-invalid]="(partyInfoEntry.get('group')?.hasError('required') &&  partyInfoEntry.get('group')?.touched) ||  partyInfoEntry.get('group')?.errors?.['notFound']"
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                ><b class="text-danger">*</b>Group</span
+              >
+              <input
+                type="text"
+                name=""
+                id="partyInfo_group"
+                class="form-control border-start-0 post_input_field font500 font12"
+                formControlName="group"
+                [f1]="{
+                  id: 'GROUPCODE',
+                  isSingleValue: true,
+                  formData: partyInfoEntry.get('groupName')
+                }"
+              />
+              <span class="position-relative span_divider"></span>
+              <input
+                type="text"
+                name=""
+                id=""
+                upperCase
+                class="form-control w-50 border-start-0 post_input_field font500 font12"
+                formControlName="groupName"
+              />
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf=" (partyInfoEntry.get('group')?.touched &&  partyInfoEntry.get('group')?.invalid) && !partyInfoEntry.get('group')?.errors?.['notFound']"
+            >
+              Group Code is required.
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf=" partyInfoEntry.get('group')?.errors?.['notFound']"
+            >
+              Group Code is not valid.
+            </div>
+          </div>
+        </div>
+
+        <!-- *ngIf="initialMode" -> Use Condition -->
+        <div class="row g-2 mt-1" *ngIf="initialMode">
+          <div
+            class="group_panel br-10 p-3 pt-4 position-relative form_common_bg"
+          >
+            <div class="col-md-12" formArrayName="addPartyInfoEntryList">
+              <div
+                class="table-responsive group_panel form_common_bg stylishScroll"
+              >
+                <table class="table table-bordered table-sm mb-0">
+                  <thead>
+                    <tr>
+                      <th class="fontBold font12 fonttxt_black">
+                        MAT CERT CODE
+                      </th>
+                      <th class="fontBold font12 fonttxt_black">
+                        MAT CERT NAME
+                      </th>
+                      <th class="fontBold font12 fonttxt_black">PARTY CODE</th>
+                      <th class="fontBold font12 fonttxt_black">PARTY NAME</th>
+                      <th class="fontBold font12 fonttxt_black">BRAND</th>
+                      <th class="fontBold font12 fonttxt_black">ADDRESS</th>
+                      <th class="fontBold font12 fonttxt_black">ACTION</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      *ngFor="let item of partyInfoEntry.controls?.['addPartyInfoEntryList'].controls, let index=index"
+                      [formGroupName]="index"
+                    >
+                      <td>
+                        <div class="has-validation">
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            formControlName="matCertCode"
+                            class="form-control input_control font500 fonttxt_black font12"
+                          />
+                        </div>
+                      </td>
+                      <td>
+                        <div class="has-validation">
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            formControlName="matCertName"
+                            class="form-control input_control font500 fonttxt_black font12"
+                          />
+                        </div>
+                      </td>
+                      <td>
+                        <div
+                          class="input-group"
+                          [class.is-invalid]="(partyInfoEntry.controls?.['addPartyInfoEntryList'].controls[index].get('partyCode').hasError('required') && partyInfoEntry.controls?.['addPartyInfoEntryList'].controls[index].get('partyCode').touched) || partyInfoEntry.controls?.['addPartyInfoEntryList'].controls[index].get('partyCode').errors?.['notFound']"
+                        >
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            upperCase
+                            formControlName="partyCode"
+                            class="form-control input_control font500 fonttxt_black font12"
+                            [f1]="{ id: 'PARTYCODE', isSingleValue: true }"
+                          />
+                          <!-- <div class="invalid-feedback d-block" *ngIf="(partyInfoEntry.controls['addPartyInfoEntryList'].controls[index].get('partyCode').touched && partyInfoEntry.controls['addPartyInfoEntryList'].controls[index].get('partyCode').invalid) && !partyInfoEntry.controls['addPartyInfoEntryList'].controls[index].get('partyCode').errors?.['notFound']">Party code is required.</div> -->
+                          <div
+                            class="invalid-feedback d-block"
+                            *ngIf="partyInfoEntry.controls['addPartyInfoEntryList'].controls[index].get('partyCode').errors?.['notFound']"
+                          >
+                            Party code is not valid.
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="has-validation">
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            formControlName="partyName"
+                            class="form-control input_control font500 fonttxt_black font12"
+                          />
+                        </div>
+                      </td>
+                      <td>
+                        <div class="has-validation">
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            formControlName="brand"
+                            class="form-control input_control font500 fonttxt_black font12"
+                          />
+                        </div>
+                      </td>
+                      <td>
+                        <div class="has-validation">
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            formControlName="address"
+                            class="form-control input_control font500 fonttxt_black font12"
+                          />
+                        </div>
+                      </td>
+                      <td>
+                        <div class="action_panel d-flex justify-content-center">
+                          <button
+                            type="button"
+                            class="btn action_btn d-flex bg_common_red mt-1"
+                            (click)="addParty()"
+                          >
+                            <img
+                              src="/assets/images/add.svg"
+                              alt="add"
+                              class="add_img"
+                            />
+                          </button>
+                          <!-- <button
+                            type="button"
+                            class="btn action_btn d-flex bg_common_red ms-1 mt-1"
+                            (click)="deleteParty(index)"
+                          >
+                            <img
+                              src="/assets/images/trash.svg"
+                              alt="remove"
+                              class="delete_img"
+                            />
+                          </button> -->
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Bottom button start -->
+<app-buttons
+  [buttonsList]="buttonsList"
+  (eventTrigger)="buttonAction($event)"
+></app-buttons>
+<!-- Bottom button end -->

@@ -1,0 +1,24 @@
+.admExpTbl tbody td{
+    padding: 0;
+}
+
+.view table td:nth-child(2) > input, .view table td:nth-child(7) > input, .view table td:nth-child(9) > input ,.view table td:nth-child(11) > input,.view table td:nth-child(13) > input,.view table td:nth-child(15) > input,.view table td:nth-child(15) > div  input{
+    width: 6rem !important;
+ }
+
+ .view th:last-child,
+.view td:last-child {
+   position: sticky;
+   background-color: #fff;
+   width: 50px;
+   min-width: 50px;
+   max-width: 50px;
+   right: 0px;
+}
+
+table > tbody{
+    vertical-align: middle;
+}
+.btn.action_btn {
+    padding: 3px;
+}

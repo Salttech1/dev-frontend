@@ -1,0 +1,225 @@
+<section>
+  <div class="row">
+    <div class="col-md-12">
+      <form [formGroup]="queryForm">
+        <div class="row g-3">
+          <div class="col-md-8">
+            <div class="row g-3">
+              <div class="col-md-12">
+                <div class="br-10 group_panel p-3 position-relative">
+                  <p
+                    class="bg-white font600 group_title mb-0 position-absolute"
+                  ></p>
+                  <div class="row g-2">
+                    <div class="col-md-12">
+                      <div
+                        class="input-group flex-nowrap"
+                        appDate1
+                        [class.is-invalid]="
+                          (queryForm.get('range')?.controls['start']?.invalid &&
+                            queryForm.get('range')?.controls['start']
+                              ?.touched) ||
+                          (queryForm.get('range')?.controls['end']?.invalid &&
+                            queryForm.get('range')?.controls['end']?.touched)
+                        "
+                      >
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1"
+                          >Auth Date</span
+                        >
+                        <div
+                          class="bg-white datepicker_field post_input_field flex-grow-1"
+                          [class.is-invalid]="
+                            (queryForm.get('range')?.controls['start']
+                              ?.invalid &&
+                              queryForm.get('range')?.controls['start']
+                                ?.touched) ||
+                            (queryForm.get('range')?.controls['end']?.invalid &&
+                              queryForm.get('range')?.controls['end']?.touched)
+                          "
+                        >
+                          <span class="input-group-addon">
+                            <div
+                              mat-form-field
+                              appearance="fill"
+                              class="matForm"
+                            >
+                              <mat-date-range-input
+                                [formGroup]="this.queryForm.controls['range']"
+                                [rangePicker]="picker"
+                              >
+                                <input
+                                  appCommonAutoFocus
+                                  matStartDate
+                                  formControlName="start"
+                                  placeholder="Start date"
+                                />
+                                <input
+                                  matEndDate
+                                  formControlName="end"
+                                  placeholder="End date"
+                                />
+                              </mat-date-range-input>
+                              <mat-datepicker-toggle
+                                matSuffix
+                                [for]="picker"
+                              ></mat-datepicker-toggle>
+                              <mat-date-range-picker
+                                #picker
+                              ></mat-date-range-picker>
+                            </div>
+                          </span>
+                        </div>
+                      </div>
+                      <div
+                        *ngIf="
+                          queryForm.controls['range'].invalid &&
+                          queryForm.controls['range'].touched
+                        "
+                      >
+                        <div
+                          class="invalid-feedback d-block"
+                          *ngIf="
+                            (queryForm.get('range').controls['start']
+                              ?.invalid &&
+                              queryForm.get('range').controls['start']
+                                ?.touched) ||
+                            (queryForm.get('range').controls['end']?.invalid &&
+                              queryForm.get('range').controls['end']?.touched)
+                          "
+                        >
+                          Proper Date is required
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="input-group has-validation"  [class.is-invalid]="queryForm.controls['region'].invalid &&
+                      queryForm.controls['region'].touched">
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Building Region</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0"
+                          formControlName="region"
+                          [f1]="{ id: 'SITE' }"
+                        />
+                        <div
+                          class="invalid-feedback d-block"
+                          *ngIf="
+                            queryForm.controls['region'].invalid &&
+                            queryForm.controls['region'].touched
+                          "
+                        >
+                          <div
+                            *ngIf="queryForm.controls['region'].errors?.['required']"
+                          >
+                            Region is Required 
+                          </div>
+                          <div
+                            *ngIf="queryForm.controls['region'].errors?.['notFound']"
+                          >
+                            Not Found
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Export Type -->
+                    <div
+                      class="col-lg-12 col-sm-12"
+                      *ngIf="_service.getAccess('Export')"
+                    >
+                      <p class="bg-white font600 group_title mb-1">
+                        Export Type
+                      </p>
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input position-relative"
+                          type="radio"
+                          name="exportType"
+                          id="exTy1"
+                          value="PDF"
+                          formControlName="exportType"
+                        />
+                        <label class="form-check-label" for="exTy1">
+                          PDF
+                        </label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input position-relative"
+                          type="radio"
+                          name="exportType"
+                          id="exTy2"
+                          value="EXCEL_REPORT_DATA_FORMAT"
+                          formControlName="exportType"
+                        />
+                        <label class="form-check-label" for="exTy2">
+                          Excel (Report - Data Format)
+                        </label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input position-relative"
+                          type="radio"
+                          name="exportType"
+                          id="exTy3"
+                          value="EXCEL_TEMPLATE_FORMAT"
+                          formControlName="exportType"
+                        />
+                        <label class="form-check-label" for="exTy3">
+                          Excel (Template Format)
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner bg-white br-10 d-flex justify-content-center">
+      <button
+        *ngIf="_service.getAccess('Export')"
+        type="submit"
+        class="bg_common_red common_action_btn br-10 first_letter_textdecorationone"
+        [attr.accesskey]="loaderToggle == true ? '' : 'w'"
+        (click)="getReport(false)"
+      >
+        Do<span class="text-decoration-underline">w</span>nload
+      </button>
+      <button
+        *ngIf="_service.getAccess('Print')"
+        type="submit"
+        class="bg_common_red common_action_btn br-10"
+        (click)="getReport(true)"
+        [attr.accesskey]="loaderToggle == true ? '' : 'p'"
+      >
+        Print
+      </button>
+      <button
+      type="submit"
+      (click)="resetForm()"
+      class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone"
+      accesskey="t"
+    >
+      Rese<span class="text-decoration-underline">t</span>
+    </button>
+      <a
+        class="bg_common_red border-0 common_action_btn text-white br-10 first_letter_textdecorationone text-decoration-none"
+        [attr.accesskey]="loaderToggle == true ? '' : 'x'"
+        routerLink="/dashboard"
+      >
+        E<span class="text-decoration-underline">x</span>it
+      </a>
+    </div>
+  </div>
+</section>
+<app-loader *ngIf="loaderToggle"></app-loader>

@@ -1,0 +1,1075 @@
+<section>
+  <div class="row">
+    <div class="col-md-12">
+      <form [formGroup]="qf">
+        <div class="row g-3">
+          <div class="col-md-12">
+            <div class="row g-2">
+              <div class="col-lg-4 col-md-6">
+                <div
+                  class="input-group has-validation"
+                  [class.is-invalid]="
+                    qf.get('partyCode')?.touched && qf.get('partyCode')?.errors
+                  "
+                >
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Supplier Code</span
+                  >
+                  <input
+                    appCommonAutoFocus
+                    id="supp"
+                    type="text"
+                    class="form-control border-start-0"
+                    formControlName="partyCode"
+                    [f1]="{ id: 'PARTYCODE', subId: supQuery }"
+                  />
+                </div>
+                <div class="invalid-feedback">
+                  <div *ngIf="qf.get('partyCode')?.errors?.['required']">
+                    {{ errMsg[0] }}
+                  </div>
+                  <div
+                    *ngIf="qf.get('partyCode')?.errors?.['notFound'] && !qf.get('partyCode')?.errors?.['required']"
+                  >
+                    {{ errMsg[1] }}
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-6">
+                <div
+                  class="input-group has-validation"
+                  [class.is-invalid]="
+                    qf.get('bldgCode')?.touched && qf.get('bldgCode')?.errors
+                  "
+                >
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Bldg Code</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0"
+                    formControlName="bldgCode"
+                    [f1]="{ id: 'BUILDINGS' }"
+                  />
+                </div>
+                <div class="invalid-feedback">
+                  <div *ngIf="qf.get('bldgCode')?.errors?.['required']">
+                    {{ errMsg[0] }}
+                  </div>
+                  <div
+                    *ngIf="qf.get('bldgCode')?.errors?.['notFound'] && !qf.get('bldgCode')?.errors?.['required']"
+                  >
+                    {{ errMsg[1] }}
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-6">
+                <div
+                  class="input-group has-validation"
+                  [class.is-invalid]="
+                    qf.get('matGrp')?.touched && qf.get('matGrp')?.errors
+                  "
+                >
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Material grp</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0"
+                    formControlName="matGrp"
+                    [f1]="{ id: 'MATGROUPS', subId: matGrpQC }"
+                  />
+                </div>
+                <div class="invalid-feedback">
+                  <div *ngIf="qf.get('matGrp')?.errors?.['required']">
+                    {{ errMsg[0] }}
+                  </div>
+                  <div
+                    *ngIf="qf.get('matGrp')?.errors?.['notFound'] && !qf.get('matGrp')?.errors?.['required']"
+                  >
+                    {{ errMsg[1] }}
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-4 col-sm-6">
+                <div
+                  class="input-group has-validation"
+                  [class.is-invalid]="authT?.dirty && authT?.errors"
+                >
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Auth Type</span
+                  >
+                  <input
+                    type="text"
+                    id="authType"
+                    class="form-control border-start-0"
+                    formControlName="authtype"
+                    [f1]="{ id: 'AUTHTYPE' }"
+                  />
+                </div>
+                <div class="invalid-feedback">
+                  <div *ngIf="authT?.errors?.['noPartyBldgMat']">
+                    Please fill Supp/Bldg/MatGrp Code
+                  </div>
+                  <div *ngIf="authT?.errors?.['required']">{{ errMsg[0] }}</div>
+                  <div *ngIf="authT?.errors?.['notFound']">{{ errMsg[1] }}</div>
+                </div>
+              </div>
+
+              <div class="col-lg-4 col-md-6">
+                <div class="input-group">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Running Sr.</span
+                  >
+                  <input
+                    type="number"
+                    class="form-control border-start-0"
+                    formControlName="runningSer"
+                  />
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-6">
+                <div class="input-group">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Authorisation</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0"
+                    disabled
+                  />
+                </div>
+              </div>
+
+              <div class="col-lg-4 col-sm-6">
+                <div
+                  class="input-group"
+                  [class.is-invalid]="
+                    qf.get('advgranted')?.touched &&
+                    qf.get('advgranted')?.invalid
+                  "
+                >
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >
+                    Adv {{ billFlag == "C" ? "Return" : "" }} Amt
+                  </span>
+                  <input
+                    type="number"
+                    class="form-control border-start-0"
+                    formControlName="advgranted"
+                  />
+                </div>
+                <div
+                  class="invalid-feedback"
+                  [class.d-block]="
+                    qf.get('advgranted')?.touched &&
+                    qf.get('advgranted')?.invalid
+                  "
+                >
+                  <div *ngIf="qf.get('advgranted')?.errors?.['required']">
+                    {{ errMsg[0] }}
+                  </div>
+                  <div *ngIf="qf.get('advgranted')?.errors?.['min']">
+                    {{ errMsg[1] }}
+                  </div>
+                  <div *ngIf="qf.get('advgranted')?.errors?.['amtExceeds']">
+                    Cannot be greater than Adv OS amt
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-4 col-sm-6">
+                <div
+                  class="input-group has-validation"
+                  [class.is-invalid]="
+                    qf.get('matCode')?.touched && qf.get('matCode')?.invalid
+                  "
+                >
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Material code</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0"
+                    formControlName="matCode"
+                    [f1]="{ id: 'MATCODES', subId: matCodeQC }"
+                  />
+                </div>
+                <div class="invalid-feedback">
+                  <div *ngIf="qf.get('matCode')?.errors?.['notFound']">
+                    {{ errMsg[1] }}
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-4 col-sm-6">
+                <div
+                  class="input-group has-validation"
+                  [class.is-invalid]="
+                    qf.get('bills')?.touched && qf.get('bills')?.errors
+                  "
+                >
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Bills</span
+                  >
+                  <input
+                    id="bills"
+                    type="text"
+                    class="form-control border-start-0"
+                    formControlName="bills"
+                    [f1]="{ id: 'SUPPBILLNO', subId: billQuery, multi: true }"
+                  />
+                </div>
+                <div class="invalid-feedback">
+                  <div *ngIf="qf.get('bills')?.errors?.['required']">
+                    {{ errMsg[0] }}
+                  </div>
+                  <div *ngIf="qf.get('bills')?.errors?.['notFound']">
+                    {{ errMsg[1] }}
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4 col-sm-6">
+                <div
+                  class="input-group"
+                  appDate1
+                  [class.is-invalid]="
+                    qf.get('authdate')?.touched && qf.get('authdate')?.invalid
+                  "
+                >
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Auth Date</span
+                  >
+                  <input
+                    type="text"
+                    [autocomplete]="'off'"
+                    class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                    matInput
+                    [matDatepicker]="pickerFrom"
+                    formControlName="authdate"
+                  />
+                  <div
+                    class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                  >
+                    <span class="input-group-addon">
+                      <mat-datepicker-toggle
+                        matSuffix
+                        [for]="pickerFrom"
+                      ></mat-datepicker-toggle>
+                      <mat-datepicker #pickerFrom></mat-datepicker>
+                    </span>
+                  </div>
+                </div>
+                <div
+                  class="invalid-feedback"
+                  [class.d-block]="
+                    qf.get('authdate')?.touched && qf.get('authdate')?.invalid
+                  "
+                >
+                  <div *ngIf="qf.get('authdate')?.errors">
+                    {{ errMsg[1] }}
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-4 col-sm-6">
+                <div class="input-group">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Adv O/S amt</span
+                  >
+                  <input
+                    type="number"
+                    class="form-control border-start-0"
+                    formControlName="authamount"
+                  />
+                </div>
+              </div>
+              <div class="col-lg-4 col-sm-6">
+                <div class="input-group">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Lot no.</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0"
+                    formControlName="lotno"
+                  />
+                </div>
+              </div>
+              <div class="col-lg-4 col-sm-6">
+                <div class="input-group">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >For / Exp type</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0 border-end-0 rounded-0 text-uppercase"
+                    formControlName="preparedby"
+                    [maxlength]="5"
+                  />
+                  <span class="position-relative span_divider"></span>
+                  <input
+                    type="text"
+                    class="form-control border-start-0 text-uppercase"
+                    formControlName="expenstype"
+                    [maxlength]="5"
+                  />
+                </div>
+              </div>
+              <div class="col-lg-4 col-sm-6">
+                <div class="input-group">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Adv Adj</span
+                  >
+                  <input
+                    type="number"
+                    class="form-control border-start-0"
+                    formControlName="advadj"
+                  />
+                </div>
+              </div>
+              <div class="col-lg-4 col-sm-6">
+                <div
+                  class="input-group has-validation"
+                  [class.is-invalid]="
+                    qf.get('debsocyn')?.touched && qf.get('debsocyn')?.invalid
+                  "
+                >
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Debit Type</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0"
+                    formControlName="debsocyn"
+                    [f1]="{ id: 'DEBITTO' }"
+                  />
+                </div>
+                <div class="invalid-feedback">
+                  <div *ngIf="qf.get('debsocyn')?.errors?.['notFound']">
+                    {{ errMsg[1] }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-12 col-lg-8 narr" *ngIf="narrToggle">
+            <div
+              class="br-10 group_panel p-3 position-relative"
+              formArrayName="narrItems"
+            >
+              <p class="bg-white font600 group_title mb-0 position-absolute">
+                Item Narration
+              </p>
+              <div class="table-responsive itemNarScroll">
+                <table class="table mb-1">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Sr no.</th>
+                      <th scope="col">Item</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      *ngFor="
+                        let item of qf.controls.narrItems.controls;
+                        let ind = index
+                      "
+                      [formGroupName]="ind"
+                    >
+                      <td>
+                        <input
+                          class="form-check-input"
+                          id="{{ 'checkBox' + ind }}"
+                          type="checkbox"
+                          formControlName="checked"
+                        />
+                      </td>
+                      <td>{{ item.controls?.srno?.value }}</td>
+                      <td>{{ item.controls?.itemdesc?.value }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div
+                class="invalid-feedback d-block"
+                *ngIf="narrItems?.errors && narrItems?.touched"
+              >
+                <ng-container *ngIf="narrItems?.errors?.noNarr"
+                  >Please select atleast 1 item</ng-container
+                >
+                <ng-container *ngIf="narrItems?.errors?.exceedLength"
+                  >Max 5 items are allowed</ng-container
+                >
+              </div>
+              <button
+                type="button"
+                class="btn btn-theme rounded-4 font12 mt-1"
+                accesskey="k"
+                (click)="addNarr()"
+              >
+                O<u>k</u>
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="col-md-12"
+            formArrayName="authDRequestBeanList"
+            *ngIf="billFlag != 'A' && billFlag != 'C'"
+          >
+            <div class="br-10 group_panel p-3 position-relative">
+              <p class="bg-white font600 group_title mb-0 position-absolute">
+                <span>
+                  {{ billDetailsToggle ? "Bill Details" : "Paid Bills" }}
+                </span>
+              </p>
+              <div class="table-responsive" *ngIf="billDetailsToggle">
+                <table class="table table-rounded" [cellNavi]="'cell'">
+                  <thead>
+                    <tr>
+                      <th scope="col">Bill no.</th>
+                      <th scope="col">Bill Date</th>
+                      <th scope="col">Bill Amount</th>
+                      <th scope="col">Debit Amt</th>
+                      <th scope="col">TDS</th>
+                      <th scope="col">Retention O/S</th>
+                      <th scope="col" *ngIf="billFlag != 'N'">
+                        {{ billFlag == "L" ? "Release Ret" : "Retention Adj" }}
+                      </th>
+                      <th scope="col">Adv Adjusted</th>
+                      <th scope="col">Pay Amount</th>
+                      <th scope="col" *ngIf="billFlag == 'N'">Net Qty</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      *ngFor="
+                        let item of qf.controls.authDRequestBeanList.controls;
+                        let ii = index
+                      "
+                      [formGroupName]="ii"
+                    >
+                      <td>{{ item?.get("suppbillno")?.value }}</td>
+                      <td>{{ item?.get("suppbilldt")?.value }}</td>
+                      <td class="text-end">
+                        {{ item?.get("authamount")?.value?.toFixed(2) }}
+                      </td>
+                      <td class="text-end">
+                        {{ item?.get("debitamt")?.value?.toFixed(2) }}
+                      </td>
+                      <td class="text-end">
+                        {{ item?.get("authtdsamt")?.value?.toFixed(2) }}
+                      </td>
+                      <td class="text-end">
+                        {{ item?.get("retainos")?.value?.toFixed(2) }}
+                      </td>
+                      <td class="w-max-6" *ngIf="billFlag != 'N'">
+                        <ng-container *ngIf="billFlag == 'R'">
+                          <input
+                            [id]="'cell' + ii + '-1'"
+                            class="font12 form-control p-1 text-end"
+                            type="number"
+                            formControlName="retentionadj"
+                          />
+                        </ng-container>
+                        <ng-container *ngIf="billFlag == 'L'">
+                          <input
+                            class="font12 form-control p-1 text-end"
+                            type="number"
+                            [id]="'cell' + ii + '-1'"
+                            formControlName="relretamt"
+                            (change)="
+                              updatePayAmt(
+                                ii,
+                                qf.controls.authDRequestBeanList.controls[ii]
+                                  .controls['payamount']
+                              )
+                            "
+                          />
+                        </ng-container>
+                        <div
+                          class="input-group has-validation"
+                          [class.is-invalid]="
+                            authD.controls[ii].controls[
+                              billFlag == 'L'
+                                ? 'relretamt'
+                                : billFlag == 'R' && 'retentionadj'
+                            ]?.invalid &&
+                            authD.controls[ii].controls[
+                              billFlag == 'L'
+                                ? 'relretamt'
+                                : billFlag == 'R' && 'retentionadj'
+                            ]?.touched
+                          "
+                        ></div>
+                        <div class="invalid-feedback font12 font500">
+                          <div
+                            *ngIf="authD.controls[ii].controls[billFlag == 'L'?'relretamt':billFlag == 'R'&&'retentionadj']?.errors?.['retentionExceeds']"
+                          >
+                            {{authD.controls[ii].controls[billFlag == 'L'?'relretamt':billFlag == 'R'&&'retentionadj']?.errors?.['errMsg'] }}
+                          </div>
+                          <div
+                            *ngIf="authD.controls[ii].controls[billFlag == 'L'?'relretamt':billFlag == 'R'&&'retentionadj']?.errors?.['NegAmt']"
+                          >
+                            {{ authD.controls[ii].controls[billFlag == 'L'?'relretamt':billFlag == 'R'&&'retentionadj']?.errors?.['errMsg']}}
+                          </div>
+                        </div>
+                      </td>
+                      <td class="w-max-6">
+                        <input
+                          class="font12 form-control p-1 text-end"
+                          type="number"
+                          [id]="'cell' + ii + '-2'"
+                          formControlName="advadj"
+                          (change)="patchPay(ii)"
+                        />
+                        <div
+                          class="invalid-feedback d-block font12 font500"
+                          *ngIf="authD.controls[ii].get('advadj')?.errors"
+                        >
+                          <ng-container
+                            *ngIf="
+                              authD.controls[ii].get('advadj')?.errors
+                                ?.exceedsBillAmount
+                            "
+                          >
+                            Exceeds Bill Amt
+                          </ng-container>
+                          <ng-container
+                            *ngIf="
+                              authD.controls[ii].get('advadj')?.errors?.NegAmt
+                            "
+                          >
+                            {{
+                              authD.controls[ii].get("advadj")?.errors?.errMsg
+                            }}
+                          </ng-container>
+                        </div>
+                      </td>
+                      <td class="text-end">
+                        {{ item?.get("payamount")?.value?.toFixed(2) }}
+                      </td>
+                      <td class="text-end" *ngIf="billFlag == 'N'">
+                        {{ item?.get("authqty")?.value }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <b>Total</b>
+                      </td>
+                      <td></td>
+                      <td class="text-end">
+                        <b>
+                          {{
+                            getsum(this.authD?.value, "authamount")?.toFixed(2)
+                          }}
+                        </b>
+                      </td>
+                      <td class="text-end">
+                        <b>
+                          {{
+                            getsum(this.authD?.value, "debitamt")?.toFixed(2)
+                          }}
+                        </b>
+                      </td>
+                      <td class="text-end">
+                        <b>
+                          {{
+                            getsum(this.authD?.value, "authtdsamt")?.toFixed(2)
+                          }}
+                        </b>
+                      </td>
+                      <td class="text-end">
+                        <b>
+                          {{
+                            getsum(this.authD?.value, "retainos")?.toFixed(2)
+                          }}
+                        </b>
+                      </td>
+                      <td class="text-end" *ngIf="billFlag != 'N'">
+                        <b>
+                          <ng-container *ngIf="billFlag == 'R'">
+                            {{
+                              getsum(this.authD?.value, "retentionadj").toFixed(
+                                2
+                              )
+                            }}
+                          </ng-container>
+                          <ng-container *ngIf="billFlag == 'L'">
+                            {{
+                              getsum(this.authD?.value, "relretamt")?.toFixed(2)
+                            }}
+                          </ng-container>
+                        </b>
+                      </td>
+                      <td class="text-end">
+                        <b>
+                          {{ getsum(this.authD?.value, "advadj")?.toFixed(2) }}
+                        </b>
+                        <div
+                          class="text-danger font12"
+                          *ngIf="
+                            getsum(this.authD?.value, 'advadj') >
+                            qf.get('authamount')?.getRawValue()
+                          "
+                        >
+                          Adv adjusted sum exceeds Adv O/S amt
+                        </div>
+                      </td>
+                      <td class="text-end">
+                        <b>
+                          {{
+                            getsum(this.authD?.value, "payamount")?.toFixed(2)
+                          }}
+                        </b>
+                      </td>
+                      <td class="text-end" *ngIf="billFlag == 'N'">
+                        <b>
+                          {{ getsum(this.authD?.value, "authqty") }}
+                        </b>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="table-responsive" *ngIf="!billDetailsToggle">
+                <table class="table table-rounded">
+                  <thead>
+                    <tr>
+                      <th scope="col">Bill no.</th>
+                      <th scope="col">Bill Date</th>
+                      <th scope="col">Bill Amount</th>
+                      <th scope="col">Auth #</th>
+                      <th scope="col">Cheque #</th>
+                      <th scope="col">Debit Amount</th>
+                      <th scope="col">TDS Amount</th>
+                      <th scope="col">Pay Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      *ngFor="let i of paidBillsArr"
+                      class="font12 text-black"
+                    >
+                      <td>{{ i?.pblhSuppbillno }}</td>
+                      <td>{{ i?.pblhSuppbilldt }}</td>
+                      <td class="text-end">{{ i?.pblhAmount?.toFixed(2) }}</td>
+                      <td>{{ i?.pblhAuthnum }}</td>
+                      <td>{{ i?.pblhChequeno }}</td>
+                      <td class="text-end">
+                        {{ i?.pblhDebitamt?.toFixed(2) }} 
+                      </td>
+                      <td class="text-end">
+                        {{ i?.pblhTdsamount?.toFixed(2) }}
+                      </td>
+                      <td class="text-end">{{ i?.pblhPaidamt.toFixed(2)}}</td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr class="total_tr">
+                      <td colspan="2" class="font600 text-black">Total</td>
+                      <td class="font600 text-black text-end">
+                        {{ getsum(paidBillsArr, "pblhAmount")?.toFixed(2) }}
+                      </td>
+                      <td colspan="2"></td>
+                      <td class="font600 text-black text-end">
+                        {{ getsum(paidBillsArr, "pblhDebitamt")?.toFixed(2) }}
+                      </td>
+                      <td class="font600 text-black text-end">
+                        {{ getsum(paidBillsArr, "pblhTdsamount")?.toFixed(2) }}
+                      </td>
+                      <td class="font600 text-black text-end">
+                        {{ getsum(paidBillsArr, "pblhPaidamt")?.toFixed(2) }}
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-12 advGst" *ngIf="gstBrkupToggle">
+            <div class="br-10 group_panel p-3 position-relative">
+              <p class="bg-white font600 group_title mb-0 position-absolute">
+                Advance GST Breakups
+              </p>
+              <div class="row g-2">
+                <div class="col-md-6 col-lg-4">
+                  <div
+                    class="input-group has-validation"
+                    [class.is-invalid]="
+                      qf.get('profinvno')?.touched &&
+                      qf.get('profinvno')?.errors
+                    "
+                  >
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Proforma Invoice no.</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0 text-uppercase"
+                      formControlName="profinvno"
+                      [maxlength]="15"
+                    />
+                  </div>
+                  <div class="invalid-feedback">
+                    <div *ngIf="qf.get('profinvno')?.errors?.['required']">
+                      {{ errMsg[0] }}
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                  <div
+                    class="input-group"
+                    [class.is-invalid]="
+                      qf.get('profinvdt')?.touched &&
+                      qf.get('profinvdt')?.invalid
+                    "
+                    appDate1
+                  >
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Proforma Invoice Date</span
+                    >
+                    <input
+                      type="text"
+                      [autocomplete]="'off'"
+                      class="form-control border-start-0 rounded-0 post_input_field font500 text-dark1 font12"
+                      matInput
+                      [max]="maxDate"
+                      [matDatepicker]="pickerFrom1"
+                      formControlName="profinvdt"
+                    />
+                    <div
+                      class="input-group-append bg-white post_input_field datepicker_field border-start-0"
+                      [class.is-invalid]="
+                        qf.get('profinvdt')?.touched &&
+                        qf.get('profinvdt')?.errors
+                      "
+                    >
+                      <span class="input-group-addon">
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="pickerFrom1"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #pickerFrom1></mat-datepicker>
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="invalid-feedback"
+                    [class.d-block]="
+                      qf.get('profinvdt')?.touched &&
+                      qf.get('profinvdt')?.invalid
+                    "
+                  >
+                    <div *ngIf="qf.get('profinvdt')?.errors?.['required']">
+                      {{ errMsg[0] }}
+                    </div>
+                    <div
+                      *ngIf="qf.get('profinvdt')?.hasError('matDatepickerMax')"
+                    >
+                      Cannot be greater than today's date
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="col-md-12"
+                  formArrayName="advrecvoucherRequestBeanList"
+                >
+                  <div class="table-responsive">
+                    <table class="table table-rounded m-0" [cellNavi]="'cell'">
+                      <thead>
+                        <tr>
+                          <th scope="col">HSN</th>
+                          <th scope="col">Item Desc</th>
+                          <th scope="col">Adv Amt</th>
+                          <th scope="col">CGST %</th>
+                          <th scope="col">CGST Amt</th>
+                          <th scope="col">SGST %</th>
+                          <th scope="col">SGST Amt</th>
+                          <th scope="col">IGST %</th>
+                          <th scope="col">IGST Amt</th>
+                          <th scope="col">UGST %</th>
+                          <th scope="col">UGST Amt</th>
+                          <th scope="col"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr
+                          *ngFor="
+                            let item of qf.controls.advrecvoucherRequestBeanList
+                              .controls;
+                            let i = index
+                          "
+                          [formGroupName]="i"
+                        >
+                          <td>
+                            <div class="input-group">
+                              <input
+                              [id]="'cell' + i + '-1'"
+                              type="text"
+                              class="form-control border"
+                              formControlName="hsnsaccode"
+                              [f1]="{ id: 'HSNSAC' }"
+                            />
+                            </div>
+                          </td>
+                          <td>
+                            <input
+                              [id]="'cell' + i + '-2'"
+                              type="text"
+                              class="form-control"
+                              formControlName="itemdesc"
+                            />
+                          </td>
+                          <td>
+                            <input
+                              [id]="'cell' + i + '-3'"
+                              type="number"
+                              class="form-control"
+                              formControlName="amount"
+                              (change)="calcGST(i)"
+                            />
+                          </td>
+                          <td>
+                            <input
+                              [id]="'cell' + i + '-4'"
+                              type="number"
+                              class="form-control"
+                              formControlName="cgstperc"
+                              (change)="calcGST(i, 'cgstperc')"
+                            />
+                          </td>
+                          <td>
+                            <input
+                              [id]="'cell' + i + '-5'"
+                              type="number"
+                              class="form-control"
+                              formControlName="cgstamt"
+                            />
+                          </td>
+                          <td>
+                            <input
+                              [id]="'cell' + i + '-6'"
+                              type="number"
+                              class="form-control"
+                              formControlName="sgstperc"
+                              (change)="calcGST(i, 'sgstperc')"
+                            />
+                          </td>
+                          <td>
+                            <input
+                              [id]="'cell' + i + '-7'"
+                              type="number"
+                              class="form-control"
+                              formControlName="sgstamt"
+                            />
+                          </td>
+                          <td>
+                            <input
+                              [id]="'cell' + i + '-8'"
+                              type="number"
+                              class="form-control"
+                              formControlName="igstperc"
+                              (change)="calcGST(i, 'igstperc')"
+                            />
+                          </td>
+                          <td>
+                            <input
+                              [id]="'cell' + i + '-9'"
+                              type="number"
+                              class="form-control"
+                              formControlName="igstamt"
+                            />
+                          </td>
+                          <td>
+                            <input
+                              [id]="'cell' + i + '-10'"
+                              type="number"
+                              class="form-control"
+                              formControlName="ugstperc"
+                              (change)="calcGST(i, 'ugstperc')"
+                            />
+                          </td>
+                          <td>
+                            <input
+                              [id]="'cell' + i + '-11'"
+                              type="number"
+                              class="form-control"
+                              formControlName="ugstamt"
+                            />
+                          </td>
+                          <td class="py-0">
+                            <button
+                              type="button"
+                              class="btn px-1 py-0"
+                              (click)="deleteItem(i)"
+                            >
+                              <img
+                                src="assets/images/delete.svg"
+                                alt="Delete"
+                              />
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="d-flex mt-2">
+                    <button
+                      type="button"
+                      class="btn btn-theme-light rounded-4 font12"
+                      (click)="addItem()"
+                    >
+                      Add Row
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <div class="row g-2">
+              <div class="col-lg-6 col-sm-12">
+                <div
+                  class="input-group"
+                  [class.is-invalid]="
+                    qf.get('remarks')?.touched && qf.get('remarks')?.errors
+                  "
+                >
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Remarks
+                  </span>
+                  <input
+                    type="text"
+                    class="form-control border-start-0"
+                    formControlName="remarks"
+                    [maxlength]="110"
+                  />
+                </div>
+                <div class="invalid-feedback">
+                  <div *ngIf="qf.get('remarks')?.errors?.['required']">
+                    {{ errMsg[0] }}
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 col-sm-12">
+                <div
+                  class="input-group"
+                  [class.is-invalid]="
+                    qf.get('description')?.touched &&
+                    qf.get('description')?.errors
+                  "
+                >
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Description
+                  </span>
+                  <input
+                    type="text"
+                    class="form-control border-start-0"
+                    formControlName="description"
+                    [maxlength]="100"
+                  />
+                </div>
+                <div class="invalid-feedback">
+                  <div *ngIf="qf.get('description')?.errors?.['required']">
+                    Reason for Retention adj or credit note msg is required
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner bg-white br-10 d-flex justify-content-center">
+      <button
+        type="submit"
+        class="bg_common_red common_action_btn br-10"
+        [attr.accesskey]="loaderToggle ? '' : 'n'"
+        (click)="narrToggle = !narrToggle"
+      >
+        Narration
+      </button>
+      <ng-container *ngIf="billFlag != 'C' && billFlag != 'A'">
+        <button
+          type="submit"
+          class="bg_common_red common_action_btn br-10"
+          [attr.accesskey]="loaderToggle ? '' : 'a'"
+          (click)="add()"
+        >
+          Add
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red common_action_btn br-10"
+          accesskey="p"
+          (click)="getPaidBill($event)"
+          [disabled]="billsDisabled"
+        >
+          {{ !billDetailsToggle ? "Bills" : "Paid Bills" }}
+        </button>
+      </ng-container>
+      <button
+        type="submit"
+        class="bg_common_red common_action_btn br-10"
+        [attr.accesskey]="loaderToggle ? '' : 's'"
+        (click)="save()"
+        [disabled]="saveDisabled"
+      >
+        Save
+      </button>
+      <button
+        type="button"
+        class="bg_common_red common_action_btn br-10 first_letter_textdecorationone"
+        accesskey="t"
+        (click)="reset()"
+      >
+        Rese<u>t</u>
+      </button>
+      <a
+        class="bg_common_red common_action_btn border-0 text-white br-10 text-decoration-none"
+        accesskey="c"
+        routerLink="/shared/codehelp"
+      >
+        Code Help
+      </a>
+      <a
+        class="bg_common_red border-0 common_action_btn text-white br-10 first_letter_textdecorationone text-decoration-none"
+        accesskey="x"
+        routerLink="/dashboard"
+      >
+        E<u>x</u>it
+      </a>
+    </div>
+  </div>
+</section>
+<app-loader *ngIf="loaderToggle"></app-loader>

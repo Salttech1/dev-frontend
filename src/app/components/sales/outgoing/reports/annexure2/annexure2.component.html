@@ -1,0 +1,228 @@
+<section>
+  <form [formGroup]="queryForm">
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6 col-xxl-12">
+      <!-- Proprietor Start -->
+      <div
+        class="input-group"
+        [class.is-invalid]="
+                            queryForm.controls['proprietor'].invalid &&
+                            queryForm.controls['proprietor'].touched || queryForm.invalid &&
+                            queryForm.touched && queryForm.errors?.['atLeastOneFilter'] 
+                          "
+      >
+        <span class="input-group-text leftform_lbl font500 text-dark1 font12"
+          >Proprietor</span
+        >
+        <input
+          type="text"
+          id="proprietor"
+          class="form-control border-start-0"
+          formControlName="proprietor"
+          [f1]="{ id: 'PROPRIETORS' }"
+          appCommonAutoFocus
+        />
+      </div>
+      <div
+        class="invalid-feedback d-block"
+        *ngIf="
+          queryForm.controls['proprietor'].invalid &&
+          queryForm.controls['proprietor'].touched
+        "
+      >
+        <div *ngIf="queryForm.controls['proprietor'].errors?.['notFound']">
+          Not Found
+        </div>
+      </div>
+      <!-- Proprietor End -->
+      <br />
+      <!-- Company Start -->
+      <div
+        class="input-group"
+        [class.is-invalid]="
+                                        queryForm.controls['company'].invalid &&
+                                        queryForm.controls['company'].touched || queryForm.invalid &&
+                                        queryForm.touched && queryForm.errors?.['atLeastOneFilter'] 
+                                      "
+      >
+        <span class="input-group-text leftform_lbl font500 text-dark1 font12"
+          >Company</span
+        >
+        <input
+          type="text"
+          id="company"
+          class="form-control border-start-0"
+          formControlName="company"
+          [f1]="{ id: 'COMPANY', subId: companyFilter }"
+          appCommonAutoFocus
+          />
+      </div>
+          <div
+        class="invalid-feedback d-block"
+        *ngIf="
+          queryForm.controls['company'].invalid &&
+          queryForm.controls['company'].touched
+        "
+      >
+        <div *ngIf="queryForm.controls['company'].errors?.['notFound']">
+          Not Found
+        </div>
+      </div>
+      <!-- Company End -->
+      <br />
+      <!-- Building Code Start -->
+
+      <div
+        class="input-group"
+        [class.is-invalid]="
+                      queryForm.controls['bldgCode'].invalid &&
+                      queryForm.controls['bldgCode'].touched || queryForm.invalid &&
+                      queryForm.touched && queryForm.errors?.['atLeastOneFilter'] 
+                    "
+      >
+        <span class="input-group-text leftform_lbl font500 text-dark1 font12"
+          >Building Code</span
+        >
+        <input
+          type="text"
+          id="bldgCode"
+          class="form-control border-start-0"
+          formControlName="bldgCode"
+          [f1]="{ id: 'BUILDINGS', subId: bldgFilter}"
+          appCommonAutoFocus
+        />
+      </div>
+      <div
+        class="invalid-feedback d-block"
+        *ngIf="
+          queryForm.controls['bldgCode'].invalid &&
+          queryForm.controls['bldgCode'].touched
+        "
+      >
+        <div *ngIf="queryForm.controls['bldgCode'].errors?.['notFound']">
+          Not Found
+        </div>
+      </div>
+      <!-- Building Code End -->
+      <br />
+    </div>
+
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 d-flex">
+      <!-- Date From & To Start  -->
+      <div class="col-lg-4 col-sm-6">
+        <div
+          class="input-group flex-nowrap"
+          appDate1
+          [class.is-invalid]="
+            (queryForm.get('range')?.controls['FromDate']?.invalid &&
+              queryForm.get('range')?.controls['FromDate']?.touched) ||
+            (queryForm.get('range')?.controls['ToDate']?.invalid &&
+              queryForm.get('range')?.controls['ToDate']?.touched)
+          "
+        >
+          <span class="input-group-text leftform_lbl font500 text-dark1"
+            >Date Range</span
+          >
+          <div
+            class="bg-white datepicker_field post_input_field flex-grow-1"
+            [class.is-invalid]="
+              (queryForm.get('range')?.controls['FromDate']?.invalid &&
+                queryForm.get('range')?.controls['FromDate']?.touched) ||
+              (queryForm.get('range')?.controls['ToDate']?.invalid &&
+                queryForm.get('range')?.controls['ToDate']?.touched)
+            "
+          >
+            <span class="input-group-addon">
+              <div mat-form-field appearance="fill" class="matForm">
+                <mat-date-range-input
+                  [formGroup]="this.queryForm.controls['range']"
+                  [rangePicker]="picker"
+                >
+                  <input
+                    matStartDate
+                    formControlName="FromDate"
+                    placeholder="From"
+                  />
+                  <input matEndDate formControlName="ToDate" placeholder="To" />
+                </mat-date-range-input>
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker"
+                ></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+              </div>
+            </span>
+          </div>
+        </div>
+        <div
+          *ngIf="
+            queryForm.controls['range'].invalid &&
+            queryForm.controls['range'].touched
+          "
+        >
+          <div
+            class="invalid-feedback d-block"
+            *ngIf="
+              (queryForm.get('range').controls['FromDate']?.invalid &&
+                queryForm.get('range').controls['FromDate']?.touched) ||
+              (queryForm.get('range').controls['ToDate']?.invalid &&
+                queryForm.get('range').controls['ToDate']?.touched)
+            "
+          >
+            Proper Date is required
+          </div>
+        </div>
+      </div>
+      <!-- <div mr4></div> -->
+      <!-- Party Name Checkbox Start -->
+      <label class="form-check-label" for="flexCheckDefault">
+        Party Name
+      </label>
+      <input
+        formControlName="checked"
+        class="form-check-input"
+        type="checkbox"
+      />
+      <!-- Party Name  Checkbox End -->
+    </div>
+  </form>
+</section>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner bg-white br-10 d-flex justify-content-center">
+      <button
+        *ngIf="_service.getAccess('Export')"
+        type="submit"
+        class="bg_common_red common_action_btn br-10 first_letter_textdecorationone"
+        [attr.accesskey]="loaderToggle == true ? '' : 'w'"
+        (click)="getReport(false)"
+      >
+        Do<u>w</u>nload
+      </button>
+      <button
+        *ngIf="_service.getAccess('Print')"
+        type="submit"
+        class="bg_common_red common_action_btn br-10"
+        (click)="getReport(true)"
+        [attr.accesskey]="loaderToggle == true ? '' : 'p'"
+      >
+        Print
+      </button>
+      <button
+        type="submit"
+        (click)="resetForm()"
+        class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone"
+        accesskey="t"
+      >
+        Rese<span class="text-decoration-underline">t</span>
+      </button>
+      <a
+        class="bg_common_red border-0 common_action_btn text-white br-10 first_letter_textdecorationone text-decoration-none"
+        [attr.accesskey]="loaderToggle == true ? '' : 'x'"
+        routerLink="/dashboard"
+      >
+        E<u>x</u>it
+      </a>
+    </div>
+  </div>
+</section>
+<app-loader *ngIf="loaderToggle"></app-loader>

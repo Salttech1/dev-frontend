@@ -1,0 +1,2687 @@
+<section>
+  <div class="container">
+    <div class="row mb-3">
+      <div class="col-md-12">
+        <form [formGroup]="buildingSelectionsForm">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="input-group">
+                <span class="input-group-text leftform_lbl font500 font12"
+                  ><span class="text-danger font500 font12"><b>*</b></span>Building Code</span
+                >
+                <!-- <app-f1
+                  id="bldgCode"
+                  [formControlName]="'bldgCode'"
+                  name="Building Code"
+                  class="form-control post_input_field border-end-0 border-start-0 d-flex"
+                  titleValue="{{ bldgCodeF1List?.mainheader }}"
+                  [tableData]="bldgCodeF1List?.dataSet"
+                  [colHeader]="bldgCodeColHeadings"
+                  [inputBBC]="bldgCodeF1Bbc"
+                  (updatedSelectedValue)="getBldgCode($event)"
+                  [dynaPopId]="'BUILDINGS'"
+                  [queryConditon]=""
+                  [errorMessage]="'Invalid Building Code'"
+                >
+                  (change)="updateOnChangeBldgList($event)"
+                </app-f1> -->
+                <!-- (change)="DisplayDescription($event,bldgCodeF1List,bldgCode,buildingSelectionsForm,bldgName)" -->
+                <input
+                  id="code"
+                  type="text"
+                  formControlName="code"
+                  class="form-control border-start-0 post_input_field font500 font12"
+                  [f1]="{ id: 'BUILDINGS' }"
+                  autofocus
+                />
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="tabs_container pt-4" *ngIf="initialMode">
+      <!-- <div class="tabs_inner_container"> -->
+      <ul class="nav nav-tabs">
+        <!-- <li class="nav-item" (click)="activeAccDataField($event)">
+          <a
+            class="nav-link lh-10 active text-decoration-none font10 text-dark1 font500"
+            data-bs-toggle="tab"
+            href="#accountSensitiveDetails"
+            accesskey="1"
+            (click)="activeTabStringValue = 'Account Sensitive Building Details';setActionButtonsFlag(true, true, true, false, false);"
+            ><span class="text-decoration-underline">1</span>. Account Sensitive Building Details</a
+          >
+        </li> NS 21.02.2023 commented out becuase function on click event was commented out in typescript code but it declaration was not remove from this html code so it was giviing error on runtime -->
+        <li class="nav-item">
+          <a
+            class="nav-link lh-10 active text-decoration-none font10 text-dark1 font500"
+            data-bs-toggle="tab"
+            href="#accountSensitiveDetails"
+            accesskey="1"
+            (click)="activeTabStringValue = 'Account Sensitive Building Details';setActionButtonsFlag(true, true, true, false, false);"
+            ><span class="text-decoration-underline">1</span>. Account Sensitive Building Details</a
+          >
+        </li>
+        <li class="nav-item" (click)="activeArchDataField($event)">
+          <a
+            class="nav-link lh-10 text-decoration-none font10 text-dark1 font500"
+            data-bs-toggle="tab"
+            href="#archSensitiveDetails"
+            accesskey="2"
+            (click)="activeTabStringValue = 'Architectural Sensitive Building Details';setActionButtonsFlag(true, true, true, false, false);"
+            ><span class="text-decoration-underline">2</span>. Architectural Sensitive Building Details</a
+          >
+        </li>
+        <li class="nav-item" (click)="activeMailInfoDataField($event)">
+          <a
+            class="nav-link lh-10 text-decoration-none font10 text-dark1 font500"
+            data-bs-toggle="tab"
+            href="#mailInfoDetails"
+            accesskey="3"
+            (click)="activeTabStringValue = 'Mail Info Details';setActionButtonsFlag(true, true, true, false, false);"
+            ><span class="text-decoration-underline">3</span>. Mail Info
+            Details</a
+          >
+        </li>
+        <li class="nav-item" (click)="activeFlatDetailsField($event);">
+          <a
+            class="nav-link lh-10 text-decoration-none font10 text-dark1 font500"
+            data-bs-toggle="tab"
+            href="#flatDetails"
+            accesskey="4"
+            (click)="activeTabStringValue = 'Flat Details';setActionButtonsFlag(true, true, false, false, false); focusField('wing0')"           
+            ><span class="text-decoration-underline" >4</span>. Flat Details</a
+          >
+        </li>
+        <li class="nav-item" (click)="activeAddressField($event)">
+          <a
+            class="nav-link lh-10 text-decoration-none font10 text-dark1 font500"
+            data-bs-toggle="tab"
+            href="#address"
+            accesskey="5"
+            (click)="activeTabStringValue = 'Address Detail';setActionButtonsFlag(true, true, true, false, false);"
+            ><span class="text-decoration-underline">5</span>. Address Detail</a
+          >
+        </li>
+      </ul>
+      <!-- </div> -->
+
+      <div class="tab-content" *ngIf="initialMode">
+        <div class="tab-pane container active p-0" id="accountSensitiveDetails">
+          <!-- <app-depositordetail (passDepositorData)="receiveDepositorEntryData($event)" [depositFetchedData]="depositEntryTabVal" [passCityData]="receivedAddressData?.value.addressResponseBean?.city" (passPartFormGroupEmit)="receivePartyEntryData($event)" [getAddressFormGroup]="receivedAddressData" [getCityUpdatedFlag]="cityValueChangeFlag"></app-depositordetail> -->
+
+          <div class="col-md-12">
+            <div>
+              <p
+                class="bg-white font600 group_title mb-0 position-absolute"
+              ></p>
+              <form [formGroup]="buildingForm">
+                <div class="row">
+                  <div class="col-md-6 mb-2">
+                    <div
+                      class="input-group has-validation"
+                      [class.is-invalid]="
+                        buildingForm.controls['name'].invalid &&
+                        buildingForm.controls['name'].touched
+                      "
+                    >
+                      <span
+                        class="input-group-text leftform_lbl font500 font12 req"
+                        ><b>*</b>Building Name</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        formControlName="name"
+                        id="name"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                      />
+                    </div>
+                    <div
+                      class="invalid-feedback d-block"
+                      *ngIf="
+                        buildingForm.controls['name'].invalid &&
+                        buildingForm.controls['name'].touched
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="buildingForm.controls['name'].errors && buildingForm.controls['name'].errors?.['required']"
+                      >
+                        Building name is required
+                      </div>
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="buildingForm.controls['name'].errors?.['maxlength']?.actualLength"
+                      >
+                        Max 50 Character allowed. Current is
+                        {{buildingForm.controls['name'].errors?.['maxlength']?.actualLength}}
+                        characters.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-2">
+                    <div
+                    class="input-group has-validation"
+                    [class.is-invalid]="
+                      buildingForm.controls['salesname'].invalid &&
+                      buildingForm.controls['salesname'].touched
+                    "
+                  >
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >Sales Name</span
+                      >
+                      <input
+                        type="text"
+                        formControlName="salesname"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        id="salesname"
+                      />
+                    </div>
+                    <div
+                      class="invalid-feedback d-block"
+                      *ngIf="
+                        buildingForm.controls['salesname'].invalid &&
+                        buildingForm.controls['salesname'].touched
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="buildingForm.controls['salesname'].errors?.['maxlength']?.actualLength"
+                      >
+                        Max 50 Character allowed. Current is
+                        {{buildingForm.controls['salesname'].errors?.['maxlength']?.actualLength}}
+                        characters.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6 mb-2">
+                    
+<div
+class="input-group has-validation"
+[class.is-invalid]="
+  buildingForm.controls['project'].invalid &&
+  buildingForm.controls['project'].touched
+"
+>
+                      <span
+                        class="input-group-text leftform_lbl font500 font12 req"
+                      >
+                        <b>*</b> Project</span
+                      >
+                      <!-- <app-f1
+                        id="project"
+                        [formControlName]="'project'"
+                        name="project"
+                        class="form-control post_input_field border-end-0 border-start-0 d-flex"
+                        titleValue="{{ projectF1List?.mainheader }}"
+                        [tableData]="projectF1List?.dataSet"
+                        [colHeader]="projectColHeadings"
+                        [inputBBC]="projectF1Bbc"
+                        (updatedSelectedValue)="getProject($event)"
+                        [dynaPopId]="'PROJECTS'"
+                        [queryConditon]=""
+                        [errorMessage]="'Invalid Project Code'"
+                      >
+                      </app-f1> -->
+                      <input
+                        type="text"
+                        formControlName="project"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        [f1]="{ id: 'PROJECTS'}"
+                      />
+                      <!--       
+                      <input
+                        type="text"
+                        formControlName="projName"
+                        class="form-control w-50 border-start-0 post_input_field font500 font12"
+                      /> -->
+                    </div>
+                    <div
+                      class="invalid-feedback d-block"
+                      *ngIf="
+                      buildingForm.controls['project'].invalid &&
+                      buildingForm.controls['project'].touched
+                      "
+                    >
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="buildingForm.controls['project'].errors && buildingForm.controls['project'].errors?.['required']"
+                        >
+                          Project Code is required.
+                        </div>
+                    </div>
+
+                  </div>
+                  <div class="col-md-6 mb-2">
+                    <div
+                      class="input-group has-validation"
+                      [class.is-invalid]="
+                        buildingForm.controls['prop'].invalid &&
+                        buildingForm.controls['prop'].touched
+                      "
+                    >
+                      <span
+                        class="input-group-text leftform_lbl font500 font12 req"
+                        >
+                        <b>*</b> Proprietor</span
+                      >
+                      <app-f1
+                        id="proprietor"
+                        [formControlName]="'prop'"
+                        name="proprietor"
+                        class="form-control post_input_field border-end-0 border-start-0 d-flex post_input_field2"
+                        titleValue="{{ propF1List?.mainheader }}"
+                        [tableData]="propF1List?.dataSet"
+                        [colHeader]="propColHeadings"
+                        [inputBBC]="propF1Bbc"
+                        (updatedSelectedValue)="getProprietor($event)"
+                        [dynaPopId]="'PROPRIETOR'"
+                        [queryConditon]=""
+                        [errorMessage]="'Invalid Proprietor Code'"
+                        (input) = "setValueToBlankForProprietorNameField()"
+                      >
+                      </app-f1>
+                      <input
+                        type="text"
+                        formControlName="propName"
+                        class="form-control w-50 border-start-0 post_input_field font500 font12"
+                      />
+                    </div>
+                    <div
+                    class="invalid-feedback d-block"
+                    *ngIf="
+                      buildingForm.controls['prop'].invalid &&
+                      buildingForm.controls['prop'].touched
+                    "
+                  >
+                    <div
+                      class="errorField common_color_txt font12 font500"
+                      *ngIf="buildingForm.controls['prop'].errors && buildingForm.controls['prop'].errors?.['required']"
+                    >
+                     Proprietor Code is required.
+                    </div>
+                    <!-- <div
+                      class="errorField common_color_txt font12 font500"
+                      *ngIf="buildingForm.controls['name'].errors?.['maxlength']?.actualLength"
+                    >
+                      Max 50 Character allowed. Current is
+                      {{buildingForm.controls['name'].errors?.['maxlength']?.actualLength}}
+                      characters.
+                    </div> -->
+                  </div>
+
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6 mb-2">
+                    <div
+                      class="input-group has-validation"
+                      [class.is-invalid]="
+                        buildingForm.controls['coy'].invalid &&
+                        buildingForm.controls['coy'].touched
+                      "
+                    >
+                      <span
+                        class="input-group-text leftform_lbl font500 font12 req labelsizeforf1owningcoy"
+                      >
+                        <b>*</b> Owning Coy</span
+                      >
+                      <app-f1
+                        id="coy"
+                        [formControlName]="'coy'"
+                        name="coy"
+                        class="form-control post_input_field border-end-0 border-start-0 d-flex inputsizeforf1owningcoy post_input_field2"
+                        titleValue="{{ owningCompanyF1List?.mainheader }}"
+                        [tableData]="owningCompanyF1List?.dataSet"
+                        [colHeader]="owningCompanyColHeadings"
+                        [inputBBC]="owningCompanyF1Bbc"
+                        (updatedSelectedValue)="getOwningCompany($event)"
+                        [dynaPopId]="'COMPANY'"
+                        [queryConditon]=""
+                        [errorMessage]="'Invalid Owning Company'"
+                        (input)="setValueToBlankForOwningComapnyNameField()"
+                        width=""
+                      >
+                      </app-f1>
+                      <input
+                        type="text"
+                        formControlName="owningCompanyName"
+                        class="form-control w-50 border-start-0 post_input_field font500 font12 descriptionforf1owningcoy"
+                      />
+                    </div>
+                    <div
+                      class="invalid-feedback d-block"
+                      *ngIf="
+                        buildingForm.controls['coy'].invalid &&
+                        buildingForm.controls['coy'].touched
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="buildingForm.controls['coy'].errors && buildingForm.controls['coy'].errors?.['required']"
+                      >
+                        Owning Company is required.
+                      </div>
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="buildingForm.controls['coy'].errors?.['maxlength']?.actualLength"
+                      >
+                        Max 5 Characters allowed. Current is
+                        {{buildingForm.controls['coy'].errors?.['maxlength']?.actualLength}}
+                        characters.
+                      </div>
+                    </div>
+                    
+                  </div>
+
+                  <div class="col-md-6 mb-2">
+                    <div
+                      class="input-group has-validation"
+                      [class.is-invalid]="
+                        buildingForm.controls['paycoy'].invalid &&
+                        buildingForm.controls['paycoy'].touched
+                      "
+                    >
+                      <span
+                        class="input-group-text leftform_lbl font500 font12 req"
+                      >
+                        <b>*</b> Paying Coy</span
+                      >
+                      <app-f1
+                        id="payingCompany"
+                        [formControlName]="'paycoy'"
+                        name="payingCompany"
+                        class="form-control post_input_field border-end-0 border-start-0 d-flex post_input_field2"
+                        titleValue="{{ payingCompanyF1List?.mainheader }}"
+                        [tableData]="payingCompanyF1List?.dataSet"
+                        [colHeader]="payingCompanyColHeadings"
+                        [inputBBC]="payingCompanyF1Bbc"
+                        (updatedSelectedValue)="getPayingCompany($event)"
+                        [dynaPopId]="'COMPANY'"
+                        [queryConditon]=""
+                        [errorMessage]="'Invalid Paying Company'"
+                        (input)="setValueToBlankForPayingComapnyNameField()"
+                      >
+                      </app-f1>
+                      <input
+                        type="text"
+                        formControlName="payingCompanyName"
+                        class="form-control w-50 border-start-0 post_input_field font500 font12"
+                      />
+                    </div>
+                    <div
+                    class="invalid-feedback d-block"
+                    *ngIf="
+                      buildingForm.controls['paycoy'].invalid &&
+                      buildingForm.controls['paycoy'].touched
+                    "
+                  >
+                    <div
+                      class="errorField common_color_txt font12 font500"
+                      *ngIf="buildingForm.controls['paycoy'].errors && buildingForm.controls['paycoy'].errors?.['required']"
+                    >
+                      Paying Company is required.
+                    </div>
+                  </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6 mb-2">
+                    <div
+                      class="input-group"
+                      
+                    >
+                    <!-- <div
+                      class="input-group has-validation"
+                      [class.is-invalid]="
+                        buildingForm.controls['concoy'].invalid &&
+                        buildingForm.controls['concoy'].touched
+                      "
+                    > -->
+                      <span
+                        class="input-group-text leftform_lbl font500 font12 labelsizeforf1concoy"
+                      >
+                        Contracting Coy</span
+                      >
+                      <app-f1
+                        id="contractingCompany"
+                        [formControlName]="'concoy'"
+                        name="contractingCompany"
+                        class="form-control post_input_field border-end-0 border-start-0 d-flex inputsizeforf1concoy"
+                        titleValue="{{ contractingCompanyF1List?.mainheader }}"
+                        [tableData]="contractingCompanyF1List?.dataSet"
+                        [colHeader]="contractingCompanyColHeadings"
+                        [inputBBC]="contractingCompanyF1Bbc"
+                        (updatedSelectedValue)="getContractingCompany($event)"
+                        [dynaPopId]="'COMPANY'"
+                        [queryConditon]=""
+                        [errorMessage]="'Invalid Contracting Company'"
+                        (input)="setValueToBlankForContractingCompanyNameField()"
+                      >
+                      </app-f1>
+                      <input
+                        type="text"
+                        formControlName="contractingCompanyName"
+                        class="form-control w-50 border-start-0 post_input_field font500 font12 descriptionforf1concoy"
+                      />
+                    </div>
+                    <!-- <div
+                    class="invalid-feedback d-block"
+                    *ngIf="
+                      buildingForm.controls['concoy'].invalid &&
+                      buildingForm.controls['concoy'].touched
+                    "
+                  >
+                    <div
+                      class="errorField common_color_txt font12 font500"
+                      *ngIf="buildingForm.controls['concoy'].errors && buildingForm.controls['concoy'].errors?.['required']"
+                    >
+                      Construction Company is required.
+                    </div>
+                  </div> -->
+
+                  </div>
+
+                  <div class="col-md-6 mb-2">
+                    <!-- <div
+                      class="input-group has-validation"
+                      [class.is-invalid]="
+                        buildingForm.controls['property'].invalid &&
+                        buildingForm.controls['property'].touched
+                      "
+                    > -->
+                    <div class="input-group" >
+                      <span
+                        class="input-group-text leftform_lbl font500 font12 req"
+                      >
+                        Property</span>
+                      <app-f1
+                        id="property"
+                        [formControlName]="'property'"
+                        name="property"
+                        class="form-control post_input_field border-end-0 border-start-0 d-flex"
+                        titleValue="{{ propertyF1List?.mainheader }}"
+                        [tableData]="propertyF1List?.dataSet"
+                        [colHeader]="propertyColHeadings"
+                        [inputBBC]="propertyF1Bbc"
+                        (updatedSelectedValue)="getproperty($event)"
+                        [dynaPopId]="'PROPERTY'"
+                        [queryConditon]=""
+                        [errorMessage]="'Invalid Property'"
+                        (input)="setValueToBlankForPropertyNameField()"
+                      >
+                      </app-f1>
+                      <input
+                        type="text"
+                        formControlName="propertyName"
+                        class="form-control w-50 border-start-0 post_input_field font500 font12"
+                      />
+                    </div>
+                    <!-- <div
+                    class="invalid-feedback d-block"
+                    *ngIf="
+                      buildingForm.controls['property'].invalid &&
+                      buildingForm.controls['property'].touched
+                    "
+                  >
+                    <div
+                      class="errorField common_color_txt font12 font500"
+                      *ngIf="buildingForm.controls['property'].errors && buildingForm.controls['property'].errors?.['required']"
+                    >
+                      Property is required.
+                    </div>
+                  </div> -->
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-4 mb-2">
+                    <div class="input-group">
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >Survey #</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        maxlength="20"
+                        formControlName="surveynum"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-4 mb-2">
+                    <div class="input-group">
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >Land Tenure</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        maxlength="1"
+                        formControlName="tenure"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-4 mb-2">
+                    <div
+                      class="input-group has-validation"
+                      [class.is-invalid]="
+                        buildingForm.controls['city'].invalid &&
+                        buildingForm.controls['city'].touched
+                      "
+                    >
+                      <span
+                        class="input-group-text leftform_lbl font500 font12 req labelsizeforf1City"
+                      >
+                        <b>*</b> City</span
+                      >
+                      <app-f1
+                        id="city"
+                        [formControlName]="'city'"
+                        name="city"
+                        class="form-control post_input_field border-end-0 border-start-0 d-flex post_input_field2 inputsizeforf1City"
+                        titleValue="{{ cityF1List?.mainheader }}"
+                        [tableData]="cityF1List?.dataSet"
+                        [colHeader]="cityColHeadings"
+                        [inputBBC]="cityF1Bbc"
+                        (updatedSelectedValue)="getcity($event)"
+                        [dynaPopId]="'CITIES'"
+                        [queryConditon]=""
+                        [errorMessage]="'Invalid City'"
+                        (input)="setValueToBlankForBuildingFormCityNameField()"
+                      >
+                      </app-f1>
+                      <input
+                        type="text"
+                        formControlName="cityName"
+                        class="form-control w-50 border-start-0 post_input_field font500 font12 descriptionforf1City"
+                      />
+                    </div>
+                    <div
+                    class="invalid-feedback d-block"
+                    *ngIf="
+                      buildingForm.controls['city'].invalid &&
+                      buildingForm.controls['city'].touched
+                    "
+                  >
+                    <div
+                      class="errorField common_color_txt font12 font500"
+                      *ngIf="buildingForm.controls['city'].errors && buildingForm.controls['city'].errors?.['required']"
+                    >
+                      City is required.
+                    </div>
+                  </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 mb-2">
+                    <div
+                      class="input-group has-validation"
+                      [class.is-invalid]="
+                        buildingForm.controls['township'].invalid &&
+                        buildingForm.controls['township'].touched
+                      "
+                    >
+                      <span
+                        class="input-group-text leftform_lbl font500 font12 req"
+                      >
+                        <b>*</b> Township</span
+                      >
+                      <app-f1
+                        id="township"
+                        [formControlName]="'township'"
+                        name="township"
+                        class="form-control post_input_field border-end-0 border-start-0 d-flex post_input_field2"
+                        titleValue="{{ townshipF1List?.mainheader }}"
+                        [tableData]="townshipF1List?.dataSet"
+                        [colHeader]="townshipColHeadings"
+                        [inputBBC]="townshipF1Bbc"
+                        (updatedSelectedValue)="gettownship($event)"
+                        [dynaPopId]="'TOWNS'"
+                        [queryConditon]=""
+                        [errorMessage]="'Invalid Township'"
+                        (input)="setValueToBlankForBuildingFormTownshipNameField()"
+                      >
+                      </app-f1>
+                      <input
+                        type="text"
+                        formControlName="townshipName"
+                        class="form-control w-50 border-start-0 post_input_field font500 font12"
+                      />
+                    </div>
+                    <div
+                    class="invalid-feedback d-block"
+                    *ngIf="
+                      buildingForm.controls['township'].invalid &&
+                      buildingForm.controls['township'].touched
+                    "
+                  >
+                    <div
+                      class="errorField common_color_txt font12 font500"
+                      *ngIf="buildingForm.controls['township'].errors && buildingForm.controls['township'].errors?.['required']"
+                    >
+                      Township name is required
+                    </div>
+                  </div>
+                  </div>
+                  <div class="col-md-6 mb-2">
+                    <div class="input-group has-validation"
+                    [class.is-invalid]="
+                    buildingForm.controls['bldgtype'].invalid &&
+                    buildingForm.controls['bldgtype'].touched
+                    ">
+                      <span
+                        class="input-group-text leftform_lbl font500 font12 req"
+                      >
+                        <b>*</b> Building Type</span
+                      >
+                      <app-f1
+                        id="bldgType"
+                        [formControlName]="'bldgtype'"
+                        name="bldgType"
+                        class="form-control post_input_field border-end-0 border-start-0 d-flex post_input_field2"
+                        titleValue="{{ bldgTypeF1List?.mainheader }}"
+                        [tableData]="bldgTypeF1List?.dataSet"
+                        [colHeader]="bldgTypeColHeadings"
+                        [inputBBC]="bldgTypeF1Bbc"
+                        (updatedSelectedValue)="getbldgType($event)"
+                        [dynaPopId]="'BTYPES'"
+                        [queryConditon]=""
+                        [errorMessage]="'Invalid Building Type'"
+                        (input)="setValueToBlankForBldgTypeNameField()"
+                      >
+                      </app-f1>
+                      <input
+                        type="text"
+                        formControlName="bldgTypeName"
+                        class="form-control w-50 border-start-0 post_input_field font500 font12"
+                      />
+                    </div>
+                    <div
+                    class="invalid-feedback d-block"
+                    *ngIf="
+                      buildingForm.controls['bldgtype'].invalid &&
+                      buildingForm.controls['bldgtype'].touched
+                    "
+                  >
+
+                  <div
+                      class="errorField common_color_txt font12 font500"
+                      *ngIf="buildingForm.controls['bldgtype'].errors && buildingForm.controls['bldgtype'].errors?.['required']"
+                    >
+                      Building Type is required.
+                    </div>                 
+                    <div
+                      class="errorField common_color_txt font12 font500"
+                      *ngIf="buildingForm.controls['bldgtype'].errors?.['maxlength']?.actualLength"
+                    >
+                      Max 1 Character allowed. Current is
+                      {{buildingForm.controls['bldgtype'].errors?.['maxlength']?.actualLength}}
+                      characters.
+                    </div>
+                  </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 mb-2">
+                    <div
+                      class="input-group">
+                      <span
+                        class="input-group-text leftform_lbl font500 font12 req labelsizeforf1opt2coy"
+                      >
+                        Option 2 Engg Coy</span
+                      >
+                      <app-f1
+                        id="opt2EnggCompany"
+                        [formControlName]="'opt2engg'"
+                        name="opt2EnggCompany"
+                        class="form-control post_input_field border-end-0 border-start-0 d-flex inputsizeforf1opt2coy"
+                        titleValue="{{ opt2EnggCompanyF1List?.mainheader }}"
+                        [tableData]="opt2EnggCompanyF1List?.dataSet"
+                        [colHeader]="opt2EnggCompanyColHeadings"
+                        [inputBBC]="opt2EnggCompanyF1Bbc"
+                        (updatedSelectedValue)="getOpt2EnggCompany($event)"
+                        [dynaPopId]="'COMPANY'"
+                        [queryConditon]=""
+                        [errorMessage]="'Invalid Option 2 Engineering Company'"
+                        (input)="setValueToBlankForOpt2EnggNameField()"
+                      >
+                      </app-f1>
+                      <input
+                        type="text"
+                        formControlName="opt2EnggCompanyName"
+                        class="form-control w-50 border-start-0 post_input_field font500 font12 descriptionforf1opt2coy"
+                      />
+                    </div> 
+                  </div>
+
+                  <div class="col-md-6 mb-2">
+                    <div
+                      class="input-group">
+                      <span
+                        class="input-group-text leftform_lbl font500 font12 req labelsizeforf1opt2coy"
+                      >
+                         Option 2 Sales Coy</span>
+                      <app-f1
+                        id="opt2SalesCompany"
+                        [formControlName]="'opt2sales'"
+                        name="opt2SalesCompany"
+                        class="form-control post_input_field border-end-0 border-start-0 d-flex inputsizeforf1opt2coy"
+                        titleValue="{{ opt2SalesCompanyF1List?.mainheader }}"
+                        [tableData]="opt2SalesCompanyF1List?.dataSet"
+                        [colHeader]="opt2SalesCompanyColHeadings"
+                        [inputBBC]="opt2SalesCompanyF1Bbc"
+                        (updatedSelectedValue)="getOpt2SalesCompany($event)"
+                        [dynaPopId]="'COMPANY'"
+                        [queryConditon]=""
+                        [errorMessage]="'Invalid Option 2 Sales Coy'"
+                        (input)="setValueToBlankForOpt2SalesNameField()"
+                      >
+                      </app-f1>
+                      <input
+                        type="text"
+                        formControlName="opt2SalesCompanyName"
+                        class="form-control w-50 border-start-0 post_input_field font500 font12 descriptionforf1opt2coy"
+                      />
+                    </div>
+
+                    
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6 mb-2">
+                    <div class="input-group">
+                      <span
+                        class="input-group-text leftform_lbl font500 font12 req labelsizeforf1Intbrokeragecoy"
+                      >
+                         Int Brokerage Coy</span
+                      >
+                      <app-f1
+                        id="intBrokCompany"
+                        [formControlName]="'intbrokcoy'"
+                        name="intBrokCompany"
+                        class="form-control post_input_field border-end-0 border-start-0 d-flex inputsizeforf1Intbrokeragecoy"
+                        titleValue="{{ intBrokCompanyF1List?.mainheader }}"
+                        [tableData]="intBrokCompanyF1List?.dataSet"
+                        [colHeader]="intBrokCompanyColHeadings"
+                        [inputBBC]="intBrokCompanyF1Bbc"
+                        (updatedSelectedValue)="getIntBrokCompany($event)"
+                        [dynaPopId]="'COMPANY'"
+                        [queryConditon]=""
+                        [errorMessage]="'Invalid Int Brokerage Company'"
+                        (input)="setValueToBlankForIntBrokCoyNameField()"
+                      >
+                      </app-f1>
+                      <input
+                        type="text"
+                        formControlName="intBrokCompanyName"
+                        class="form-control w-50 border-start-0 post_input_field font500 font12 descriptionforf1Intbrokeragecoy"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 mb-2">
+                    <div class="input-group">
+                      <span
+                        class="input-group-text leftform_lbl font500 font12 req"
+                      >
+                         Leasing Coy</span
+                      >
+                      <app-f1
+                        id="leaseCompany"
+                        [formControlName]="'leasingcoy'"
+                        name="leaseCompany"
+                        class="form-control post_input_field border-end-0 border-start-0 d-flex"
+                        titleValue="{{ leaseCompanyF1List?.mainheader }}"
+                        [tableData]="leaseCompanyF1List?.dataSet"
+                        [colHeader]="leaseCompanyColHeadings"
+                        [inputBBC]="leaseCompanyF1Bbc"
+                        (updatedSelectedValue)="getLeaseCompany($event)"
+                        [dynaPopId]="'COMPANY'"
+                        [queryConditon]=""
+                        [errorMessage]="'Invalid Leasing Company'"
+                        (input)="setValueToBlankForLeasingCoyNameField()"
+                      >
+                      </app-f1>
+                      <input
+                        type="text"
+                        formControlName="leaseCompanyName"
+                        class="form-control w-50 border-start-0 post_input_field font500 font12"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane container fade p-0" id="archSensitiveDetails">
+          <div class="row" *ngIf="initialMode">
+            <div class="col-md-12">
+              <div>
+                <p
+                  class="bg-white font600 group_title mb-0 position-absolute"
+                ></p>
+                <div class="row">
+                  <form [formGroup]="buildingForm2">
+                    <div class="row">
+                      <div class="col-md-6 mb-2">
+                        <div
+                      class="input-group has-validation"
+                      [class.is-invalid]="
+                        buildingForm2.controls['misproject'].invalid &&
+                        buildingForm2.controls['misproject'].touched
+                      "
+                    >
+                    
+                    <span
+                    class="input-group-text leftform_lbl font500 font12 req"
+                  >
+                    <b>*</b> MIS Project</span>
+                      <app-f1
+                            id="misproject"
+                            [formControlName]="'misproject'"
+                            name="misproject"
+                            class="form-control post_input_field border-end-0 border-start-0 d-flex post_input_field2"
+                            titleValue="{{ misprojectF1List?.mainheader }}"
+                            [tableData]="misprojectF1List?.dataSet"
+                            [colHeader]="misprojectColHeadings"
+                            [inputBBC]="misprojectF1Bbc"
+                            (updatedSelectedValue)="getMisProject($event)"
+                            [dynaPopId]="'PROJECTS'"
+                            [queryConditon]=""
+                            [errorMessage]="'Invalid MIS Project Code'"
+                            (input)="setValueToBlankForMisProjNameField()"
+                          >
+                          </app-f1>
+                          <input
+                          type="text"
+                          formControlName="misProjName"
+                          class="form-control w-50 border-start-0 post_input_field font500 font12"
+                        />
+                    </div>
+                    
+                    <div
+                      class="invalid-feedback d-block"
+                      *ngIf="
+                        buildingForm2.controls['misproject'].invalid &&
+                        buildingForm2.controls['misproject'].touched
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="buildingForm2.controls['misproject'].errors && buildingForm2.controls['misproject'].errors?.['required']"
+                      >
+                        MIS Project is required.
+                      </div>
+                      
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="buildingForm2.controls['misproject'].errors?.['maxlength']?.actualLength"
+                      >
+                        Max 50 Character allowed. Current is
+                        {{buildingForm2.controls['misproject'].errors?.['maxlength']?.actualLength}}
+                        characters.
+                      </div>
+                    
+                    </div>
+                      
+                      </div>
+                      <div class="col-md-6 mb-2">
+                        <!-- <div class="input-group">
+                          <span
+                            class="input-group-text leftform_lbl font500 font12 req"
+                          >
+                            <b>*</b> MIS Building</span
+                          >
+                          <app-f1
+                            id="misbuilding"
+                            [formControlName]="'misbldg'"
+                            name="misbuilding"
+                            class="form-control post_input_field border-end-0 border-start-0 d-flex"
+                            titleValue="{{ misbuildingF1List?.mainheader }}"
+                            [tableData]="misbuildingF1List?.dataSet"
+                            [colHeader]="misbuildingColHeadings"
+                            [inputBBC]="misbuildingF1Bbc"
+                            (updatedSelectedValue)="getMisBuilding($event)"
+                            [dynaPopId]="'BUILDINGS'"
+                            [queryConditon]=""
+                            [errorMessage]="'Invalid MIS Building Code'"
+                          >
+                          </app-f1>
+                          <input
+                            type="text"
+                            formControlName="misBldgName"
+                            class="form-control w-50 border-start-0 post_input_field font500 font12"
+                          />
+                        </div> -->
+                        <div
+                      class="input-group has-validation"
+                    >
+                    <span
+                    class="input-group-text leftform_lbl font500 font12 req"
+                  >
+                     MIS Building</span
+                  >
+                  <app-f1
+                  id="misbuilding"
+                  [formControlName]="'misbldg'"
+                  name="misbuilding"
+                  class="form-control post_input_field border-end-0 border-start-0 d-flex post_input_field2"
+                  titleValue="{{ misbuildingF1List?.mainheader }}"
+                  [tableData]="misbuildingF1List?.dataSet"
+                  [colHeader]="misbuildingColHeadings"
+                  [inputBBC]="misbuildingF1Bbc"
+                  (updatedSelectedValue)="getMisBuilding($event)"
+                  [dynaPopId]="'BUILDINGS'"
+                  [queryConditon]=""
+                  [errorMessage]="'Invalid MIS Building Code'"
+                  (input)="setValueToBlankForMisBldgNameField()"
+                >
+                </app-f1>
+                <input
+                  type="text"
+                  formControlName="misBldgName"
+                  class="form-control w-50 border-start-0 post_input_field font500 font12"
+                />
+                    </div>
+                    <!-- <div
+                      class="invalid-feedback d-block"
+                      *ngIf="
+                        buildingForm2.controls['misbldg'].invalid &&
+                        buildingForm2.controls['misbldg'].touched
+                      "
+                    > -->
+                      <!-- <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="buildingForm2.controls['misbldg'].errors && buildingForm2.controls['misbldg'].errors?.['required']"
+                      >
+                        MIS Building is required.
+                      </div> -->
+                      <!-- <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="buildingForm.controls['name'].errors?.['maxlength']?.actualLength"
+                      >
+                        Max 50 Character allowed. Current is
+                        {{buildingForm.controls['name'].errors?.['maxlength']?.actualLength}}
+                        characters.
+                      </div> -->
+                    <!-- </div> -->
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 mb-2">
+                        <div class="input-group">
+                          <span
+                            class="input-group-text leftform_lbl font500 font12"
+                            >Model Agreement</span
+                          >
+                          <input
+                            type="text"
+                            class="form-control border-start-0 post_input_field font500 font12"
+                            maxlength="15"
+                            formControlName="modagdoc"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-6 mb-2">
+                        <div class="input-group">
+                          <span
+                            class="input-group-text leftform_lbl font500 font12"
+                            >Electric Supply</span
+                          >
+                          <input
+                            type="text"
+                            class="form-control border-start-0 post_input_field font500 font12"
+                            maxlength="15"
+                            formControlName="elecsupp"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 mb-2">
+                        <div class="input-group has-validation" 
+                        appDate1>
+                          <span
+                            class="input-group-text leftform_lbl font500 text-dark1 font12"
+                            >Opening Date</span
+                          >
+                          <input
+                            type="text"
+                            class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                            id="openDate"
+                            matInput
+                            [matDatepicker]="openDate"
+                            formControlName="opendate"
+                          />
+                          <div
+                            class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                          >
+                            <span class="input-group-addon">
+                              <mat-datepicker-toggle
+                                matSuffix
+                                [for]="openDate"
+                              ></mat-datepicker-toggle>
+                              <mat-datepicker #openDate></mat-datepicker>
+                            </span>
+                          </div>
+                        </div>
+                        <!-- <div *ngIf="buildingForm2.controls['opendate'].invalid && buildingForm2.controls['opendate'].touched">
+                          <div
+                              class="errorField common_color_txt font12 font500"
+                              *ngIf="buildingForm2.controls['opendate'].errors && buildingForm2.controls['opendate'].errors?.['required']"
+                          >
+                              * Opening Date is required
+                          </div>
+                      </div> -->
+
+                      </div>
+                      <div class="col-md-6 mb-2">
+                        <div class="input-group has-validation"
+                        [class.is-invalid]="
+                        buildingForm2.controls['closedate'].invalid &&
+                        buildingForm2.controls['closedate'].touched"
+                        appDate1>
+                          <span
+                            class="input-group-text leftform_lbl font500 text-dark1 font12"
+                            >Closing Date</span
+                          >
+                          <input
+                            type="text"
+                            class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                            id="closeDate"
+                            matInput
+                            [matDatepicker]="closeDate"
+                            formControlName="closedate"                          
+                          /><!-- NS 21.02.2023  MAKE FIELD DISABLE AS ITS VALUE CHANGE IS NOT ALLOWED AS IT IS A PART OF UNIQUE CONSTRAINT IN DATABASE -->
+                          <div
+                            class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                          >
+                            <span class="input-group-addon">
+                              <mat-datepicker-toggle
+                                matSuffix
+                                [for]="closeDate"
+                              ></mat-datepicker-toggle>
+                              <mat-datepicker #closeDate></mat-datepicker>
+                            </span>
+                          </div>
+                        </div>
+                        <div *ngIf="buildingForm2.controls['closedate'].invalid && buildingForm2.controls['closedate'].touched">
+                          <div
+                              class="errorField common_color_txt font12 font500"
+                              *ngIf="buildingForm2.controls['closedate'].errors && buildingForm2.controls['closedate'].errors?.['required']"
+                          >
+                              * Closing Date is required
+                          </div>
+                      </div>
+
+
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 mb-2">
+                        <div class="input-group">
+                          <span
+                            class="input-group-text leftform_lbl font500 font12"
+                            >MIS Infra / Bldg / Maint :</span
+                          >
+                          <input
+                            type="text"
+                            class="form-control border-start-0 post_input_field font500 font12"
+                            maxlength="1"
+                            formControlName="infrayn"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-6 mb-2">
+                        <div class="input-group">
+                          <span
+                            class="input-group-text leftform_lbl font500 font12"
+                            >Maintenance Rate :</span
+                          >
+                          <input
+                            type="text"
+                            class="form-control border-start-0 post_input_field font500 font12"
+                            formControlName="maintrate"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-4 mb-2">
+                        <div class="input-group">
+                          <span
+                            class="input-group-text leftform_lbl font500 font12"
+                            >Contract Area :</span
+                          >
+                          <input
+                            type="text"
+                            class="form-control border-start-0 post_input_field font500 font12"
+                            formControlName="areaengg"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-4 mb-2">
+                        <div class="input-group">
+                          <span
+                            class="input-group-text leftform_lbl font500 font12"
+                            >Carpet Area :</span
+                          >
+                          <input
+                            type="text"
+                            class="form-control border-start-0 post_input_field font500 font12"
+                            formControlName="areaarch"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-4 mb-2">
+                        <div class="input-group">
+                          <span
+                            class="input-group-text leftform_lbl font500 font12"
+                            >Saleable Area :</span
+                          >
+                          <input
+                            type="text"
+                            class="form-control border-start-0 post_input_field font500 font12"
+                            formControlName="areasales"
+                          />
+                        </div>
+                      </div>
+
+                      <div class="col-md-6 mb-2">
+                         <div class="input-group has-validation"                                               
+                         appDate1>
+                          <span
+                            class="input-group-text leftform_lbl font500 text-dark1 font12"
+                            >U L C Date</span
+                          >
+                          <input
+                            type="text"
+                            class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                            id="ulcDate"
+                            matInput
+                            [matDatepicker]="ulcDate"
+                            formControlName="ulcdate"
+                          />
+                          <div
+                            class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                          >
+                            <span class="input-group-addon">
+                              <mat-datepicker-toggle
+                                matSuffix
+                                [for]="ulcDate"
+                              ></mat-datepicker-toggle>
+                              <mat-datepicker #ulcDate></mat-datepicker>
+                            </span>
+                          </div>
+                        </div>
+                        <!-- <div *ngIf="buildingForm2.controls['ulcdate'].invalid && buildingForm2.controls['ulcdate'].touched">
+                          <div
+                              class="errorField common_color_txt font12 font500"
+                              *ngIf="buildingForm2.controls['ulcdate'].errors && buildingForm2.controls['ulcdate'].errors?.['required']"
+                          >
+                              * ULC Date is required
+                          </div>
+                      </div> -->
+                        
+
+                      </div>
+                      
+                      <div class="col-md-6 mb-2">
+                        <div class="input-group has-validation"                          
+                        appDate1>
+                          <span
+                            class="input-group-text leftform_lbl font500 text-dark1 font12"
+                            >CC Date</span
+                          >
+                          <input
+                            type="text"
+                            class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                            id="ccDate"
+                            matInput
+                            [matDatepicker]="ccDate"
+                            formControlName="ccdate"
+                          />
+                          <div
+                            class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                          >
+                            <span class="input-group-addon">
+                              <mat-datepicker-toggle
+                                matSuffix
+                                [for]="ccDate"
+                              ></mat-datepicker-toggle>
+                              <mat-datepicker #ccDate></mat-datepicker>
+                            </span>
+                          </div>
+                        </div>
+                        <!-- <div *ngIf="buildingForm2.controls['ccdate'].invalid && buildingForm2.controls['ccdate'].touched">
+                          <div
+                              class="errorField common_color_txt font12 font500"
+                              *ngIf="buildingForm2.controls['ccdate'].errors && buildingForm2.controls['ccdate'].errors?.['required']"
+                          >
+                              * CC Date is required
+                          </div>
+                      </div> -->
+
+                      </div>
+
+                      <div class="col-md-6 mb-2">
+                        <div class="input-group"  
+                        appDate1>
+                          <span
+                            class="input-group-text leftform_lbl font500 text-dark1 font12"
+                            >Occupation Date</span
+                          >
+                          <input
+                            type="text"
+                            class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                            id="occDate"
+                            matInput
+                            [matDatepicker]="occDate"
+                            formControlName="occdate"
+                          />
+                          <div
+                            class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                          >
+                            <span class="input-group-addon">
+                              <mat-datepicker-toggle
+                                matSuffix
+                                [for]="occDate"
+                              ></mat-datepicker-toggle>
+                              <mat-datepicker #occDate></mat-datepicker>
+                            </span>
+                          </div>
+                        </div>
+                        <!-- <div *ngIf="buildingForm2.controls['occdate'].invalid && buildingForm2.controls['occdate'].touched">
+                          <div
+                              class="errorField common_color_txt font12 font500"
+                              *ngIf="buildingForm2.controls['occdate'].errors && buildingForm2.controls['occdate'].errors?.['required']"
+                          >
+                              *Occupation Date is required.
+                          </div> 
+                      </div>-->
+                      </div>
+                      <div class="col-md-6 mb-2">
+                        <div class="input-group has-validation" 
+                        appDate1>
+                          <span
+                            class="input-group-text leftform_lbl font500 text-dark1 font12 req"
+                            >Scheduled Possession</span
+                          >
+                          <input
+                            type="text"
+                            class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                            id="schPoss"
+                            matInput
+                            [matDatepicker]="schPoss"
+                            formControlName="schposs"
+                          />
+                          <div
+                            class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                          >
+                            <span class="input-group-addon">
+                              <mat-datepicker-toggle
+                                matSuffix
+                                [for]="schPoss"
+                              ></mat-datepicker-toggle>
+                              <mat-datepicker #schPoss></mat-datepicker>
+                            </span>
+                          </div>
+                        </div>
+                        <!-- <div *ngIf="buildingForm2.controls['schposs'].invalid && buildingForm2.controls['schposs'].touched">
+                          <div
+                              class="errorField common_color_txt font12 font500"
+                              *ngIf="buildingForm2.controls['schposs'].errors && buildingForm2.controls['schposs'].errors?.['required']"
+                          >
+                              *Schedule Possesion Date is required.
+                          </div>
+                      </div> -->
+
+                      </div>
+
+                      <div class="col-md-6 mb-2">
+                        <!-- <div class="input-group"> -->
+                          <div
+                      class="input-group"                 
+                    >
+                          <!-- <div
+                      class="input-group has-validation"
+                      [class.is-invalid]="
+                        buildingForm2.controls['maintcoy'].invalid &&
+                        buildingForm2.controls['maintcoy'].touched
+                      "
+                    > -->
+                          <span
+                            class="input-group-text leftform_lbl font500 font12 labelsizeforf1Maintcoy"
+                          >
+                            Maintenance Coy</span
+                          >
+                          <app-f1
+                            id="maintCoy"
+                            [formControlName]="'maintcoy'"
+                            name="maintCoy"
+                            class="form-control post_input_field border-end-0 border-start-0 d-flex inputsizeforf1Maintcoy"
+                            titleValue="{{ maintCoyF1List?.mainheader }}"
+                            [tableData]="maintCoyF1List?.dataSet"
+                            [colHeader]="maintCoyColHeadings"
+                            [inputBBC]="maintCoyF1Bbc"
+                            (updatedSelectedValue)="getMaintCoy($event)"
+                            [dynaPopId]="'COMPANY'"
+                            [queryConditon]=""
+                            [errorMessage]="'Invalid Maintenance Company Code'"
+                            (input)="setValueToBlankForMaintainanceCoyNameField()"
+                          >
+                          </app-f1>
+                          <input
+                            type="text"
+                            formControlName="maintCoyName"
+                            class="form-control w-50 border-start-0 post_input_field font500 font12 descriptionforf1Maint2coy"
+                          />
+                        </div>
+                        <!-- <div
+                        class="invalid-feedback d-block"
+                        *ngIf="
+                          buildingForm2.controls['maintcoy'].invalid &&
+                          buildingForm2.controls['maintcoy'].touched
+                        "
+                      >
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="buildingForm2.controls['maintcoy'].errors && buildingForm2.controls['maintcoy'].errors?.['required']"
+                        >
+                          Maintainance Company is required.
+                        </div>
+                         <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="buildingForm.controls['name'].errors?.['maxlength']?.actualLength"
+                        >
+                          Max 50 Character allowed. Current is
+                          {{buildingForm.controls['name'].errors?.['maxlength']?.actualLength}}
+                          characters.
+                        </div> 
+                      </div> -->
+
+                      </div>
+                      <div class="col-md-6 mb-2">
+                        <div class="input-group">
+                          <span
+                            class="input-group-text leftform_lbl font500 font12 req"
+                          >
+                             Parent Building</span
+                          >
+                          <app-f1
+                            id="parentBldg"
+                            [formControlName]="'parentbldg'"
+                            name="parentBldg"
+                            class="form-control post_input_field border-end-0 border-start-0 d-flex"
+                            titleValue="{{ parentBldgF1List?.mainheader }}"
+                            [tableData]="parentBldgF1List?.dataSet"
+                            [colHeader]="parentBldgColHeadings"
+                            [inputBBC]="parentBldgF1Bbc"
+                            (updatedSelectedValue)="getParentBldg($event)"
+                            [dynaPopId]="'BUILDINGS'"
+                            [queryConditon]=""
+                            [errorMessage]="'Invalid Parent Building Code'"
+                            (input)="setValueToBlankForParentBldgNameField()"
+                          >
+                          </app-f1>
+                          <input
+                            type="text"
+                            formControlName="parentBldgName"
+                            class="form-control w-50 border-start-0 post_input_field font500 font12"
+                            disabled
+                          />
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6 mb-2">
+                          <div
+class="input-group has-validation"
+[class.is-invalid]="
+  buildingForm2.controls['region'].invalid &&
+  buildingForm2.controls['region'].touched
+"
+>
+
+<span
+                        class="input-group-text leftform_lbl font500 font12 req"
+                      >
+                        <b>*</b> Building Region</span
+                      >
+
+<input
+                        type="text"
+                        formControlName="region"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        [f1]="{ id: 'BLDGREGION' }"
+                      />
+
+</div>
+<div
+                      class="invalid-feedback d-block"
+                      *ngIf="
+                      buildingForm2.controls['region'].invalid &&
+                      buildingForm2.controls['region'].touched
+                      "
+                    >
+<div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="buildingForm2.controls['region'].errors && buildingForm2.controls['region'].errors?.['required']"
+                        >
+                         Building Region is required.
+                        </div>
+                    </div>
+                          
+                          
+                          <!-- <div class="input-group">
+                            <span
+                              class="input-group-text leftform_lbl font500 font12"
+                              >Building Region</span
+                            >
+
+                            <input
+                              type="text"
+                              class="form-control border-start-0 post_input_field font500 font12"
+                              maxlength="4"
+                              formControlName="region"
+                            /> 
+                          </div> -->
+                        </div>
+                        <div class="col-md-6 mb-2">
+                          <div class="input-group">
+                            <span
+                              class="input-group-text leftform_lbl font500 font12"
+                              >Remarks</span
+                            >
+                            <input
+                              type="text"
+                              class="form-control border-start-0 post_input_field font500 font12"
+                              maxlength="20"
+                              formControlName="remark"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane container fade p-0" id="mailInfoDetails">
+          <div class="col-md-12">
+            <div>
+              <p
+                class="bg-white font600 group_title mb-0 position-absolute"
+              ></p>
+              <form [formGroup]="mailInfoForm">
+                <div class="row">
+                  <div class="col-md-6 mb-2">
+                    <div class="input-group">
+                      <span
+                        class="input-group-text leftform_lbl font500 font12 req"
+                      >
+                         Company</span
+                      >
+                      <!--NS 22.02.2023 minfcoy was not part of mailinforequestbean hence i am replacing it with coy -->
+                      <app-f1
+                        id="minfCoy"
+                        [formControlName]="'coy'"
+                        name="minfCoy"
+                        class="form-control post_input_field border-end-0 border-start-0 d-flex"
+                        titleValue="{{ minfCoyF1List?.mainheader }}"
+                        [tableData]="minfCoyF1List?.dataSet"
+                        [colHeader]="minfCoyColHeadings"
+                        [inputBBC]="minfCoyF1Bbc"
+                        (updatedSelectedValue)="getminfCoy($event)"
+                        [dynaPopId]="'COMPANY'"
+                        [queryConditon]=""
+                        [errorMessage]="'Invalid Mail Info Company Code'"
+                        (input)="setValueToBlankForMailInfoCompanyNameField()"
+                      >
+                      </app-f1>
+                      <input
+                        type="text"
+                        formControlName="minfCoyName"
+                        class="form-control w-50 border-start-0 post_input_field font500 font12"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-2">
+                    <div class="input-group">
+                      <span
+                        class="input-group-text leftform_lbl font500 font12 req"
+                      >
+                         Project</span
+                      >
+                      <app-f1
+                        id="minfProject"
+                        [formControlName]="'project'"
+                        name="minfProject"
+                        class="form-control post_input_field border-end-0 border-start-0 d-flex"
+                        titleValue="{{ minfProjectF1List?.mainheader }}"
+                        [tableData]="minfProjectF1List?.dataSet"
+                        [colHeader]="minfProjectColHeadings"
+                        [inputBBC]="minfProjectF1Bbc"
+                        (updatedSelectedValue)="getProjectMailInfo($event)"
+                        [dynaPopId]="'PROJECTS'"
+                        [queryConditon]=""
+                        [errorMessage]="'Invalid Mail Info Project Code'"
+                        (input)="setValueToBlankForProjectNameField()"
+                      >
+                      </app-f1>
+                      <input
+                        type="text"
+                        formControlName="minfProjName"
+                        class="form-control w-50 border-start-0 post_input_field font500 font12"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 mb-2">
+                    <div class="input-group has-validation"
+                    [class.is-invalid]="
+                        mailInfoForm.controls['city'].invalid &&
+                        mailInfoForm.controls['city'].touched
+                      "
+                    >
+                      <span
+                        class="input-group-text leftform_lbl font500 font12 req"
+                      >
+                        <b>*</b> City</span
+                      >
+                      <!--NS 22.02.2023 minfcity has been replaced by city as minfcity is not in requestbean of mailinfo table-->
+                      <app-f1
+                        id="minfCity"
+                        [formControlName]="'city'"
+                        name="minfCity"
+                        class="form-control post_input_field border-end-0 border-start-0 d-flex post_input_field2"
+                        titleValue="{{ minfCityF1List?.mainheader }}"
+                        [tableData]="minfCityF1List?.dataSet"
+                        [colHeader]="minfCityColHeadings"
+                        [inputBBC]="minfCityF1Bbc"
+                        (updatedSelectedValue)="getminfCity($event)"
+                        [dynaPopId]="'CITIES'"
+                        [queryConditon]=""
+                        [errorMessage]="'Invalid Mail Info City Code'"
+                        (input)="setValueToBlankForMailInfoCityNameField()"
+                      >
+                      </app-f1>
+                      <input
+                        type="text"
+                        formControlName="minfCityName"
+                        class="form-control w-50 border-start-0 post_input_field font500 font12"
+                      />
+                    </div>
+                    <div
+                      class="invalid-feedback d-block"
+                      *ngIf="
+                        mailInfoForm.controls['city'].invalid &&
+                        mailInfoForm.controls['city'].touched
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="mailInfoForm.controls['city'].errors && mailInfoForm.controls['city'].errors?.['required']"
+                      >
+                        City is required.
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="col-md-6 mb-2">
+                    <div class="input-group has-validation"
+                    [class.is-invalid]="
+                        mailInfoForm.controls['township'].invalid &&
+                        mailInfoForm.controls['township'].touched
+                      "
+                    >
+                      <span
+                        class="input-group-text leftform_lbl font500 font12 req"
+                      >
+                        <b>*</b> Township</span
+                      >
+                      <!--NS 22.02.2023 minfTownship has been replaced by township as minfTownship is not in requestbean of mailinfo table-->
+                      <app-f1
+                        id="minfProject"
+                        [formControlName]="'township'"
+                        name="minfTownship"
+                        class="form-control post_input_field border-end-0 border-start-0 d-flex post_input_field2"
+                        titleValue="{{ minfTownshipF1List?.mainheader }}"
+                        [tableData]="minfTownshipF1List?.dataSet"
+                        [colHeader]="minfTownshipColHeadings"
+                        [inputBBC]="minfTownshipF1Bbc"
+                        (updatedSelectedValue)="getminfTownship($event)"
+                        [dynaPopId]="'TOWNS'"
+                        [queryConditon]=""
+                        [errorMessage]="'Invalid Mail Info Township Code'"
+                        (input)="setValueToBlankForMailInfoFormTownshipNameField()"
+                      >
+                      </app-f1>
+                      <input
+                        type="text"
+                        formControlName="minfTownshipName"
+                        class="form-control w-50 border-start-0 post_input_field font500 font12"
+                      />
+                    </div>
+                    <div
+                      class="invalid-feedback d-block"
+                      *ngIf="
+                        mailInfoForm.controls['township'].invalid &&
+                        mailInfoForm.controls['township'].touched
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="mailInfoForm.controls['township'].errors && mailInfoForm.controls['township'].errors?.['required']"
+                      >
+                        *Township is required.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 mb-2">
+                    <div class="input-group">
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >Land Tenure</span
+                      >
+                      <!--NS 22.02.2023 minftenure has been replaced by tenure as minftenure is not in requestbean of mailinfo table-->
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        maxlength="1"
+                        formControlName="tenure"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-2">
+                    <div class="input-group has-validation"                   
+                    appDate1>
+                      <span
+                        class="input-group-text leftform_lbl font500 text-dark1 font12"
+                        >Possession</span
+                      >
+                      <!--NS 22.02.2023 minftenure has been replaced by tenure as minftenure is not in requestbean of mailinfo table-->
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                        id="possdate"
+                        matInput
+                        [matDatepicker]="possdate"
+                        formControlName="possdate"
+                      />
+                      <div
+                        class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                      >
+                        <span class="input-group-addon">
+                          <mat-datepicker-toggle
+                            matSuffix
+                            [for]="possdate"
+                          ></mat-datepicker-toggle>
+                          <mat-datepicker #possdate></mat-datepicker>
+                        </span>
+                      </div>
+                    </div>
+                    <!-- <div *ngIf="mailInfoForm.controls['possdate'].invalid && mailInfoForm.controls['possdate'].touched">
+                      <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="mailInfoForm.controls['possdate'].errors && mailInfoForm.controls['possdate'].errors?.['required']"
+                      >
+                          * Possesion Date is required.
+                      </div>
+                  </div> -->
+
+                  </div>
+
+                  <div class="col-md-12 mb-4">
+                    <p
+                      class="fs-6 mb-2 position-absolute bg-white font600 deposits_title lh-24 font12"
+                    >
+                      Building Area
+                    </p>
+                  </div>
+                  <div class="col-md-4 mb-2">
+                    <div class="input-group">
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >1</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        maxlength="50"
+                        formControlName="area1"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-4 mb-2">
+                    <div class="input-group">
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >2</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        maxlength="50"
+                        formControlName="area2"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-4 mb-2">
+                    <div class="input-group">
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >3</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        maxlength="50"
+                        formControlName="area3"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 mb-4">
+                    <p
+                      class="fs-6 mb-2 position-absolute bg-white font600 deposits_title lh-24 font12"
+                    >
+                      Flats Configuration
+                    </p>
+                  </div>
+
+                  <div class="col-md-6 mb-2">
+                    <div class="input-group">
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >1</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        maxlength="60"
+                        formControlName="config1"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-2">
+                    <div class="input-group">
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >2</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        maxlength="60"
+                        formControlName="config2"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-2">
+                    <div class="input-group">
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >3</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        maxlength="60"
+                        formControlName="config3"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-2">
+                    <div class="input-group">
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >4</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        maxlength="60"
+                        formControlName="config4"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-12 mb-4">
+                  <p
+                    class="fs-6 mb-2 position-absolute bg-white font600 deposits_title lh-24 font12"
+                  >
+                    Building Amenities
+                  </p>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 mb-2">
+                    <div class="input-group">
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >1</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        maxlength="30"
+                        formControlName="amenity1"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-2">
+                    <div class="input-group">
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >2</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        maxlength="30"
+                        formControlName="amenity2"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-4 mb-2">
+                    <div class="input-group">
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >3</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        maxlength="30"
+                        formControlName="amenity3"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-4 mb-2">
+                    <div class="input-group">
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >4</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        maxlength="30"
+                        formControlName="amenity4"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-4 mb-2">
+                    <div class="input-group">
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >5</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        maxlength="50"
+                        formControlName="amenity5"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="flatDetails">
+          <form [formGroup]="flatDetailsForm">
+            <div class="table-responsive" formArrayName="flatDetailsBreakup">
+              <table class="table table-bordered position-relative">
+                <thead class="table_head_position_sticky">
+                  <tr>
+                    <th colspan="4"></th>
+                    <th colspan="4">
+                      <div class="text-center">Saleable Area</div>
+                    </th>
+                    <th colspan="4">
+                      <div class="text-center">Carpet Area</div>
+                    </th>
+                    <th colspan="6"></th>
+                  </tr>
+                  <tr tabindex="-1">
+                    <th class="fontBold font12 text-dark1">
+                      <div class="">Wing</div>
+                    </th>
+                    <th class="fontBold font12 text-dark1">
+                      <div class="">Floor</div>
+                    </th>
+                    <th class="fontBold font12 text-dark1">
+                      <div class="">Flats#</div>
+                    </th>
+                    <th class="fontBold font12 text-dark1">
+                      <div class="">Type</div>
+                    </th>
+                    <th class="fontBold font12 text-dark1">
+                      <div class="">Unit</div>
+                    </th>
+                    <th class="fontBold font12 text-dark1">
+                      <div class="">Parking</div>
+                    </th>
+                    <th class="fontBold font12 text-dark1">
+                      <div class="">Terrace</div>
+                    </th>
+                    <th class="fontBold font12 text-dark1">
+                      <div class="">Amenity</div>
+                    </th>
+                    <th class="fontBold font12 text-dark1">
+                      <div class="">Unit</div>
+                    </th>
+                    <th class="fontBold font12 text-dark1">
+                      <div class="">Parking</div>
+                    </th>
+                    <th class="fontBold font12 text-dark1">
+                      <div class="">Terrace</div>
+                    </th>
+                    <th class="fontBold font12 text-dark1">
+                      <div class="">Amenity</div>
+                    </th>
+                    <th class="fontBold font12 text-dark1 setWidth">
+                      <div class="">Occ Date</div>
+                    </th>
+                    <th class="fontBold font12 text-dark1 text-end">
+                      <div class="text-center">&nbsp;RERA Carpet&nbsp;</div>
+                    </th>
+                    <th class="fontBold font12 text-dark1 text-end">
+                      <div class="text-center">&nbsp;RERA Balcony&nbsp;</div>
+                    </th>
+                    <th class="fontBold font12 text-dark1">
+                      <div class="">Sold</div>
+                    </th>
+                    <th class="fontBold font12 text-dark1">
+                      <div class="">Config</div>
+                    </th>
+                    <th class="fontBold font12 text-dark1">
+                      <div class="">Action</div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    *ngFor="
+                      let item of flatDetailsBreakupFormArr.controls;
+                      let index = index
+                    "
+                    [formGroupName]="index"
+                  > <!--by Dilip from Neosoft-->
+                    <td class="font12 text-dark1 pb-0 pt-0 pb-0" height = "10px">
+                      <!-- <input
+                        class="font12 border-0 form-control"
+                        style="width: 45px; height: 20px; text-transform: uppercase"
+                        type="text"
+                        maxlength="2"
+                        formControlName="wing"                       
+                      />   -->
+                                        
+                      <!-- <div
+                      class="input-group has-validation"
+                      [class.is-invalid]="
+                      flatDetailsBreakupFormArr.controls[index].controls.flatnum.invalid &&
+                      flatDetailsBreakupFormArr.controls[index].controls.flatnum.touched
+                      "
+                      >
+                      <input
+                  id="wing"
+                  type="text"
+                  formControlName="wing"
+                  class="form-control border-start-0 post_input_field font500 font12"
+                  style="width: 45px; height: 20px; text-transform: uppercase"
+                  [f1]="{ id: 'WINGS' }"
+                  autofocus
+                /> -->
+
+                      <!-- </div> -->
+
+                      <!-- ----------------------------------new code using F1-app dynapop------------------------------------------------ -->
+                      <div>
+                      <app-f1
+                        [formControlName]="'wing'"
+                        id="{{ 'wing' + index }}"
+                        [formControlEnable]="false"
+                        placeholder
+                        class="font12 border-0 date_container form-control d-flex"
+                        style="width: 40px; height: 20px; text-transform: uppercase"
+                        type="text"
+                        maxlength="1"
+                        titleValue="{{ wingF1List?.mainheader }}"
+                        [tableData]="wingF1List?.dataSet"
+                        [colHeader]="wingColHeadings"
+                        [inputBBC]="wingF1Bbc"
+                        [dynaPopId]="'WINGS'"
+                        [queryConditon]="''"
+                        [errorMessage]="'Invalid Wing'"
+                        (updatedSelectedValue)="updateListControl($event,flatDetailsForm.controls.flatDetailsBreakup.controls[index].get('wing'),wingF1List.bringBackColumn)"
+                        (focusout)="checkDuplicateFlatWithSameWingExist(index);"
+                      ></app-f1><!--"(updatedSelectedValue)="updateListControl($event,flatDetailsForm.controls.flatDetailsBreakup.controls[index].get('wing),wingF1List.bringBackColumn)"-->
+                      </div>
+                    </td>
+                    <td class="font12 text-dark1 pb-0 pt-0 pb-0" height="10px">
+                      <input
+                        class="font12 border-0 form-control text-end"
+                        style="width: 50px; height: 20px; text-transform: uppercase"
+                        type="text"
+                        maxlength="3"
+                        minlength="1"
+                        formControlName="floor"                        
+                      />
+                    </td>
+                    <td class="font12 text-dark1 pb-0 pt-0 pb-0" height="10px">
+                      <div
+                      class="input-group has-validation"
+                      [class.is-invalid]="
+                      flatDetailsBreakupFormArr.controls[index].controls.flatnum.invalid &&
+                      flatDetailsBreakupFormArr.controls[index].controls.flatnum.touched
+                      "
+                      >
+                    
+                      <input
+                        class="font12 border-0 form-control"
+                        style="width: 75px; height: 20px; text-transform: uppercase"
+                        type="text"
+                        maxlength="6"
+                        minlength="5"
+                        formControlName="flatnum"
+                        id = "{{ 'flatnum' + index }}"
+                        (input)="FirstCharOrNot($event, index)"
+                        (focusout) = "checkDuplicateFlatWithSameWingExist(index)"
+                        
+                      />
+                      <br>
+                      <div 
+                      id="{{'flatnumDiv' + index}}"
+                        class="errorField common_color_txt font12 font500 flatnumDivtag" 
+                      >
+                        *First letter must be character.
+                      </div>
+                      <div 
+                      id="{{'flatnumDivForRequired' + index}}"
+                        class="errorField common_color_txt font12 font500 flatnumDivtagForRequiredValidation" 
+                      >
+                        *Flat number required.
+                      </div>
+                      <!---->
+                      </div>
+                      
+
+                      <div
+                      class="invalid-feedback d-block"
+                      *ngIf="
+                      flatDetailsBreakupFormArr.controls[index].controls.flatnum.invalid &&
+                      flatDetailsBreakupFormArr.controls[index].controls.flatnum.touched
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="!submitclikced && flatDetailsBreakupFormArr.controls[index].controls.flatnum.errors && flatDetailsBreakupFormArr.controls[index].controls.flatnum.errors?.['required']"
+                      >
+                        *Flat number required.
+                      </div>
+                      
+                      <div
+                      class="errorField common_color_txt font12 font500"
+                      *ngIf="flatDetailsBreakupFormArr.controls[index].controls.flatnum.errors?.['minlength']?.actualLength && !InvalidFirstCharForFlatnum"
+              >
+                *Flat number must be atleast 5 Characters. Current is
+                {{flatDetailsBreakupFormArr.controls[index].controls.flatnum.errors?.['minlength']?.actualLength}}
+                characters.
+              </div>
+
+                    </div>
+                    </td>
+                    <td class="font12 text-dark1 pb-0 pt-0 pb-0" height="10px">
+                      <div
+                      class="input-group has-validation"
+                      [class.is-invalid]="
+                      flatDetailsBreakupFormArr.controls[index].controls.accomtype.invalid &&
+                      flatDetailsBreakupFormArr.controls[index].controls.accomtype.touched"
+                    >
+
+
+                      <app-f1
+                        [formControlName]="'accomtype'"
+                        id="accomtype"
+                        placeholder
+                        class="font12 border-0 date_container form-control d-flex"
+                        style="width: 40px; height: 20px; text-transform: uppercase"
+                        type="text"
+                        maxlength="1"
+                        titleValue="{{ accomTypeF1List?.mainheader }}"
+                        [tableData]="accomTypeF1List?.dataSet"
+                        [colHeader]="accomTypeColHeadings"
+                        [inputBBC]="accomTypeF1Bbc"
+                        [dynaPopId]="'ACCOMMODATION'"
+                        [queryConditon]="''"
+                        [errorMessage]="'Invalid Flat Accomodation Type'"
+                        (updatedSelectedValue)="updateListControl($event,flatDetailsForm.controls.flatDetailsBreakup.controls[index].get('accomtype'),accomTypeF1List.bringBackColumn)"
+                        
+                      ></app-f1>
+                      <div 
+                      id="{{'accomDiv' + index}}"
+                        class="errorField common_color_txt font12 font500 accomDivtag"
+                        *ngIf="submitclikced"
+                      >
+                      *Accomodation Type required.
+                      </div>
+                      
+                    </div>
+                    <div
+                      class="invalid-feedback d-block"
+                      *ngIf="
+                      flatDetailsBreakupFormArr.controls[index].controls.accomtype.invalid &&
+                      flatDetailsBreakupFormArr.controls[index].controls.accomtype.touched
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="!submitclikced && flatDetailsBreakupFormArr.controls[index].controls.accomtype.errors && flatDetailsBreakupFormArr.controls[index].controls.accomtype.errors?.['required']"
+                      >
+                        *Accomodation Type required
+                      </div>
+                      <!-- <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="flatDetailsBreakupFormArr.controls[index].controls.accomtype.errors?.custRequiredValueProperty"
+                      >
+                        *Accomodation Type required
+                      </div> -->
+
+                    </div>
+                    </td>
+                    <td class="font12 text-dark1 pb-0 pt-0 pb-0" height="10px">
+                      <div
+                      class="input-group has-validation"
+                      [class.is-invalid]="
+                      flatDetailsBreakupFormArr.controls[index].get('bunitarea').invalid &&
+                      flatDetailsBreakupFormArr.controls[index].get('bunitarea').touched
+                      "
+                    >
+                      <input
+                        class="font12 border-0 form-control d-flex text-end"
+                        style="width: 75px; height: 20px"
+                        type="number"
+                        formControlName="bunitarea"
+                        (focusout)="updatingSumOfSalableUnitArea($event,flatDetailsBreakupFormArr.controls[index].get('bunitarea'), index)"
+                        (focus)="updatingPrevValueofSalableUnitArea($event)"
+                      />
+                      </div>
+                      <div
+                      class="invalid-feedback d-block"
+                      *ngIf="
+                      flatDetailsBreakupFormArr.controls[index].get('bunitarea').invalid &&
+                      flatDetailsBreakupFormArr.controls[index].get('bunitarea').touched
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="flatDetailsBreakupFormArr.controls[index].get('bunitarea').errors && flatDetailsBreakupFormArr.controls[index].get('bunitarea').errors?.['required']"
+                      >
+                        *Salable Unit area required
+                      </div>
+                    </div>
+                    </td>
+                    <td class="font12 text-dark1 pb-0 pt-0 pb-0" height="10px">
+                      <div
+                      class="input-group has-validation"
+                      [class.is-invalid]="
+                      flatDetailsBreakupFormArr.controls[index].get('bparkarea').invalid &&
+                      flatDetailsBreakupFormArr.controls[index].get('bparkarea').touched
+                      "
+                    >
+                      <input
+                        class="font12 border-0 form-control d-flex text-end"
+                        style="width: 75px; height: 20px"
+                        type="number"
+                        formControlName="bparkarea"
+                        (focusout)="updatingSumOfSalableParkingArea($event,flatDetailsBreakupFormArr.controls[index].get('bparkarea'), index)"
+                        (focus)="updatingPrevValueofSalableParkingArea($event)"
+                      />
+                      </div>
+                      <div
+                      class="invalid-feedback d-block"
+                      *ngIf="
+                      flatDetailsBreakupFormArr.controls[index].get('bparkarea').invalid &&
+                      flatDetailsBreakupFormArr.controls[index].get('bparkarea').touched
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="flatDetailsBreakupFormArr.controls[index].get('bparkarea').errors && flatDetailsBreakupFormArr.controls[index].get('bparkarea').errors?.['required']"
+                      >
+                        *Salable Parking area required
+                      </div>
+                    </div>
+
+                    </td>
+                    <td class="font12 text-dark1 pb-0 pt-0 pb-0" height="10px"> 
+                      <div
+                      class="input-group has-validation"
+                      [class.is-invalid]="
+                      flatDetailsBreakupFormArr.controls[index].get('bteraarea').invalid &&
+                      flatDetailsBreakupFormArr.controls[index].get('bteraarea').touched
+                      "
+                    >
+                      <input
+                        class="font12 border-0 form-control d-flex text-end"
+                        style="width: 75px; height: 20px"
+                        type="number"
+                        formControlName="bteraarea"
+                        (focusout)="updatingSumOfSalableTerraceArea($event,flatDetailsBreakupFormArr.controls[index].get('bteraarea'), index)"
+                        (focus)="updatingPrevValueofSalableTerraceArea($event)"
+                      />
+                      </div>
+                      <div
+                      class="invalid-feedback d-block"
+                      *ngIf="
+                      flatDetailsBreakupFormArr.controls[index].get('bteraarea').invalid &&
+                      flatDetailsBreakupFormArr.controls[index].get('bteraarea').touched
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="flatDetailsBreakupFormArr.controls[index].get('bteraarea').errors && flatDetailsBreakupFormArr.controls[index].get('bteraarea').errors?.['required']"
+                      >
+                        *Salable Terrace Area required
+                      </div>
+                    </div>
+                    </td>
+                    <td class="font12 text-dark1 pb-0 pt-0 pb-0" height="10px">
+                      <div
+                      class="input-group has-validation"
+                      [class.is-invalid]="
+                      flatDetailsBreakupFormArr.controls[index].get('bamenarea').invalid &&
+                      flatDetailsBreakupFormArr.controls[index].get('bamenarea').touched
+                      "
+                    >
+                      <input
+                        class="font12 border-0 form-control d-flex text-end"
+                        style="width: 75px; height: 20px"
+                        type="number"
+                        formControlName="bamenarea"
+                        (focusout)="updatingSumOfSalableAmenityArea($event,flatDetailsBreakupFormArr.controls[index].get('bamenarea'), index)"
+                        (focus)="updatingPrevValueofSalableAmenityArea($event)"
+                      />
+                    </div>
+                      <div
+                      class="invalid-feedback d-block"
+                      *ngIf="
+                      flatDetailsBreakupFormArr.controls[index].get('bamenarea').invalid &&
+                      flatDetailsBreakupFormArr.controls[index].get('bamenarea').touched
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="flatDetailsBreakupFormArr.controls[index].get('bamenarea').errors && flatDetailsBreakupFormArr.controls[index].get('bamenarea').errors?.['required']"
+                      >
+                        *Salable Amenity Area required
+                      </div>
+                    </div>
+                    </td>
+                    <td class="font12 text-dark1 pb-0 pt-0 pb-0" height="10px">
+                      <div
+                      class="input-group has-validation"
+                      [class.is-invalid]="
+                      flatDetailsBreakupFormArr.controls[index].get('cunitarea').invalid &&
+                      flatDetailsBreakupFormArr.controls[index].get('cunitarea').touched
+                      "
+                    >
+                      <input
+                        class="font12 border-0 form-control d-flex text-end"
+                        style="width: 75px; height: 20px"
+                        type="number"
+                        formControlName="cunitarea"
+                        (focusout)="updatingSumOfCarpetUnitArea($event,flatDetailsBreakupFormArr.controls[index].get('cunitarea'), index)"
+                        (focus)="updatingPrevValueofCarpetUnitArea($event)"
+                      />
+                      </div>
+                      <div
+                      class="invalid-feedback d-block"
+                      *ngIf="
+                      flatDetailsBreakupFormArr.controls[index].get('cunitarea').invalid &&
+                      flatDetailsBreakupFormArr.controls[index].get('cunitarea').touched
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="flatDetailsBreakupFormArr.controls[index].get('cunitarea').errors && flatDetailsBreakupFormArr.controls[index].get('cunitarea').errors?.['required']"
+                      >
+                        *Carpet Unit Area required
+                      </div>
+                    </div>
+                    </td>
+                    <td class="font12 text-dark1 pb-0 pt-0 pb-0" height="10px">
+                      <div
+                      class="input-group has-validation"
+                      [class.is-invalid]="
+                      flatDetailsBreakupFormArr.controls[index].get('cparkarea').invalid &&
+                      flatDetailsBreakupFormArr.controls[index].get('cparkarea').touched
+                      "
+                    >
+                      <input
+                        class="font12 border-0 form-control d-flex text-end"
+                        style="width: 75px; height: 20px"
+                        type="number"
+                        formControlName="cparkarea"
+                        (focusout)="updatingSumOfCarpetParkingArea($event,flatDetailsBreakupFormArr.controls[index].get('cparkarea'), index)"
+                        (focus)="updatingPrevValueofCarpetParkingArea($event)"
+                      />
+                      </div>
+                      <div
+                      class="invalid-feedback d-block"
+                      *ngIf="
+                      flatDetailsBreakupFormArr.controls[index].get('cparkarea').invalid &&
+                      flatDetailsBreakupFormArr.controls[index].get('cparkarea').touched
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="flatDetailsBreakupFormArr.controls[index].get('cparkarea').errors && flatDetailsBreakupFormArr.controls[index].get('cparkarea').errors?.['required']"
+                      >
+                        *Carpet Parking Area required
+                      </div>
+                    </div>
+                    </td>
+                    <td class="font12 text-dark1 pb-0 pt-0 pb-0" height="10px">
+                      <div
+                      class="input-group has-validation"
+                      [class.is-invalid]="
+                      flatDetailsBreakupFormArr.controls[index].get('cteraarea').invalid &&
+                      flatDetailsBreakupFormArr.controls[index].get('cteraarea').touched
+                      "
+                    >
+                      <input
+                        class="font12 border-0 form-control d-flex text-end"
+                        style="width: 75px; height: 20px"
+                        type="number"
+                        formControlName="cteraarea"
+                        (focusout)="updatingSumOfCarpetTerraceArea($event,flatDetailsBreakupFormArr.controls[index].get('cteraarea'), index)"
+                        (focus)="updatingPrevValueofCarpetTerraceArea($event)"
+                      />
+                      </div>
+                      
+ <div
+                      class="invalid-feedback d-block"
+                      *ngIf="
+                      flatDetailsBreakupFormArr.controls[index].get('cteraarea').invalid &&
+                      flatDetailsBreakupFormArr.controls[index].get('cteraarea').touched
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="flatDetailsBreakupFormArr.controls[index].get('cteraarea').errors && flatDetailsBreakupFormArr.controls[index].get('cteraarea').errors?.['required']"
+                      >
+                        *Carpet Terrace Area required.
+                      </div>
+                    </div>
+                    </td>
+                    <td class="font12 text-dark1 pb-0 pt-0 pb-0" height="10px">
+                      <div
+                      class="input-group has-validation"
+                      [class.is-invalid]="
+                      flatDetailsBreakupFormArr.controls[index].get('camenarea').invalid &&
+                      flatDetailsBreakupFormArr.controls[index].get('camenarea').touched
+                      "
+                    >
+                      <input
+                        class="font12 border-0 form-control d-flex text-end"
+                        style="width: 75px; height: 20px"
+                        type="number"
+                        formControlName="camenarea"
+                        (focusout)="updatingSumOfCarpetAmenityArea($event,flatDetailsBreakupFormArr.controls[index].get('camenarea'), index)"
+                        (focus)="updatingPrevValueofCarpetAmenityArea($event)"
+                      />
+                      </div>
+                      <div
+                      class="invalid-feedback d-block"
+                      *ngIf="
+                      flatDetailsBreakupFormArr.controls[index].get('camenarea').invalid &&
+                      flatDetailsBreakupFormArr.controls[index].get('camenarea').touched
+                      "
+                      >
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="flatDetailsBreakupFormArr.controls[index].get('camenarea').errors && flatDetailsBreakupFormArr.controls[index].get('camenarea').errors?.['required']"
+                        >
+                          *Carpet Amenity Area Required.
+                        </div>
+                      </div>
+                    </td>
+                    <td class="font12 text-dark1 pb-0 pt-0 pb-0" height="10px">  
+                      
+                      <div
+                      class="input-group tbl_datepicker custom_picker border border-light has-validation" 
+                    appDate1
+                      >
+                      <input
+                          class="form-control input_control border-0 form-control pre_input_field font500 text-dark1 font12"
+                          matInput
+                          [matDatepicker]="occupdate"
+                          formControlName="occupdate"
+                      >
+                      <div class="datepicker_input_cutsom_icon border-0 input-group-append bg-white border-1 post_input_field datepicker_field border-start-0">
+                          <span class="input-group-addon">
+                              <mat-datepicker-toggle
+                                  matSuffix
+                                  [for]="occupdate"
+                                  tabindex="-1"
+                              ></mat-datepicker-toggle>
+                              <mat-datepicker #occupdate></mat-datepicker>
+                          </span>
+                      </div>
+                  </div>
+
+                  <!-- <div *ngIf="flatDetailsBreakupFormArr.controls[index].get('occupdate').invalid && flatDetailsBreakupFormArr.controls[index].get('occupdate').touched">
+                    <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="flatDetailsBreakupFormArr.controls[index].get('occupdate').errors && flatDetailsBreakupFormArr.controls[index].get('occupdate').errors?.['required']"
+                    >
+                        *Occupation Date is required.
+                    </div>
+                  </div> -->
+
+                                  
+                      <!-- <input
+                      type="text"
+                      style="width: 90px; height: 20px"
+                      class="preinput_radius date_container form-control post_input_field text-dark1 font12 border-0"
+                      matInput
+                      [matDatepicker]="ocpdate"
+                      formControlName="occupdate"
+                      tabindex="0"
+                    /> -->
+                       <!-- <div
+                          class="child datepicker_input_cutsom_icon input-group-append bg-white post_input_field datepicker_field border-0"
+                          >   
+                          
+                           <span class="input-group-addon">
+                            <mat-datepicker-toggle
+                              matSuffix
+                              [for]="ocpdate"
+                              tabindex="-1"
+                            ></mat-datepicker-toggle>
+                            <mat-datepicker #ocpdate></mat-datepicker>
+                          </span> 
+                          </div> -->
+                              
+                      
+                    </td>
+                    <td class="font12 text-dark1 pb-0 pt-0">
+                      <input
+                        class="font12 border-0 form-control d-flex text-end"
+                        style="width: 90px; height: 20px"
+                        type="number"
+                        formControlName="curera"
+                      />
+                    </td>
+                    <td class="font12 text-dark1 pb-0 pt-0">
+                      <input
+                        class="font12 border-0 form-control d-flex text-end"
+                        style="width: 100px; height: 20px"
+                        type="number"
+                        formControlName="enclbalcrera"
+                      />
+                    </td>
+                    <td class="font12 text-dark1 pb-0 p-0">
+                      <input
+                        class="font12 border-0 form-control d-flex text-end"
+                        style="width: 100%; height: 25px; border-radius: 0"
+                        disabled
+                        type="text"
+                        formControlName="soldyn"
+                      />
+                    </td>
+
+
+                    <!-- <td class="text-dark1 pb-0 pt-0">
+                      <input
+                        class="border-0 form-control d-flex "
+                        style="width: 100%; height: 100%;"
+                        disabled
+                        type="text"
+                        formControlName="soldyn"
+                      />
+                    </td> -->
+                    <td class="font12 text-dark1 pb-0 pt-0">
+                      <input
+                        class="font12 border-0 form-control d-flex text-end"
+                        style="width: 70px; height: 20px; text-transform: uppercase"
+                        type="text"
+                        maxlength="5"
+                        formControlName="config"
+                      />
+                    </td>
+                    <td class="pb-0 pt-0">
+                      <div *ngIf="flatDetailsBreakupFormArr.controls[index].get('soldyn').value == 'N'">
+                        <div class="action_panel d-flex justify-content-center">
+                            <button
+                                type="button"
+                                class="border-0 bg-transparent ms-1 btn p-0 m-0 lh_0"
+                                (click)="deleteRow(index,'')"
+                            >
+                                <img
+                                    src="assets/images/delete.svg"
+                                    alt="remove"
+                                    class="delete_img"
+                                >
+                            </button>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>  
+            </div>
+          </form>
+<!----------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+                  <div class="fontBold font12 text-dark1 divModeandWidthForEmptyDivAtBeggining"></div>
+
+                  <div class="fontBold font12 text-dark1 divModeandWidthForAggregateData borderForAggregateAndLabelDivs">{{sumOfSalableUnitArea}}</div>
+                  <div class="fontBold font12 text-dark1 divModeandWidthForAggregateData borderForAggregateAndLabelDivs">{{sumOfSalableParkArea}}</div>
+                  <div class="fontBold font12 text-dark1 divModeandWidthForAggregateData borderForAggregateAndLabelDivs">{{sumOfSalableTerraceArea}}</div>
+                  <div class="fontBold font12 text-dark1 divModeandWidthForAggregateData borderForAggregateAndLabelDivs">{{sumOfSalableAmenityArea}}</div>
+                  <div class="fontBold font12 text-dark1 divModeandWidthForAggregateData borderForAggregateAndLabelDivs">{{sumOfCarpetUnitArea}}</div>
+                  <div class="fontBold font12 text-dark1 divModeandWidthForAggregateData borderForAggregateAndLabelDivs">{{sumOfCarpetParkArea}}</div>
+                  <div class="fontBold font12 text-dark1 divModeandWidthForAggregateData borderForAggregateAndLabelDivs">{{sumOfCarpetTerraceArea}}</div>
+                  <div class="fontBold font12 text-dark1 divModeandWidthForAggregateData borderForAggregateAndLabelDivs">{{sumOfCarpetAmenityArea}}</div>
+
+                  <div class="fontBold font12 text-dark1 divModeandWidthForEmptyDivAtEnd1"></div>
+
+<!------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+
+                  <div class="fontBold font12 text-dark1 divModeandWidthForEmptyDivAtBeggining"></div>
+
+                  <div class="fontBold font12 text-dark1 divModeandWidthForTotalLabel borderForAggregateAndLabelDivs">Saleble Area:</div>
+                  <div class="fontBold font12 text-dark1 divModeandWidthForTotalLabel borderForAggregateAndLabelDivs">{{sumOfSalableUnitArea+sumOfSalableParkArea+sumOfSalableTerraceArea+sumOfSalableAmenityArea}}</div>
+                  <div class="fontBold font12 text-dark1 divModeandWidthForTotalLabel borderForAggregateAndLabelDivs">Carpet Area:</div>
+                  <div class="fontBold font12 text-dark1 divModeandWidthForTotalLabel borderForAggregateAndLabelDivs">{{sumOfCarpetUnitArea+sumOfCarpetParkArea+sumOfCarpetTerraceArea+sumOfCarpetAmenityArea}}</div>                
+
+                  <div class="fontBold font12 text-dark1 divModeandWidthForEmptyDivAtEnd2">&nbsp;</div>
+                  
+<!----------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+          <!-- </div> -->
+          <!-- </div> -->
+        </div>
+
+        <div class="tab-pane container fade p-0" id="address">
+          <app-address
+            (passAddressData)="getReceiveAddressData($event)"
+            [addressFetchData]="addressData"
+            [classesResponsive]="'col-md-6'"
+            [addressListFlag]="true"
+          >
+          </app-address><!--[addressListFlag]="true" NS 21.02.2023 -->
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</section>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner text-center bg-white br-10">
+      <div class="flex justify-content-between">
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="a"
+          (click)="addBuildingDetails()"
+          [disabled]="disabledFlagAdd"
+        >
+        <!-- [disabled]="disabledFlagAdd" -->
+        <span class="text-decoration-underline">A</span>dd
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="r"
+          (click)="retrieveBuildingDetails()"
+          [disabled]="disabledFlagRetrieve"
+        >
+        <span class="text-decoration-underline">R</span>etrieve
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone"
+          accesskey="o"
+          (click)="addRow()"
+          [disabled]="disabledFlagAddRow"
+        >
+            Add R<span class="text-decoration-underline">o</span>w
+              
+            </button>
+        <!-- <button type="submit" class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+                    accesskey="d" [disabled]="deleteDisabled" (click)="handleDeleteClick()">
+                    Delete
+                </button> -->
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="s"
+          [disabled]="disabledFlagSave"
+          (click)="saveBuilding()"
+        >
+          Save
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="b"
+          [disabled]="disabledFlagBack"
+          (click)="handleBackClick()"
+        >
+        <span class="text-decoration-underline">B</span>ack
+        </button>
+        <button
+                    type="submit"
+                    class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone"
+                    accesskey="x"
+                    (click)="handleExit()"
+                >E<span class="text-decoration-underline">x</span>it</button>
+      </div>
+    </div>
+  </div>
+</section>

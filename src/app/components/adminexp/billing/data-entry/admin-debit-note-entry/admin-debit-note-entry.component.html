@@ -1,0 +1,734 @@
+<!-- <p>admin-debit-note-entry works!</p> -->
+
+<!-- Debit note form-1 -->
+<section>
+  <div class="row">
+    <div class="col-md-12">
+      <form [formGroup]="debitNote">
+        <div class="row g-2">
+          <div class="col-lg-3">
+            <div
+              class="input-group"
+              [class.is-invalid]=" (debitNote.get('dbnoteser')?.hasError('required') && debitNote.controls['dbnoteser'].touched) || debitNote.get('dbnoteser')?.errors?.['notFound']"
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Debit Note #</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0 post_input_field font500 font12"
+                upperCase
+                id="dabit_dabitnote"
+                [maxLength]="10"
+                formControlName="dbnoteser"
+                [f1]="{ id: 'ADBNOTE', isSingleValue: true }"
+              />
+              <div
+                class="invalid-feedback d-block"
+                *ngIf="(debitNote.get('dbnoteser')?.touched && debitNote.get('dbnoteser')?.invalid) && !debitNote.get('dbnoteser')?.errors?.['notFound']"
+              >
+                Debit Note # is required.
+              </div>
+              <div
+                class="invalid-feedback d-block"
+                *ngIf="debitNote.get('dbnoteser')?.errors?.['notFound']"
+              >
+                Debit Note # is not valid.
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div
+              class="input-group"
+              appDate1
+              [class.is-invalid]="
+                (debitNote.get('debitNoteDate')?.hasError('required') &&
+                debitNote.controls['debitNoteDate'].touched) || debitNote.get('debitNoteDate')?.errors?.['matDatepickerMax']
+              "
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                ><b class="text-danger">*</b>Debit Note Date</span
+              >
+              <input
+                type="text"
+                id="debitDate"
+                [autocomplete]="'off'"
+                class="form-control border-start-0 post_input_field font500 font12"
+                matInput
+                [matDatepicker]="pickerFrom"
+                formControlName="debitNoteDate"
+                [max]="config.currentDate"
+              />
+              <div
+                class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+              >
+                <span class="input-group-addon">
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="pickerFrom"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #pickerFrom></mat-datepicker>
+                </span>
+              </div>
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="
+                (debitNote.get('debitNoteDate')?.touched &&
+                debitNote.get('debitNoteDate')?.invalid) && !debitNote.get('debitNoteDate')?.errors?.['matDatepickerMax']
+              "
+            >
+              Debit note date required.
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="debitNote.get('debitNoteDate')?.errors?.['matDatepickerMax']"
+            >
+              Debit note date can't be greater than today's date.
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Debit note form-2 -->
+<!-- *ngIf="initialMode"  => use condition-->
+<section *ngIf="initialMode">
+  <div class="row">
+    <div class="col-md-12 mt-4">
+      <form [formGroup]="debitNoteDetails">
+        <div class="group_panel br-10 p-3 pt-4 position-relative">
+          <p class="bg-white font600 group_title mb-0 position-absolute">
+            Debit Notes Details
+          </p>
+
+          <!-- 1st Row -->
+          <div class="row g-2">
+            <div class="col-md-6">
+              <div
+                class="input-group"
+                [class.is-invalid]="(debitNoteDetails.get('partytype').hasError('required') &&
+              debitNoteDetails.controls['partytype'].touched) || debitNoteDetails.get('partytype').errors?.['notFound']"
+              >
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  ><b class="text-danger">*</b>Party Type</span
+                >
+                <input
+                  type="text"
+                  upperCase
+                  id="dabit_partyType"
+                  class="form-control border-start-0 post_input_field font500 font12"
+                  formControlName="partytype"
+                  [maxLength]="1"
+                  [f1]="{
+                    id: 'PARTTYPE',
+                    subId: filter_partyType,
+                    formData: debitNoteDetails.get('partytypename'),
+                    isSingleValue: true
+                  }"
+                  (focusout)="onLeavePartyType($event.target.value)"
+                />
+                <span class="position-relative span_divider"></span>
+                <input
+                  type="text"
+                  class="form-control w-50 border-start-0 post_input_field font500 font12"
+                  formControlName="partytypename"
+                />
+              </div>
+              <div
+                class="invalid-feedback d-block"
+                *ngIf="(debitNoteDetails.get('partytype').touched && debitNoteDetails.get('partytype').invalid) && !debitNoteDetails.get('partytype').errors?.['notFound']"
+              >
+                Party type is required.
+              </div>
+              <div
+                class="invalid-feedback d-block"
+                *ngIf="debitNoteDetails.get('partytype').errors?.['notFound']"
+              >
+                Party type is not valid.
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div
+                class="input-group"
+                [class.is-invalid]="
+                  (this.debitNoteDetails.get('partycode').hasError('required') &&
+                  debitNoteDetails.controls['partycode'].touched) || debitNoteDetails.get('partycode').errors?.['notFound']
+                "
+              >
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  ><b class="text-danger">*</b>Party Code</span
+                >
+                <input
+                  type="text"
+                  upperCase
+                  id="dabit_partycode"
+                  class="form-control border-start-0 post_input_field font500 font12"
+                  formControlName="partycode"
+                  [maxLength]="12"
+                  [f1]="{
+                    id: 'PARTYCODE',
+                    formData: debitNoteDetails.get('partycodename'),
+                    isSingleValue: true,
+                    subId: filter.getParPartyType
+                  }"
+                  (focusout)="onLeavePartyCode($event.target.value)"
+                />
+                <span class="position-relative span_divider"></span>
+                <input
+                  type="text"
+                  class="form-control w-50 border-start-0 post_input_field font500 font12"
+                  formControlName="partycodename"
+                />
+              </div>
+              <div
+                class="invalid-feedback d-block"
+                *ngIf="
+                 ( this.debitNoteDetails.get('partycode').touched &&
+                  this.debitNoteDetails.get('partycode').invalid) && !debitNoteDetails.get('partycode').errors?.['notFound']
+                "
+              >
+                Party code is required.
+              </div>
+              <div
+                class="invalid-feedback d-block"
+                *ngIf="debitNoteDetails.get('partycode').errors?.['notFound']"
+              >
+                Party code is not valid.
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div
+                class="input-group"
+                [class.is-invalid]="
+                  (this.debitNoteDetails.get('invbillno').hasError('required') &&
+                  this.debitNoteDetails.controls['invbillno'].touched) || debitNoteDetails.get('invbillno').errors?.['notFound']"
+              >
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  ><b class="text-danger">*</b>Invoice #</span
+                >
+                <input
+                  type="text"
+                  class="form-control border-start-0 post_input_field font500 font12"
+                  id="debit_invoice"
+                  upperCase
+                  formControlName="invbillno"
+                  [maxlength]="16"
+                  [f1]="{
+                    id: 'ADMININVOICE',
+                    subId: filter.getInvoice ? filter.getInvoice : '',
+                    isSingleValue: true
+                  }"
+                  (focusout)="getDataInvoiceNo()"
+                />
+                <!-- subId: filter.getInvoice ? filter.getInvoice: '' -->
+              </div>
+              <div
+                class="invalid-feedback d-block"
+                *ngIf="
+                 (this.debitNoteDetails.get('invbillno').touched &&
+                  this.debitNoteDetails.get('invbillno').invalid) && !debitNoteDetails.get('invbillno').errors?.['notFound']"
+              >
+                Invoice # is required.
+              </div>
+              <div
+                class="invalid-feedback d-block"
+                *ngIf="debitNoteDetails.get('invbillno').errors?.['notFound']"
+              >
+                Invoice # is not valid.
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div
+                class="input-group">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Serial #</span
+                >
+                <input
+                  type="text"
+                  class="form-control border-start-0 post_input_field font500 font12"
+                  id="debit_invoice"
+                  upperCase
+                  formControlName="serialNo"
+                  [maxlength]="10"
+                />
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="input-group" appDate1>
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Bill date</span
+                >
+                <input
+                  type="text"
+                  class="form-control border-start-0 post_input_field font500 font12"
+                  [autocomplete]="'off'"
+                  formControlName="invbilldt"
+                  matInput
+                  [matDatepicker]="pickerFrom1"
+                  [min]="config.currentDate"
+                />
+                <div
+                  class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                >
+                  <span class="input-group-addon">
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="pickerFrom1"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #pickerFrom1></mat-datepicker>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="input-group">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Bill Type</span
+                >
+                <input
+                  type="text"
+                  class="form-control border-start-0 post_input_field font500 font12"
+                  formControlName="billtype"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-group">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Building Code</span
+                >
+                <input
+                  type="text"
+                  id="debit_bldg"
+                  upperCase
+                  class="form-control border-start-0 post_input_field font500 font12"
+                  formControlName="bldgcode"
+                  [f1]="{
+                    id: 'BUILDINGS',
+                    formData: debitNoteDetails.get('bldgcodename'),
+                    isSingleValue: true
+                  }"
+                />
+                <span class="position-relative span_divider"></span>
+                <input
+                  type="text"
+                  class="form-control w-50 border-start-0 post_input_field font500 font12"
+                  formControlName="bldgcodename"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-group">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Company</span
+                >
+                <input
+                  type="text"
+                  upperCase
+                  class="form-control border-start-0 post_input_field font500 font12"
+                  formControlName="coy"
+                  [f1]="{
+                    id: 'COMPANY',
+                    formData: debitNoteDetails.get('coyname'),
+                    isSingleValue: true
+                  }"
+                />
+                <span class="position-relative span_divider"></span>
+                <input
+                  type="text"
+                  class="form-control w-50 border-start-0 post_input_field font500 font12"
+                  formControlName="coyname"
+                />
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="input-group">
+                <!-- [class.is-invalid]="this.debitNoteDetails.get('dnamount').hasError('required') && this.debitNoteDetails.controls['dnamount'].touched" -->
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >DN Amt</span
+                >
+                <input
+                  type="text"
+                  class="form-control border-start-0 post_input_field font500 font12 text-end"
+                  id="debit_dnamt"
+                  formControlName="dnamount"
+                  oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                  (focusout)="calTDSAmt($event.target.value)"
+                />
+                <!-- (focusout)="calDnAmt($event.target.value)" -->
+              </div>
+              <!-- <div
+                class="invalid-feedback d-block"
+                *ngIf="
+                  this.debitNoteDetails.get('dnamount').invalid &&
+                  this.debitNoteDetails.get('dnamount').touched
+                "
+              >
+                DN amt required.
+              </div> -->
+            </div>
+            <div class="col-md-3">
+              <div class="input-group">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >TDS (%)</span
+                >
+                <input
+                  type="text"
+                  class="form-control border-start-0 post_input_field font500 font12 text-end"
+                  formControlName="tdsperc"
+                  oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                />
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="input-group">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >TDS Amt</span
+                >
+                <input
+                  type="text"
+                  class="form-control border-start-0 post_input_field font500 font12 text-end"
+                  formControlName="tdsamount"
+                  oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                />
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="input-group">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >FOTO Amt</span
+                >
+                <input
+                  type="text"
+                  class="form-control border-start-0 post_input_field font500 font12 text-end"
+                  formControlName="fotoamt"
+                  oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-group">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Description</span
+                >
+                <input
+                  type="text"
+                  class="form-control border-start-0 post_input_field font500 font12"
+                  formControlName="description1"
+                  [maxlength]="50"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-group">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Narration</span
+                >
+                <input
+                  type="text"
+                  class="form-control border-start-0 post_input_field font500 font12"
+                  formControlName="narration"
+                  [maxLength]="50"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Debit note form -->
+  <div class="row">
+    <div class="col-md-12 mt-4">
+      <!-- *ngIf="initialMode"  => use condition-->
+      <form [formGroup]="debitNoteDetails" *ngIf="initialMode" >
+        <div
+          class="group_panel br-10 p-3 pt-4 position-relative form_common_bg"
+        >
+          <p class="bg-white font600 group_title mb-0 position-absolute">
+            Debit Notes item Details
+          </p>
+          <!-- formArrayName="debitNoteItemDetailList" -->
+          <div class="col-md-12" formArrayName="debitNoteItemDetailList">
+            <div
+              class="table-responsive group_panel form_common_bg stylishScroll"
+            >
+              <table
+                class="table table-bordered table-sm mb-0 custom-table-width"
+              >
+                <thead class="table_head_position_sticky">
+                  <tr tabindex="-1">
+                    <th class="fontBold font12 fonttxt_black">SAC Code</th>
+                    <th class="fontBold font12 fonttxt_black">Item Desc</th>
+                    <th class="fontBold font12 fonttxt_black">Oty</th>
+                    <th class="fontBold font12 fonttxt_black">Rate</th>
+                    <th class="fontBold font12 fonttxt_black">Amount</th>
+                    <th class="fontBold font12 fonttxt_black">Disc. Amt</th>
+                    <th class="fontBold font12 fonttxt_black">Taxable Amt</th>
+                    <th class="fontBold font12 fonttxt_black">CGST%</th>
+                    <th class="fontBold font12 fonttxt_black">CGST Amt</th>
+                    <th class="fontBold font12 fonttxt_black">SGST%</th>
+                    <th class="fontBold font12 fonttxt_black">SGST Amt</th>
+                    <th class="fontBold font12 fonttxt_black">IGST%</th>
+                    <th class="fontBold font12 fonttxt_black">IGST Amt</th>
+                    <th class="fontBold font12 fonttxt_black">UGST%</th>
+                    <th class="fontBold font12 fonttxt_black">UGST Amt</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    *ngFor="
+                      let item of debitNoteDetails?.controls[
+                        'debitNoteItemDetailList'
+                      ].controls;
+                      let index = index
+                    "
+                    [formGroupName]="index"
+                  >
+                    <td>
+                      <div class="has-validation">
+                        <input
+                          type="text"
+                          class="form-control input_control font500 fonttxt_black font12"
+                          formControlName="saccode"
+                        />
+                      </div>
+                    </td>
+                    <td>
+                      <div class="has-validation">
+                        <input
+                          type="text"
+                          class="form-control input_control font500 fonttxt_black font12"
+                          formControlName="sacdesc"
+                        />
+                      </div>
+                    </td>
+                    <td>
+                      <div class="has-validation">
+                        <input
+                          type="text"
+                          class="form-control input_control font500 fonttxt_black font12 text-end"
+                          formControlName="quantity"
+                          maxlength="10"
+                          oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                          (focusout)="onRateQuntityChange(item)"
+                        />
+                      </div>
+                    </td>
+                    <td>
+                      <div class="has-validation">
+                        <input
+                          type="text"
+                          id="debitnote_rate"
+                          class="form-control input_control font500 fonttxt_black font12 text-end"
+                          maxlength="10"
+                          formControlName="rate"
+                          oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                          (focusout)="onRateQuntityChange(item)"
+                          (focusout)="onLeaveRate()"
+                        />
+                      </div>
+                    </td>
+                    <td>
+                      <div class="has-validation">
+                        <input
+                          type="text"
+                          id="debitNote_amt"
+                          maxlength="12"
+                          class="form-control input_control font500 fonttxt_black font12 text-end"
+                          formControlName="amount"
+                          (focusout)="debitNoteDetailBreakupCal(item)"
+                          oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                          />
+                          <!-- (focusout)="debitNoteDetailBreakupCal(item)" -->
+                        <!-- (focusout)="debitNoteDetailBreakupCal(item)" -->
+                      </div>
+                    </td>
+                    <td>
+                      <div class="has-validation">
+                        <input
+                          type="text"
+                          id="debitnote_discountamt"
+                          maxlength="10"
+                          class="form-control input_control font500 fonttxt_black font12 text-end"
+                          formControlName="discountamt"
+                          oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                          (focusout)="debitNoteDetailBreakupCal(item)"
+                        />
+                      </div>
+                    </td>
+                    <td>
+                      <div class="has-validation">
+                        <input
+                          type="text"
+                          maxlength="12"
+                          class="form-control input_control font500 fonttxt_black font12 text-end"
+                          formControlName="taxableamt"
+                          (focusout)="debitNoteDetailBreakupCal(item)"
+                          oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                        />
+                      </div>
+                    </td>
+                    <td>
+                      <div class="has-validation">
+                        <input
+                          type="text"
+                          maxlength="5"
+                          class="form-control input_control font500 fonttxt_black font12 text-end"
+                          formControlName="cgstperc"
+                          [maxlength]="3"
+                          pattern="^.{1,99}$"
+                          oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                          (focusout)="debitNoteDetailBreakupCal(item)"
+                        />
+                      </div>
+                      <div class="invalid-feedback d-block" *ngIf="item.get('cgstperc').hasError('invalidPercentage')">Enter CGST% less than 100.</div>
+
+                    </td>
+                    <td>
+                      <div class="has-validation">
+                        <input
+                          type="text"
+                          maxlength="12"
+                          class="form-control input_control font500 fonttxt_black font12 text-end"
+                          formControlName="cgstamt"
+                          oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                        />
+                      </div>
+                    </td>
+                    <td>
+                      <div class="has-validation">
+                        <input
+                          type="text"
+                          maxlength="5"
+                          class="form-control input_control font500 fonttxt_black font12 text-end"
+                          formControlName="sgstperc"
+                          oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                          (focusout)="debitNoteDetailBreakupCal(item)"
+                        />
+                      </div>
+                      <div class="invalid-feedback d-block" *ngIf="item.get('sgstperc').hasError('invalidPercentage')">Enter SGST% less than 100.</div>
+                    </td>
+                    <td>
+                      <div class="has-validation">
+                        <input
+                          type="text"
+                          maxlength="12"
+                          class="form-control input_control font500 fonttxt_black font12 text-end"
+                          formControlName="sgstamt"
+                          oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                        />
+                      </div>
+                    </td>
+                    <td>
+                      <div class="has-validation">
+                        <input
+                          type="text"
+                          maxlength="5"
+                          class="form-control input_control font500 fonttxt_black font12 text-end"
+                          formControlName="igstperc"
+                          oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                          (focusout)="debitNoteDetailBreakupCal(item)"
+                        />
+                      </div>
+                      <div class="invalid-feedback d-block" *ngIf="item.get('igstperc').hasError('invalidPercentage')">Enter IGST% less than 100.</div>
+                    </td>
+                    <td>
+                      <div class="has-validation">
+                        <input
+                          type="text"
+                          maxlength="12"
+                          class="form-control input_control font500 fonttxt_black font12 text-end"
+                          formControlName="igstamt"
+                          oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                        />
+                      </div>
+                    </td>
+                    <td>
+                      <div class="has-validation">
+                        <input
+                          type="text"
+                          maxlength="5"
+                          class="form-control input_control font500 fonttxt_black font12 text-end"
+                          formControlName="ugstperc"
+                          oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                          (focusout)="debitNoteDetailBreakupCal(item)"
+                        />
+                      </div>
+                      <div class="invalid-feedback d-block" *ngIf="item.get('ugstperc').hasError('invalidPercentage')">Enter UGST% less than 100.</div>
+                    </td>
+                    <td>
+                      <div class="has-validation">
+                        <input
+                          type="text"
+                          maxlength="12"
+                          class="form-control input_control font500 fonttxt_black font12 text-end"
+                          formControlName="ugstamt"
+                          oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                        />
+                      </div>
+                    </td>
+                    <!-- <td>
+                      <div class="action_panel d-flex justify-content-center">
+                        <button
+                          type="button"
+                          class="btn action_btn d-flex bg_common_red mt-1"
+                          (click)="addDebitNotDetails()"
+                        >
+                          <img
+                            src="/assets/images/add.svg"
+                            alt="add"
+                            class="add_img"
+                          />
+                        </button>
+                        <button
+                          type="button"
+                          class="btn action_btn d-flex bg_common_red ms-1 mt-1"
+                          (click)="removeChequeDetails(index)"
+                        >
+                          <img
+                            src="/assets/images/trash.svg"
+                            alt="remove"
+                            class="delete_img"
+                          />
+                        </button>
+                      </div>
+                    </td> -->
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<app-loader *ngIf="config.isLoading"></app-loader>
+
+<!-- Button List -->
+<app-buttons
+  [buttonsList]="buttonsList"
+  (eventTrigger)="buttonAction($event)"
+></app-buttons>

@@ -1,0 +1,735 @@
+<section class="auxiliary-receipt-wrapper">
+  <div class="row">
+    <form [formGroup]="customerDetails">
+      <!-- section one (Basic form) -->
+      <section>
+        <div class="col-md-12">
+          <!-- first row -->
+          <div class="row pb-1">
+            <div class="col-md-6">
+              <div class="input-group has-validation" [class.is-invalid]="
+                 ( customerDetails.get('bldgcode')?.hasError('required') &&
+                  customerDetails.controls['bldgcode'].touched)|| customerDetails.controls?.['bldgcode'].errors?.['notFound'] 
+                ">
+                <span class="input-group-text leftform_lbl font500 text-dark1 font12">
+                  <b><span class="text-danger">*</span></b>Building code
+                </span>
+                <input appCommonAutoFocus type="text" id="bldgcode" maxlength="4" formControlName="bldgcode"
+                  class="form-control border-start-0 post_input_field font500 font12" upperCase [f1]="{
+                    id: 'BUILDINGS',
+                    formData: customerDetails.get('blgdName')
+                  }" (focusout)="onLeaveBuildingCode($event.target.value)" />
+                <span class="position-relative span_divider"></span>
+                <input type="text" class="form-control w-50 border-start-0 post_input_field font500 text-dark1 font12"
+                  [formControlName]="'blgdName'" tabindex="-1" />
+              </div>
+
+              <div class="errorField common_color_txt font12 font500 disInl"
+                *ngIf="customerDetails.controls?.['bldgcode'].errors?.['notFound'] ">
+                Invalid Building Code.
+              </div>
+              <ng-container [ngTemplateOutlet]="errorHandling" [ngTemplateOutletContext]="{
+                  data: {
+                    fieldName: 'bldgcode',
+                    msg: 'Building Code is required.'
+                  }
+                }"></ng-container>
+            </div>
+            <div class="col-md-3">
+              <div class="input-group" [class.is-invalid]="
+              customerDetails.controls?.['wing'].errors?.['notFound'] 
+              ">
+                <span class="input-group-text leftform_lbl font500 text-dark1 font12">Wing
+                </span>
+                <input type="text" formControlName="wing" maxlength="2" upperCase
+                  class="form-control border-start-0 post_input_field font500 font12" [f1]="{
+                    id: 'BWINGS',
+                    isSingleValue: true,
+                    subId: queryString.getWing
+                  }" (focusout)="onLeaveWingCode($event.target.value)" />
+              </div>
+              <div class="errorField common_color_txt font12 font500 disInl"
+                *ngIf="customerDetails.controls?.['wing'].errors?.['notFound'] ">
+                Invalid Wing.
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="input-group" [class.is-invalid]="
+                 ( customerDetails.get('flatno')?.hasError('required') &&
+                  customerDetails.controls['flatno'].touched) ||  customerDetails.controls?.['flatno'].errors?.['notFound'] 
+                ">
+                <span class="input-group-text leftform_lbl font500 text-dark1 font12"><b><span
+                      class="text-danger">*</span></b>Flat No.
+                </span>
+                <input type="text" formControlName="flatno" upperCase maxlength="6"
+                  class="form-control border-start-0 post_input_field font500 font12" [f1]="{
+                    id: 'FLATSOLD',
+                    isSingleValue: true,
+                    subId: queryString.getFlatNumber
+                      ? queryString.getFlatNumber
+                      : queryString.getWing
+                  }" />
+              </div>
+              <div class="errorField common_color_txt font12 font500 disInl"
+                *ngIf="customerDetails.controls?.['flatno'].errors?.['notFound'] ">
+                Invalid Flat Number.
+              </div>
+              <ng-container [ngTemplateOutlet]="errorHandling" [ngTemplateOutletContext]="{
+                  data: {
+                    fieldName: 'flatno',
+                    msg: 'Flat Number is required.'
+                  }
+                }"></ng-container>
+            </div>
+          </div>
+          <!-- secound row -->
+          <div class="row pb-1">
+            <div class="col-md-6">
+              <div class="input-group">
+                <span class="input-group-text leftform_lbl font500 font12 req">
+                  Flat Owner
+                </span>
+                <input type="text" formControlName="flatowner"
+                  class="form-control border-start-0 post_input_field font500 font12" />
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="input-group">
+                <span class="input-group-text leftform_lbl font500 font12">
+                  Start Month
+                </span>
+                <input type="text" formControlName="startMonth"
+                  class="form-control border-start-0 post_input_field font500 font12" />
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="input-group"
+                [class.is-invalid]="customerDetails.get('receiptdate')?.errors?.['matDatepickerMin']" appDate1>
+                <span class="input-group-text leftform_lbl font500 text-dark1 font12">Receipt Date
+                </span>
+                <input type="text" [autocomplete]="'off'"
+                  class="form-control border-start-0 post_input_field font500 text-dark1 font12" matInput
+                  [matDatepicker]="pickerFrom" (dateChange)="dateCheck($event)" formControlName="receiptdate" />
+                <div
+                  class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0">
+                  <span class="input-group-addon">
+                    <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerFrom></mat-datepicker>
+                  </span>
+                </div>
+              </div>
+
+              <div class="errorField common_color_txt font12 font500 disInl"
+                *ngIf="customerDetails.get('receiptdate')?.errors?.['matDatepickerMin']">
+                Please ensure that the Receipt Date is today or a date later
+                than today.
+              </div>
+            </div>
+          </div>
+          <!-- third row -->
+          <div class="row pb-1">
+            <div class="col-md-6">
+              <div class="input-group">
+                <span class="input-group-text leftform_lbl font500 font12 req">
+                  Receipt #
+                </span>
+                <input type="text" formControlName="receiptNum" maxlength="10"
+                  class="form-control border-start-0 post_input_field font500 font12" />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-group">
+                <span class="input-group-text leftform_lbl font500 font12 req">
+                  Narrative
+                </span>
+                <input type="text" id="auxi_narrative" formControlName="narrative" maxlength="50"
+                  class="form-control border-start-0 post_input_field font500 font12" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- section two (Cheque details) -->
+      <section>
+        <div class="col-md-12 mt-2">
+          <div formGroupName="incomingChequeDetails">
+            <div class="group_panel br-10 form_common_bg p-1 pt-1 position-relative">
+              <p class="bg-white font600 group_title mb-0 position-absolute">
+                1. Incoming Cheque Details
+              </p>
+
+              <div formArrayName="chequeDetails"
+                class="table-responsive group_panel table-sm default-table-height stylishScroll mt-1">
+                <table #tableInput class="table table-bordered datatable table-sm">
+                  <thead class="table_head_position_sticky">
+                    <tr tabindex="-1">
+                      <th class="fontBold font12 fonttxt_black">
+                        <span class="text-danger">*</span>Bank
+                      </th>
+                      <th class="fontBold font12 fonttxt_black">Out Stn</th>
+                      <th class="fontBold font12 fonttxt_black">
+                        <b><span class="text-danger">*</span>Fund Source</b>
+                      </th>
+                      <th class="fontBold font12 fonttxt_black">
+                        <b><span class="text-danger">*</span>Acc Type</b>
+                      </th>
+                      <th class="fontBold font12 fonttxt_black">
+                        <b><span class="text-danger">*</span>Cheque Date</b>
+                      </th>
+                      <th class="border-end-0 font500 font12 req">
+                        <b><span class="text-danger">*</span>Cheque No.</b>
+                      </th>
+                      <th class="border-end-0 font500 font12 req">
+                        <b><span class="text-danger">*</span>Cheque Amount</b>
+                      </th>
+                      <th class="fontBold font12 fonttxt_black">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      *ngFor="let item of customerDetails.controls?.incomingChequeDetails.controls?.['chequeDetails'].controls let index = index "
+                      [formGroupName]="index">
+                      <td>
+                        <div class="has-validation">
+                          <input
+                            class=" bankName border-0 form-control input_control form-control font500 text-dark1 font12 "
+                            type="text" maxlength="20" upperCase formControlName="bank" id="bankName_{{ index }}"
+                            (keyup)="navigate($event, index, 'bankName')"
+                            [title]=" customerDetails.controls?.incomingChequeDetails.controls?.['chequeDetails'].controls[index].get('bank').value" />
+                        </div>
+                      </td>
+                      <td>
+                        <select class="border-0 form-control input_control form-control font500 text-dark1 font12"
+                          formControlName="outstat">
+                          <option value="Y">Y</option>
+                          <option value="N">N</option>
+                        </select>
+                      </td>
+                      <td>
+                        <div class="input-group"
+                          [class.is-invalid]="customerDetails.controls?.incomingChequeDetails.controls?.['chequeDetails'].controls[index].get('fund').errors?.['notFound']">
+                          <input class="form-control input_control form-control font500 text-dark1 font12" type="text"
+                            formControlName="fund" id="fund_{{ index }}" (keyup)="navigate($event, index, 'fund')"
+                            [f1]="{ id: 'FUNDSOURCES', isSingleValue: true }" />
+
+
+                        </div>
+                        <div class="errorField common_color_txt font12 font500 disInl"
+                          *ngIf="customerDetails.controls?.incomingChequeDetails.controls?.['chequeDetails'].controls[index].get('fund').errors?.['notFound']">
+                          Invalid Fund.
+                        </div>
+                      </td>
+                      <td>
+                        <div class="input-group"
+                          [class.is-invalid]="customerDetails.controls?.incomingChequeDetails.controls?.['chequeDetails'].controls[index].get('actype').errors?.['notFound']">
+                          <input class="form-control input_control form-control font500 text-dark1 font12" type="text"
+                            formControlName="actype" id="acType_{{ index }}" (keyup)="navigate($event, index, 'acType')"
+                            [f1]="{ id: 'TYPEOFACCOUNTS', isSingleValue: true }" />
+                        </div>
+
+                        <div class="errorField common_color_txt font12 font500 disInl"
+                          *ngIf="customerDetails.controls?.incomingChequeDetails.controls?.['chequeDetails'].controls[index].get('actype').errors?.['notFound']">
+                          Invalid Account Type.
+                        </div>
+                      </td>
+                      <td>
+                        <div class="input-group" appDate1>
+                          <input type="text" [autocomplete]="'off'"
+                            class="form-control input_control form-control font500 text-dark1 font12 text-end" matInput
+                            [matDatepicker]="pickerFrom" id="date_{{ index }}" (keyup)="navigate($event, index, 'date')"
+                            formControlName="date" />
+                          <div
+                            class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0">
+                            <span class="input-group-addon">
+                              <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+                              <mat-datepicker #pickerFrom></mat-datepicker>
+                            </span>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <input
+                          class="border-0 form-control input_control form-control font500 text-dark1 font12 "
+                          type="text" id="cheque_{{ index }}" (keyup)="navigate($event, index, 'cheque')"
+                          [maxlength]="12" [minlength]="1" formControlName="num" />
+                        <div class="errorField common_color_txt font12 font500 disInl"
+                          *ngIf=" customerDetails.controls?.incomingChequeDetails.controls?.['chequeDetails'].controls[index].get('num').touched  && customerDetails.controls?.incomingChequeDetails.controls?.['chequeDetails'].controls[index].get('num').errors?.['uniqueNum']">
+                          Cheque No should be unique.
+                        </div>
+                      </td>
+                      <td>
+                        <input
+                          class="border-0 form-control input_control form-control font500 text-dark1 font12 "
+                          type="text" maxlength="126"
+                          oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                          formControlName="amount" id="amt_{{ index }}" (keyup)="navigate($event, index, 'amt')"
+                          (focusout)="onChequeNumberChange($event)" (focus)="onInputFocus($event)" />
+                      </td>
+                      <td>
+                        <div class="action_panel d-flex justify-content-center mt-1 d-none">
+                          <button type="button" [disabled]="
+                              !customerDetails.controls?.incomingChequeDetails
+                                ?.valid || config.isProccesed
+                            " class="btn action_btn d-flex btn-success" (click)="addChequeDetails()">
+                            <!--NS 22.05.2023-->
+                            <img src="assets/images/add.svg" alt="add" class="add_img" />
+                          </button>
+                          <button type="button" [disabled]="config.isProccesed"
+                            class="btn action_btn d-flex bg_common_red ms-1" (click)="removeChequeDetails(index)">
+                            <!--NS 22.05.2023-->
+                            <img src="assets/images/trash.svg" alt="remove" class="delete_img" />
+                          </button>
+                        </div>
+
+                        <div class="action_panel d-flex justify-content-center">
+                          <button type="button" [disabled]="
+                              !customerDetails.controls?.incomingChequeDetails
+                                ?.valid || config.isProccesed
+                            " (click)="addChequeDetails()" class="border-0 bg-transparent ms-1 btn p-0 m-0 lh_0 p-1">
+                            <img src="assets/images/plus.png" alt="add" />
+                          </button>
+                          <button type="button" [disabled]="config.isProccesed" (click)="removeChequeDetails(index)"
+                            class="border-0 bg-transparent ms-1 btn p-0 m-0 lh_0 p-1">
+                            <img src="assets/images/delete.svg" alt="remove" class="delete_img" />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <hr class="mt-2" />
+
+              <div class="col-md-12">
+                <div class="row pb-2 mt-1">
+                  <div class="col-md-3">
+                    <div class="input-group">
+                      <span class="input-group-text leftform_lbl font500 font12 req">
+                        Total Amount
+                      </span>
+                      <input type="text" formControlName="totalAmount"
+                        class="form-control border-start-0 post_input_field font500 font12" />
+                    </div>
+                  </div>
+                  <div class="col-md">
+                    <div class="input-group">
+                      <span class="input-group-text leftform_lbl font500 font12 req">
+                        Chq Amt
+                      </span>
+                      <input type="text" formControlName="chqAmount"
+                        class="form-control border-start-0 post_input_field font500 font12" />
+                    </div>
+                  </div>
+                  <div class="col-md">
+                    <div class="input-group">
+                      <span class="input-group-text leftform_lbl font500 font12 req"><span class="text-danger">* </span>
+                        TDS Amt
+                      </span>
+
+                      <span class="prefix">-</span>
+                      <input type="text" maxlength="126"
+                        oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                        formControlName="tdsAmount" class="form-control border-start-0 post_input_field font500 font12"
+                        (focusout)="onTDSAmtChange($event)"  (focus)="onInputFocus($event)"/>
+
+                      <span class="smalll text-danger error-font-size" *ngIf="
+                          customerDetails
+                            .get('incomingChequeDetails.tdsAmount')
+                            ?.hasError('tdsGreaterThanTotal')
+                        ">
+                        TDS Amount should not be greater than Total Amount.
+                      </span>
+
+                      <span class="smalll text-danger error-font-size" *ngIf="
+                          customerDetails
+                            .get('incomingChequeDetails.tdsAmount')
+                            ?.hasError('tdsRequired')
+                        ">
+                        TDS Amount is required.
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-md">
+                    <div class="input-group">
+                      <span class="input-group-text leftform_lbl font500 font12 text-danger">
+                        Receipt Amt
+                      </span>
+                      <input type="text" formControlName="receiptAmount"
+                        class="form-control border-start-0 post_input_field font500 font12" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- section three (Allocation) -->
+      <section *ngIf="config.isAllocation">
+        <div class="col-md-12 mt-3">
+          <div formGroupName="allocationDetails">
+            <div class="group_panel br-10 form_common_bg p-3 pt-1 position-relative">
+              <p class="bg-white font600 group_title mb-0 position-absolute">
+                2. Allocation
+              </p>
+              <div class="allocation-first-section-wrapper">
+                <div class="row">
+                  <div class="col-md-2">
+                    <div class="d-flex flex-column align-items-center mt-4">
+                      <!-- Start Month -->
+                      <div class="input-group justify-content-center allocation-month-header">
+                        <span class="input-group-text allocationform_months_col1_lbl font500 font12">
+                          <b>Start Month</b></span>
+                      </div>
+                      <div class="input-group mt-1 w-75">
+                        <input type="text" size="2" formControlName="startMonth" class="form-control font500 font12"
+                          [title]="
+                            customerDetails.controls?.allocationDetails.get(
+                              'startMonth'
+                            ).value
+                          " />
+                      </div>
+
+                      <!-- End Month -->
+                      <div class="input-group justify-content-center mt-3">
+                        <span class="input-group-text allocationform_months_col1_lbl font500 font12">
+                          <b>End Month</b>
+                        </span>
+                      </div>
+                      <div class="input-group mt-1 w-75">
+                        <input type="text" formControlName="endMonth" class="form-control font500 font12" [title]="
+                            customerDetails.controls?.allocationDetails.get(
+                              'endMonth'
+                            ).value
+                          " />
+                      </div>
+
+                      <!-- Total Ammount -->
+                      <div class="input-group justify-content-center mt-3">
+                        <span class="input-group-text allocationform_months_col1_lbl font500 font12 req">
+                          <b>Total Month</b>
+                        </span>
+                      </div>
+                      <div class="input-group mt-1 w-75">
+                        <input type="text" formControlName="totalmonth"
+                          class="form-control txt_align_center_for_col1_of_allocation allocationform_months_col1_input post_input_field_for_col1_of_allocation font500 font12" />
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Table for calculation of allocation -->
+                  <div class="col-md-10">
+                    <!-- table -->
+                    <div formArrayName="outInfraDetailsBreakUp"
+                      class="table-responsive table-sm allocation-table group_panel table-sm allocation-table">
+                      <table class="table table-bordered table-sm">
+                        <thead class="table_head_position_sticky">
+                          <tr tabindex="-1">
+                            <th class="border-end-0 font500 font12 req">
+                              <b>Month</b>
+                            </th>
+
+                            <th class="fontBold font12 fonttxt_black">
+                              NarrCd
+                            </th>
+                            <th class="fontBold font12 fonttxt_black">
+                              Narration
+                            </th>
+                            <th class="fontBold font12 fonttxt_black">
+                              AUXI Paid
+                            </th>
+                            <th class="fontBold font12 fonttxt_black">
+                              Int Paid
+                            </th>
+                            <th class="fontBold font12 fonttxt_black">Admin</th>
+                            <th class="fontBold font12 fonttxt_black">CGST</th>
+                            <th class="fontBold font12 fonttxt_black">SGST</th>
+                            <th class="fontBold font12 fonttxt_black">IGST</th>
+                            <th class="fontBold font12 fonttxt_black">
+                              CGST %
+                            </th>
+                            <th class="fontBold font12 fonttxt_black">
+                              SGST %
+                            </th>
+                            <th class="fontBold font12 fonttxt_black">
+                              IGST %
+                            </th>
+                            <th class="fontBold font12 fonttxt_black">TDS</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr
+                            *ngFor="let item of customerDetails.controls?.allocationDetails.controls?.['outInfraDetailsBreakUp'].controls;let i = index"
+                            [formGroupName]="i">
+                            <td>
+                              <input
+                                class="form-control input_control form-control font500 fonttxt_black font12 custom-input-width"
+                                type="text" formControlName="monthName" [title]="
+                                  customerDetails.controls?.allocationDetails.controls.outInfraDetailsBreakUp.controls[
+                                    i
+                                  ].get('monthName').value
+                                " />
+                            </td>
+                            <td>
+                              <div class="input-group custom-dropdown-width text-end"
+                                [class.is-invalid]="customerDetails.controls?.allocationDetails.controls?.['outInfraDetailsBreakUp'].controls[i].get('narrationCode').errors?.['notFound']">
+                                <input class="form-control form-control-sm input_control form-control" type="text"
+                                  formControlName="narrationCode" [f1]="{
+                                    id: 'NARRCODES',
+                                    isSingleValue: true
+                                    
+                                  }" id="NarrCd_{{ i }}" (keyup)="navigate($event, i, 'NarrCd')" />
+                              </div>
+                              <div class="errorField common_color_txt font12 font500 disInl"
+                                *ngIf="customerDetails.controls?.allocationDetails.controls?.['outInfraDetailsBreakUp'].controls[i].get('narrationCode').errors?.['notFound']">
+                                Invalid Narration Code.
+                              </div>
+                            </td>
+
+                            <td>
+                              <input class="form-control input_control form-control custom-input-width" type="text"
+                                formControlName="narration" [title]="
+                                  customerDetails.controls?.allocationDetails.controls.outInfraDetailsBreakUp.controls[
+                                    i
+                                  ].get('narration').value
+                                " />
+                            </td>
+                            <td>
+                              <input class="text-end form-control input_control form-control custom-input-width"
+                                type="text" formControlName="auxiPaid" [title]="
+                                  customerDetails.controls?.allocationDetails.controls.outInfraDetailsBreakUp.controls[
+                                    i
+                                  ].get('auxiPaid').value
+                                " />
+                            </td>
+                            <td>
+                              <input class="text-end form-control input_control form-control custom-input-width"
+                                type="text" oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                                formControlName="intPaid" id="intPaid_{{ i }}" (keyup)="navigate($event, i, 'intPaid')" [title]=" 
+                                  customerDetails.controls?.allocationDetails.controls.outInfraDetailsBreakUp.controls[
+                                    i
+                                  ].get('intPaid').value
+                                "  (focusout)="onTDSValueChange($event,item,'intPaid')" (focus)="onInputFocus($event)" />
+                            </td>
+                            <td>
+                              <input class="text-end form-control input_control form-control custom-input-width"
+                                type="text" formControlName="admin" [title]="
+                                  customerDetails.controls?.allocationDetails.controls.outInfraDetailsBreakUp.controls[
+                                    i
+                                  ].get('admin').value
+                                " />
+                            </td>
+                            <td>
+                              <input class="text-end form-control input_control form-control custom-input-width"
+                                type="text" oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                                formControlName="cgst" [title]="
+                                  customerDetails.controls?.allocationDetails.controls.outInfraDetailsBreakUp.controls[
+                                    i
+                                  ].get('cgst').value
+                                " />
+                            </td>
+                            <td>
+                              <input class="text-end form-control input_control form-control custom-input-width"
+                                type="text" oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                                formControlName="sgst" [title]="
+                                  customerDetails.controls?.allocationDetails.controls.outInfraDetailsBreakUp.controls[
+                                    i
+                                  ].get('sgst').value
+                                " />
+                            </td>
+                            <td>
+                              <input class="text-end form-control input_control form-control custom-input-width"
+                                type="text" oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                                formControlName="igst" [title]="
+                                  customerDetails.controls?.allocationDetails.controls.outInfraDetailsBreakUp.controls[
+                                    i
+                                  ].get('igst').value
+                                " />
+                            </td>
+                            <td>
+                              <input class="text-end form-control input_control form-control custom-input-width"
+                                type="text" oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                                formControlName="cgstPercent" />
+                            </td>
+                            <td>
+                              <input class="text-end form-control input_control form-control custom-input-width"
+                                type="text" oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                                formControlName="sgstPercent" />
+                            </td>
+                            <td>
+                              <input class="text-end form-control input_control form-control custom-input-width"
+                                type="text" oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                                formControlName="igstPercent" />
+                            </td>
+                            <td>
+                              <input class="text-end form-control input_control form-control custom-input-width"
+                                type="text" maxlength="126"
+                                oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                                formControlName="tds" autofocus id="tds_{{ i }}" (keyup)="navigate($event, i, 'tds')"
+                                (focusout)="onTDSValueChange($event,item)" (focus)="onInputFocus($event)" />
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <!-- bottom form -->
+                    <div class="container-fluid p-0">
+                      <div class="row mt-1">
+                        <div class="col-md-4">
+                          <div class="input-group">
+                            <span class="input-group-text leftform_lbl font500 font12 req">
+                              OG
+                            </span>
+                            <input type="text" formControlName="total_og"
+                              class="form-control border-start-0 post_input_field font500 font12" />
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="input-group">
+                            <span class="input-group-text leftform_lbl font500 font12 req">
+                              Admin
+                            </span>
+                            <input type="text" formControlName="admin"
+                              class="form-control border-start-0 post_input_field font500 font12" />
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="input-group">
+                            <span class="input-group-text leftform_lbl font500 font12 req">
+                              INT
+                            </span>
+                            <input type="text" formControlName="int"
+                              class="form-control border-start-0 post_input_field font500 font12" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row mt-1">
+                        <div class="col-md-4">
+                          <div class="input-group">
+                            <span class="input-group-text leftform_lbl font500 font12 req">
+                              CGST
+                            </span>
+                            <input type="text" formControlName="total_cgst"
+                              class="form-control border-start-0 post_input_field font500 font12" />
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="input-group">
+                            <span class="input-group-text leftform_lbl font500 font12 req">
+                              SGST
+                            </span>
+                            <input type="text" formControlName="total_sgst"
+                              class="form-control border-start-0 post_input_field font500 font12" />
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="input-group">
+                            <span class="input-group-text leftform_lbl font500 font12 req">
+                              IGST
+                            </span>
+                            <input type="text" formControlName="total_igst"
+                              class="form-control border-start-0 post_input_field font500 font12" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row mt-2">
+                        <div class="col-md-4">
+                          <div class="input-group">
+                            <span class="input-group-text leftform_lbl font500 font12 req">
+                              Receipt Amt
+                            </span>
+                            <input type="text" formControlName="receiptAmt"
+                              class="form-control border-start-0 post_input_field font500 font12" />
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="input-group">
+                            <span class="input-group-text leftform_lbl font500 font12 req">
+                              Adj Amount
+                            </span>
+                            <input type="text" formControlName="adjAmount"
+                              class="form-control border-start-0 post_input_field font500 font12" />
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="input-group">
+                            <span class="input-group-text leftform_lbl font500 font12 text-danger">
+                              Balance Amt
+                            </span>
+                            <input type="text" formControlName="balanceAmount"
+                              class="form-control border-start-0 post_input_field font500 font12 text-danger" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row mt-1">
+                        <div class="col-md-4">
+                          <div class="input-group">
+                            <span class="input-group-text leftform_lbl font500 font12 req">
+                              TDS Amt:
+                            </span>
+                            <input type="text" formControlName="tdsAmt"
+                              class="form-control border-start-0 post_input_field font500 font12" />
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="input-group" [class.is-invalid]="
+                              customerDetails
+                                .get('allocationDetails')
+                                ?.hasError('tdsDoNotMatch')
+                            ">
+                            <span class="input-group-text leftform_lbl font500 font12 req">
+                              TDS Adj Amt:
+                            </span>
+                            <input type="text" formControlName="tdsAdjAmt" 
+                              class="form-control border-start-0 post_input_field font500 font12" />
+
+                            <span class="font500 small text-danger" *ngIf="
+                                customerDetails
+                                  .get('allocationDetails')
+                                  ?.hasError('tdsDoNotMatch')
+                              ">
+                              TDS Receipt Amount Is Not equal to Adjusted
+                              Amount.
+                            </span>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="input-group">
+                            <span class="input-group-text leftform_lbl font500 font12 text-danger">
+                              Balance TDS Amt
+                            </span>
+                            <input type="text" formControlName="BalanceTdsAmt"
+                              class="form-control border-start-0 post_input_field font500 font12 text-danger" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </form>
+
+    <!-- buttons list  -->
+    <app-buttons [buttonsList]="buttonsList" (eventTrigger)="buttonAction($event)"></app-buttons>
+  </div>
+</section>
+
+
+<app-loader *ngIf="config.isLoading"></app-loader>
+
+<ng-template #errorHandling let-data="data">
+  <div class="invalid-feedback d-block" *ngIf="
+      customerDetails.get(data.fieldName)?.hasError('required') &&
+      customerDetails.controls[data.fieldName].touched
+    ">
+    <span class="font500 small"
+      *ngIf="customerDetails.controls[data.fieldName].errors && customerDetails.controls[data.fieldName].errors?.['required']">*{{
+      data.msg }}
+    </span>
+  </div>
+</ng-template>

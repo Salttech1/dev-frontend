@@ -1,0 +1,456 @@
+<!--HTML for Broker Entry-->
+<section>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-9">
+        <div
+          class="br-10 form_common_bg group_panel p-3 position-relative pt-4"
+        >
+          <p class="bg-white font600 group_title mb-0 position-absolute">
+            Connection Selection
+          </p>
+          <form [formGroup]="connectionSelection">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="input-group has-validation">
+                  <span class="input-group-text leftform_lbl font500 font12"
+                    >billType</span
+                  >
+                  <input
+                    id="billType"
+                    type="text"
+                    class="form-control border-start-0 br-10 text-uppercase"
+                    maxlength="1"
+                    formControlName="billType"
+                    [f1]="{ id: 'OVERHEADS' }"
+                    (blur)="findBillType($event)"
+                    [disabled]="visibleConnectionSelection"
+                    ng-blur="callMyFunction($event)"
+                  />
+                  <div
+                    class="invalid-feedback d-block"
+                    *ngIf="
+                      connectionSelection.controls['billType'].invalid &&
+                      connectionSelection.controls['billType'].touched
+                    "
+                  >
+                    <div
+                      class="errorField common_color_txt font12 font500"
+                      *ngIf="connectionSelection.controls['billType'].errors && connectionSelection.controls['billType'].errors?.['required']"
+                    >
+                      *Please Enter bill No
+                    </div>
+                    <div>
+                      <div
+                        *ngIf="connectionSelection.controls['billType'].errors?.['notFound']"
+                      >
+                        * Invalid Bill Type
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="input-group has-validation">
+                  <span class="input-group-text leftform_lbl font500 font12"
+                    >connection No</span
+                  >
+                  <input
+                    id="ohdhconnocode"
+                    type="text"
+                    class="form-control border-start-0 br-10"
+                    formControlName="ohdhconnocode"
+                    [f1]="{ id: 'CONSUMERNO', subId: billwiseconnFilter }"
+                    (blur)="findConncodeCode($event)"
+                    [disabled]="visibleConnectionSelection"
+                  />
+                  <div
+                    class="invalid-feedback d-block"
+                    *ngIf="
+                      connectionSelection.controls['ohdhconnocode'].invalid &&
+                      connectionSelection.controls['ohdhconnocode'].touched
+                    "
+                  >
+                    <div
+                      class="errorField common_color_txt font12 font500"
+                      *ngIf="connectionSelection.controls['ohdhconnocode'].errors && connectionSelection.controls['ohdhconnocode'].errors?.['required']"
+                    >
+                      *Please Enter Consumer No
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-3 p-2" *ngIf="visibleformcontrol">
+    <div class="col-md-12">
+      <div class="br-10 form_common_bg group_panel p-3 position-relative pt-4">
+        <p class="bg-white font600 group_title mb-0 position-absolute">
+          Connection Details
+        </p>
+        <form [formGroup]="connectionform">
+          <div class="row g-3">
+            <div class="col-md-3">
+              <div class="input-group">
+                <span class="input-group-text leftform_lbl font500 font12"
+                  >Deposit Amt</span
+                >
+                <input
+                  type="number"
+                  formControlName="ohdhdepositeamt"
+                  class="form-control w-10 border-start-0 post_input_field font500 font20"
+                />
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="input-group has-validation">
+                <span class="input-group-text leftform_lbl font500 font12"
+                  >Status</span
+                >
+                <input
+                  type="text"
+                  formControlName="ohdhstatus"
+                  class="form-control w-10 border-start-0 post_input_field font500 font20 text-uppercase"
+                  maxlength="1"
+                />
+                <div
+                  class="invalid-feedback d-block"
+                  *ngIf="
+                    connectionform.controls['ohdhstatus'].invalid &&
+                    connectionform.controls['ohdhstatus'].touched
+                  "
+                >
+                  <div
+                    *ngIf="connectionform.controls['ohdhstatus'].errors?.['statusValue']"
+                    class="errorField common_color_txt font12 font500"
+                  >
+                    Invalid Status
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="input-group has-validation">
+                <span class="input-group-text leftform_lbl font500 font12"
+                  >Billing Company</span
+                >
+                <input
+                  type="text"
+                  formControlName="ohdhbillcoy"
+                  class="form-control w-10 border-start-0 post_input_field font500 font20 text-uppercase"
+                  id="ohdhbillcoy"
+                  [f1]="{ id: 'OHDCOMPANY' }"
+                  maxlength="4"
+                  ng-blur="callMyFunction($event)"
+                />
+
+                <div
+                  class="invalid-feedback d-block"
+                  *ngIf="
+                    connectionform.controls['ohdhbillcoy'].invalid &&
+                    connectionform.controls['ohdhbillcoy'].touched
+                  "
+                >
+                  <div
+                    class="errorField common_color_txt font12 font500"
+                    *ngIf="connectionform.controls['ohdhbillcoy'].errors && connectionform.controls['ohdhbillcoy'].errors?.['required']"
+                  >
+                    *Please Enter Billing Company
+                  </div>
+                  <div>
+                    <div
+                      *ngIf="connectionform.controls['ohdhbillcoy'].errors?.['notFound']"
+                      ng-blur="callMyFunction($event)"
+                    >
+                      * Invalid Billing Company
+                    </div>
+                    <div ng-blur="callMyFunction($event)"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-group has-validation">
+                <span class="input-group-text leftform_lbl font500 font12"
+                  >Paying Coy</span
+                >
+                <input
+                  type="text"
+                  formControlName="ohdhpaycoy"
+                  class="form-control w-10 border-start-0 post_input_field font500 font20 text-uppercase"
+                  [f1]="{ id: 'COMPANY' }"
+                  maxlength="4"
+                  ng-blur="callMyFunction($event)"
+                />
+                <div
+                  class="invalid-feedback d-block"
+                  *ngIf="
+                    connectionform.controls['ohdhpaycoy'].invalid &&
+                    connectionform.controls['ohdhpaycoy'].touched
+                  "
+                >
+                  <div
+                    class="errorField common_color_txt font12 font500"
+                    *ngIf="connectionform.controls['ohdhpaycoy'].errors && connectionform.controls['ohdhpaycoy'].errors?.['required']"
+                  >
+                    *Please Paying Company
+                  </div>
+                  <div>
+                    <div
+                      *ngIf="connectionform.controls['ohdhpaycoy'].errors?.['notFound']"
+                    >
+                      * Invalid Paying Company
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-group has-validation">
+                <span class="input-group-text leftform_lbl font500 font12"
+                  >Location</span
+                >
+                <input
+                  type="text"
+                  formControlName="ohdhlocation"
+                  class="form-control w-10 border-start-0 post_input_field font500 font20 text-uppercase"
+                  [f1]="{ id: 'CONSITE' }"
+                  maxlength="4"
+                  (blur)="callMyFunction($event)"
+                />
+                <div
+                  class="invalid-feedback d-block"
+                  *ngIf="
+                    connectionform.controls['ohdhlocation'].invalid &&
+                    connectionform.controls['ohdhlocation'].touched
+                  "
+                >
+                  <div
+                    class="errorField common_color_txt font12 font500"
+                    *ngIf="connectionform.controls['ohdhlocation'].errors && connectionform.controls['ohdhlocation'].errors?.['required']"
+                  >
+                    *Please Location first
+                  </div>
+                  <div>
+                    <div
+                      *ngIf="connectionform.controls['ohdhlocation'].errors?.['notFound']"
+                      ng-blur="callMyFunction($event)"
+                    >
+                      * Invalid Location Code
+                    </div>
+                    <div ng-blur="callMyFunction($event)"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-group has-validation">
+                <span class="input-group-text leftform_lbl font500 font12"
+                  >Building</span
+                >
+                <input
+                  type="text"
+                  formControlName="ohdhbldgcode"
+                  class="form-control w-10 border-start-0 post_input_field font500 font20 text-uppercase"
+                  [f1]="{ id: 'BUILDINGS' }"
+                  maxlength="4"
+                  ng-blur="callMyFunction($event)"
+                />
+                <div
+                  class="invalid-feedback d-block"
+                  *ngIf="
+                    connectionform.controls['ohdhbldgcode'].invalid &&
+                    connectionform.controls['ohdhbldgcode'].touched
+                  "
+                >
+                  <div>
+                    <div
+                      *ngIf="connectionform.controls['ohdhbldgcode'].errors?.['notFound']"
+                    >
+                      * Invalid Building code
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="input-group has-validation">
+                <span class="input-group-text leftform_lbl font500 font12"
+                  >Flat</span
+                >
+                <input
+                  type="text"
+                  formControlName="ohdhflatnum"
+                  class="form-control w-10 border-start-0 post_input_field font500 font20"
+                  [f1]="{ id: 'FLATUNSOLD' }"
+                />
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-check">
+                <input
+                  formControlName="ohdhvacantflatyn"
+                  class="form-check-input"
+                  type="checkbox"
+                  (change)="getvacantflag($event)"
+                  [checked]="isChecked"
+                />
+                <label class="form-check-label" for="flexCheckDefault">
+                  Vacant flat
+                </label>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="input-group">
+                <span class="input-group-text leftform_lbl font500 font12"
+                  >load</span
+                >
+                <input
+                  type="text"
+                  formControlName="ohdhload"
+                  class="form-control w-10 border-start-0 post_input_field font500 font20"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            class="row justify-content-center"
+            formArrayName="itemDetailBreakUp"
+          >
+            <div class="col-md-6 p-3">
+              <div
+                class="br-10 form_common_bg group_panel p-3 position-relative pt-4"
+              >
+                <p class="bg-white font600 group_title mb-0 position-absolute">
+                  Meter wise Bill Details
+                </p>
+                <div class="table_wrapper">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>CONSUMER NO</th>
+                        <th>METER NO</th>
+                        <th>ACTION</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        *ngFor="
+                          let item of connectionform.controls.itemDetailBreakUp
+                            .controls;
+                          let index = index
+                        "
+                        [formGroupName]="index"
+                      >
+                        <td>
+                          <input formControlName="connocode" type="text" />
+                        </td>
+                        <td>
+                          <input
+                            formControlName="meterno"
+                            type="text"
+                            maxlength="20"
+                          />
+                          <div
+                            class="invalid-feedback d-block"
+                            *ngIf="
+                              
+                              connectionform.controls.itemDetailBreakUp.controls[index].controls['meterno'].errors?.['required']
+                            "
+                          ></div>
+                          <div
+                            class="invalid-feedback d-block"
+                            *ngIf="connectionform.controls.itemDetailBreakUp.controls[index].controls['meterno'].errors?.['required']"
+                          >
+                            Please Enter Meter No
+                          </div>
+                        </td>
+                        <div class="action_panel d-flex justify-content-center">
+                          <button
+                            type="button"
+                            class="btn action_btn d-flex bg-info me-1"
+                            (click)="addrow(index)"
+                          >
+                            <img src="assets/images/add.svg" alt="add" />
+                          </button>
+                          <button
+                            type="button"
+                            class="btn action_btn d-flex bg-danger"
+                            (click)="deleterow(index)"
+                          >
+                            <img src="assets/images/trash.svg" alt="Delete" />
+                          </button>
+                        </div>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner text-center bg-white br-10">
+      <div class="flex justify-content-between">
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="a"
+          (click)="addOverheadConsDetails()"
+          [disabled]="disabledFlagAdd"
+        >
+          Add
+        </button>
+
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="r"
+          (click)="retriveOverheadConDetails()"
+          [disabled]="disabledFlagRetrieve"
+        >
+          Retrieve
+        </button>
+
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="s"
+          (click)="saveOverheadDetails()"
+          [disabled]="disabledFlagSave"
+        >
+          Save
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="b"
+          (click)="back()"
+          [disabled]="disabledFlagBack"
+          *ngIf="visibleformcontrol"
+        >
+          Back
+        </button>
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+          accesskey="x"
+          (click)="handleExitClick()"
+        >
+          E<span class="text-decoration-underline">x</span>it
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

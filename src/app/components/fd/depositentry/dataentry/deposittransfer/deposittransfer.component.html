@@ -1,0 +1,1209 @@
+<section class="depositordetail_section">
+  <div class="container">
+    <div class="depositor_container bg-white br-20">
+      <div class="form_depositor_container pb-2">
+        <form [formGroup]="transferSectionForm">
+          <div class="row g-2">
+            <div class="col-md-8 col-lg-6 col-xl-6 col-xxl-6">
+              <div
+                class="input-group has-validation"
+                [class.is-invalid]="
+                  transferSectionForm.controls['companyCode'].invalid &&
+                  transferSectionForm.controls['companyCode'].touched
+                "
+              >
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Company</span
+                >
+                <app-f1
+                  [formControlName]="'companyCode'"
+                  placeholder
+                  class="form-control post_input_field border-start-0 d-flex"
+                  titleValue="{{ compData?.mainheader }}"
+                  [tableData]="compData?.dataSet"
+                  [colHeader]="compHeader"
+                  [inputBBC]="bringBackColumn"
+                  (updatedSelectedValue)="updateCompanyList($event)"
+                  [dynaPopId]="'COMPANY'"
+                  [queryConditon]="coy_condition"
+                  [errorMessage]="'Invalid Company Code'"
+                  (sendFieldValueChange)="inputFieldValueChangeTitle()"
+                ></app-f1>
+                <span class="position-relative span_divider"></span>
+                <input
+                  type="text"
+                  class="form-control w-50 border-start-0 post_input_field font500 text-dark1 font12"
+                  [formControlName]="'companyName'"
+                  tabindex="-1"
+                />
+                <div
+                  *ngIf="
+                    transferSectionForm.controls['companyCode'].invalid &&
+                    transferSectionForm.controls['companyCode'].touched
+                  "
+                >
+                  <div
+                    class="errorField common_color_txt font12 font500"
+                    *ngIf="transferSectionForm.controls['companyCode'].errors && transferSectionForm.controls['companyCode'].errors?.['required']"
+                  >
+                    * Company Code is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-8 col-lg-6 col-xl-6 col-xxl-6">
+              <div
+                class="input-group"
+                [class.is-invalid]="
+                  transferSectionForm.controls['depositorId'].invalid &&
+                  transferSectionForm.controls['depositorId'].touched
+                "
+              >
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Depositor</span
+                >
+                <app-f1
+                  [formControlName]="'depositorId'"
+                  type="text"
+                  class="form-control post_input_field border-start-0 d-flex"
+                  (updatedSelectedValue)="updateDepositorList($event)"
+                  titleValue="{{ depositorTableData?.mainheader }}"
+                  [tableData]="depositorTableData?.dataSet"
+                  [colHeader]="deptColumnHeader"
+                  [inputBBC]="depositorTableData?.bringBackColumn"
+                  [dynaPopId]="'DEPOSITORS'"
+                  [queryConditon]="deptDyanPop"
+                  [errorMessage]="'Invalid Depositor Code'"
+                ></app-f1>
+                <span class="position-relative span_divider"></span>
+                <input
+                  type="text"
+                  class="form-control w-50 border-start-0 post_input_field font500 text-dark1 font12"
+                  [formControlName]="'depositorName'"
+                  tabindex="-1"
+                />
+              </div>
+              <div
+                *ngIf="
+                  transferSectionForm.controls['depositorId'].invalid &&
+                  transferSectionForm.controls['depositorId'].touched
+                "
+              >
+                <div
+                  class="errorField common_color_txt font12 font500"
+                  *ngIf="transferSectionForm.controls['depositorId'].errors && transferSectionForm.controls['depositorId'].errors?.['required']"
+                >
+                  * Depositor Id is required
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 col-lg-3 col-xl-3 col-xxl-3">
+              <div class>
+                <div class>
+                  <div
+                    class="input-group has-validation"
+                    [class.is-invalid]="
+                      transferSectionForm.controls['recieptNum'].invalid &&
+                      transferSectionForm.controls['recieptNum'].touched
+                    "
+                  >
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Receipt</span
+                    >
+                    <app-f1
+                      [formControlName]="'recieptNum'"
+                      type="text"
+                      placeholder
+                      class="form-control post_input_field border-start-0 d-flex"
+                      (updatedSelectedValue)="updateReciept($event)"
+                      titleValue="{{ recieptTableData?.mainheader }}"
+                      [tableData]="recieptTableData?.dataSet"
+                      [colHeader]="recieptColumnHeader"
+                      [inputBBC]="recieptTableData?.bringBackColumn"
+                      [dynaPopId]="'FDRECEIPTNUM '"
+                      [queryConditon]="recieptDyanPop"
+                      [errorMessage]="'Invalid reciept number'"
+                    ></app-f1>
+                  </div>
+                  <div
+                    *ngIf="
+                      transferSectionForm.controls['recieptNum'].invalid &&
+                      transferSectionForm.controls['recieptNum'].touched
+                    "
+                  >
+                    <div
+                      class="errorField common_color_txt font12 font500"
+                      *ngIf="transferSectionForm.controls['recieptNum'].errors && transferSectionForm.controls['recieptNum'].errors?.['required']"
+                    >
+                      * Reciept Number is required
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-3 col-xl-4 col-xxl-3">
+              <div
+                class="input-group"
+                [class.is-invalid]="
+                  transferSectionForm.controls['transferDate'].invalid &&
+                  transferSectionForm.controls['transferDate'].touched
+                "
+              >
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Transfer Date</span
+                >
+                <input
+                  type="text"
+                  class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                  id
+                  matInput
+                  [matDatepicker]="transDate"
+                  formControlName="transferDate"
+                  (dateChange)="setTransferDate()"
+                />
+                <div
+                  class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                >
+                  <span class="input-group-addon">
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="transDate"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #transDate></mat-datepicker>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+<div class>
+  <div class="deposit_renewals pt-2 mt-1">
+    <div class="row">
+      <div class="col-sm-8 col-md-12 col-lg-8 col-xl-8 col-xxl-8">
+        <div
+          class="deposits_panel br-10 form_common_bg p-3 pb-0 position-relative pt-4"
+          [hidden]="
+            !(
+              (newDepositorSelected || existingDepositorSelect) &&
+              showDepsoitor
+            )
+          "
+        >
+          <h5
+            class="fs-6 mb-0 position-absolute font600 deposits_title lh-24 form_common_bg"
+          >
+            Depositor Details
+          </h5>
+          <form [formGroup]="depositorDetailsForm">
+            <div class="deposit_renewals_container">
+              <div class="row">
+                <div class="col-md-12 col-lg-12 col-xl-12">
+                  <div class="input-group mb-2 pb-1">
+                    <div class="input-group">
+                      <span
+                        class="input-group-text leftform_lbl font500 text-dark1 font12"
+                        >Depositor Name</span
+                      >
+                      <app-f1
+                        maxlength="10"
+                        class="form-control w-25 border-start-0 border-end-0 post_input_field text-center font500 text-dark1 font12"
+                        [formControlName]="'title'"
+                        placeholder="Enter Depositor Titles"
+                        titleValue="{{ _depositorTitleTable?.mainheader }}"
+                        [tableData]="_depositorTitleTable?.dataSet"
+                        [colHeader]="_depositorTitleColHeader"
+                        [inputBBC]="_depositorTitleTable?.bringBackColumn"
+                        [dynaPopId]="'TITLES'"
+                        [queryConditon]="''"
+                        [errorMessage]="'Invalid depositor title'"
+                        (change)="fieldValueChange()"
+                        (sendFieldValueChange)="inputFieldValueChange()"
+                        id="depositorName"
+                      ></app-f1>
+                      <span class="position-relative span_divider"></span>
+                      <input
+                        type="text"
+                        class="form-control w-50 border-start-0 post_input_field font500 text-dark1 font12"
+                        [formControlName]="'name'"
+                        maxlength="40"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12 col-lg-12 col-xl-12">
+                  <div class="input-group mb-2 pb-1">
+                    <div class="input-group">
+                      <span
+                        class="input-group-text leftform_lbl font500 text-dark1 font12"
+                        >Depositor Type</span
+                      >
+                      <app-f1
+                        class="form-control border-start-0 border-end-0 post_input_field text-center font500 text-dark1 font12"
+                        [formControlName]="'deptype'"
+                        placeholder
+                        titleValue="{{ _depositorTypeTable?.mainheader }}"
+                        [tableData]="_depositorTypeTable?.dataSet"
+                        [colHeader]="_depositorTypeColHeader"
+                        (updatedSelectedValue)="
+                          updateListControl(
+                            $event,
+                            depositorDetailsForm.get('deptypeName')
+                          )
+                        "
+                        [inputBBC]="bringBackColumn"
+                        [dynaPopId]="'CUSTTYPE'"
+                        [queryConditon]="''"
+                        maxlength="5"
+                        [errorMessage]="'Invalid depositor type Code'"
+                        (change)="fieldValueChange()"
+                        (sendFieldValueChange)="inputFieldValueChange()"
+                      ></app-f1>
+                      <span class="position-relative span_divider"></span>
+                      <input
+                        type="text"
+                        class="form-control w-50 border-start-0 post_input_field font500 text-dark1 font12"
+                        [formControlName]="'deptypeName'"
+                        disabled
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-6 col-xl-6">
+                  <div class="input-group mb-2 pb-1">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Gross Interest</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0 post_input_field font500 text-dark1 font12 text-end"
+                      [formControlName]="'grossInt'"
+                      disabled
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-6 col-xl-6">
+                  <div class="input-group mb-2 pb-1">
+                    <div class="form-check d-flex align-items-center">
+                      <input
+                        type="radio"
+                        class="form-check-input font12 font500 position-relative"
+                        id="radio15H"
+                        name="depttds"
+                        value="depositorDetailsForm.get('tds15hyn').value"
+                        [checked]="_15hTDS"
+                        (change)="handleChange($event, '15H')"
+                      />
+                      <label class="form-check-label" for="radio15H">
+                        15H
+                      </label>
+                    </div>
+                    <div class="form-check d-flex align-items-center">
+                      <input
+                        type="radio"
+                        class="form-check-input font12 font500 position-relative"
+                        id="radio15g"
+                        name="depttds"
+                        value="depositorDetailsForm.get('tds15gyn').value"
+                        [checked]="_15gTDS"
+                        (change)="handleChange($event, '15G')"
+                      />
+                      <label class="form-check-label" for="radio15g">
+                        15G
+                      </label>
+                    </div>
+                    <div class="form-check d-flex align-items-center">
+                      <input
+                        type="radio"
+                        class="form-check-input font12 font500 position-relative"
+                        id="radionone"
+                        name="depttds"
+                        value="none"
+                        [checked]="none"
+                        (change)="handleChange($event, 'none')"
+                      />
+                      <label class="form-check-label" for="radionone">
+                        None
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-6 col-xl-6">
+                  <div class="input-group mb-2 pb-1">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >TDS Amount</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0 post_input_field font500 text-dark1 font12 text-end"
+                      [formControlName]="'tds'"
+                      disabled
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-6 col-xl-6">
+                  <div class="mb-2">
+                    <div class="input-group">
+                      <span
+                        class="input-group-text leftform_lbl preinput_radius font500 text-dark1 font12"
+                        >Birth Date</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                        id="birthdate"
+                        matInput
+                        [matDatepicker]="picker"
+                        formControlName="dbirthdate"
+                        name
+                      />
+                      <div
+                        class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                      >
+                        <span class="input-group-addon">
+                          <mat-datepicker-toggle
+                            matSuffix
+                            [for]="picker"
+                            tabindex="-1"
+                          ></mat-datepicker-toggle>
+                          <mat-datepicker #picker></mat-datepicker>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12 col-lg-12 col-xl-12">
+                  <div class="mb-2">
+                    <div
+                      class="input-group"
+                      [class.is-invalid]="
+                        (depositorDetailsForm.controls['pannum1'].invalid &&
+                          depositorDetailsForm.controls['pannum1'].touched) ||
+                        (depositorDetailsForm.controls['pannum2'].invalid &&
+                          depositorDetailsForm.controls['pannum2'].touched)
+                      "
+                    >
+                      <span
+                        class="input-group-text leftform_lbl preinput_radius font500 text-dark1 font12"
+                        >PAN</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 border-end-0 post_input_field text-center font500 text-dark1 font12 text-uppercase"
+                        id="pmtaccNo1"
+                        formControlName="pannum1"
+                        (change)="fieldValueChange()"
+                        maxlength="25"
+                      />
+                      <span class="position-relative span_divider"></span>
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 text-dark1 font12 text-center text-uppercase"
+                        id="pmtaccNo2"
+                        formControlName="pannum2"
+                        (change)="fieldValueChange()"
+                        maxlength="25"
+                      />
+                    </div>
+                    <div
+                      *ngIf="
+                        depositorDetailsForm.controls['pannum1'].invalid &&
+                        depositorDetailsForm.controls['pannum1'].touched
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="depositorDetailsForm.controls['pannum1'].errors?.['maxlength'] || depositorDetailsForm.controls['pannum1'].errors?.['minlength']"
+                      >
+                        *PAN no. should be 10 Character. Current is
+                        {{ depositorDetailsForm.controls['pannum1'].errors?.['maxlength']?.actualLength || depositorDetailsForm.controls['pannum1'].errors?.['minlength']?.actualLength }}
+                        characters.
+                      </div>
+                      <div
+                        *ngIf="depositorDetailsForm.controls['pannum1'].errors && depositorDetailsForm.controls['pannum1'].errors?.['pattern']"
+                        class="errorField common_color_txt font12 font500"
+                      >
+                        * Invalid PAN
+                      </div>
+                    </div>
+                    <div
+                      *ngIf="
+                        depositorDetailsForm.controls['pannum2'].invalid &&
+                        depositorDetailsForm.controls['pannum2'].touched
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="depositorDetailsForm.controls['pannum2'].errors?.['maxlength'] || depositorDetailsForm.controls['pannum2'].errors?.['minlength']"
+                      >
+                        *PAN no. should be 10 Character. Current is
+                        {{ depositorDetailsForm.controls['pannum2'].errors?.['maxlength']?.actualLength || depositorDetailsForm.controls['pannum2'].errors?.['minlength']?.actualLength }}
+                        characters.
+                      </div>
+                      <div
+                        *ngIf="depositorDetailsForm.controls['pannum2'].errors && depositorDetailsForm.controls['pannum2'].errors?.['pattern']"
+                        class="errorField common_color_txt font12 font500"
+                      >
+                        * Invalid PAN
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12 col-lg-12 col-xl-12">
+                  <div class="input-group mb-2 pb-1">
+                    <!-- <app-f1 [formControlName]="'payeecode'" placeholder="" class="form-control  border-start-0 post_input_field font500 text-dark1 font12" titleValue="{{payToTableDate?.mainheader}}" [tableData]="payToTableDate?.dataSet" [colHeader]="payToColumnHeader" (updatedSelectedValue)="updatePayTo($event)" [dynaPopId]="'PAYEETO'" [inputBBC]="payToTableDate?.bringBackColumn" [queryConditon]=payto_condition [errorMessage]="'Invalid pay to'"></app-f1> -->
+                    <div class="input-group">
+                      <span
+                        class="input-group-text leftform_lbl font500 text-dark1 font12"
+                        >Remarks</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control w-50 border-start-0 post_input_field font500 text-dark1 font12"
+                        [formControlName]="'remarks'"
+                        (change)="fieldValueChange()"
+                        maxlength="30"
+                        (keydown.tab)="scrollToEnd()"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <app-party
+                  [inputTabClass]="false"
+                  [bankClassResponsive]="
+                    'col-md-12 col-lg-12 col-xl-12 col-xxl-12'
+                  "
+                  [branchClassResponsive]="
+                    'col-md-6 col-lg-6 col-xl-6 col-xxl-6'
+                  "
+                  [partClassResponsive]="'col-xl-6'"
+                  [rowClass]="true"
+                  [partyData]="depositorData?.partyResponseBean"
+                  [getDepositorDetailFormGroup]="depositorDetailsForm"
+                  [receiveCityData]="
+                    addressResponseBean?.value.addressResponseBean.city
+                  "
+                  [receivePartyName]="depositorDetailsForm.get('name')?.value"
+                  (sendPartyFormGroup)="receivePartFG($event)"
+                  [receivePmt]="depositorDetailsForm.get('pannum1')?.value"
+                  [partyTitle]="depositorDetailsForm.get('title')?.value"
+                  [titleValueChangeFieldFlag]="titleValueChangeField"
+                  [getCityFieldUpdatedFlag]="cityValueChangeFlag"
+                ></app-party>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div
+          class="deposits_panel br-10 form_common_bg p-3 pb-0 position-relative pt-4"
+          *ngIf="(isRetrieveClicked && !newDepositorSelected) || showDeposit"
+        >
+          <h5
+            class="fs-6 mb-0 position-absolute form_common_bg font600 deposits_title lh-24"
+          >
+            Active Deposit Details
+          </h5>
+          <div class="deposit_renewals_container">
+            <div class="row">
+              <div class="col-md-6 col-lg-6 col-xl-6">
+                <div class="input-group mb-2 pb-1">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Duration</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                    [(ngModel)]="depositData.depmonths"
+                    disabled
+                  />
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-6 col-xl-6">
+                <div class="input-group mb-2 pb-1">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Proprietor</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                    [(ngModel)]="depositData.proprietor"
+                    disabled
+                  />
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-6 col-xl-6">
+                <div class="input-group mb-2 pb-1">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Interest Rate</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                    [(ngModel)]="depositData.intrate"
+                    disabled
+                  />
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-6 col-xl-6">
+                <div class="input-group mb-2 pb-1">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Original Receipt</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                    [(ngModel)]="depositData.origreceipt"
+                    disabled
+                  />
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-6 col-xl-6">
+                <div class="input-group mb-2 pb-1">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Interest Frequency</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                    [(ngModel)]="depositData.intfreq"
+                    disabled
+                  />
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-6 col-xl-6">
+                <div class="input-group mb-2 pb-1">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Origin</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                    [(ngModel)]="origin"
+                    disabled
+                  />
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-6 col-xl-6">
+                <div class="input-group mb-2 pb-1">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Broker</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                    [(ngModel)]="depositData.broker"
+                    disabled
+                  />
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-6 col-xl-6">
+                <div class="input-group mb-2 pb-1">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Pay To</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                    [(ngModel)]="payto"
+                    disabled
+                  />
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-6 col-xl-6">
+                <div class="input-group mb-2 pb-1">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Deposit Amt</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0 post_input_field font500 text-dark1 font12 text-end"
+                    [(ngModel)]="depositData.depamount"
+                    disabled
+                  />
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-6 col-xl-6">
+                <div class="input-group mb-2 pb-1">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Maturity Date</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                    [ngModel]="getFormattedDate(depositData.matdate)"
+                    disabled
+                  />
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-6 col-xl-6">
+                <div class="input-group mb-2 pb-1">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Deposit Date</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                    [ngModel]="getFormattedDate(depositData.depdate)"
+                    disabled
+                  />
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-6 col-xl-6">
+                <div class="input-group mb-2 pb-1">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Maturity Amt</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0 post_input_field font500 text-dark1 font12 text-end"
+                    [(ngModel)]="depositData.matamount"
+                    disabled
+                  />
+                </div>
+              </div>
+
+              <div class="col-md-6 col-lg-6 col-xl-6">
+                <div class="input-group mb-2 pb-1">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Liquidity Type</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                    [(ngModel)]="liquidity"
+                    disabled
+                  />
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-6 col-xl-6">
+                <div class="input-group mb-2 pb-1">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Gross Interest</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0 post_input_field font500 text-dark1 font12 text-end"
+                    [(ngModel)]="
+                      depositData.grossint == undefined
+                        ? '0'
+                        : depositData.grossint
+                    "
+                    disabled
+                  />
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-6 col-xl-6">
+                <div class="input-group mb-2 pb-1">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Discharged On</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                    id="discahrged On"
+                    disabled
+                  />
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-6 col-xl-6">
+                <div class="input-group mb-2 pb-1">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Accrued Interest</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0 post_input_field font500 text-dark1 font12 text-end"
+                    [(ngModel)]="depositData.accint"
+                    disabled
+                  />
+                </div>
+              </div>
+
+              <div class="col-md-6 col-lg-6 col-xl-6">
+                <div class="input-group mb-2 pb-1">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Interest Paid (YYMM)</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0 post_input_field font500 text-dark1 font12 text-end"
+                    [(ngModel)]="depositData.intpaidytd"
+                    disabled
+                  />
+                </div>
+              </div>
+            </div>
+            <div class>
+              <span class="d-flex font12 font600 mb-2 mt-1">Joint Owners</span>
+              <div class="row">
+                <div class="col-md-6 col-lg-6 col-xl-6">
+                  <div class="input-group mb-2 pb-1">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >1.</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                      [(ngModel)]="depositData.jowner1"
+                      disabled
+                    />
+                  </div>
+                </div>
+
+                <div class="col-md-6 col-lg-6 col-xl-6">
+                  <div class="input-group mb-2 pb-1">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >2.</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                      [(ngModel)]="depositData.jowner2"
+                      disabled
+                    />
+                  </div>
+                </div>
+
+                <div class="col-md-6 col-lg-6 col-xl-6">
+                  <div class="input-group mb-2 pb-1">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >3.</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                      [(ngModel)]="depositData.jowner3"
+                      disabled
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="deposits_panel br-10 form_common_bg p-3 pb-0 position-relative pt-4"
+          [hidden]="
+            !(
+              (newDepositorSelected || existingDepositorSelect) &&
+              showDepsoitor
+            )
+          "
+          style="margin-top: 20px"
+        >
+          <h5
+            class="fs-6 mb-0 position-absolute font600 deposits_title lh-24 form_common_bg"
+          >
+            Depositor Address
+          </h5>
+          <app-address
+            [addressListFlag]="true"
+            [classesResponsive]="addClass"
+            (passAddressData)="getReceiveAddressData($event)"
+            [addressFetchData]="addressTabVal"
+            [receiveBirthDay]="depositorDetailsForm?.value.dbirthdate"
+            [getDepositorDetailForm]="depositorDetailsForm"
+            (cityFieldValueChange)="updateCityFieldValueChange($event)"
+          ></app-address>
+        </div>
+      </div>
+      <div class="col-sm-4 col-md-12 col-lg-4 col-xl-4 col-xxl-4">
+        <div
+          class="deposits_panel br-10 form_common_bg mt-md-3 mt-lg-0 mt-xl-0 mt-xxl-0 p-3 pb-0 position-relative pt-4"
+          *ngIf="isRetrieveClicked"
+        >
+          <h5
+            class="fs-6 mb-0 position-absolute font600 deposits_title lh-24 form_common_bg"
+          >
+            Transfer Information
+          </h5>
+          <form [formGroup]="transferDataForm">
+            <div class="deposit_renewals_container">
+              <div class="row">
+                <div class="col-md-6 col-lg-12 col-xl-12">
+                  <div class="input-group mb-2 pb-1">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Company</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                      [formControlName]="'coy'"
+                      disabled
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-12 col-xl-12">
+                  <div class="input-group mb-2 pb-1">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Proprietor</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                      id="proprietor"
+                      value="UNIQ"
+                      disabled
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-12 col-xl-12">
+                  <div class="input-group mb-2 pb-1">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Depositor Type:</span
+                    >
+                    <select (change)="selectDepositorType($event.target.value)">
+                      <option value="n">New Depositor</option>
+                      <option value="e" selected>Existing Depositor</option>
+                    </select>
+                  </div>
+                </div>
+                <div
+                  class="col-md-6 col-lg-12 col-xl-12"
+                  *ngIf="existingDepositorSelect"
+                >
+                  <div class="input-group mb-2 pb-1">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >New Depositor Id</span
+                    >
+                    <app-f1
+                      [formControlName]="'newDepositorId'"
+                      type="text"
+                      class="form-control post_input_field border-start-0 d-flex"
+                      (updatedSelectedValue)="retrieveDepositorData($event)"
+                      titleValue="{{ depositorTableData?.mainheader }}"
+                      [tableData]="depositorTableData?.dataSet"
+                      [colHeader]="deptColumnHeader"
+                      [inputBBC]="depositorTableData?.bringBackColumn"
+                      [dynaPopId]="'DEPOSITORS'"
+                      [queryConditon]="deptDyanPop"
+                      [errorMessage]="'Invalid Depositor Code'"
+                      id="newDepositor12"
+                    ></app-f1>
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-12 col-xl-12">
+                  <div class="input-group mb-2 pb-1">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Receipt No</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                      [formControlName]="'newReceiptNum'"
+                      disabled
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-12 col-xl-12">
+                  <div class="mb-2 pb-1">
+                    <div class="input-group">
+                      <span
+                        class="input-group-text leftform_lbl bg-transparent border-0 font500 text-dark1 font12"
+                        >Staff Y/N</span
+                      >
+                      <div class="form-check d-flex align-items-center">
+                        <input
+                          type="radio"
+                          class="form-check-input font12 font500 position-relative"
+                          name="staffyn"
+                          [formControlName]="'staffyn'"
+                          value="Y"
+                        />
+                        <label class="form-check-label" for="radio1">
+                          Yes
+                        </label>
+                      </div>
+                      <div class="form-check d-flex align-items-center">
+                        <input
+                          type="radio"
+                          class="form-check-input font12 font500 position-relative"
+                          name="staffyn"
+                          [formControlName]="'staffyn'"
+                          value="N"
+                        />
+                        <label class="form-check-label" for="radio2">
+                          No
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-12 col-xl-12">
+                  <div class="input-group mb-2 pb-1">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Transfer Date</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                      [formControlName]="'transDate'"
+                      disabled
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-12 col-xl-12">
+                  <div class="input-group mb-2 pb-1">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Pay To.</span
+                    >
+                    <app-f1
+                      [formControlName]="'payeecode'"
+                      placeholder
+                      class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                      titleValue="{{ payToTableDate?.mainheader }}"
+                      [tableData]="payToTableDate?.dataSet"
+                      [colHeader]="payToColumnHeader"
+                      (updatedSelectedValue)="updatePayTo($event)"
+                      [dynaPopId]="'PAYEETO'"
+                      [inputBBC]="payToTableDate?.bringBackColumn"
+                      [queryConditon]="payto_condition"
+                      [errorMessage]="'Invalid pay to'"
+                    ></app-f1>
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-12 col-xl-12">
+                  <div class="input-group mb-2 pb-1">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Duration</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                      [formControlName]="'depmonths'"
+                      disabled
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-12 col-xl-12">
+                  <div class="input-group mb-2 pb-1">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Interest Rate</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                      [formControlName]="'intrate'"
+                      disabled
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-12 col-xl-12">
+                  <div class="input-group mb-2 pb-1">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Interest Frequency</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                      [formControlName]="'intfreq'"
+                      disabled
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-12 col-xl-12">
+                  <div class="input-group mb-2 pb-1">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Nominee</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                      [formControlName]="'nominee'"
+                      maxlength="35"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class>
+                <span
+                  class="d-flex font12 font600 mb-2 mt-1 justify-content-between"
+                >
+                  <span class="col-md-11 col-lg-11 col-xl-11 col-xxl-11"
+                    >Joint Owners</span
+                  >
+                </span>
+                <div class="row">
+                  <div class="col-md-12 col-lg-12 col-xl-12">
+                    <div class="input-group mb-2 pb-1">
+                      <span
+                        class="input-group-text leftform_lbl font500 text-dark1 font12"
+                        >1.</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-end-0 post_input_field font500 text-dark1 font12"
+                        [formControlName]="'jowner1'"
+                        maxlength="35"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-12 col-lg-12 col-xl-12">
+                    <div class="input-group mb-2 pb-1">
+                      <span
+                        class="input-group-text leftform_lbl font500 text-dark1 font12"
+                        >2.</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-end-0 post_input_field font500 text-dark1 font12"
+                        [formControlName]="'jowner2'"
+                        maxlength="35"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-12 col-lg-12 col-xl-12">
+                    <div class="input-group mb-2 pb-1">
+                      <span
+                        class="input-group-text leftform_lbl font500 text-dark1 font12"
+                        >3.</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-end-0 post_input_field font500 text-dark1 font12"
+                        [formControlName]="'jowner3'"
+                        maxlength="35"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner text-center bg-white br-10">
+      <div class="flex justify-content-between">
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="r"
+          *ngIf="!isRetrieveClicked"
+          (click)="retreieveDepositData()"
+        >
+          Retrieve
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="s"
+          *ngIf="isRetrieveClicked"
+          (click)="transferDeposit()"
+          [disabled]="saveDisabled"
+        >
+          Save
+        </button>
+        <!-- <button
+                    type="submit"
+                    class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+                    [disabled]="true"
+                    *ngIf="!isRetrieveClicked"
+                >
+                    Edit
+                </button> -->
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone"
+          accesskey="o"
+          [disabled]="!isRetrieveClicked"
+          (click)="depositorClicked()"
+          *ngIf="isDepositorClicked"
+        >
+          Dep<span class="text-decoration-underline">o</span>sitor
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone"
+          accesskey="p"
+          [disabled]="!isRetrieveClicked"
+          (click)="depositClicked()"
+          *ngIf="isDepositClicked"
+        >
+          De<span class="text-decoration-underline">p</span>osit
+        </button>
+        <!-- <button
+                    type="submit"
+                    class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+                    accesskey="l"
+                    *ngIf="!isRetrieveClicked"
+                    [disabled]="true"
+                >
+                    List
+                </button>
+                <button
+                    type="submit"
+                    class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+                    [disabled]="printClick"
+                    *ngIf="!isRetrieveClicked"
+                >
+                    Print
+                </button> -->
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="b"
+          *ngIf="isRetrieveClicked"
+          (click)="handleBackClick()"
+        >
+          Back
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone"
+          accesskey="x"
+          (click)="handleExitClick()"
+        >
+          E<span class="text-decoration-underline">x</span>it
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<app-loader *ngIf="loader"></app-loader>

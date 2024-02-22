@@ -1,0 +1,351 @@
+<section>
+  <form [formGroup]="qf">
+    <div class="row g-3">
+      <!-- <div class="row g-3 justify-content-center"> -->
+      <div class="col-md-6" style="padding-left: 190px">
+        <div class="br-10 group_panel col-sm-7 position-relative">
+          <p class="bg-white font600 group_title mb-0 position-absolute">
+            Report Type
+          </p>
+          <p></p>
+          <br />
+          <div class="col-sm-8">
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input position-relative"
+                type="radio"
+                name="reportType"
+                id="Detail"
+                value="Detail"
+                formControlName="reportType"
+                (change)="disableOption()"
+                style="margin-left: 1px"
+              />
+              <!-- [attr.accesskey]="loaderToggle == true ? '' : 'd'" -->
+              <label class="form-check-label" for="Detail">
+                <span class="text-dark1 font12" style="margin-left: 12px"
+                  >Detail</span
+                >
+              </label>
+            </div>
+
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input position-relative"
+                type="radio"
+                name="reportType"
+                id="Summary"
+                value="Summary"
+                formControlName="reportType"
+                (change)="disableOption()"
+                style="margin-left: 1px"
+              />
+              <!-- [attr.accesskey]="loaderToggle == true ? '' : 's'" -->
+              <label class="form-check-label" for="Summary">
+                <span class="text-dark1 font12" style="margin-left: 12px"
+                  >Summary</span
+                >
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- </div> -->
+      <br />
+
+      <!-- <div class="row g-3 justify-content-center"> -->
+      <!-- style="padding-left: 190px" -->
+      <div class="col-md-6">
+        <div class="br-10 group_panel col-sm-8 position-relative">
+          <p class="bg-white font600 group_title mb-0 position-absolute">
+            Report Name
+          </p>
+          <p></p>
+          <p></p>
+          <div class="col-sm-8">
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input position-relative"
+                type="radio"
+                name="reportName"
+                id="ContractDebit"
+                value="ContractDebit"
+                formControlName="reportName"
+                (change)="disableField()"
+                style="margin-left: 1px"
+              />
+              <!-- [attr.accesskey]="loaderToggle == true ? '' : 'C'" -->
+              <label class="form-check-label" for="ContractDebit">
+                <span class="text-dark1 font12" style="margin-left: 12px"
+                  >Contract Debit Report</span
+                >
+              </label>
+            </div>
+
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input position-relative"
+                type="radio"
+                name="reportName"
+                id="AuthorisationDebit"
+                value="AuthorisationDebit"
+                formControlName="reportName"
+                [attr.disabled]="isDisabledState ? false : null"
+                (change)="disableField()"
+                style="margin-left: 1px"
+              />
+              <label class="form-check-label" for="AuthorisationDebit">
+                <span class="text-dark1 font12" style="margin-left: 12px"
+                  >Authorisation Debit Report</span
+                >
+              </label>
+            </div>
+
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input position-relative"
+                type="radio"
+                name="reportName"
+                id="ContraContractDebit"
+                value="ContraContractDebit"
+                formControlName="reportName"
+                (change)="disableField()"
+                style="margin-left: 1px"
+              />
+              <!-- [attr.accesskey]="loaderToggle == true ? '' : 'C'" -->
+              <label class="form-check-label" for="ContraContractDebit">
+                <span class="text-dark1 font12" style="margin-left: 12px"
+                  >Contra Contract Debit Report</span
+                >
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- </div> -->
+
+      <div class="row g-3 justify-content-center">
+        <div class="col-md-8">
+          <div class="col-sm-12">
+            <div class="input-group">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Buildings</span
+              >
+              <input
+                appCommonAutoFocus
+                type="text"
+                class="form-control border-start-0 br-9"
+                formControlName="bldgCode"
+                [f1]="{ id: 'ENGGBUILDINGS', subId: bldgSQ, multi: true }"
+              />
+            </div>
+          </div>
+          <p></p>
+          <div class="col-sm-12">
+            <div
+              class="input-group"
+              [class.is-invalid]="qf?.invalid && qf?.touched && qf.errors?.['atLeastOneFilter'] "
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Rec Id</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0 br-9"
+                formControlName="recId"
+                [f1]="{
+                  id: 'CONTRACTID',
+                  subId: 'contt_closedate is null',
+                  fill: 1
+                }"
+              />
+            </div>
+          </div>
+          <p></p>
+          <div class="col-sm-12">
+            <div class="input-group">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Work Codes</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0 br-9"
+                formControlName="workCode"
+                [f1]="{
+                  id: 'WORKCODES',
+                  subId: 'ep_closedate is null',
+                  multi: true
+                }"
+              />
+            </div>
+          </div>
+          <p></p>
+          <div class="col-sm-12">
+            <div class="input-group">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Authorisation No</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0 br-9"
+                formControlName="authNo"
+                [f1]="{
+                  id: 'CONTRACT AUTHNUM'
+                }"
+              />
+            </div>
+          </div>
+          <p></p>
+          <div class="col-md-12">
+            <div class="input-group has-validation">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Material Code</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0"
+                formControlName="matGroup"
+                [f1]="{ id: 'MATGROUPS', multi: true }"
+              />
+              <div
+                class="invalid-feedback d-block"
+                *ngIf="
+                  qf.controls['matGroup'].invalid &&
+                  qf.controls['matGroup'].touched
+                "
+              >
+                <div
+                  *ngIf="queryForm.controls['matGroup'].errors?.['notFound']"
+                >
+                  Not Found
+                </div>
+              </div>
+            </div>
+          </div>
+          <p></p>
+          <div class="col-sm-7">
+            <div
+              class="input-group flex-nowrap"
+              appDate1
+              [class.is-invalid]="
+                (qf.get('range')?.invalid && qf.get('range')?.touched) ||
+                (qf.get('range')?.invalid && qf.get('range')?.touched)
+              "
+            >
+              <span class="input-group-text leftform_lbl font500 text-dark1"
+                >Period From</span
+              >
+              <div
+                class="bg-white datepicker_field post_input_field flex-grow-1"
+                [class.is-invalid]="
+                  (qf.get('range')?.invalid && qf.get('range')?.touched) ||
+                  (qf.get('range')?.invalid && qf.get('range')?.touched)
+                "
+              >
+                <span class="input-group-addon">
+                  <div mat-form-field appearance="fill" class="matForm">
+                    <mat-date-range-input
+                      [formGroup]="this.qf.controls['range']"
+                      [rangePicker]="picker"
+                    >
+                      <input
+                        class="text-capitalize font12"
+                        matStartDate
+                        formControlName="fromDate"
+                        placeholder=" From date"
+                      />
+                      <input
+                        matEndDate
+                        formControlName="toDate"
+                        placeholder="To date"
+                        class="text-capitalize font12"
+                      />
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="picker"
+                    ></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                  </div>
+                </span>
+              </div>
+            </div>
+            <div
+              *ngIf="qf.controls['range'].invalid && qf.controls['range'].touched"
+            >
+              <div
+                class="invalid-feedback d-block"
+                *ngIf="qf.get('range')?.errors?.['properDate']"
+              >
+                Proper Date is required
+              </div>
+              <div
+                class="invalid-feedback d-block font12 font500"
+                *ngIf="qf.get('range')?.errors?.['selectDate']"
+              >
+                Specify Either Date Range or As on date
+              </div>
+            </div>
+          </div>
+          <p></p>
+          <div class="col-sm-7">
+            <div
+              class="input-group"
+              appDate1
+              [class.is-invalid]="
+                qf.controls['asOnDate'].invalid && qf.controls['asOnDate'].touched
+              "
+            >
+              <span class="input-group-text leftform_lbl font500 text-dark1 font12"
+                ><span class="text-danger font500 font12">*</span>As on Date</span
+              >
+              <input
+                class="form-control border-start-0 borer-end-0 post_input_field font500 text-dark1 font12"
+                id="formDateField"
+                matInput
+                [matDatepicker]="pickerFrom"
+                formControlName="asOnDate"
+              />
+              <div
+                class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+              >
+                <span class="input-group-addon">
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="pickerFrom"
+                    tabindex="-1"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #pickerFrom></mat-datepicker>
+                </span>
+              </div>
+            </div>
+            <div
+              *ngIf="
+                qf.controls['asOnDate'].invalid && qf.controls['asOnDate'].touched
+              "
+            >
+              <div
+                class="invalid-feedback d-block font12 font500"
+                *ngIf="qf.get('asOnDate')?.errors?.['selectDate']"
+              >
+                Specify Either Date Range or As on date
+              </div>
+            </div>
+          </div>
+          <p></p>
+        </div>
+      </div>
+    </div>
+  </form>
+</section>
+
+<app-buttons
+  [buttonsList]="buttonsList"
+  (eventTrigger)="buttonAction($event)"
+></app-buttons>
+<app-loader *ngIf="config.isLoading"></app-loader>

@@ -1,0 +1,1075 @@
+<section>
+  <div class="row g-3">
+    <div class="col-md-12">
+      <form [formGroup]="queryForm">
+        <div class="row g-3">
+          <div class="col-md-4">
+            <div class="row g-3">
+              <div class="col-md-12">
+                <div class="br-10 group_panel p-3 position-relative">
+                  <p
+                    class="bg-white font600 group_title mb-0 position-absolute"
+                  >
+                    Bill / Rates Enquiry
+                  </p>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input position-relative"
+                      type="radio"
+                      name="name"
+                      id="billRadioDefault1"
+                      value="Bill"
+                      formControlName="name"
+                    />
+                    <label class="form-check-label" for="billRadioDefault1">
+                      Bill Details Enquiry
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input position-relative"
+                      type="radio"
+                      name="name"
+                      id="billRadio2"
+                      value="Bill-Challan"
+                      formControlName="name"
+                    />
+                    <label class="form-check-label" for="billRadio2">
+                      Bill-wise Challan Details
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input position-relative"
+                      type="radio"
+                      name="name"
+                      id="billRadio3"
+                      value="Challan"
+                      formControlName="name"
+                    />
+                    <label class="form-check-label" for="billRadio3">
+                      Challan-wise Bill Details
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input position-relative"
+                      type="radio"
+                      name="name"
+                      id="billRadio4"
+                      value="Item"
+                      formControlName="name"
+                    />
+                    <label class="form-check-label" for="billRadio4">
+                      Item-wise Rates Inquiry
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="row g-2">
+              <ng-container *ngIf="queryForm.get('name')?.value != 'Item'">
+                <div class="col-lg-8 col-sm-12">
+                  <div
+                    class="input-group has-validation"
+                    [class.is-invalid]="
+                      queryForm.get('suppCode')?.invalid &&
+                      queryForm.get('suppCode')?.touched
+                    "
+                  >
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      ><span class="text-danger font500 font12">* </span>
+                      Supplier Code</span
+                    >
+                    <input
+                      type="text"
+                      id="supplierCode"
+                      class="form-control border-start-0"
+                      formControlName="suppCode"
+                      [f1]="{ id: 'SUPPLIERS' }"
+                      autofocus
+                    />
+                  </div>
+                  <div
+                    *ngIf="
+                      queryForm.get('suppCode')?.invalid &&
+                      queryForm.get('suppCode')?.touched
+                    "
+                  >
+                    <div
+                      class="errorField common_color_txt font12 font500"
+                      *ngIf="queryForm.get('suppCode')?.errors && queryForm.get('suppCode')?.errors?.['required']"
+                    >
+                      Supplier Code is required
+                    </div>
+                    <div
+                      class="invalid-feedback d-block"
+                      *ngIf="
+                        queryForm.controls['suppCode'].invalid &&
+                        queryForm.controls['suppCode'].touched
+                      "
+                    >
+                      <div
+                        *ngIf="queryForm.controls['suppCode'].errors?.['notFound']"
+                      >
+                        * Invalid Supplier Code
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="col-lg-8 col-sm-12"
+                  *ngIf="queryForm.get('name')?.value != 'Challan'"
+                >
+                  <div
+                    class="input-group has-validation"
+                    [class.is-invalid]="
+                      queryForm.get('billNo')?.invalid &&
+                      queryForm.get('billNo')?.touched
+                    "
+                  >
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      ><span class="text-danger font500 font12">* </span> Bill
+                      no.</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0"
+                      formControlName="billNo"
+                      [f1]="{ id: 'SUPPBILLNO', subId: suppCodeId }"
+                    />
+                  </div>
+                  <div
+                    *ngIf="
+                      queryForm.get('billNo')?.invalid &&
+                      queryForm.get('billNo')?.touched
+                    "
+                  >
+                    <div
+                      class="errorField common_color_txt font12 font500"
+                      *ngIf="queryForm.get('billNo')?.errors && queryForm.get('billNo')?.errors?.['required']"
+                    >
+                      Bill No is required
+                    </div>
+                  </div>
+                  <div
+                    class="invalid-feedback d-block"
+                    *ngIf="
+                      queryForm.controls['billNo'].invalid &&
+                      queryForm.controls['billNo'].touched
+                    "
+                  >
+                    <div
+                      *ngIf="queryForm.controls['billNo'].errors?.['notFound']"
+                    >
+                      Invalid Bill No
+                    </div>
+                  </div>
+                </div>
+                <ng-container *ngIf="queryForm.get('name')?.value == 'Challan'">
+                  <div class="col-lg-8 col-sm-12">
+                    <div
+                      class="input-group has-validation"
+                      [class.is-invalid]="
+                        queryForm.get('challanNo')?.invalid &&
+                        queryForm.get('challanNo')?.touched
+                      "
+                    >
+                      <span
+                        class="input-group-text leftform_lbl font500 text-dark1 font12"
+                        ><span class="text-danger font500 font12">* </span>
+                        Challan no.</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0"
+                        formControlName="challanNo"
+                        [f1]="{ id: 'CHALLANNO', subId: suppCodeId }"
+                      />
+                    </div>
+                    <div
+                      *ngIf="
+                        queryForm.get('challanNo')?.invalid &&
+                        queryForm.get('challanNo')?.touched
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="queryForm.get('challanNo')?.errors && queryForm.get('challanNo')?.errors?.['required']"
+                      >
+                        Challan No is required
+                      </div>
+                    </div>
+                    <div
+                      class="invalid-feedback d-block"
+                      *ngIf="
+                        queryForm.controls['challanNo'].invalid &&
+                        queryForm.controls['challanNo'].touched
+                      "
+                    >
+                      <div
+                        *ngIf="queryForm.controls['challanNo'].errors?.['notFound']"
+                      >
+                        Invalid Challan No
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-8 col-sm-12" *ngIf="challanDetail.length">
+                    <div class="input-group">
+                      <span
+                        class="input-group-text leftform_lbl font500 text-dark1 font12"
+                        >Challan Date</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0"
+                        name="challanDate"
+                        formControlName="challanDate"
+                      />
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+
+              <ng-container *ngIf="queryForm.get('name')?.value == 'Item'">
+                <div class="col-lg-8 col-sm-12">
+                  <div
+                    class="input-group has-validation"
+                    [class.is-invalid]="
+                      queryForm.get('matGroup')?.invalid &&
+                      queryForm.get('matGroup')?.touched
+                    "
+                  >
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Material Grp</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0"
+                      formControlName="matGroup"
+                      [f1]="{ id: 'MATGROUPS' }"
+                    />
+                  </div>
+                  <div
+                    class="invalid-feedback d-block"
+                    *ngIf="
+                      queryForm.controls['matGroup'].invalid &&
+                      queryForm.controls['matGroup'].touched
+                    "
+                  >
+                    <div
+                      *ngIf="queryForm.controls['matGroup'].errors?.['notFound']"
+                    >
+                      Invalid Material Group
+                    </div>
+                    <div
+                      *ngIf="queryForm.controls['matGroup'].errors?.['required']"
+                    >
+                      This is required
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-8 col-sm-12">
+                  <div class="input-group has-validation">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Material Code</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0"
+                      formControlName="matCode"
+                      [f1]="{ id: 'MATCODES', subId: subMatGrp }"
+                    />
+                  </div>
+                  <div
+                    class="invalid-feedback d-block"
+                    *ngIf="
+                      queryForm.controls['matCode'].invalid &&
+                      queryForm.controls['matCode'].touched
+                    "
+                  >
+                    <div
+                      *ngIf="queryForm.controls['matCode'].errors?.['notFound']"
+                    >
+                      Invalid Mat Code
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-8 col-sm-12">
+                  <div class="input-group has-validation">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Item Code</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0"
+                      formControlName="itemCode"
+                      [f1]="{ id: 'ITEMCODES', subId: subMatCode }"
+                    />
+                  </div>
+                  <div
+                    class="invalid-feedback d-block"
+                    *ngIf="
+                      queryForm.controls['itemCode'].invalid &&
+                      queryForm.controls['itemCode'].touched
+                    "
+                  >
+                    <div
+                      *ngIf="queryForm.controls['itemCode'].errors?.['notFound']"
+                    >
+                      Invalid Item Code
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- Bill -->
+    <ng-container *ngIf="queryForm.get('name')?.value == 'Bill'">
+      <form #billDetailsForm="ngForm">
+        <div class="row g-3">
+          <div class="col-md-12">
+            <div class="br-10 group_panel p-3 position-relative">
+              <p class="bg-white font600 group_title mb-0 position-absolute">
+                Bill Details Enquiry Header
+              </p>
+              <div class="row g-2">
+                <div class="col-sm-12 col-md-12 col-lg-8">
+                  <div class="row g-2">
+                    <div class="col-md-12">
+                      <input
+                        type="text"
+                        class="form-control br-10"
+                        name="bldgName"
+                        [disabled]="true"
+                        [(ngModel)]="billDetailsForm.bldgName"
+                      />
+                    </div>
+                    <div class="col-md-12">
+                      <input
+                        type="text"
+                        class="form-control br-10"
+                        name="partyName"
+                        [disabled]="true"
+                        [(ngModel)]="billDetailsForm.partyName"
+                      />
+                    </div>
+                    <div class="col-md-8">
+                      <input
+                        type="text"
+                        class="form-control br-10"
+                        name="coyName"
+                        [disabled]="true"
+                        [(ngModel)]="billDetailsForm.coyName"
+                      />
+                    </div>
+                    <div class="col-md-4">
+                      <div class="input-group">
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Date</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0"
+                          name="suppbilldt"
+                          [disabled]="true"
+                          [(ngModel)]="billDetailsForm.suppbilldt"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-8">
+                      <input
+                        type="text"
+                        class="form-control br-10"
+                        name="grpName"
+                        [disabled]="true"
+                        [(ngModel)]="billDetailsForm.grpName"
+                      />
+                    </div>
+                    <div class="col-md-4">
+                      <div class="input-group">
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Bill Qty</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0 border-end-0"
+                          name="quantity"
+                          [disabled]="true"
+                          [(ngModel)]="billDetailsForm.quantity"
+                        />
+                        <span class="position-relative span_divider"></span>
+                        <input
+                          type="text"
+                          class="form-control border-start-0"
+                          name="uom"
+                          [disabled]="true"
+                          [(ngModel)]="billDetailsForm.uom"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="input-group">
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Bill Amt</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0"
+                          name="amount"
+                          [disabled]="true"
+                          [(ngModel)]="billDetailsForm.amount"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="input-group">
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Retention Amt</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0"
+                          name="retention"
+                          [disabled]="true"
+                          [(ngModel)]="billDetailsForm.retention"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="input-group">
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Bill Entry no.</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0"
+                          name="ser"
+                          [disabled]="true"
+                          [(ngModel)]="billDetailsForm.ser"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="input-group">
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Auth</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0"
+                          name="authnum"
+                          [disabled]="true"
+                          [(ngModel)]="billDetailsForm.authnum"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-4">
+                  <div class="row g-2">
+                    <div class="col-sm-6 col-md-6 col-lg-12">
+                      <div class="input-group">
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >CE Ind no.</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0"
+                          name="ceser"
+                          [disabled]="true"
+                          [(ngModel)]="billDetailsForm.ceser"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-12">
+                      <div class="input-group">
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Supp Bill</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0"
+                          name="suppbillno"
+                          [disabled]="true"
+                          [(ngModel)]="billDetailsForm.suppbillno"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-12">
+                      <div class="input-group">
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Bill Type</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0"
+                          name="billtype"
+                          [disabled]="true"
+                          [(ngModel)]="billDetailsForm.billtype"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-12">
+                      <div class="input-group">
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Bill Rate</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0"
+                          name="rate"
+                          [disabled]="true"
+                          [(ngModel)]="billDetailsForm.rate"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-12">
+                      <div class="input-group">
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Adv Adj</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0"
+                          name="advanceadj"
+                          [disabled]="true"
+                          [(ngModel)]="billDetailsForm.advanceadj"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-12">
+                      <div class="input-group">
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Auth Date</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0"
+                          name="authdate"
+                          [disabled]="true"
+                          [(ngModel)]="billDetailsForm.authdate"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="br-10 group_panel p-3 position-relative">
+              <p class="bg-white font600 group_title mb-0 position-absolute">
+                Bill Debit Note Details
+              </p>
+              <div class="row g-2">
+                <div class="col-md-12">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">Party Code</th>
+                          <th scope="col">DR Note no.</th>
+                          <th scope="col">Amount</th>
+                          <th scope="col">Quantity</th>
+                          <th scope="col">TDS Amt</th>
+                          <th scope="col">DR Note</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr
+                          *ngFor="
+                            let item of billDebitNoteDetail;
+                            let i = index
+                          "
+                        >
+                          <td>{{ item.partycode }}</td>
+                          <td>{{ item.dbnoteser }}</td>
+                          <td>{{ item.amount }}</td>
+                          <td>{{ item.quantity }}</td>
+                          <td>{{ item.tdsamount }}</td>
+                          <td>{{ item.date | date : "dd/MM/yyyy" }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 col-lg-6">
+            <div class="br-10 group_panel p-3 position-relative">
+              <p class="bg-white font600 group_title mb-0 position-absolute">
+                TDS Details
+              </p>
+              <div class="row g-2">
+                <div class="col-md-6">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Challan no.</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0"
+                      name="tdschalno"
+                      [disabled]="true"
+                      [(ngModel)]="billDetailsForm.tdschalno"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Challan Dt.</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0"
+                      name="tdschaldt"
+                      [disabled]="true"
+                      [(ngModel)]="billDetailsForm.tdschaldt"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Bank code</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0"
+                      name="tdsbankcode"
+                      [disabled]="true"
+                      [(ngModel)]="billDetailsForm.tdsbankcode"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Cert no.</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0"
+                      name="tdcertdt"
+                      [disabled]="true"
+                      [(ngModel)]="billDetailsForm.tdcertdt"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 col-lg-6">
+            <div class="br-10 group_panel p-3 position-relative h-100">
+              <p class="bg-white font600 group_title mb-0 position-absolute">
+                VAT Details
+              </p>
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Percent</th>
+                      <th scope="col">Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of vatDetail; let i = index">
+                      <td>{{ i + 1 }}</td>
+                      <td>
+                        {{ item.vatpercent }}
+                      </td>
+                      <td>{{ item.vatamount }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="br-10 group_panel p-3 position-relative">
+              <p class="bg-white font600 group_title mb-0 position-absolute">
+                Cheque Details
+              </p>
+              <div class="row g-2">
+                <div class="col-md-6 col-lg-4">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Bank Code</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0"
+                      name="bankcode"
+                      [disabled]="true"
+                      [(ngModel)]="billDetailsForm.bankcode"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Date Paid</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0"
+                      name="datePaid"
+                      [disabled]="true"
+                      [(ngModel)]="billDetailsForm.datePaid"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Cheque</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0"
+                      name="chequeno"
+                      [disabled]="true"
+                      [(ngModel)]="billDetailsForm.chequeno"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Amt Paid</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0"
+                      name="paidAmt"
+                      [disabled]="true"
+                      [(ngModel)]="billDetailsForm.paidAmt"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-12 col-lg-8">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Ref Paid</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0"
+                      name="paidref"
+                      [disabled]="true"
+                      [(ngModel)]="billDetailsForm.paidref"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="br-10 group_panel p-3 position-relative">
+              <p class="bg-white font600 group_title mb-0 position-absolute">
+                Hundi Details
+              </p>
+              <div class="row g-2">
+                <div class="col-md-6 col-lg-4">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Hundi No.</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0"
+                      name="hundnum"
+                      [disabled]="true"
+                      [(ngModel)]="billDetailsForm.hundnum"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Party Code</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0"
+                      name="hundpartycode"
+                      [disabled]="true"
+                      [(ngModel)]="billDetailsForm.hundpartycode"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Party Type</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0"
+                      name="hundpartytype"
+                      [disabled]="true"
+                      [(ngModel)]="billDetailsForm.hundpartytype"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Auth.No.</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0"
+                      name="hunddocnum"
+                      [disabled]="true"
+                      [(ngModel)]="billDetailsForm.hunddocnum"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Payment Transer</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0"
+                      name="hunddoctser"
+                      [disabled]="true"
+                      [(ngModel)]="billDetailsForm.hunddoctser"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Amount
+                    </span>
+                    <input
+                      type="text"
+                      class="form-control border-start-0"
+                      name="hundpayamt"
+                      [disabled]="true"
+                      [(ngModel)]="billDetailsForm.hundpayamt"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Paiym.Bank</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0"
+                      name="hundbank"
+                      [disabled]="true"
+                      [(ngModel)]="billDetailsForm.hundbank"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >
+                      Coy Name</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0"
+                      name="coyNamehundi"
+                      [disabled]="true"
+                      [(ngModel)]="billDetailsForm.coyNamehundi"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </ng-container>
+
+    <!-- Supplier-Bill-Challan -->
+    <div
+      class="col-md-12"
+      *ngIf="queryForm.get('name')?.value == 'Bill-Challan'"
+    >
+      <div class="br-10 group_panel p-3 position-relative">
+        <p class="bg-white font600 group_title mb-0 position-absolute">
+          Supplier-Bill-Challan wise Details
+        </p>
+        <div class="row g-2">
+          <div class="col-md-12">
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Entry no.</th>
+                    <th scope="col">Challan no.</th>
+                    <th scope="col">Bill Date</th>
+                    <th scope="col">DC Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of billChallanDetail">
+                    <td>{{ item.entryno }}</td>
+                    <td>{{ item.dcno }}</td>
+                    <td>{{ item.billdt | date : "dd/MM/YYYY" }}</td>
+                    <td>{{ item.dcdate | date : "dd/MM/YYYY" }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Supplier-Challan -->
+    <div class="col-md-12" *ngIf="queryForm.get('name')?.value == 'Challan'">
+      <div class="br-10 group_panel p-3 position-relative">
+        <p class="bg-white font600 group_title mb-0 position-absolute">
+          Supplier-Challan wise Details
+        </p>
+        <div class="row g-2">
+          <div class="col-md-12">
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Supp Bill no.</th>
+                    <th scope="col">Bill Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of challanDetail">
+                    <td>{{ item.suppbill }}</td>
+                    <td>{{ item.billdt | date : "dd/MM/yyyy" }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Item -->
+    <div class="col-md-12" *ngIf="queryForm.get('name')?.value == 'Item'">
+      <div class="br-10 group_panel p-3 position-relative">
+        <p class="bg-white font600 group_title mb-0 position-absolute">
+          Item Rates Enquiry
+        </p>
+        <div class="row g-2">
+          <div class="col-md-12">
+            <div class="table-responsive">
+              <!-- datatable
+              [dtOptions]="dtOptions"
+              [dtTrigger]="dtTrigger" -->
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Party</th>
+                    <th scope="col">Order Date</th>
+                    <th scope="col">Rate</th>
+                    <th scope="col">Sales Tax %</th>
+                    <th scope="col">Excise %</th>
+                    <th scope="col">Discount %</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of itemDetail">
+                    <td>{{ item.partyName }}</td>
+                    <td>{{ item.date }}</td>
+                    <td>{{ item.rate }}</td>
+                    <td>{{ item.stper }}</td>
+                    <td>{{ item.exciseper }}</td>
+                    <td>{{ item.discper }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner bg-white br-10 d-flex justify-content-center">
+      <button
+        type="submit"
+        class="bg_common_red common_action_btn br-10"
+        (click)="getReport(true)"
+        accesskey="r"
+        [disabled]="disableRetrieve"
+      >
+        Retrieve
+      </button>
+      <button
+      type="submit"
+      class="bg_common_red common_action_btn br-10"
+      (click)="handleBackClick()"
+      accesskey="b"
+      [disabled]="!disableRetrieve"
+    >
+        Back
+    </button>
+      <a
+        class="bg_common_red border-0 common_action_btn text-white br-10 first_letter_textdecorationone text-decoration-none"
+        accesskey="x"
+        routerLink="/dashboard"
+      >
+        E<u>x</u>it
+      </a>
+
+    </div>
+  </div>
+</section>
+<app-loader *ngIf="loaderToggle"></app-loader>

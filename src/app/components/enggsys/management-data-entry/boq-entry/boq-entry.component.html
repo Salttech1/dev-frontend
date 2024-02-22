@@ -1,0 +1,495 @@
+<!-- <p>boq-entry works!</p> -->
+<section>
+  <div class="row">
+    <div class="col-md-12">
+      <form [formGroup]="boqEntryForm">
+        <div class="row g-2">
+          <div class="col-md-3">
+            <div
+              class="input-group"
+              [class.is-invalid]="(boqEntryForm.get('project')?.hasError('required') && boqEntryForm.get('project')?.touched) || boqEntryForm.get('project')?.errors?.['notFound']"
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                ><b class="text-danger">*</b>Project</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                upperCase
+                class="form-control border-start-0 post_input_field font500 font12"
+                formControlName="project"
+                [f1]="{ id: 'MATCERTLNPROJECTCODE', isSingleValue: true }"
+                (focusout)="onLeaveProject($event.target.value)"
+              />
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="(boqEntryForm.get('project')?.touched && boqEntryForm.get('project')?.invalid) && !boqEntryForm.get('project')?.errors?.['notFound']"
+            >
+              Project code is required.
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="boqEntryForm.get('project')?.errors?.['notFound']"
+            >
+              Project code is not valid.
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div
+              class="input-group"
+              [class.is-invalid]="(boqEntryForm.get('racno')?.hasError('required') && boqEntryForm.get('racno')?.touched) || boqEntryForm.get('racno')?.errors?.['notFound']"
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                ><b class="text-danger">*</b>RAC No.</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                upperCase
+                class="form-control border-start-0 post_input_field font500 font12"
+                formControlName="racno"
+                [f1]="{
+                  id: 'MATCERTLOGICNOTE',
+                  isSingleValue: true,
+                  subId: filters.getRacNo ? filters.getRacNo : ''
+                }"
+              />
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="(boqEntryForm.get('racno')?.touched && boqEntryForm.get('racno')?.invalid) && !boqEntryForm.get('racno')?.errors?.['notFound']"
+            >
+              RAC no is required.
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="boqEntryForm.get('racno')?.errors?.['notFound']"
+            >
+              RAC no is not valid.
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-check-inline">
+              <div class="form-check d-flex align-items-center">
+                <input
+                  type="checkbox"
+                  class="form-check-input font12 font500 position-relative cursor-pointer customeSize"
+                />
+                <label
+                  class="form-check-label first_letter_textdecorationone mt-1"
+                  >From Master</label
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="input-group">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Increse % In Rate</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                formControlName="rate"
+                class="form-control border-start-0 post_input_field font500 font12"
+                [f1]="{ id: 'MATCERTLNPROJECTCODE', isSingleValue: true }"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-2 mt-2">
+          <div class="col-md-1">
+            <div class="form-check-inline">
+              <div class="form-check d-flex align-items-center">
+                <input
+                  type="checkbox"
+                  class="form-check-input font12 font500 position-relative cursor-pointer customeSize"
+                />
+                <label
+                  class="form-check-label first_letter_textdecorationone mt-1"
+                  >COPYRAC</label
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <input
+              type="text"
+              name=""
+              id=""
+              class="form-control border-start-1 br-10 font500 font12"
+              formControlName="desc1"
+            />
+          </div>
+          <div class="col-md-4">
+            <div class="form-check-inline">
+              <div class="form-check d-flex align-items-center">
+                <input
+                  type="checkbox"
+                  class="form-check-input font12 font500 position-relative cursor-pointer customeSize"
+                />
+                <label
+                  class="form-check-label first_letter_textdecorationone mt-1"
+                  >Tax on total amount</label
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-2 mt-2">
+          <div class="col-md-12">
+            <div class="group_panel br-10 p-2 position-relative form_common_bg">
+              <div class="row g-2">
+                <div class="col-md-2">
+                  <div class="input-group" appDate1>
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Date</span
+                    >
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      [autocomplete]="'off'"
+                      class="form-control border-start-0 post_input_field font500 font12"
+                      matInput
+                      [matDatepicker]="date"
+                      formControlName=""
+                    />
+                    <div
+                      class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                    >
+                      <span class="input-group-addon">
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="date"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #date></mat-datepicker>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Loc</span
+                    >
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      class="form-control border-start-0 post_input_field font500 font12"
+                      formControlName="location"
+                      [f1]="{ id: 'MATCERTLOCATION', isSingleValue: true }"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Revision</span
+                    >
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      class="form-control border-start-0 post_input_field font500 font12"
+                      formControlName="revision"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Shrt Nm</span
+                    >
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      class="form-control border-start-0 post_input_field font500 font12"
+                      formControlName="shortName"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Desc</span
+                    >
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      class="form-control border-start-0 post_input_field font500 font12"
+                      formControlName="description"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-2 mt-2">
+          <table class="table table-bordered table-sm mb-0">
+            <thead>
+              <tr>
+                <th class="fontBold font12 fonttxt_black">Sr. No.</th>
+                <th class="fontBold font12 fonttxt_black">Vendor Name</th>
+                <th class="fontBold font12 fonttxt_black">Y / N</th>
+                <th class="fontBold font12 fonttxt_black">S1</th>
+                <th class="fontBold font12 fonttxt_black">S2</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="input-group">
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      class="form-control input_control font500 fonttxt_black font12"
+                    />
+                  </div>
+                </td>
+                <td>
+                  <div class="input-group">
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      class="form-control input_control font500 fonttxt_black font12"
+                    />
+                  </div>
+                </td>
+                <td>
+                  <div class="form-check d-flex align-items-center">
+                    <input
+                      type="checkbox"
+                      class="form-check-input font12 font500 position-relative cursor-pointer customeSize"
+                     
+                    />
+                  </div>
+                </td>
+                <td>
+                  <div class="d-flex align-items-center">
+                    <input
+                      type="checkbox"
+                      class="form-check-input font12 font500 position-relative cursor-pointer customeSize"
+                    />
+                  </div>
+                </td>
+                <td>
+                  <div class="d-flex align-items-center">
+                    <input
+                      type="checkbox"
+                      class="form-check-input font12 font500 position-relative cursor-pointer customeSize"
+                    />
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="row g-2 mt-2">
+          <div class="col-md-12">
+            <div class="group_panel br-10 p-2 position-relative form_common_bg">
+              <div class="row g-2">
+                <div class="col-md-6">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >File Path</span
+                    >
+                    <input
+                      type="file"
+                      name=""
+                      id=""
+                      class="form-control border-start-0 post_input_field font500 font12"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-check-inline">
+                    <div class="form-check d-flex align-items-center">
+                      <button class="btn btn-sm btn-light">Copy To Grid</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-check-inline">
+                    <div class="form-check">
+                      <button class="btn btn-sm btn-light">Copy Items</button>
+                    </div>
+                  </div>
+                  <div class="form-check-inline">
+                    <div class="form-check">
+                      <button class="btn btn-sm btn-light">Split Column</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row g-2 mt-1">
+                <div class="tabs_container pt-2">
+                  <div class="tabs_inner_container">
+                    <ul class="nav nav-tabs">
+                      <!-- Party Detail -->
+                      <li class="nav-item">
+                        <a
+                          class="nav-link lh-20 active text-decoration-none font14 text-dark1 font500 first_letter_textdecorationone"
+                          data-bs-toggle="tab"
+                          href="#partydetail"
+                          accesskey=""
+                        >
+                          <span class="text-decoration-underline"></span>Party
+                          Detail
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="tab-content">
+                    <!-- Party Detail Tab-->
+                    <div class="tab-pane container active p-0" id="partydetail">
+                      <div
+                        class="group_panel br-10 p-2 position-relative form_common_bg"
+                      >
+                        <div class="col-md-12">
+                          <div
+                            class="table-responsive group_panel form_common_bg stylishScroll"
+                          >
+                            <table class="table table-bordered table-sm mb-0">
+                              <thead>
+                                <tr>
+                                  <th class="fontBold font12 fonttxt_black">
+                                    SrNo
+                                  </th>
+                                  <th class="fontBold font12 fonttxt_black">
+                                    Location
+                                  </th>
+                                  <th class="fontBold font12 fonttxt_black">
+                                    Floor
+                                  </th>
+                                  <th class="fontBold font12 fonttxt_black">
+                                    Area
+                                  </th>
+                                  <th class="fontBold font12 fonttxt_black">
+                                    Sub Area
+                                  </th>
+                                  <th class="fontBold font12 fonttxt_black">
+                                    ItemCode
+                                  </th>
+                                  <th class="fontBold font12 fonttxt_black">
+                                    ItemDesc
+                                  </th>
+                                  <th class="fontBold font12 fonttxt_black">
+                                    Product
+                                  </th>
+                                  <th class="fontBold font12 fonttxt_black">
+                                    Brand
+                                  </th>
+                                  <th class="fontBold font12 fonttxt_black">
+                                    UOM
+                                  </th>
+                                  <th class="fontBold font12 fonttxt_black">
+                                    SubItemDesc
+                                  </th>
+                                  <th class="fontBold font12 fonttxt_black">
+                                    Qty
+                                  </th>
+                                  <th class="fontBold font12 fonttxt_black">
+                                    SpareQty
+                                  </th>
+                                  <th class="fontBold font12 fonttxt_black">
+                                    Length
+                                  </th>
+                                  <th class="fontBold font12 fonttxt_black">
+                                    Width
+                                  </th>
+                                  <th class="fontBold font12 fonttxt_black">
+                                    HighDepth
+                                  </th>
+                                  <th class="fontBold font12 fonttxt_black">
+                                    Thickness
+                                  </th>
+                                  <th class="fontBold font12 fonttxt_black">
+                                    Density
+                                  </th>
+                                  <th class="fontBold font12 fonttxt_black">
+                                    Remarks
+                                  </th>
+                                  <th class="fontBold font12 fonttxt_black">
+                                    Itempath
+                                  </th>
+                                  <th class="fontBold font12 fonttxt_black">
+                                    Vendor1MatRate
+                                  </th>
+                                  <th class="fontBold font12 fonttxt_black">
+                                    Vendor1MatAmt
+                                  </th>
+                                  <th class="fontBold font12 fonttxt_black">
+                                    Vendor1LabRate
+                                  </th>
+                                  <th class="fontBold font12 fonttxt_black">
+                                    Vendor1LabAmt
+                                  </th>
+                                  <th class="fontBold font12 fonttxt_black">
+                                    Vendor2MatRate
+                                  </th>
+                                  <th class="fontBold font12 fonttxt_black">
+                                    Vendor2MatAmt
+                                  </th>
+                                  <th class="fontBold font12 fonttxt_black">
+                                    Vendor2LabRate
+                                  </th>
+                                  <th class="fontBold font12 fonttxt_black">
+                                    Vendor2LabAmt
+                                  </th>
+
+                                  <th
+                                    class="fontBold font12 fonttxt_black"
+                                  ></th>
+                                  <th
+                                    class="fontBold font12 fonttxt_black"
+                                  ></th>
+                                  <th
+                                    class="fontBold font12 fonttxt_black"
+                                  ></th>
+                                </tr>
+                              </thead>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<app-buttons
+  [buttonsList]="buttonsList"
+  (eventTrigger)="buttonAction($event)"
+></app-buttons>

@@ -1,0 +1,565 @@
+<section>
+  <div class="row">
+    <div class="col-md-12">
+      <form [formGroup]="reverseDebitNoteForm">
+        <div class="row g-3">
+          <div class="col-md-12">
+            <div class="row g-3">
+              <div class="mb-2 col-md-6 col-lg-5 col-xl-5 col-xxl-5">
+                <div
+                  class="input-group"
+                  [class.is-invalid]="
+                    reverseDebitNoteForm.controls['suppCode'].invalid &&
+                    reverseDebitNoteForm.controls['suppCode'].touched
+                  "
+                >
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    ><span class="text-danger font500 font12">* </span>Suplier
+                    Code</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0"
+                    id="suppCode123"
+                    formControlName="suppCode"
+                    maxlength="4"
+                    autocomplete="off"
+                    [f1]="{ id: 'PARTYCODE', subId: supplier_condition }"
+                    autofocus
+                  />
+                </div>
+                <div
+                  *ngIf="
+                    reverseDebitNoteForm.controls['suppCode'].invalid &&
+                    reverseDebitNoteForm.controls['suppCode'].touched
+                  "
+                >
+                  <div
+                    class="errorField common_color_txt font12 font500"
+                    *ngIf="reverseDebitNoteForm.controls['suppCode'].errors && reverseDebitNoteForm.controls['suppCode'].errors?.['required']"
+                  >
+                    *Supplier code is required
+                  </div>
+                </div>
+                <div
+                  class="invalid-feedback d-block"
+                  *ngIf="
+                    reverseDebitNoteForm.controls['suppCode'].invalid &&
+                    reverseDebitNoteForm.controls['suppCode'].touched
+                  "
+                >
+                  <div
+                    *ngIf="reverseDebitNoteForm.controls['suppCode'].errors?.['notFound']"
+                  >
+                    * Invalid Supplier Code
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm- col-md-6 col-lg-4 col-xl-4 col-xxl-4">
+                <div
+                  class="input-group"
+                  [class.is-invalid]="
+                    reverseDebitNoteForm.controls['debitNote'].invalid &&
+                    reverseDebitNoteForm.controls['debitNote'].touched
+                  "
+                >
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    ><span class="text-danger font500 font12">* </span>Debit
+                    Note #</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0"
+                    formControlName="debitNote"
+                    id="debNote123"
+                    autocomplete="off"
+                    [f1]="{ id: 'DEBITNOTES', subId: debitnote_condition }"
+                  />
+                </div>
+                <div
+                  *ngIf="
+                    reverseDebitNoteForm.controls['debitNote'].invalid &&
+                    reverseDebitNoteForm.controls['debitNote'].touched
+                  "
+                >
+                  <div
+                    class="errorField common_color_txt font12 font500"
+                    *ngIf="reverseDebitNoteForm.controls['debitNote'].errors && reverseDebitNoteForm.controls['debitNote'].errors?.['required']"
+                  >
+                    * Debit Note # is Required
+                  </div>
+                </div>
+                <div
+                  class="invalid-feedback d-block"
+                  *ngIf="
+                    reverseDebitNoteForm.controls['debitNote'].invalid &&
+                    reverseDebitNoteForm.controls['debitNote'].touched
+                  "
+                >
+                  <div
+                    *ngIf="reverseDebitNoteForm.controls['debitNote'].errors?.['notFound']"
+                  >
+                    * Invalid Debit Note
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6" *ngIf="gstDebitNoteDetails">
+                <div class="br-10 group_panel p-3 position-relative">
+                  <p
+                    class="bg-white font600 group_title mb-0 position-absolute"
+                  >
+                    Debit Note Header
+                  </p>
+                  <div class="row g-2">
+                    <div class="col-md-12">
+                      <div class="input-group">
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Suplier</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+                          id
+                          formControlName="debitNoteSupplierName"
+                          disabled
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="input-group">
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Building</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+                          id
+                          formControlName="buildingName"
+                          disabled
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="input-group">
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Company</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+                          id
+                          formControlName="debitNoteCompanyName"
+                          disabled
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="input-group">
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Project</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+                          id
+                          formControlName="projetcName"
+                          disabled
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-6 col-12">
+                      <div class="input-group">
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Sup Bill Date</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0"
+                          formControlName="suppBillDate"
+                          disabled
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-6 col-12">
+                      <div class="input-group">
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Bill Amt</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500 text-end"
+                          id
+                          formControlName="billAmt"
+                          disabled
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-6 col-12">
+                      <div class="input-group">
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >DebitNote Date</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0"
+                          formControlName="debitNoteDate"
+                          disabled
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-6 col-12">
+                      <div class="input-group">
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Debit Amt</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500 text-end"
+                          id
+                          formControlName="debitNoteAmnt"
+                          disabled
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-8 col-12">
+                      <div class="input-group">
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Transer No #</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0"
+                          formControlName="transerNo"
+                          disabled
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="input-group">
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Narration</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0"
+                          formControlName="narration"
+                          disabled
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6" *ngIf="gstDebitNoteDetails">
+                <div class="br-10 group_panel p-3 position-relative">
+                  <p
+                    class="bg-white font600 group_title mb-0 position-absolute"
+                  >
+                    Debit Note Details
+                  </p>
+                  <div class="row g-2">
+                    <div class="col-lg-8 col-12">
+                      <div class="input-group">
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Material Group</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+                          id
+                          formControlName="matgroup"
+                          disabled
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-4 col-12">
+                      <div class="input-group">
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Amt</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500 text-end"
+                          id
+                          formControlName="amt"
+                          disabled
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-8 col-12">
+                      <div class="input-group">
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Material Code</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+                          id
+                          formControlName="matcode"
+                          disabled
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-8 col-12">
+                      <div class="input-group">
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Item Code</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+                          id
+                          formControlName="itemCode"
+                          disabled
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-6 col-12">
+                      <div class="input-group">
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >UOM</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0"
+                          formControlName="uom"
+                          disabled
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-6 col-12">
+                      <div class="input-group">
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >SKU</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0"
+                          formControlName="sku"
+                          disabled
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-6 col-12">
+                      <div class="input-group">
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Line Qty</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0 text-end"
+                          formControlName="lineQty"
+                          disabled
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-6 col-12">
+                      <div class="input-group">
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Sku Qty</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0 text-end"
+                          formControlName="skuQty"
+                          disabled
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-6 col-12">
+                      <div class="input-group">
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Item Rate</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0 text-end"
+                          formControlName="itemRate"
+                          disabled
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-6 col-12">
+                      <div class="input-group">
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Sku Rate</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0 text-end"
+                          formControlName="skuRate"
+                          disabled
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-6 col-12">
+                      <div class="input-group">
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Line Value</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0 text-end"
+                          formControlName="lineValue"
+                          disabled
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-6 col-12"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6" *ngIf="gstDebitNoteDetails">
+                <div class="br-10 group_panel p-3 position-relative">
+                  <p
+                    class="bg-white font600 group_title mb-0 position-absolute"
+                  >
+                    Description
+                  </p>
+                  <div class="row g-2">
+                    <div class="col-md-12">
+                      <div class="input-group">
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Description 1</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0"
+                          formControlName="description1"
+                          disabled
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="input-group">
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Description 2</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0"
+                          formControlName="description2"
+                          disabled
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="input-group">
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Description 3</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0"
+                          formControlName="description3"
+                          disabled
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="input-group">
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Description 4</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0"
+                          formControlName="description4"
+                          disabled
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner text-center bg-white br-10">
+      <div class="flex justify-content-between">
+        <button
+          type="submit"
+          [disabled]="gstDebitNoteDetails"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="r"
+          (click)="retrieveData()"
+        >
+          Retrieve
+        </button>
+        <button
+          type="submit"
+          [disabled]="!gstDebitNoteDetails"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="s"
+          (click)="reverseDebitNote()"
+        >
+          Save
+        </button>
+        <button
+          type="submit"
+          [disabled]="gstDebitNoteDetails"
+          (click)="reset()"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone"
+          accesskey="t"
+        >
+          Rese<span class="text-decoration-underline">t</span>
+        </button>
+        <button
+          type="submit"
+          [disabled]="!gstDebitNoteDetails"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="b"
+          (click)="handleBackClick()"
+        >
+          Back
+        </button>
+
+        <button
+          type="submit"
+          [disabled]="gstDebitNoteDetails"
+          (click)="handleExitClick()"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone"
+          accesskey="x"
+        >
+          E<span class="text-decoration-underline">x</span>it
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<app-loader *ngIf="loader"></app-loader>

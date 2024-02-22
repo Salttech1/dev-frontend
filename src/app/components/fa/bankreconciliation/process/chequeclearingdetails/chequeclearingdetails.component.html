@@ -1,0 +1,218 @@
+<section class="container">
+    <form [formGroup]="Chequeclearingdetails">
+      <div class="d-flex justify-content-center">
+        <div formGroupName="reportParameters">
+          <div class="row g-2 mb-3">
+            <div class="col-lg-12">
+              <div
+                class="group_panel br-10 form_common_bg p-3 pt-3 position-relative"
+              >
+                <p
+                  class="bg-white font600 group_title mb-0 position-absolute"
+                ></p>
+                <div class="row g-2">
+                  <div class="col-lg-12">
+                    <div class="input-group">
+                      <span
+                        class="input-group-text leftform_lbl font500 text-dark1 font12"
+                        >Company</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field"
+                        formControlName="StrPrmCoy"
+                        [f1]="{ id: 'COMPANY', isSingleValue: true }"
+                        autocomplete="off"
+                      />
+                    </div>
+                  </div>
+                  <!-- <div class="col-lg-12">
+                    <div
+                      class="input-group has-validation"
+                      [class.is-invalid]="
+                      Chequeclearingdetails.controls['StrPrmCoy'].touched &&
+                      Chequeclearingdetails?.errors?.['atLeastOneFilter']
+                  "
+                    >
+                      <span 
+                        class="input-group-text leftform_lbl font500 text-dark1 font12"
+                        >Building Code</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0"
+                        formControlName="StrPrmCoy"
+                        [f1]="{ id: 'BUILDINGS', multi: false }"
+                      />
+                    </div>
+                  </div> -->
+                  <div class="col-lg-12">
+                    <div class="input-group">
+                      <span
+                        class="input-group-text leftform_lbl font500 text-dark1 font12"
+                        >Bank</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field"
+                        formControlName="StrPrmBank"
+                        [f1]="{ id: 'BANKS', isSingleValue: true , subId: coyCodeFilter}"
+                        autocomplete="off"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-lg-12">
+                    <div class="input-group">
+                      <span
+                        class="input-group-text leftform_lbl font500 text-dark1 font12"
+                        >Transer</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field"
+                        formControlName="StrPrmTranSer"
+                        autocomplete="off"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-lg-12">
+                    <div class="input-group">
+                      <span
+                        class="input-group-text leftform_lbl font500 text-dark1 font12"
+                        >Cheque No.</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field"
+                        formControlName="StrPrmChqNo"
+                        autocomplete="off"
+                      />
+                    </div>
+                  </div>
+                  <!-- <div class="col-lg-12">
+                    <div class="input-group" appDate1 [class.is-invalid]="
+                    (Chequeclearingdetails.get('StrPrmChqDate')?.hasError('required') &&
+                    Chequeclearingdetails.controls['StrPrmChqDate'].touched) ">
+                      <span class="input-group-text leftform_lbl font500 text-dark1 font12">Cheque Date
+                      </span>
+                      <input type="text" [autocomplete]="'off'"
+                        class="form-control border-start-0 post_input_field font500 text-dark1 font12" matInput required
+                        formControlName="StrPrmChqDate" [matDatepicker]="pickerFrom" name="chequeDate" />
+                      <div
+                        class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0">
+                        <span class="input-group-addon">
+                          <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+                          <mat-datepicker #pickerFrom></mat-datepicker>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="errorField common_color_txt font12 font500 disInl" *ngIf=" (Chequeclearingdetails.get('billDate')?.hasError('required') &&
+                    Chequeclearingdetails.controls['StrPrmChqDate'].touched)">
+                      Cheque date is required.
+                    </div>
+                  </div> -->
+                  <div class="col-lg-12">
+                    <div class="input-group" appDate1 >
+                      <span class="input-group-text leftform_lbl font500 text-dark1 font12">Cheque Date
+                      </span>
+                      <input type="text" [autocomplete]="'off'"
+                        class="form-control border-start-0 post_input_field font500 text-dark1 font12" matInput required
+                        formControlName="StrPrmChqDate" [matDatepicker]="pickerFrom" name="chequeDate" />
+                      <div
+                        class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0">
+                        <span class="input-group-addon">
+                          <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+                          <mat-datepicker #pickerFrom></mat-datepicker>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-12">
+                    <div class="input-group">
+                      <span
+                        class="input-group-text leftform_lbl font500 text-dark1 font12"
+                        >Amount.</span
+                      >
+                      <input
+                        type="number"
+                        class="form-control border-start-0 post_input_field"
+                        formControlName="decPrmTranAmt"
+                        autocomplete="off"
+                      />
+                    </div>
+                  </div>
+          
+                  <div class="col-md-12">
+                    <!-- export types -->
+                    <div class="mt-3 d-flex justify-content-center">
+                      <p class="font600 group_title mb-1">Export Type : </p>
+  
+                      <div
+                        class="form-check form-check-inline"
+                        *ngFor="let item of exportTypes"
+                      >
+                        <input
+                          class="form-check-input position-relative cursor-pointer"
+                          type="radio"
+                          [value]="item.id"
+                          formControlName="exportType"
+                        />
+                        <label class="form-check-label m-0" for="exTy1">
+                          {{ item.name }}
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </section>
+  
+  <app-loader *ngIf="loaderToggle"></app-loader>
+  <section class="action_section position-fixed w-100">
+    <div class="container">
+      <div class="action_conatiner text-center bg-white br-10 w-100">
+        <div class="flex justify-content-between">
+          <button
+            type="submit"
+            class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+            accesskey="w"
+            (click)="getReport(false)"
+          >
+            Do<span class="text-decoration-underline">w</span>nload
+          </button>
+          <button
+            type="submit"
+            class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white"
+            (click)="getReport(true)"
+            accesskey="p"
+          >
+            Print
+          </button>
+  
+          <button
+            type="submit"
+            class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white"
+            (click)="reset()"
+            accesskey="p"
+          >
+            Reset
+          </button>
+          <!-- <button type="submit" class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white" [disabled]="true" accesskey="p" >Preview</button> -->
+          <button
+            type="submit"
+            class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+            accesskey="x"
+            (click)="handleExitClick()"
+          >
+            E<span class="text-decoration-underline">x</span>it
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+  

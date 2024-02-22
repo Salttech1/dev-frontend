@@ -1,0 +1,53 @@
+<div class="container pt-1 mst_res">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="br-10 group_panel p-3 position-relative">
+        <p class="bg-white font600 group_title mb-0 position-absolute">
+          Reports Download
+        </p>
+        <div class="table-responsive">
+          <table class="table font12">
+            <thead>
+              <tr>
+                <th>File</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let report of reportsData; let i = index">
+                <td>{{ report.reportName }}</td>
+                <td>{{ report.createdDate }}</td>
+                <td>{{ report.status }}</td>
+                <td>
+                  <div class="d-flex">
+                    <button
+                      class="btn btn-theme br-10 me-1 font12"
+                      title="Download"
+                      (click)="downloadReport(report)"
+                      [disabled]="report.status != 'COMPLETED'"
+                    >
+                      <img
+                        src="assets/images/download.svg"
+                        alt="Download"
+                      />
+                    </button>
+                    <button
+                      title="delete"
+                      class="btn btn-theme-light br-10 font12"
+                      (click)="deleteReport(report)"
+                    >
+                      X
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-loader *ngIf="loader"></app-loader>

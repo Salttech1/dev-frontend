@@ -1,0 +1,50 @@
+<section class="container">
+    <section class="form-section-wrapper">
+      <form [formGroup]="ReportCriteria">
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-4">
+            <div class="input-group has-validation flex-nowrap" appDate1>
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Period</span
+              >
+  
+              <span class="br-10 datepicker_field input-group-addon w-100">
+                <div mat-form-field appearance="fill" class="matForm">
+                  <mat-date-range-input
+                    [formGroup]="this.ReportCriteria.controls['period']"
+                    [rangePicker]="picker1"
+                  >
+                    <input
+                      class="font12"
+                      matStartDate
+                      formControlName="fromdate"
+                      placeholder="From Date"
+                    />
+                    <input
+                      class="font12"
+                      matEndDate
+                      formControlName="uptodate"
+                      placeholder="To Date"
+                    />
+                  </mat-date-range-input>
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker1"
+                  ></mat-datepicker-toggle>
+                  <mat-date-range-picker #picker1></mat-date-range-picker>
+                </div>
+              </span>
+            </div>
+          </div>
+        </div>
+      </form>
+    </section>
+  </section>
+  
+  <app-buttons
+    [buttonsList]="buttonsList"
+    (eventTrigger)="buttonAction($event)"
+  ></app-buttons>
+  <app-loader *ngIf="config.isLoading"></app-loader>
+  

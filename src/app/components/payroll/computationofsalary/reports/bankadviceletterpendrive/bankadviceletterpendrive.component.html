@@ -1,0 +1,329 @@
+<section class="container">
+  <form [formGroup]="bankadviceletterpendrive">
+    <div class="d-flex justify-content-center">
+      <div formGroupName="reportParameters">
+        <div class="row g-2 mb-3">
+          <div class="col-lg-12">
+            <div
+              class="group_panel br-10 form_common_bg p-3 pt-3 position-relative"
+            >
+              <p
+                class="bg-white font600 group_title mb-0 position-absolute"
+              ></p>
+              <!-- Radio Button -->
+              <div
+                class="group_panel br-10 form_common_bg p-3 pt-3 mt-2 position-relative"
+              >
+                <p class="bg-white font600 group_title mb-0 position-absolute">
+                  Report Options
+                </p>
+                <div class="input-group">
+                  <div class="my-2">
+                    <div class="form-check d-flex align-items-center">
+                      <input
+                        type="radio"
+                        class="form-check-input font12 font500 position-relative"
+                        id="RbOpt1"
+                        name="rbOptions"
+                        value="Letter"
+                        formControlName="rbOptions"
+                      />
+                      <label
+                        class="form-check-label first_letter_textdecorationone"
+                        for="xx"
+                        accesskey="h"
+                      >
+                        Advice Letter
+                      </label>
+                    </div>
+                    <div class="form-check d-flex align-items-center">
+                      <input
+                        type="radio"
+                        class="form-check-input font12 font500 position-relative"
+                        id="RbOpt2"
+                        name="rbOptions"
+                        value="Advice"
+                        formControlName="rbOptions"
+                      />
+                      <label
+                        class="form-check-label first_letter_textdecorationone"
+                        for="xx"
+                        accesskey="h"
+                      >
+                        Bank Advice
+                      </label>
+                    </div>
+                    <div class="form-check d-flex align-items-center">
+                      <input
+                        type="radio"
+                        class="form-check-input font12 font500 position-relative"
+                        id="RbOpt3"
+                        name="rbOptions"
+                        value="PenDrive"
+                        formControlName="rbOptions"
+                      />
+                      <label
+                        class="form-check-label first_letter_textdecorationone"
+                        for="xx"
+                        accesskey="h"
+                      >
+                        Advice Pen Drive
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- End of Radio Button -->
+              <div class="row mb-2 mt-2">
+                <div class="col-lg-12">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Company Code</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0 post_input_field"
+                      oninput="this.value = this.value.toUpperCase()"
+                      formControlName="pCoy"
+                      [f1]="{ id: 'SALARYCOY' }"
+                      id="SALARYCOY"
+                      autocomplete="off"
+                    />
+                  </div>
+
+                  <div
+                    class="disInl me-2"
+                    *ngIf="
+                      bankadviceletterpendrive.controls['reportParameters']
+                        .controls['pCoy'].invalid &&
+                      (bankadviceletterpendrive.controls['reportParameters']
+                        .controls['pCoy'].touched ||
+                        bankadviceletterpendrive.controls['reportParameters']
+                          .controls['pCoy'].dirty)
+                    "
+                  >
+                    <div
+                      class="errorField common_color_txt font12 font500 disInl"
+                      *ngIf="bankadviceletterpendrive.controls['reportParameters'].controls['pCoy'].errors?.min || bankadviceletterpendrive.controls['reportParameters'].controls['pCoy'].errors?.['required']"
+                    >
+                      Company is required
+                    </div>
+                    <div
+                      class="errorField common_color_txt font12 font500 disInl"
+                      *ngIf="bankadviceletterpendrive.controls['reportParameters'].controls['pCoy'].errors?.['notFound'] "
+                    >
+                      Invalid Company
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-lg-12">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Salary Type</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0 post_input_field"
+                      formControlName="pSalType"
+                      [f1]="{ id: 'SALARYTYPES', multi: true }"
+                      id="SALARYTYPES"
+                      autocomplete="off"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="mb-2">
+                <div
+                  class="input-group"
+                  appYearmonthformatdirective
+                  [class.is-invalid]="
+                    bankadviceletterpendrive.controls['reportParameters']
+                      .controls['pPayMonth'].invalid &&
+                    bankadviceletterpendrive.controls['reportParameters']
+                      .controls['pPayMonth'].touched
+                  "
+                >
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Month</span
+                  >
+                  <input
+                    type="text"
+                    [matDatepicker]="pickerYearSelection"
+                    class="form-control border-start-0 post_input_field"
+                    formControlName="pPayMonth"
+                    id="pPayMonth"
+                  />
+                  <div
+                    class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                  >
+                    <span class="input-group-addon">
+                      <mat-datepicker-toggle
+                        matSuffix
+                        [for]="pickerYearSelection"
+                      ></mat-datepicker-toggle>
+                      <mat-datepicker
+                        #pickerYearSelection
+                        startView="multi-year"
+                        (monthSelected)="
+                          chosenMonthHandler(
+                            $event,
+                            pickerYearSelection,
+                            bankadviceletterpendrive.get(
+                              'reportParameters.fromDate'
+                            )
+                          )
+                        "
+                      ></mat-datepicker>
+                    </span>
+                  </div>
+                </div>
+                <div
+                  class="disInl me-2"
+                  *ngIf="
+                    bankadviceletterpendrive.controls['reportParameters']
+                      .controls['pPayMonth'].invalid &&
+                    (bankadviceletterpendrive.controls['reportParameters']
+                      .controls['pPayMonth'].touched ||
+                      bankadviceletterpendrive.controls['reportParameters']
+                        .controls['pPayMonth'].dirty)
+                  "
+                >
+                  <div
+                    class="errorField common_color_txt font12 font500 disInl"
+                    *ngIf="bankadviceletterpendrive.controls['reportParameters'].controls['pPayMonth'].errors && bankadviceletterpendrive.controls['reportParameters'].controls['pPayMonth'].errors?.['required']"
+                  >
+                    Month is required
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12 mt-1 mb-2">
+                <div class="checkbox_custom">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    name="Consider All Payments"
+                    id="AllPaymentsYN"
+                    formControlName="AllPaymentsYN"
+                    (keypress)="checkBoxToggle($event)"
+                  />
+                  <label
+                    for="IncludeDisposed"
+                    class="form-check-label ps-2 ms-1 font500"
+                  >
+                    Consider All Payments?
+                  </label>
+                </div>
+              </div>
+              <div class="row mb-2 mb-2">
+                <div class="col-lg-12">
+                  <div class="input-group" appDate1>
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      >Payment Date</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0 post_input_field font500 font12 squareinput-radius d-flex"
+                      formControlName="PPayDate"
+                      matInput
+                      autocomplete="off"
+                      [matDatepicker]="PPayDate"
+                      id="PPayDate"
+                    />
+                    <div
+                      class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0 d-flex"
+                    >
+                      <span class="input-group-addon">
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="PPayDate"
+                          tabindex="-1"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #PPayDate></mat-datepicker>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-2 mt-2">
+                <div class="col-lg-12">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Bank Code</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0 post_input_field"
+                      formControlName="pBankCode"
+                      [f1]="{ id: 'BANKADVBANK', subId: companyCode }"
+                      id="BANKADVBANK"
+                      autocomplete="off"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-lg-12">
+                  <div *ngIf="empTypeVisible" class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Employee Type</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0 post_input_field"
+                      formControlName="PEmpType"
+                      [f1]="{ id: 'EMPTY', multi: false }"
+                      id="EMPTY"
+                      autocomplete="off"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</section>
+
+<app-loader *ngIf="loaderToggle"></app-loader>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner text-center bg-white br-10 w-100">
+      <div class="flex justify-content-between">
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+          accesskey="w"
+          (click)="exportReport()"
+        >
+          Do<span class="text-decoration-underline">w</span>nload
+        </button>
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white"
+          (click)="getReport(true)"
+          accesskey="p"
+        >
+          Print
+        </button>
+        <!-- <button type="submit" class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white" [disabled]="true" accesskey="p" >Preview</button> -->
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+          accesskey="x"
+          (click)="handleExitClick()"
+        >
+          E<span class="text-decoration-underline">x</span>it
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

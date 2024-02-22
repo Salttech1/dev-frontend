@@ -1,0 +1,1155 @@
+<form [formGroup]="gstDebitNotesEntryForm">
+  <div class="form_container">
+    <div class="row g-2 custom">
+      <div class="col-sm-4 col-md-6 col-lg-4 col-xl-4 col-xxl-4">
+        <div
+          class="input-group"
+          [class.is-invalid]="
+            gstDebitNotesEntryForm.controls['debitNote'].invalid &&
+            gstDebitNotesEntryForm.controls['debitNote'].touched
+          "
+        >
+          <span class="input-group-text leftform_lbl font500 text-dark1 font12"
+            ><span class="text-danger font500 font12">* </span>Debit Note
+            #</span
+          >
+          <app-f1
+            id="company2"
+            [formControlName]="'debitNote'"
+            placeholder
+            id="debitNote24"
+            class="form-control post_input_field border-start-0 d-flex"
+            titleValue="{{ debitNoteTableData?.mainheader }}"
+            [tableData]="debitNoteTableData?.dataSet"
+            [colHeader]="[
+              debitNoteTableData?.colhead1,
+              debitNoteTableData?.colhead2,
+              debitNoteTableData?.colhead3,
+              debitNoteTableData?.colhead4,
+              debitNoteTableData?.colhead5
+            ]"
+            [inputBBC]="debitNoteTableData?.bringBackColumn"
+            [dynaPopId]="'DEBITNOTES'"
+            (updatedSelectedValue)="checkIsDbnoteValid($event)"
+            maxlength="10"
+            type="text"
+            [errorMessage]="'Debit Note # does not exist'"
+          ></app-f1>
+        </div>
+        <div
+          *ngIf="
+            gstDebitNotesEntryForm.controls['debitNote'].invalid &&
+            gstDebitNotesEntryForm.controls['debitNote'].touched
+          "
+        >
+          <div
+            class="errorField common_color_txt font12 font500"
+            *ngIf="gstDebitNotesEntryForm.controls['debitNote'].errors && gstDebitNotesEntryForm.controls['debitNote'].errors?.['required']"
+          >
+            * Debit Note # is Required
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4 col-md-6 col-lg-4 col-xl-4 col-xxl-4">
+        <div
+          class="input-group"
+          [class.is-invalid]="
+            gstDebitNotesEntryForm.controls['debitNoteDate'].invalid &&
+            gstDebitNotesEntryForm.controls['debitNoteDate'].touched
+          "
+        >
+          <span class="input-group-text leftform_lbl font500 text-dark1 font12"
+            >Debit Note Date</span
+          >
+          <input
+            type="text"
+            [autocomplete]="'off'"
+            (focus)="disableButton()"
+            class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+            id="entryFromField"
+            matInput
+            [matDatepicker]="pickerEntryFrom"
+            formControlName="debitNoteDate"
+            name=""
+            (dateChange)="validateInvalidFormat('entryFromField', $event)"
+          />
+          <div
+            class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+          >
+            <span class="input-group-addon">
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="pickerEntryFrom"
+                tabindex="-1"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #pickerEntryFrom></mat-datepicker>
+            </span>
+          </div>
+        </div>
+        <div
+          *ngIf="gstDebitNotesEntryForm.controls['debitNoteDate'].errors?.['dateValidation']"
+          class="errorField common_color_txt font12 font500"
+        >
+          * Debit Note Date cannot be greater than today.
+        </div>
+      </div>
+      <div *ngIf="gstDebitNoteDetails" class="pt-2">
+        <div class="row g-2 custom">
+          <div class="col-sm-4 col-md-6 col-lg-4 col-xl-6 col-xxl-4">
+            <div
+              class="input-group"
+              [class.is-invalid]="
+                gstDebitNotesEntryForm.controls['party'].invalid &&
+                gstDebitNotesEntryForm.controls['party'].touched
+              "
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Party Type</span
+              >
+              <input
+                type="text"
+                class="form-control post_input_field border-end-0 border-start-0 d-flex"
+                formControlName="party"
+                tabindex="-1"
+                disabled
+              />
+              <span class="position-relative span_divider"></span>
+              <input
+                type="text"
+                class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+                id
+                formControlName="partyName"
+                tabindex="-1"
+                disabled
+              />
+            </div>
+          </div>
+
+          <div class="col-sm-4 col-md-4 col-lg-4 col-xl-3 col-xxl-3">
+            <div
+              class="input-group"
+              [class.is-invalid]="
+                gstDebitNotesEntryForm.controls['billtype'].invalid &&
+                gstDebitNotesEntryForm.controls['billtype'].touched
+              "
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Bill Type</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+                id
+                formControlName="billtype"
+                disabled
+              />
+            </div>
+          </div>
+
+          <div class="col-sm- col-md-4 col-lg-4 col-xl-3 col-xxl-3">
+            <div
+              class="input-group"
+              [class.is-invalid]="
+                gstDebitNotesEntryForm.controls['suppbilldt'].invalid &&
+                gstDebitNotesEntryForm.controls['suppbilldt'].touched
+              "
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Bill Date</span
+              >
+              <input
+                type="text"
+                [autocomplete]="'off'"
+                class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                disabled
+                id="suppBillDate"
+                matInput
+                [matDatepicker]="pickerBillDate"
+                formControlName="suppbilldt"
+                name=""
+                (dateChange)="validateInvalidFormat($event, 'suppBillDate', '')"
+              />
+              <div
+                class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+              >
+                <span class="input-group-addon">
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="pickerBillDate"
+                    tabindex="-1"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #pickerDe></mat-datepicker>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-4 col-md-8 col-lg-4 col-xl-6 col-xxl-6">
+            <div
+              class="input-group"
+              [class.is-invalid]="
+                gstDebitNotesEntryForm.controls['partycode'].invalid &&
+                gstDebitNotesEntryForm.controls['partycode'].touched
+              "
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                ><span class="text-danger font500 font12">* </span>Party
+                Code</span
+              >
+              <app-f1
+                id="partyCode"
+                [formControlName]="'partycode'"
+                placeholder
+                class="form-control post_input_field border-start-0 d-flex"
+                titleValue="{{ partyData?.mainheader }}"
+                [tableData]="partyData?.dataSet"
+                [colHeader]="[
+                  partyData?.colhead1,
+                  partyData?.colhead2,
+                  partyData?.colhead3,
+                  partyData?.colhead4,
+                  partyData?.colhead5
+                ]"
+                [inputBBC]="partyData?.bringBackColumn"
+                (updatedSelectedValue)="
+                  updatePartyList($event, partyData?.bringBackColumn)
+                "
+                [dynaPopId]="'SUPPLIERS'"
+                type="text"
+                [errorMessage]="'No such party. Incorrect party code'"
+              ></app-f1>
+              <span class="position-relative span_divider"></span>
+              <input
+                type="text"
+                class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+                id
+                formControlName="partyCodeName"
+                tabindex="-1"
+                disabled
+              />
+            </div>
+            <div
+              *ngIf="
+                gstDebitNotesEntryForm.controls['partycode'].invalid &&
+                gstDebitNotesEntryForm.controls['partycode'].touched
+              "
+            >
+              <div
+                class="errorField common_color_txt font12 font500"
+                *ngIf="gstDebitNotesEntryForm.controls['partycode'].errors && gstDebitNotesEntryForm.controls['partycode'].errors?.['required']"
+              >
+                * PartyCode code cannot be left blank.
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-4 col-md-4 col-lg-4 col-xl-3 col-xxl-3">
+            <div
+              class="input-group"
+              [class.is-invalid]="
+                gstDebitNotesEntryForm.controls['suppbillno'].invalid &&
+                gstDebitNotesEntryForm.controls['suppbillno'].touched
+              "
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                ><span class="text-danger font500 font12">* </span>Supp Bill
+                #</span
+              >
+              <app-f1
+                id="suppBill234"
+                [formControlName]="'suppbillno'"
+                placeholder
+                class="form-control post_input_field border-start-0 d-flex"
+                titleValue="{{ suppBillData?.mainheader }}"
+                [tableData]="suppBillData?.dataSet"
+                [colHeader]="[
+                  suppBillData?.colhead1,
+                  suppBillData?.colhead2,
+                  suppBillData?.colhead3,
+                  suppBillData?.colhead4,
+                  suppBillData?.colhead5
+                ]"
+                [inputBBC]="suppBillData?.bringBackColumn"
+                [dynaPopId]="'BILLS'"
+                (updatedSelectedValue)="checkSupplierBill($event)"
+                type="text"
+                [errorMessage]="'No such bill number for this supplier'"
+              ></app-f1>
+            </div>
+            <div
+              *ngIf="
+                gstDebitNotesEntryForm.controls['suppbillno'].invalid &&
+                gstDebitNotesEntryForm.controls['suppbillno'].touched
+              "
+            >
+              <div
+                class="errorField common_color_txt font12 font500"
+                *ngIf="gstDebitNotesEntryForm.controls['suppbillno'].errors && gstDebitNotesEntryForm.controls['suppbillno'].errors?.['required']"
+              >
+                * Supplier Bill No is Required
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-4 col-md-4 col-lg-4 col-xl-3 col-xxl-3">
+            <div
+              class="input-group"
+              [class.is-invalid]="
+                gstDebitNotesEntryForm.controls['dnAmount'].invalid &&
+                gstDebitNotesEntryForm.controls['dnAmount'].touched
+              "
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                ><span class="text-danger font500 font12">* </span>DN Amt</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+                id="dnAmount123124"
+                formControlName="dnAmount"
+                (keyup)="patchAmountValue($event)"
+                oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                (change)="checkIsDNAmountValid()"
+              />
+            </div>
+            <div
+              *ngIf="
+                gstDebitNotesEntryForm.controls['dnAmount'].invalid &&
+                gstDebitNotesEntryForm.controls['dnAmount'].touched
+              "
+            >
+              <div
+                class="errorField common_color_txt font12 font500"
+                *ngIf="gstDebitNotesEntryForm.controls['dnAmount'].errors && gstDebitNotesEntryForm.controls['dnAmount'].errors?.['required']"
+              >
+                * Debit amount cannot be left blank.
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-4 col-md-8 col-lg-4 col-xl-6 col-xxl-6">
+            <div
+              class="input-group"
+              [class.is-invalid]="
+                gstDebitNotesEntryForm.controls['bldgcode'].invalid &&
+                gstDebitNotesEntryForm.controls['bldgcode'].touched
+              "
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Building Code</span
+              >
+              <input
+                type="text"
+                class="form-control post_input_field border-end-0 border-start-0 d-flex"
+                id
+                formControlName="bldgcode"
+                tabindex="-1"
+                disabled
+              />
+              <span class="position-relative span_divider"></span>
+              <input
+                type="text"
+                class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+                id
+                formControlName="projectName"
+                tabindex="-1"
+                disabled
+              />
+            </div>
+            <div
+              *ngIf="
+                gstDebitNotesEntryForm.controls['party'].invalid &&
+                gstDebitNotesEntryForm.controls['party'].touched
+              "
+            >
+              <div
+                class="errorField common_color_txt font12 font500"
+                *ngIf="gstDebitNotesEntryForm.controls['party'].errors && gstDebitNotesEntryForm.controls['party'].errors?.['required']"
+              >
+                * Retention is required
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4 col-md-4 col-lg-4 col-xl-3 col-xxl-3">
+            <div class="input-group">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >TDS (%)</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+                id
+                formControlName="tdsPercent"
+              />
+            </div>
+          </div>
+          <div class="col-sm-4 col-md-6 col-lg-4 col-xl-3 col-xxl-3">
+            <div
+              class="input-group"
+              [class.is-invalid]="
+                gstDebitNotesEntryForm.controls['tdsamount'].invalid &&
+                gstDebitNotesEntryForm.controls['tdsamount'].touched
+              "
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >TDS Amount</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+                id
+                formControlName="tdsamount"
+              />
+            </div>
+          </div>
+
+          <!-- ITEMUOM -->
+          <div class="col-sm-4 col-md-8 col-lg-4 col-xl-6 col-xxl-6">
+            <div class="input-group">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Company</span
+              >
+              <input
+                type="text"
+                class="form-control post_input_field border-end-0 border-start-0 d-flex"
+                id
+                formControlName="coy"
+                tabindex="-1"
+                disabled
+              />
+              <span class="position-relative span_divider"></span>
+              <input
+                type="text"
+                class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+                id
+                formControlName="companyName"
+                tabindex="-1"
+                disabled
+              />
+            </div>
+          </div>
+          <div class="col-sm-4 col-md-6 col-lg-4 col-xl-6 col-xxl-4">
+            <div class="input-group">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Narration</span
+              >
+              <input
+                upperCase
+                type="text"
+                class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+                id="narration123"
+                formControlName="narration"
+                (focus)="calculateDebitAmntTDS()"
+                maxlength="40"
+              />
+            </div>
+          </div>
+          <div class="col-sm-4 col-md-6 col-lg-4 col-xl-6 col-xxl-4">
+            <div class="input-group">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Description 1</span
+              >
+              <input
+              upperCase
+                type="text"
+                class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+                id="desc1"
+                formControlName="description1"
+                maxlength="50"
+              />
+            </div>
+          </div>
+          <div class="col-sm-4 col-md-6 col-lg-4 col-xl-6 col-xxl-4">
+            <div class="input-group">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Description 2</span
+              >
+              <input
+              upperCase
+                type="text"
+                class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+                id="desc3"
+                maxlength="50"
+                formControlName="description2"
+              />
+            </div>
+          </div>
+          <div class="col-sm-4 col-md-6 col-lg-4 col-xl-6 col-xxl-4">
+            <div class="input-group">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Description 3</span
+              >
+              <input
+              upperCase
+                type="text"
+                class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+                id="desc5"
+                maxlength="50"
+                formControlName="description3"
+              />
+            </div>
+          </div>
+          <div class="col-sm-4 col-md-6 col-lg-4 col-xl-6 col-xxl-4">
+            <div class="input-group">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Description 4</span
+              >
+              <input
+              upperCase
+                type="text"
+                class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+                id="desc2"
+                maxlength="50"
+                formControlName="description4"
+              />
+            </div>
+          </div>
+          <div class="col-sm-4 col-md-6 col-lg-4 col-xl-6 col-xxl-4">
+            <div class="input-group">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Description 5</span
+              >
+              <input
+              upperCase
+                type="text"
+                class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+                id="desc4"
+                maxlength="50"
+                formControlName="description5"
+              />
+            </div>
+          </div>
+          
+          <div class="col-lg-2 col-xl-6 col-xxl-4"></div>
+
+          <div class="col-sm-4 col-md-4 col-lg-4 col-xl-3 col-xxl-3">
+            <div
+              class="input-group"
+              [class.is-invalid]="
+                gstDebitNotesEntryForm.controls['matgroup'].invalid &&
+                gstDebitNotesEntryForm.controls['matgroup'].touched
+              "
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Mat Group</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+                id
+                disabled
+                formControlName="matgroup"
+              />
+            </div>
+          </div>
+          
+
+
+          <div class="col-sm-6 col-md-8 col-lg-4 col-xl-6 col-xxl-4">
+            <div
+              class="input-group"
+              [class.is-invalid]="
+                gstDebitNotesEntryForm.controls['matGroupName'].invalid &&
+                gstDebitNotesEntryForm.controls['matGroupName'].touched
+              "
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Mat Group Name</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+                id
+                disabled
+                formControlName="matGroupName"
+              />
+            </div>
+          </div>
+          <!-- <div class="col-md-2 col-lg-4 col-xl-3 col-xxl-3"></div> -->
+          <div class="col-sm-2 col-md-4 col-lg-4 col-xl-3 col-xxl-3">
+            <div
+              class="input-group"
+              [class.is-invalid]="
+                gstDebitNotesEntryForm.controls['matcode'].invalid &&
+                gstDebitNotesEntryForm.controls['matcode'].touched
+              "
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Mat Code</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+                id
+                disabled
+                formControlName="matcode"
+              />
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-8 col-lg-4 col-xl-6 col-xxl-4">
+            <div
+              class="input-group"
+              [class.is-invalid]="
+                gstDebitNotesEntryForm.controls['matCodeName'].invalid &&
+                gstDebitNotesEntryForm.controls['matCodeName'].touched
+              "
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Mat Code Name</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+                id
+                disabled
+                formControlName="matCodeName"
+              />
+            </div>
+          </div>
+          <!-- <div class="col-sm-2 col-md-2 col-lg-4 col-xl-3 col-xxl-3"></div> -->
+          <div class="col-sm-4 col-md-4 col-lg-4 col-xl-3 col-xxl-3">
+            <div
+              class="input-group"
+              [class.is-invalid]="
+                gstDebitNotesEntryForm.controls['uom'].invalid &&
+                gstDebitNotesEntryForm.controls['uom'].touched
+              "
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >UOM</span
+              >
+              <app-f1
+                id="uom1234"
+                [formControlName]="'uom'"
+                placeholder
+                class="form-control post_input_field border-start-0 d-flex"
+                titleValue="{{ uomData?.mainheader }}"
+                [tableData]="uomData?.dataSet"
+                [colHeader]="[
+                  uomData?.colhead1,
+                  uomData?.colhead2,
+                  uomData?.colhead3,
+                  uomData?.colhead4,
+                  uomData?.colhead5
+                ]"
+                [inputBBC]="uomData?.bringBackColumn"
+                [dynaPopId]="'ITEMUOM'"
+                type="text"
+                [errorMessage]="'Invalid UOM Code'"
+              ></app-f1>
+            </div>
+            <div
+              *ngIf="
+                gstDebitNotesEntryForm.controls['uom'].invalid &&
+                gstDebitNotesEntryForm.controls['uom'].touched
+              "
+            >
+              <div
+                *ngIf="gstDebitNotesEntryForm.controls['uom'].errors?.['validateUom']"
+                class="errorField common_color_txt font12 font500"
+              >
+                {{gstDebitNotesEntryForm.controls['uom'].errors?.['validateUomMsg']}}
+              </div>
+              <div
+                class="errorField common_color_txt font12 font500"
+                *ngIf="gstDebitNotesEntryForm.controls['uom'].errors?.['maxlength']"
+              >
+                UOM should be 10 Character. Current is
+                {{ gstDebitNotesEntryForm.controls['uom'].errors?.['maxlength']?.actualLength  }}
+                characters.
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4 col-md-4 col-lg-4 col-xl-3 col-xxl-3">
+            <div
+              class="input-group"
+              [class.is-invalid]="
+                gstDebitNotesEntryForm.controls['dequantity'].invalid &&
+                gstDebitNotesEntryForm.controls['dequantity'].touched
+              "
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Quantity</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+                id="quantity123"
+                maxlength="8"
+                formControlName="dequantity"
+                (keydown.tab)="quantityValid()"
+              />
+            </div>
+          </div>
+          <div class="col-sm-4 col-md-4 col-lg-4 col-xl-3 col-xxl-3">
+            <div
+              class="input-group"
+              [class.is-invalid]="
+                gstDebitNotesEntryForm.controls['amount'].invalid &&
+                gstDebitNotesEntryForm.controls['amount'].touched
+              "
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Amount</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+                id
+                maxlength="12"
+                oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                (blur)="checkIsEnteredAmountValid()"
+                formControlName="amount"
+              />
+            </div>
+          </div>
+        </div>
+        <br />
+        <div
+          class="tab-pane container active p-0"
+          id="itemGSTBreakUpDetails"
+          formArrayName="itemsDebitNoteWiseArray"
+        >
+          <div class="gstBreakup_section">
+            <div class="table-responsive">
+              <div class="view">
+                <div class="wrapper">
+                  <table
+                    class="table table-bordered datatable table w-100 mb-0"
+                    [cellNavi]="'cell'"
+                  >
+                    <thead class="table_head_position_sticky">
+                      <tr tabindex="0">
+                        <th class="fontBold font12 text-dark1">Mat Group</th>
+                        <th class="fontBold font12 text-dark1">
+                          Mat Group Name
+                        </th>
+                        <th class="fontBold font12 text-dark1">HSN Code</th>
+                        <th class="fontBold font12 text-dark1">Item Desc</th>
+                        <th class="fontBold font12 text-dark1 max_wid_120">
+                          FOTO Amt
+                        </th>
+                        <th class="fontBold font12 text-dark1 max_wid_120">
+                          UOM
+                        </th>
+                        <th class="fontBold font12 text-dark1 max_wid_150">
+                          Qty
+                        </th>
+                        <th class="fontBold font12 text-dark1">Rate</th>
+                        <th class="fontBold font12 text-dark1 max_wid_150">
+                          Amount
+                        </th>
+                        <th class="fontBold font12 text-dark1">Disc.Amt</th>
+                        <th class="fontBold font12 text-dark1 max_wid_150">
+                          Taxable Amount
+                        </th>
+                        <th class="fontBold font12 text-dark1">CGST %</th>
+                        <th class="fontBold font12 text-dark1 max_wid_150">
+                          CGST Amt
+                        </th>
+                        <th class="fontBold font12 text-dark1">SGST %</th>
+                        <th class="fontBold font12 text-dark1">SGST Amt</th>
+                        <th class="fontBold font12 text-dark1">IGST %</th>
+                        <th class="fontBold font12 text-dark1">IGST Amt</th>
+                        <th class="fontBold font12 text-dark1">UGST %</th>
+                        <th class="fontBold font12 text-dark1">UGST Amt</th>
+                      </tr>
+                    </thead>
+                    <tbody *ngIf="showTable">
+                      <tr
+                        *ngFor="
+                          let item of gstDebitNotesEntryForm.controls
+                            .itemsDebitNoteWiseArray.controls;
+                          let index = index
+                        "
+                        [formGroupName]="index"
+                      >
+                        <td>
+                          <input
+                            class="border-0 form-control input_control form-control font500 text-dark1 font12 itemDesc_input"
+                            type="text"
+                            name
+                            [formControlName]="'matgroup'"
+                            readonly
+                            tabindex="-1"
+                          />
+                        </td>
+                        <td>
+                          <input
+                            class="border-0 form-control input_control form-control font500 text-dark1 font12 itemDesc_input"
+                            type="text"
+                            [value]="
+                              gstDebitNotesEntryForm.get('matGroupName')?.value
+                            "
+                            name
+                            readonly
+                            tabindex="-1"
+                          />
+                        </td>
+                        <td>
+                          <input
+                            class="border-0 form-control input_control form-control font500 text-dark1 font12 itemDesc_input"
+                            type="text"
+                            name
+                            [formControlName]="'hsncode'"
+                            readonly
+                            tabindex="-1"
+                          />
+                        </td>
+                        <td>
+                          <input
+                            class="border-0 form-control input_control form-control font500 text-dark1 font12 itemDesc_input"
+                            type="text"
+                            name
+                            [formControlName]="'hsndesc'"
+                            readonly
+                            tabindex="-1"
+                          />
+                        </td>
+                        <td>
+                          <input
+                            class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                            type="text"
+                            name
+                            maxlength="8"
+                            [id]="'cell' + index + '-1'"
+                            [formControlName]="'fotoamt'"
+                            (blur)="checkIsFotoAmountValid(index)"
+                            oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                          />
+                        </td>
+                        <td>
+                          <input
+                            class="border-0 form-control input_control form-control font500 text-dark1 font12 itemDesc_input"
+                            type="text"
+                            name
+                            [id]="'cell' + index + '-2'"
+                            maxlength="10"
+                            [formControlName]="'uom'"
+                          />
+                        </td>
+                        <td>
+                          <input
+                            class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                            type="text"
+                            name
+                            [id]="'cell' + index + '-3'"
+                            [formControlName]="'quantity'"
+                            value="0"
+                            maxlength="10"
+                            (blur)="checkIsItemQuantityValid(index)"
+                            oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                          />
+                        </td>
+                        <td>
+                          <input
+                            class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                            type="text"
+                            name
+                            [id]="'cell' + index + '-4'"
+                            [formControlName]="'rate'"
+                            value="0"
+                            maxlength="10"
+                            (blur)="checkIsRateValid(index)"
+                            oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                          />
+                        </td>
+                        <td>
+                          <input
+                            class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                            type="text"
+                            name
+                            [id]="'cell' + index + '-5'"
+                            [formControlName]="'amount'"
+                            value="0"
+                            maxlength="12"
+                            (blur)="checkIsItemAmountValid(index)"
+                            oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                          />
+                        </td>
+                        <td>
+                          <input
+                            class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                            type="text"
+                            name
+                            [id]="'cell' + index + '-6'"
+                            [formControlName]="'discountamt'"
+                            value="0"
+                            maxlength="10"
+                            (change)="checkValidDiscountAmount(index)"
+                            oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                          />
+                        </td>
+                        <td>
+                          <input
+                            class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                            type="text"
+                            name
+                            [id]="'cell' + index + '-7'"
+                            [formControlName]="'taxableamt'"
+                            value="0"
+                            maxlength="12"
+                            (blur)="setAmount(index)"
+                            oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                          />
+                        </td>
+                        <td>
+                          <input
+                            class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                            type="text"
+                            name
+                            [formControlName]="'cgstperc'"
+                            value="0"
+                            [id]="'cell' + index + '-8'"
+                            maxlength="5"
+                            id="cgstpercId"
+                            oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                            (change)="
+                              calcGST(
+                                'CGST',
+                                gstDebitNotesEntryForm.controls.itemsDebitNoteWiseArray.controls[
+                                  index
+                                ].get('cgstperc'),
+                                gstDebitNotesEntryForm.controls.itemsDebitNoteWiseArray.controls[
+                                  index
+                                ].get('taxableamt')?.value,
+                                gstDebitNotesEntryForm.controls.itemsDebitNoteWiseArray.controls[
+                                  index
+                                ].get('cgstamt'),
+                                $event.target.id
+                              )
+                            "
+                          />
+                        </td>
+                        <td>
+                          <input
+                            class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                            type="text"
+                            name
+                            [id]="'cell' + index + '-9'"
+                            maxlength="12"
+                            [formControlName]="'cgstamt'"
+                            value="0"
+                            oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                          />
+                        </td>
+                        <td>
+                          <input
+                            class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                            type="text"
+                            name
+                            [id]="'cell' + index + '-10'"
+                            [formControlName]="'sgstperc'"
+                            value="0"
+                            maxlength="5"
+                            oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                            (change)="
+                              calcGST(
+                                'CGST',
+                                gstDebitNotesEntryForm.controls.itemsDebitNoteWiseArray.controls[
+                                  index
+                                ].get('sgstperc'),
+                                gstDebitNotesEntryForm.controls.itemsDebitNoteWiseArray.controls[
+                                  index
+                                ].get('taxableamt')?.value,
+                                gstDebitNotesEntryForm.controls.itemsDebitNoteWiseArray.controls[
+                                  index
+                                ].get('sgstamt'),
+                                $event.target.id
+                              )
+                            "
+                          />
+                        </td>
+                        <td>
+                          <input
+                            class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                            type="text"
+                            name
+                            [formControlName]="'sgstamt'"
+                            value="0"
+                            [id]="'cell' + index + '-11'"
+                            maxlength="12"
+                            oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                          />
+                        </td>
+                        <td>
+                          <input
+                            class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                            type="text"
+                            name
+                            [id]="'cell' + index + '-12'"
+                            [formControlName]="'igstperc'"
+                            value="0"
+                            maxlength="5"
+                            oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                            (change)="
+                              calcGST(
+                                'IGST',
+                                gstDebitNotesEntryForm.controls.itemsDebitNoteWiseArray.controls[
+                                  index
+                                ].get('igstperc'),
+                                gstDebitNotesEntryForm.controls.itemsDebitNoteWiseArray.controls[
+                                  index
+                                ].get('taxableamt')?.value,
+                                gstDebitNotesEntryForm.controls.itemsDebitNoteWiseArray.controls[
+                                  index
+                                ].get('igstamt'),
+                                $event.target.id
+                              )
+                            "
+                          />
+                        </td>
+                        <td>
+                          <input
+                            class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                            type="text"
+                            name
+                            [id]="'cell' + index + '-13'"
+                            [formControlName]="'igstamt'"
+                            value="0"
+                            maxlength="12"
+                            oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                          />
+                        </td>
+                        <td>
+                          <input
+                            class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                            type="text"
+                            name
+                            [formControlName]="'ugstperc'"
+                            value="0"
+                            maxlength="5"
+                            [id]="'cell' + index + '-14'"
+                            oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                            (change)="
+                              calcGST(
+                                'UGST',
+                                gstDebitNotesEntryForm.controls.itemsDebitNoteWiseArray.controls[
+                                  index
+                                ].get('ugstperc'),
+                                gstDebitNotesEntryForm.controls.itemsDebitNoteWiseArray.controls[
+                                  index
+                                ].get('taxableamt')?.value,
+                                gstDebitNotesEntryForm.controls.itemsDebitNoteWiseArray.controls[
+                                  index
+                                ].get('ugstamt'),
+                                $event.target.id
+                              )
+                            "
+                          />
+                        </td>
+                        <td>
+                          <input
+                            class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                            type="text"
+                            name
+                            maxlength="12"
+                            [id]="'cell' + index + '-15'"
+                            [formControlName]="'ugstamt'"
+                            value="0"
+                            oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                          />
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner text-center bg-white br-10">
+      <div class="flex justify-content-between">
+        <button
+          *ngIf="!gstDebitNoteDetails"
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          [disabled]="disableAdd"
+          accesskey="a"
+          (click)="handleAddClick()"
+        >
+          Add
+        </button>
+        <button
+          *ngIf="!gstDebitNoteDetails"
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="r"
+          [disabled]="disableRetrieve"
+          (click)="handleRetrieveClick()"
+        >
+          Retrieve
+        </button>
+        <button
+          *ngIf="gstDebitNoteDetails"
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="s"
+          (click)="handleSaveClick()"
+          [disabled]="disableSave"
+        >
+          Save
+        </button>
+        <button
+          *ngIf="gstDebitNoteDetails"
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone"
+          accesskey="t"
+          [disabled]="true"
+        >
+          Rese<span class="text-decoration-underline">t</span>
+        </button>
+        <button
+          *ngIf="gstDebitNoteDetails"
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="b"
+          (click)="handleBackClick()"
+        >
+          Back
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone"
+          accesskey="x"
+          [disabled]="isRetrieveClicked || isAddClicked"
+          (click)="handleExitClick()"
+        >
+          E<span class="text-decoration-underline">x</span>it
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<app-loader *ngIf="loaderToggle"></app-loader>

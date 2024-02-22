@@ -1,0 +1,259 @@
+<!-- <p>estimate-and-contract-entry works!</p> -->
+
+<section>
+  <div class="row">
+    <div class="col-md-12">
+      <form [formGroup]="estimateAndContractEntry">
+        <div class="row g-2">
+          <div class="col-md-6">
+            <div
+              class="input-group"
+              [class.is-invalid]="(estimateAndContractEntry.get('project')?.hasError('required') && estimateAndContractEntry.get('project')?.touched) || estimateAndContractEntry.get('project')?.errors?.['notFound']"
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                ><b class="text-danger">*</b>Project</span
+              >
+              <input
+                type="text"
+                name=""
+                id="estimate_project"
+                class="form-control border-start-0 post_input_field font500 font12"
+                formControlName="project"
+                upperCase
+                [f1]="{
+                  id: 'MATCERTLNPROJECTCODE',
+                  formData: estimateAndContractEntry.get('projectName'),
+                  isSingleValue: true
+                }"
+                (focusout)="onLeaveProject($event.target.value)"
+              />
+              <span class="position-relative span_divider"></span>
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control w-50 border-start-0 post_input_field font500 font12"
+                formControlName="projectName"
+              />
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="
+                (estimateAndContractEntry.get('project')?.touched &&
+                estimateAndContractEntry.get('project')?.invalid) && !estimateAndContractEntry.get('project')?.errors?.['notFound']
+              "
+            >
+              Project is required.
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="estimateAndContractEntry.get('project')?.errors?.['notFound']"
+            >
+              Project code is not valid.
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div
+              class="input-group"
+              [class.is-invalid]="
+                (estimateAndContractEntry.get('racno')?.hasError('required') &&
+                estimateAndContractEntry.get('racno')?.touched) || estimateAndContractEntry.get('racno')?.errors?.['notFound']
+              "
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                ><b class="text-danger">*</b>RAC No.</span
+              >
+              <input
+                type="text"
+                name=""
+                id="estimate_racno"
+                class="form-control border-start-0 post_input_field font500 font12"
+                formControlName="racno"
+                upperCase
+                [f1]="{
+                  id: 'MATCERTLOGICNOTE',
+                  subId: filters.getRacNo ? filters.getRacNo : '',
+                  isSingleValue: true,
+                  formData: estimateAndContractEntry.get('racName')
+                }"
+              />
+              <span class="position-relative span_divider"></span>
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control w-50 border-start-0 post_input_field font500 font12"
+                formControlName="racName"
+              />
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="
+                (estimateAndContractEntry.get('racno')?.touched &&
+                estimateAndContractEntry.get('racno')?.invalid) && !estimateAndContractEntry.get('racno')?.errors?.['notFound']
+              "
+            >
+              RAC No. is required.
+            </div>
+            <div class="invalid-feedback d-block" *ngIf="estimateAndContractEntry.get('racno')?.errors?.['notFound']">RAC No. is not valid.</div>
+          </div>
+        </div>
+
+        <div class="row g-2 mt-1" *ngIf="initialMode">
+          <div
+            class="group_panel br-10 p-3 pt-4 position-relative form_common_bg"
+          >
+            <div class="col-md-12" formArrayName="addEstimateAndContractList">
+              <div
+                class="table-responsive group_panel form_common_bg stylishScroll"
+              >
+                <table class="table table-bordered table-sm mb-0">
+                  <thead>
+                    <tr>
+                      <th class="fontBold font12 fonttxt_black">Party Type</th>
+                      <th class="fontBold font12 fonttxt_black">Party Code</th>
+                      <th class="fontBold font12 fonttxt_black">Party Name</th>
+                      <th class="fontBold font12 fonttxt_black">
+                        Act. Work Done
+                      </th>
+                      <th class="fontBold font12 fonttxt_black">Oth. Debits</th>
+                      <th class="fontBold font12 fonttxt_black">
+                        Estimate Amt
+                      </th>
+                      <th class="fontBold font12 fonttxt_black">
+                        Contract Val
+                      </th>
+                      <th class="fontBold font12 fonttxt_black">
+                        Action
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      *ngFor="let item of estimateAndContractEntry.controls?.['addEstimateAndContractList'].controls let index=index"
+                      [formGroupName]="index"
+                    >
+                      <td>
+                        <div class="has-validation">
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            formControlName="partyType"
+                            class="form-control input_control font500 fonttxt_black font12"
+                          />
+                        </div>
+                      </td>
+                      <td>
+                        <div class="has-validation">
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            formControlName="partyCode"
+                            class="form-control input_control font500 fonttxt_black font12"
+                          />
+                        </div>
+                      </td>
+                      <td>
+                        <div class="has-validation">
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            formControlName="partyName"
+                            class="form-control input_control font500 fonttxt_black font12"
+                          />
+                        </div>
+                      </td>
+                      <td>
+                        <div class="has-validation">
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            formControlName="actWorkDone"
+                            class="form-control input_control font500 fonttxt_black font12"
+                          />
+                        </div>
+                      </td>
+                      <td>
+                        <div class="has-validation">
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            formControlName="otherDebit"
+                            class="form-control input_control font500 fonttxt_black font12"
+                          />
+                        </div>
+                      </td>
+                      <td>
+                        <div class="has-validation">
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            formControlName="estimateAmt"
+                            class="form-control input_control font500 fonttxt_black font12"
+                          />
+                        </div>
+                      </td>
+                      <td>
+                        <div class="has-validation">
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            formControlName="contractVal"
+                            class="form-control input_control font500 fonttxt_black font12"
+                          />
+                        </div>
+                      </td>
+                      <td>
+                        <div class="action_panel d-flex justify-content-center">
+                          <button
+                            type="button"
+                            class="btn action_btn d-flex bg_common_red mt-1"
+                            (click)="addEstimate()"
+                          >
+                            <img
+                              src="/assets/images/add.svg"
+                              alt="add"
+                              class="add_img"
+                            />
+                          </button>
+                          <button
+                            type="button"
+                            class="btn action_btn d-flex bg_common_red ms-1 mt-1"
+                            disabled
+                            (click)="deleteParty(index)"
+                          >
+                            <img
+                              src="/assets/images/trash.svg"
+                              alt="remove"
+                              class="delete_img"
+                            />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Bottom button start -->
+<app-buttons
+  [buttonsList]="buttonsList"
+  (eventTrigger)="buttonAction($event)"
+></app-buttons>
+<!-- Bottom button end -->

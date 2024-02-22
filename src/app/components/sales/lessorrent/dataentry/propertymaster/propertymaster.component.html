@@ -1,0 +1,532 @@
+<section>
+  <div class="container">
+    <div class="row mb-3">
+      <div class="col-md-12">
+        <form [formGroup]="propertySelectionsForm">
+          <div class="row">
+            <div class="col-md-12">
+              <div
+                class="input-group"
+                [class.is-invalid]="
+                  (propertySelectionsForm
+                    .get('propcode')
+                    ?.hasError('required') &&
+                    propertySelectionsForm.controls['propcode'].touched) || propertySelectionsForm.get('propcode')?.errors?.['notFound'] "
+              >
+                <span class="input-group-text leftform_lbl font500 font12"
+                  ><b class="text-danger">*</b>Property Code</span
+                >
+                <input
+                  type="text"
+                  id="propertyCode"
+                  
+                  
+                  formControlName="propcode"
+                  class="form-control post_input_field border-start-0 font500 font12"
+                  [f1]="{
+                    id: 'LESSORPROP',
+                    formData: propertySelectionsForm.get('propertyName'),
+                    isSingleValue: true
+                  }"
+                />
+                <span class="position-relative span_divider"></span>
+
+                <input
+                  type="text"
+                  formControlName="propertyName"
+                  class="form-control w-50 border-start-0 post_input_field font500 font12"
+                />
+              </div>
+
+              <div
+                class="invalid-feedback d-block"
+                *ngIf="
+                  (propertySelectionsForm.get('propcode')?.touched &&
+                  propertySelectionsForm.get('propcode')?.invalid) && !propertySelectionsForm.get('propcode')?.errors?.['notFound']
+                "
+              >
+                Property code required.
+              </div>
+              <div
+                class="invalid-feedback d-block"
+                *ngIf="propertySelectionsForm.get('propcode')?.errors?.['notFound']"
+              >
+                Property Code not valid.
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="row" *ngIf="initialMode">
+      <div class="col-md-12">
+        <div
+          class="group_panel br-10 form_common_bg p-3 pt-4 position-relative"
+        >
+          <p class="bg-white font600 group_title mb-0 position-absolute">
+            Property Details
+          </p>
+          <div class="row">
+            <div class="col-md-12">
+              <form [formGroup]="propertyForm">
+                <div class="row">
+                  <!--Property Type START-->
+                  <div class="col-md-12 mb-2">
+                    <div
+                      class="input-group"
+                      [class.is-invalid]="
+                    (propertyForm
+                      .get('proptype')
+                      ?.hasError('required') &&
+                      propertyForm.controls['proptype'].touched) || propertyForm.get('proptype')?.errors?.['notFound'] "
+                    >
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        ><b class="text-danger">*</b>Property Type</span
+                      >
+                      <input
+                        type="text"
+                        id="proptypeId"
+                        
+                        appCommonAutoFocus
+                        formControlName="proptype"
+                        class="form-control post_input_field border-start-0 font500 font12"
+                        [f1]="{
+                          id: 'LSPROPTYPE',
+                          formData: propertyForm.get('proptypeName'),
+                          isSingleValue: true
+                        }"
+                      />
+                      <span class="position-relative span_divider"></span>
+
+                      <input
+                        type="text"
+                        formControlName="proptypeName"
+                        class="form-control w-50 border-start-0 post_input_field font500 font12"
+                      />
+                    </div>
+
+                    <div
+                      class="invalid-feedback d-block"
+                      *ngIf="
+                    (propertyForm.get('proptype')?.touched &&
+                    propertyForm.get('proptype')?.invalid) && !propertyForm.get('proptype')?.errors?.['notFound']
+                  "
+                    >
+                      Property Type required.
+                    </div>
+                    <div
+                      class="invalid-feedback d-block"
+                      *ngIf="propertyForm.get('proptype')?.errors?.['notFound']"
+                    >
+                      Property Type Code not valid.
+                    </div>
+                  </div>
+                  <!--Property Type END-->
+
+                  <!-- property name -->
+                  <div class="col-md-12 mb-2">
+                    <!--Property  Name START-->
+                    <div
+                      class="input-group has-validation"
+                      [class.is-invalid]="
+                        propertyForm.controls['propname'].invalid &&
+                        propertyForm.controls['propname'].touched
+                      "
+                    >
+                      <span
+                        class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                        ><b>*</b>Property Name</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        formControlName="propname"
+                        id="Name2"
+                      />
+                    </div>
+                    <div
+                      *ngIf="
+                        propertyForm.controls['propname'].invalid &&
+                        propertyForm.controls['propname'].touched
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="propertyForm.controls['propname'].errors && propertyForm.controls['propname'].errors?.['required']"
+                      >
+                        Property Name is required
+                      </div>
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="propertyForm.controls['npropnameame'].errors?.['maxlength']?.actualLength"
+                      >
+                        Max 150 Character allowed. Current is
+                        {{propertyForm.controls['propname'].errors?.['maxlength']?.actualLength}}
+                        characters.
+                      </div>
+                    </div>
+                  </div>
+
+                  <!--Location Type START-->
+                  <div class="col-md-12 mb-2">
+                    <div
+                      class="input-group"
+                      [class.is-invalid]="
+                    (propertyForm
+                      .get('location')
+                      ?.hasError('required') &&
+                      propertyForm.controls['location'].touched) || propertyForm.get('location')?.errors?.['notFound'] "
+                    >
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        ><b class="text-danger">*</b>Location</span
+                      >
+                      <input
+                        type="text"
+                        id="locationId"
+                        
+                        
+                        formControlName="location"
+                        class="form-control post_input_field border-start-0 font500 font12"
+                        [f1]="{
+                          id: 'LESSORTOWNS',
+                          formData: propertyForm.get('locationName'),
+                          isSingleValue: true
+                        }"
+                      />
+                      <span class="position-relative span_divider"></span>
+
+                      <input
+                        type="text"
+                        formControlName="locationName"
+                        class="form-control w-50 border-start-0 post_input_field font500 font12"
+                      />
+                    </div>
+
+                    <div
+                      class="invalid-feedback d-block"
+                      *ngIf="
+                    (propertyForm.get('location')?.touched &&
+                    propertyForm.get('location')?.invalid) && !propertyForm.get('location')?.errors?.['notFound']
+                  "
+                    >
+                    Location required.
+                    </div>
+                    <div
+                      class="invalid-feedback d-block"
+                      *ngIf="propertyForm.get('location')?.errors?.['notFound']"
+                    >
+                    Location Code not valid.
+                    </div>
+                  </div>
+                  <!--Location Type END-->
+
+                  <!--Payment Type START-->
+                  <div class="col-md-12 mb-2">
+                    <div
+                      class="input-group"
+                      [class.is-invalid]="
+                    (propertyForm
+                      .get('paytype')
+                      ?.hasError('required') &&
+                      propertyForm.controls['paytype'].touched) || propertyForm.get('paytype')?.errors?.['notFound'] "
+                    >
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        ><b class="text-danger">*</b>Payment Type</span
+                      >
+                      <input
+                        type="text"
+                        id="paytypeId"
+                        
+                        
+                        formControlName="paytype"
+                        class="form-control post_input_field border-start-0 font500 font12"
+                        [f1]="{
+                          id: 'LESSORPAYTYPES',
+                          formData: propertyForm.get('paytypeName'),
+                          isSingleValue: true
+                        }"
+                      />
+                      <span class="position-relative span_divider"></span>
+
+                      <input
+                        type="text"
+                        formControlName="paytypeName"
+                        class="form-control w-50 border-start-0 post_input_field font500 font12"
+                      />
+                    </div>
+
+                    <div
+                      class="invalid-feedback d-block"
+                      *ngIf="
+                    (propertyForm.get('paytype')?.touched &&
+                    propertyForm.get('paytype')?.invalid) && !propertyForm.get('paytype')?.errors?.['notFound']
+                  "
+                    >
+                      Payment Type required.
+                    </div>
+                    <div
+                      class="invalid-feedback d-block"
+                      *ngIf="propertyForm.get('paytype')?.errors?.['notFound']"
+                    >
+                      Payment Type Code not valid.
+                    </div>
+                  </div>
+                  <!--Payment Type END-->
+                    <!--Proprietor START-->
+                    <div class="col-md-12 mb-2">
+                      <div
+                        class="input-group"
+                        [class.is-invalid]="
+                      (propertyForm
+                        .get('propritor')
+                        ?.hasError('required') &&
+                        propertyForm.controls['propritor'].touched) || propertyForm.get('propritor')?.errors?.['notFound'] "
+                      >
+                        <span class="input-group-text leftform_lbl font500 font12"
+                          ><b class="text-danger">*</b>Proprietor</span
+                        >
+                        <input
+                          type="text"
+                          id=""
+                          
+                          formControlName="propritor"
+                          class="form-control post_input_field border-start-0 font500 font12"
+                          [f1]="{
+                            id: 'PROPRIETOR',
+                            formData: propertyForm.get('propritorName'),
+                            isSingleValue: true
+                          }"
+                         (focusout)="onLeavepropritor($event.target.value)"
+
+                        />
+                        <span class="position-relative span_divider"></span>
+  
+                        <input
+                          type="text"
+                          formControlName="propritorName"
+                          class="form-control w-50 border-start-0 post_input_field font500 font12"
+                        />
+                      </div>
+  
+                      <div
+                        class="invalid-feedback d-block"
+                        *ngIf="
+                      (propertyForm.get('propritor')?.touched &&
+                      propertyForm.get('propritor')?.invalid) && !propertyForm.get('propritor')?.errors?.['notFound']
+                    "
+                      >
+                      Proprietor required.
+                      </div>
+                      <div
+                        class="invalid-feedback d-block"
+                        *ngIf="propertyForm.get('propritor')?.errors?.['notFound']"
+                      >
+                      Proprietor Code not valid.
+                      </div>
+                    </div>
+                    <!--Proprietor END-->
+                    <!--Company START-->
+                    <div class="col-md-12 mb-2">
+                      <div
+                        class="input-group"
+                        [class.is-invalid]="
+                      (propertyForm
+                        .get('coy')
+                        ?.hasError('required') &&
+                        propertyForm.controls['coy'].touched) || propertyForm.get('coy')?.errors?.['notFound'] "
+                      >
+                        <span class="input-group-text leftform_lbl font500 font12"
+                          ><b class="text-danger">*</b>Company</span
+                        >
+                        <input
+                          type="text"
+                          id="coyId"
+                          
+                          formControlName="coy"
+                          class="form-control post_input_field border-start-0 font500 font12"
+                          [f1]="{
+                            id: 'COMPANY',
+                            formData: propertyForm.get('coyName'),
+                            subId: filters.coy ? filters.coy : '',
+                            isSingleValue: true
+                          }"
+                        />
+                        <span class="position-relative span_divider"></span>
+  
+                        <input
+                          type="text"
+                          formControlName="coyName"
+                          class="form-control w-50 border-start-0 post_input_field font500 font12"
+                        />
+                      </div>
+  
+                      <div
+                        class="invalid-feedback d-block"
+                        *ngIf="
+                      (propertyForm.get('coy')?.touched &&
+                      propertyForm.get('coy')?.invalid) && !propertyForm.get('coy')?.errors?.['notFound']
+                    "
+                      >
+                        Company required.
+                      </div>
+                      <div
+                        class="invalid-feedback d-block"
+                        *ngIf="propertyForm.get('coy')?.errors?.['notFound']"
+                      >
+                        Company Code not valid.
+                      </div>
+                    </div>
+                    <!--company END-->
+                    <!--remark  Name END-->
+                  <div class="col-md-12 mb-2">
+                    <!--Property Description START-->
+                    <div
+                      class="input-group has-validation"
+                      [class.is-invalid]="
+                        propertyForm.controls['description'].invalid &&
+                        propertyForm.controls['description'].touched
+                      "
+                    >
+                      <span
+                        class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                        ><b>*</b>Remarks</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        formControlName="description"
+                      />
+                    </div>
+                    <div
+                      *ngIf="
+                        propertyForm.controls['description'].invalid &&
+                        propertyForm.controls['description'].touched
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="propertyForm.controls['description'].errors && propertyForm.controls['description'].errors?.['required']"
+                      >
+                        Property Description is required
+                      </div>
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="propertyForm.controls['description'].errors?.['maxlength']?.actualLength"
+                      >
+                        Max 150 Character allowed. Current is
+                        {{propertyForm.controls['description'].errors?.['maxlength']?.actualLength}}
+                        characters.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 mb-2">
+                    <div
+                      class="input-group"
+                      appDate1
+                      [class.is-invalid]="
+                        propertyForm.get('date')?.hasError('required') &&
+                        propertyForm.controls['date'].touched
+                      "
+                    >
+                      <span
+                        class="input-group-text leftform_lbl font500 text-dark1 font12"
+                        >Property Date
+                      </span>
+                      <input
+                        type="text"
+                        [autocomplete]="'off'"
+                        class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                        matInput
+                        required
+                        formControlName="date"
+                        [matDatepicker]="pickerFrom"
+                        name="billGenerationDate"
+                      />
+                      <div
+                        class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                      >
+                        <span class="input-group-addon">
+                          <mat-datepicker-toggle
+                            matSuffix
+                            [for]="pickerFrom"
+                          ></mat-datepicker-toggle>
+                          <mat-datepicker #pickerFrom></mat-datepicker>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Bottom button start -->
+<app-buttons
+  [buttonsList]="buttonsList"
+  (eventTrigger)="buttonAction($event)"
+></app-buttons>
+<!-- Bottom button end -->
+
+
+
+<!-- <app-loader *ngIf="config.isLoading"></app-loader> -->
+
+<!-- <section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner text-center bg-white br  -10">
+      <div class="flex justify-content-between">
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="a"
+          (click)="addPropertyDetails()"
+          [disabled]="initialMode"
+        >
+          Add
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="r"
+          (click)="retrievePropertyDetails()"
+          [disabled]="initialMode"
+        >
+          Retrieve
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="d"
+          disabled="true"
+          (click)="('')"
+        >
+          Delete
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="s"
+          [disabled]="!initialMode"
+          (click)="saveProperty()"
+        >
+          Save
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="b"
+          [disabled]="!initialMode"
+          (click)="handleBackClick()"
+        >
+          Back
+        </button>
+      </div>
+    </div>
+  </div>
+</section> -->

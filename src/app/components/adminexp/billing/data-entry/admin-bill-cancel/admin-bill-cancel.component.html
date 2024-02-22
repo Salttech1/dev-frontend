@@ -1,0 +1,721 @@
+<!-- <p>admin-bill-cancel works!</p> -->
+
+<section>
+  <div class="row">
+    <div class="col-md-12">
+      <form [formGroup]="billCancellation">
+        <div class="row g-2">
+          <div class="col-md-3">
+            <div
+              class="input-group"
+              [class.is-invalid]="(billCancellation.get('billNo')?.hasError('required') && billCancellation.get('billNo')?.touched) || billCancellation.get('billNo')?.errors?.['notFound']"
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                ><b class="text-danger">*</b>Bill No</span
+              >
+              <input
+                type="text"
+                name=""
+                id="billNo"
+                upperCase
+                [maxLength]="10"
+                class="form-control border-start-0 post_input_field font500 font12"
+                formControlName="billNo"
+                [f1]="{ id: 'ADMBILLSFORCANCEL', isSingleValue: true }"
+                oninput="this.value = this.value.replace(/[^a-zA-Z0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+              />
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="(billCancellation.get('billNo')?.touched && billCancellation.get('billNo')?.invalid) && !billCancellation.get('billNo')?.errors?.['notFound']"
+            >
+              Bill no is required.
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="billCancellation.get('billNo')?.errors?.['notFound']"
+            >
+              Bill no is not valid.
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- *ngIf="initialMode" -> Use Condition -->
+<section *ngIf="initialMode">
+  <div class="row">
+    <div class="col-md-12 mt-4">
+      <form [formGroup]="billCancellation">
+        <!-- Row-1 -->
+        <div class="row g-2">
+          <div class="col-md-6">
+            <div class="input-group">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Party Code</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                upperCase
+                class="form-control border-start-0 post_input_field font500 font12"
+                formControlName="partyCode"
+                [f1]="{
+                  id: 'PARTYCODE',
+                  formData: billCancellation.get('partyName')
+                }"
+              />
+              <span class="position-relative span_divider"></span>
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control w-50 border-start-0 post_input_field font500 font12"
+                formControlName="partyName"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Row-2 -->
+        <div class="row g-2 mt-2">
+          <div class="col-md-3">
+            <div class="input-group">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Company</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control border-start-0 post_input_field font500 font12"
+                formControlName="coy"
+                [f1]="{id: 'COMPANY', isSingleValue: true }"
+              />
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="input-group">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Party GST No</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control border-start-0 post_input_field font500 font12"
+                formControlName="partyGST"
+              />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="input-group">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >state</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control border-start-0 post_input_field font500 font12"
+                formControlName="stateCode"
+              />
+              <span class="position-relative span_divider"></span>
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control w-50 border-start-0 post_input_field font500 font12"
+                formControlName="stateName"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Row-3 -->
+        <div class="row g-2 mt-2">
+          <div class="col-md-6">
+            <div class="input-group">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Bldg Code</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                upperCase
+                class="form-control border-start-0 post_input_field font500 font12"
+                formControlName="bldgCode"
+                [f1]="{
+                  id: 'BUILDINGS',
+                  formData: billCancellation.get('bldgName')
+                }"
+              />
+              <span class="position-relative span_divider"></span>
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control w-50 border-start-0 post_input_field font500 font12"
+                formControlName="bldgName"
+              />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="input-group">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Order By</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control border-start-0 post_input_field font500 font12"
+                formControlName="orderBy"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Row-4 -->
+        <div class="row g-2 mt-2">
+          <div class="col-md-4">
+            <div class="input-group">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >(M)at / (S)ervice</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control border-start-0 post_input_field font500 font12"
+                formControlName="matService"
+              />
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="input-group">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Bill Type</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control border-start-0 post_input_field font500 font12"
+                formControlName="billType"
+              />
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="input-group">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Invoice Num</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control border-start-0 post_input_field font500 font12"
+                formControlName="invoiceNum"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Row-5 -->
+        <div class="row g-2 mt-2">
+          <div class="col-md-4">
+            <div class="input-group" appDate1>
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Invoice Date</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control border-start-0 post_input_field font500 font12"
+                formControlName="invoiceDate"
+                matInput
+                [matDatepicker]="invoiceDate"
+              />
+              <div
+                class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+              >
+                <span class="input-group-addon">
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="invoiceDate"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #invoiceDate></mat-datepicker>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="input-group">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12 text-end"
+                >Invoice Amt</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control border-start-0 post_input_field font500 font12 text-end"
+                formControlName="invoiceAmt"
+              />
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="input-group">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Expense A/c</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control border-start-0 post_input_field font500 font12"
+                formControlName="expenseAc"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Row-6 -->
+        <div class="row g-2 mt-2">
+          <div class="col-md-3">
+            <div class="input-group">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Min Type</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control border-start-0 post_input_field font500 font12"
+                formControlName="minType"
+              />
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="input-group">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >AC Minor</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control border-start-0 post_input_field font500 font12"
+                formControlName="acMinor"
+              />
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="input-group">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Exp Class</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control border-start-0 post_input_field font500 font12"
+                formControlName="expClass"
+              />
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="input-group">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Exp ID</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control border-start-0 post_input_field font500 font12"
+                formControlName="expId"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Row-7 -->
+        <div class="row g-2 mt-2">
+          <div class="col-md-3">
+            <div class="input-group" appDate1>
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Period From</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control border-start-0 post_input_field font500 font12"
+                formControlName="periodFrom"
+                matInput
+                [matDatepicker]="periodform"
+              />
+              <div
+                class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+              >
+                <span class="input-group-addon">
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="periodform"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #periodform></mat-datepicker>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3" appDate1>
+            <div class="input-group">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Period Up To</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control border-start-0 post_input_field font500 font12"
+                formControlName="periodUpTo"
+                matInput
+                [matDatepicker]="perioduptp"
+              />
+              <div
+                class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+              >
+                <span class="input-group-addon">
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="perioduptp"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #perioduptp></mat-datepicker>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="input-group">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >TDS%</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control border-start-0 post_input_field font500 font12 text-end"
+                formControlName="tdspers"
+              />
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="input-group">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >TDS AC Major</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control border-start-0 post_input_field font500 font12"
+                formControlName="tdsAcMajor"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Row-8 -->
+        <div class="row g-2 mt-2">
+          <div class="col-md-3">
+            <div class="input-group">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >TDS Amt</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control border-start-0 post_input_field font500 font12 text-end"
+                formControlName="tdsAmt"
+              />
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="input-group">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Freight / Other Chgs</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control border-start-0 post_input_field font500 font12 text-end"
+                formControlName="fotoAmt"
+              />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="input-group">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Narration</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control border-start-0 post_input_field font500 font12"
+                formControlName="narration"
+              />
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <form [formGroup]="billCancellation">
+      <div class="col-md-12" formArrayName="admBillCancelList">
+        <div class="table-responsive group_panel form_common_bg stylishScroll">
+          <table class="table table-bordered table-sm mb-0 custom-table-width">
+            <thead class="table_head_position_sticky">
+              <tr>
+                <th class="fontBold font12 fonttxt_black">HSN / SAC Code</th>
+                <th class="fontBold font12 fonttxt_black" style="width: 20rem;">Item Desc</th>
+                <th class="fontBold font12 fonttxt_black min-width">UOM</th>
+                <th class="fontBold font12 fonttxt_black min-width">Oty</th>
+                <th class="fontBold font12 fonttxt_black min-width">Rate</th>
+                <th class="fontBold font12 fonttxt_black min-width">Amount</th>
+                <th class="fontBold font12 fonttxt_black min-width">Discount Amt</th>
+                <th class="fontBold font12 fonttxt_black min-width">Taxable Amt</th>
+                <th class="fontBold font12 fonttxt_black min-width">CGST %</th>
+                <th class="fontBold font12 fonttxt_black min-width">CGST Amt</th>
+                <th class="fontBold font12 fonttxt_black min-width">SGST %</th>
+                <th class="fontBold font12 fonttxt_black min-width">SGST Amt</th>
+                <th class="fontBold font12 fonttxt_black min-width">IGST %</th>
+                <th class="fontBold font12 fonttxt_black min-width">IGST Amt</th>
+                <th class="fontBold font12 fonttxt_black min-width">UGST %</th>
+                <th class="fontBold font12 fonttxt_black min-width">UGST Amt</th>
+                <!-- <th class="fontBold font12 fonttxt_black">Action</th> -->
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of billCancellation.controls?.['admBillCancelList'].controls let index=index" [formGroupName]="index">
+                <td>
+                  <div class="has-validation">
+                    <input
+                      type="text"
+                      class="form-control input_control font500 fonttxt_black font12"
+                      formControlName="sacCode"
+                    />
+                  </div>
+                </td>
+                <td>
+                  <div class="has-validation">
+                    <input
+                      type="text"
+                      class="form-control input_control font500 fonttxt_black font12"
+                      formControlName="itemDesc"
+                    />
+                  </div>
+                </td>
+                <td>
+                  <div class="has-validation">
+                    <input
+                      type="text"
+                      class="form-control input_control font500 fonttxt_black font12 text-end"
+                      formControlName="uom"
+                    />
+                  </div>
+                </td>
+                <td>
+                  <div class="has-validation">
+                    <input
+                      type="text"
+                      class="form-control input_control font500 fonttxt_black font12 text-end"
+                      formControlName="qty"
+                    />
+                  </div>
+                </td>
+                <td>
+                  <div class="has-validation">
+                    <input
+                      type="text"
+                      class="form-control input_control font500 fonttxt_black font12 text-end"
+                      formControlName="rate"
+                    />
+                  </div>
+                </td>
+                <td>
+                  <div class="has-validation">
+                    <input
+                      type="text"
+                      class="form-control input_control font500 fonttxt_black font12 text-end"
+                      formControlName="amount"
+                    />
+                  </div>
+                </td>
+                <td>
+                  <div class="has-validation">
+                    <input
+                      type="text"
+                      class="form-control input_control font500 fonttxt_black font12 text-end"
+                      formControlName="discountAmt"
+                    />
+                  </div>
+                </td>
+                <td>
+                  <div class="has-validation">
+                    <input
+                      type="text"
+                      class="form-control input_control font500 fonttxt_black font12 text-end"
+                      formControlName="taxableAmt"
+                    />
+                  </div>
+                </td>
+                <td>
+                  <div class="has-validation">
+                    <input
+                      type="text"
+                      class="form-control input_control font500 fonttxt_black font12 text-end"
+                      formControlName="cgstpers"
+                    />
+                  </div>
+                </td>
+                <td>
+                  <div class="has-validation">
+                    <input
+                      type="text"
+                      class="form-control input_control font500 fonttxt_black font12 text-end"
+                      formControlName="cgstAmt"
+                    />
+                  </div>
+                </td>
+                <td>
+                  <div class="has-validation">
+                    <input
+                      type="text"
+                      class="form-control input_control font500 fonttxt_black font12 text-end"
+                      formControlName="sgstpers"
+                    />
+                  </div>
+                </td>
+                <td>
+                  <div class="has-validation">
+                    <input
+                      type="text"
+                      class="form-control input_control font500 fonttxt_black font12 text-end"
+                      formControlName="sgstAmt"
+                    />
+                  </div>
+                </td>
+                <td>
+                  <div class="has-validation">
+                    <input
+                      type="text"
+                      class="form-control input_control font500 fonttxt_black font12 text-end"
+                      formControlName="igstpers"
+                    />
+                  </div>
+                </td>
+                <td>
+                  <div class="has-validation">
+                    <input
+                      type="text"
+                      class="form-control input_control font500 fonttxt_black font12 text-end"
+                      formControlName="igstAmt"
+                    />
+                  </div>
+                </td>
+                <td>
+                  <div class="has-validation">
+                    <input
+                      type="text"
+                      class="form-control input_control font500 fonttxt_black font12 text-end"
+                      formControlName="ugstpers"
+                    />
+                  </div>
+                </td>
+                <td>
+                  <div class="has-validation">
+                    <input
+                      type="text"
+                      class="form-control input_control font500 fonttxt_black font12"
+                      formControlName="ugstAmt"
+                    />
+                  </div>
+                </td>
+                <!-- <td>
+                  <div class="action_panel d-flex justify-content-center">
+                    <button
+                      type="button"
+                      class="btn action_btn d-flex bg_common_red mt-1"
+                      (click)="addBillCancel()"
+                    >
+                      <img
+                        src="/assets/images/add.svg"
+                        alt="add"
+                        class="add_img"
+                      />
+                    </button>
+                    <button
+                      type="button"
+                      class="btn action_btn d-flex bg_common_red ms-1 mt-1"
+                      (click)="removeBillCancel(index)"
+                    >
+                      <img
+                        src="/assets/images/trash.svg"
+                        alt="remove"
+                        class="delete_img"
+                      />
+                    </button>
+                  </div>
+                </td> -->
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<app-loader *ngIf="config.isLoading"></app-loader>
+
+<!-- Bottom button start -->
+<app-buttons
+  [buttonsList]="buttonsList"
+  (eventTrigger)="buttonAction($event)"
+></app-buttons>
+<!-- Bottom button end -->

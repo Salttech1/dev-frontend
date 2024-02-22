@@ -1,0 +1,189 @@
+<section>
+  <div class="row">
+    <div class="col-md-12">
+      <form [formGroup]="authEnquiryForm">
+        <div class="row g-3">
+          <div class="col-lg-6">
+            <div
+              class="input-group"
+              [class.is-invalid]="
+                authEnquiryForm.controls['suppCode'].invalid &&
+                authEnquiryForm.controls['suppCode'].touched
+              "
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                ><span class="text-danger font500 font12">* </span>Supplier Code
+              </span>
+              <input
+                type="text"
+                id="suppCode1243"
+                class="form-control border-start-0"
+                formControlName="suppCode"
+                style="text-transform: uppercase"
+                [f1]="{ id: 'PARTYCODE', subId: party_condition }"
+                maxlength="4"
+              />
+            </div>
+            <div
+              *ngIf="
+                authEnquiryForm.controls['suppCode'].invalid &&
+                authEnquiryForm.controls['suppCode'].touched
+              "
+            >
+              <div
+                class="errorField common_color_txt font12 font500"
+                *ngIf="authEnquiryForm.controls['suppCode'].errors && authEnquiryForm.controls['suppCode'].errors?.['required']"
+              >
+                * Suuplier Code is required
+              </div>
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="
+                authEnquiryForm.controls['suppCode'].invalid &&
+                authEnquiryForm.controls['suppCode'].touched
+              "
+            >
+              <div
+                *ngIf="authEnquiryForm.controls['suppCode'].errors?.['notFound']"
+              >
+                * Invalid Supplier Code
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="input-group">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Authorisation no.
+              </span>
+              <input
+                type="text"
+                class="form-control border-start-0"
+                formControlName="authNos"
+                [f1]="{ id: 'AUTHNUM', subId: auth_condition, multi: true }"
+              />
+            </div>
+          </div>
+        </div>
+        <br />
+        <div class="row">
+          <div class="col-md-12" formArrayName="authorisationEnquiryDetails">
+            <div class="br-10 group_panel p-3 position-relative">
+              <div class="table-responsive">
+                <table class="row-border hover stripe table">
+                  <thead class="table_head_position_sticky">
+                    <tr tabindex="0">
+                      <th class="font12 text-dark1">Bill No.</th>
+                      <th class="font12 text-dark1">Bill Date</th>
+                      <th class="font12 text-dark1">Quantity</th>
+                      <th class="font12 text-dark1">Net Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody *ngIf="isDataRecieved">
+                    <tr
+                      *ngFor="
+                        let item of authEnquiryFormArray.controls;
+                        let index = index
+                      "
+                      [formGroupName]="index"
+                    >
+                      <td class="font500 font12 text-dark1 text-start">
+                        <input
+                          type="text"
+                          class="font12 form-control br-9 d-flex"
+                          style="
+                            border: none;
+                            background: transparent;
+                            text-align: center;
+                          "
+                          id="test_{{ index }}"
+                          formControlName="billNo"
+                          [readonly]="true"
+                        />
+                      </td>
+                      <td class="font500 font12 text-dark1 text-start">
+                        <input
+                          type="text"
+                          class="font12 form-control br-9 d-flex"
+                          style="
+                            border: none;
+                            background: transparent;
+                            text-align: center;
+                          "
+                          formControlName="billDate"
+                          [readonly]="true"
+                        />
+                      </td>
+                      <td class="font500 font12 text-dark1">
+                        <input
+                          class="font12 form-control br-9 d-flex"
+                          style="
+                            border: none;
+                            background: transparent;
+                            text-align: center;
+                          "
+                          type="text"
+                          formControlName="qty"
+                          [readonly]="true"
+                        />
+                      </td>
+                      <td class="font500 font12 text-dark1">
+                        <input
+                          class="font12 form-control br-9 d-flex"
+                          style="
+                            border: none;
+                            background: transparent;
+                            text-align: center;
+                          "
+                          type="text"
+                          formControlName="netAmt"
+                          [readonly]="true"
+                        />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner bg-white br-10 d-flex justify-content-center">
+      <button
+        type="submit"
+        class="bg_common_red common_action_btn br-10"
+        accesskey="r"
+        (click)="fetchAuthorisationEnquiryDetails()"
+        [disabled]="isDataRecieved"
+      >
+        Retrieve
+      </button>
+      <button
+        type="submit"
+        class="bg_common_red common_action_btn br-10"
+        accesskey="b"
+        (click)="back()"
+        [disabled]="!isDataRecieved"
+      >
+        Back
+      </button>
+      <button
+        type="submit"
+        class="bg_common_red common_action_btn br-10 first_letter_textdecorationone"
+        accesskey="x"
+        (click)="handleExitClick()"
+        [disabled]="isDataRecieved"
+      >
+        E<span class="text-decoration-underline">x</span>it
+      </button>
+    </div>
+  </div>
+</section>
+<app-loader *ngIf="loaderToggle"></app-loader>

@@ -1,0 +1,1054 @@
+<!-- <p>lc-authorisation-entry works!</p> -->
+<section>
+  <div class="row">
+    <div class="col-md-12">
+      <form [formGroup]="lcAuthorisationEntryForm">
+        <div class="row g-2">
+          <div class="col-md-3">
+            <div class="input-group" [class.is-invalid]="(lcAuthorisationEntryForm.get('supplier')?.hasError('required') && lcAuthorisationEntryForm.get('supplier')?.touched) || lcAuthorisationEntryForm.get('supplier')?.errors?.['notFound']">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                ><b class="text-danger">*</b>Supplier</span
+              >
+              <input
+                type="text"
+                name=""
+                id="lcauth_supplier"
+                class="form-control border-start-0 br-9"
+                formControlName="supplier"
+                upperCase
+                [maxlength]="12"
+                [f1]="{ id: 'PARTYCODE', isSingleValue: true }"
+              />
+            </div>
+            <div class="invalid-feedback d-block" *ngIf="(lcAuthorisationEntryForm.get('supplier')?.touched && lcAuthorisationEntryForm.get('supplier')?.invalid) && !lcAuthorisationEntryForm.get('supplier')?.errors?.['notFound']">Supplier code is required.</div>
+            <div class="invalid-feedback d-block" *ngIf="lcAuthorisationEntryForm.get('supplier')?.errors?.['notFound']">Supplier code is not valid.</div>
+          </div>
+          <div class="col-md-3">
+            <div class="input-group" [class.is-invalid]="(lcAuthorisationEntryForm.get('bldg')?.hasError('required') && lcAuthorisationEntryForm.get('bldg')?.touched) || lcAuthorisationEntryForm.get('bldg')?.errors?.['notFound']">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                ><b class="text-danger">*</b>Building</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control border-start-0 br-9"
+                formControlName="bldg"
+                upperCase
+                [maxlength]="4"
+                [f1]="{ id: 'BUILDINGS', isSingleValue: true }"
+              />
+            </div>
+            <div class="invalid-feedback d-block" *ngIf="(lcAuthorisationEntryForm.get('bldg')?.touched && lcAuthorisationEntryForm.get('bldg')?.invalid) && !lcAuthorisationEntryForm.get('bldg')?.errors?.['notFound']">Building code is required.</div>
+            <div class="invalid-feedback d-block" *ngIf="lcAuthorisationEntryForm.get('bldg')?.errors?.['notFound']">Building code is not valid.</div>
+          </div>
+          <div class="col-md-3">
+            <div class="input-group">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Auth Type</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control border-start-0 br-9"
+                formControlName="authType"
+                [maxlength]="1"
+                upperCase
+                [f1]="{ id: 'AUTHTYPE', isSingleValue: true }"
+              />
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="input-group">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >LC Auth No</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control border-start-0 br-9"
+                formControlName="lcAuthNo"
+                [maxlength]="10"
+                upperCase
+                [f1]="{ id: 'LCAUTHNO', isSingleValue: true }"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-2 mt-2">
+          <div class="col-md-12">
+            <div class="group_panel br-10 p-2 position-relative form_common_bg">
+              <div class="row g-2">
+                <div class="col-md-6">
+                  <div class="input-group">
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      >Proprietor</span
+                    >
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      formControlName="proprietor"
+                      class="form-control post_input_field border-start-0 font500 font12"
+                      [f1]="{
+                        id: 'PROPRIETOR',
+                        formData: lcAuthorisationEntryForm.get('proprietorName'),
+                        isSingleValue: true
+                      }"
+                    />
+                    <span class="position-relative span_divider"></span>
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      formControlName="proprietorName"
+                      class="form-control w-50 border-start-0 post_input_field font500 font12"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="input-group">
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      >Company</span
+                    >
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      formControlName="company"
+                      class="form-control post_input_field border-start-0 font500 font12"
+                      [f1]="{
+                        id: 'COMPANY',
+                        formData: lcAuthorisationEntryForm.get('companyName'),
+                        isSingleValue: true
+                      }"
+                    />
+                    <span class="position-relative span_divider"></span>
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      formControlName="companyName"
+                      class="form-control w-50 border-start-0 post_input_field font500 font12"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="input-group">
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      >Project</span
+                    >
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      formControlName="project"
+                      class="form-control post_input_field border-start-0 font500 font12"
+                      [f1]="{
+                        id: 'PROJECTS',
+                        formData: lcAuthorisationEntryForm.get('projectName'),
+                        isSingleValue: true
+                      }"
+                    />
+                    <span class="position-relative span_divider"></span>
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      formControlName="projectName"
+                      class="form-control w-50 border-start-0 post_input_field font500 font12"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="input-group">
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      >MIS Project</span
+                    >
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      formControlName="misProject"
+                      class="form-control post_input_field border-start-0 font500 font12"
+                      [f1]="{
+                        id: 'PROJECTS',
+                        formData: lcAuthorisationEntryForm.get('misProject'),
+                        isSingleValue: true
+                      }"
+                    />
+                    <span class="position-relative span_divider"></span>
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      formControlName="misProjectName"
+                      class="form-control w-50 border-start-0 post_input_field font500 font12"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-2 mt-1">
+          <div class="col-md-12">
+            <div class="group_panel br-10 p-2 position-relative form_common_bg">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="container mb-2">
+                    <div class="input-group justify-content-center">
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input position-relative cursor-pointer"
+                          type="checkbox"
+                          formControlName="isCheck"
+                        />
+                        <label class="form-check-label fontBold m-0" for="">
+                          Master LC Authorisation
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row g-2">
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      >Prepared by</span
+                    >
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      formControlName="preparedBy"
+                      class="form-control post_input_field border-start-0 font500 font12"
+                      [maxlength]="10"
+                      upperCase
+                    />
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="input-group" appDate1>
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      >Auth Date</span
+                    >
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      formControlName="authDate"
+                      class="form-control post_input_field border-start-0 font500 font12"
+                      [autocomplete]="'off'"
+                      matInput
+                      [matDatepicker]="authDate"
+                    />
+                    <div
+                      class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                    >
+                      <span class="input-group-addon">
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="authDate"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #authDate></mat-datepicker>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      >Mat Group</span
+                    >
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      formControlName="matGroup"
+                      class="form-control post_input_field border-start-0 font500 font12"
+                      [maxlength]="5"
+                      upperCase
+                      [f1]="{ id: 'MATGROUPS', isSingleValue: true }"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      >No of Days</span
+                    >
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      formControlName="noDays"
+                      class="form-control post_input_field border-start-0 font500 font12"
+                      [maxlength]="3"
+                      oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      >Pay Mode</span
+                    >
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      formControlName="paymode"
+                      [maxlength]="5"
+                      upperCase
+                      class="form-control post_input_field border-start-0 font500 font12"
+                      [f1]="{ id: 'LCPAYMODE', isSingleValue: true }"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      >Quantity</span
+                    >
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      formControlName="quantity"
+                      class="form-control post_input_field border-start-0 font500 font12"
+                      [maxlength]="10"
+                      oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      >UOM</span
+                    >
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      formControlName="uom"
+                      class="form-control post_input_field border-start-0 font500 font12"
+                      [maxlength]="5"
+                      upperCase
+                      [f1]="{ id: 'UOM', isSingleValue: true }"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      >Master Auth No</span
+                    >
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      formControlName="masterAuthNo"
+                      class="form-control post_input_field border-start-0 font500 font12"
+                      [maxlength]="10"
+                      upperCase
+                      [f1]="{ id: 'LCAUTHNO', isSingleValue: true }"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      >Currency</span
+                    >
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      formControlName="currency"
+                      class="form-control post_input_field border-start-0 font500 font12"
+                      [maxlength]="5"
+                      upperCase
+                      [f1]="{ id: 'LCCURRENCY', isSingleValue: true }"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      >Auth Amount</span
+                    >
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      formControlName="amt"
+                      class="form-control post_input_field border-start-0 font500 font12 text-end"
+                      [maxLength]="12"
+                      oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      >Bank Charges</span
+                    >
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      formControlName="bankCharges"
+                      class="form-control post_input_field border-start-0 font500 font12 text-end"
+                      [maxlength]="10"
+                      oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      >Pay Amount</span
+                    >
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      formControlName="payAmt"
+                      class="form-control post_input_field border-start-0 font500 font12 text-end"
+                      [maxLength]="12"
+                      oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      >Document No</span
+                    >
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      formControlName="docNo"
+                      class="form-control post_input_field border-start-0 font500 font12"
+                      [maxlength]="15"
+                      upperCase
+                    />
+                  </div>
+                </div>
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                  <div class="input-group" appDate1>
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      >Document Date</span
+                    >
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      formControlName="documentDate"
+                      class="form-control post_input_field border-start-0 font500 font12"
+                      [autocomplete]="'off'"
+                      matInput
+                      [matDatepicker]="docDate"
+                    />
+                    <div
+                      class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                    >
+                      <span class="input-group-addon">
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="docDate"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #docDate></mat-datepicker>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      >Category</span
+                    >
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      formControlName="category"
+                      class="form-control post_input_field border-start-0 font500 font12"
+                      [maxlength]="4"
+                      upperCase
+                      [f1]="{id: 'LCCATEGORY', isSingleValue: true}"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      >LC No</span
+                    >
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      formControlName="lcNo"
+                      class="form-control post_input_field border-start-0 font500 font12"
+                      [maxlength]="20"
+                      upperCase
+                    />
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      >File No</span
+                    >
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      formControlName="fileNo"
+                      class="form-control post_input_field border-start-0 font500 font12"
+                      [maxlength]="5"
+                      upperCase
+                    />
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      >Country of Origin</span
+                    >
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      formControlName="countryOrigin"
+                      class="form-control post_input_field border-start-0 font500 font12"
+                      [maxlength]="25"
+                      upperCase
+                    />
+                  </div>
+                </div>
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      >City of Origin</span
+                    >
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      formControlName="cityOrigin"
+                      class="form-control post_input_field border-start-0 font500 font12"
+                      [maxlength]="25"
+                      upperCase
+                      [f1]="{id: 'CITIES', isSingleValue: true}"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="input-group">
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      >Remarks</span
+                    >
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      formControlName="remarks"
+                      class="form-control post_input_field border-start-0 font500 font12"
+                      [maxlength]="110"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="input-group">
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      >Purpose</span
+                    >
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      formControlName="purpose"
+                      class="form-control post_input_field border-start-0 font500 font12"
+                      [maxlength]="110"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="input-group">
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      >Debit Party</span
+                    >
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      formControlName="debitParty"
+                      class="form-control post_input_field border-start-0 font500 font12"
+                      [maxlength]="50"
+                      upperCase
+                    />
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="input-group">
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      >Debit Amount</span
+                    >
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      formControlName="debitAmt"
+                      class="form-control post_input_field border-start-0 font500 font12"
+                      [maxlength]="12"
+                      oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="input-group">
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      >Debit Curr</span
+                    >
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      formControlName="debitCurr"
+                      class="form-control post_input_field border-start-0 font500 font12"
+                      [maxlength]="5"
+                      upperCase
+                      [f1]="{id: 'LCCURRENCY', isSingleValue: true}"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="input-group">
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      >Debit Conv Rate</span
+                    >
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      formControlName="debitConvRate"
+                      class="form-control post_input_field border-start-0 font500 font12"
+                      [maxlength]="12"
+                      oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-md-12">
+                  <div class="input-group">
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      >Debiting Reason</span
+                    >
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      formControlName="debitingReason"
+                      class="form-control post_input_field border-start-0 font500 font12"
+                      [maxlength]="100"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="input-group" appDate1>
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      >LC Open Date</span
+                    >
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      formControlName="lcOpenDate"
+                      class="form-control post_input_field border-start-0 font500 font12"
+                      [autocomplete]="'off'"
+                      matInput
+                      [matDatepicker]="openDate"
+                    />
+                    <div
+                      class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                    >
+                      <span class="input-group-addon">
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="openDate"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #openDate></mat-datepicker>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="input-group" appDate1>
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      >Last Shipment Date</span
+                    >
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      formControlName="lastShipmentDate"
+                      class="form-control post_input_field border-start-0 font500 font12"
+                      [autocomplete]="'off'"
+                      matInput
+                      [matDatepicker]="shipmentDate"
+                    />
+                    <div
+                      class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                    >
+                      <span class="input-group-addon">
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="shipmentDate"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #shipmentDate></mat-datepicker>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="input-group" appDate1>
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      >LC Expiry Date</span
+                    >
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      formControlName="lcExpiryDate"
+                      class="form-control post_input_field border-start-0 font500 font12"
+                      [autocomplete]="'off'"
+                      matInput
+                      [matDatepicker]="expiryDate"
+                    />
+                    <div
+                      class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                    >
+                      <span class="input-group-addon">
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="expiryDate"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #expiryDate></mat-datepicker>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="input-group">
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      >EPCG No</span
+                    >
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      formControlName="epcgNo"
+                      class="form-control post_input_field border-start-0 font500 font12"
+                      [maxlength]="10"
+                      upperCase
+                    />
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="input-group" appDate1>
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      >EPCG Date</span
+                    >
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      formControlName="epcgDate"
+                      class="form-control post_input_field border-start-0 font500 font12"
+                      [autocomplete]="'off'"
+                      matInput
+                      [matDatepicker]="epcg"
+                    />
+                    <div
+                      class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                    >
+                      <span class="input-group-addon">
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="epcg"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #epcg></mat-datepicker>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="input-group">
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      >Duty Free No</span
+                    >
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      formControlName="dutyFreeNo"
+                      class="form-control post_input_field border-start-0 font500 font12"
+                      [maxlength]="10"
+                      upperCase
+                    />
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="input-group" appDate1>
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      >Duty Free Date</span
+                    >
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      formControlName="dutyFreeDate"
+                      class="form-control post_input_field border-start-0 font500 font12"
+                      [autocomplete]="'off'"
+                      matInput
+                      [matDatepicker]="freeDate"
+                    />
+                    <div
+                      class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                    >
+                      <span class="input-group-addon">
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="freeDate"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #freeDate></mat-datepicker>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<app-buttons
+  [buttonsList]="buttonsList"
+  (eventTrigger)="buttonAction($event)"
+></app-buttons>
+
+<app-loader *ngIf="config.isLoading"></app-loader>
+
+<!-- Button trigger modal -->
+<button
+  type="button"
+  id="printProcess"
+  class="btn btn-info btn-sm"
+  data-bs-toggle="modal"
+  data-bs-target="#exampleModal"
+>
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="container-fluid">
+          <form [formGroup]="lcAuthorisationEntryForm">
+            <div class="col-md-12" formArrayName="addLcAuthorisationEntryList">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="table-responsive table_wrapper">
+                    <table class="table table-bordered datatable table" [cellNavi]="'cell1'">
+                      <thead>
+                        <tr>
+                          <th class="fontBold font12 text-dark1">EPCG No</th>
+                          <th class="fontBold font12 text-dark1">
+                            Duty Free No
+                          </th>
+                          <th class="fontBold font12 text-dark1">LC No</th>
+                          <th class="fontBold font12 text-dark1">
+                            Inspection Date
+                          </th>
+                          <th class="fontBold font12 text-dark1">Ship Date</th>
+                          <th class="fontBold font12 text-dark1">
+                            Docs Recd Date
+                          </th>
+                          <th class="fontBold font12 text-dark1">BOE No</th>
+                          <th class="fontBold font12 text-dark1">BOE Date</th>
+                          <th class="fontBold font12 text-dark1">Inst. Cert Subm.Dt</th>
+                          <th class="fontBold font12 text-dark1">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr
+                          *ngFor="let item of lcAuthorisationEntryForm.controls?.['addLcAuthorisationEntryList'].controls let index=index"
+                          [formGroupName]="index"
+                        >
+                          <td>
+                            <div class="input-group border border-light">
+                              <input
+                                upperCase
+                                class="border-0 text-uppercase form-control input_control form-control font500 text-dark1 font12"
+                                type="text"
+                                formControlName="epcgNo"
+                              />
+                            </div>
+                          </td>
+                          <td>
+                            <div class="input-group border border-light">
+                              <input
+                                type="text"
+                                name=""
+                                id=""
+                                formControlName="dutyFreeNo"
+                                class="border-0 text-uppercase form-control input_control form-control font500 text-dark1 font12"
+                              />
+                            </div>
+                          </td>
+                          <td>
+                            <div class="input-group border border-light">
+                              <input
+                                type="text"
+                                name=""
+                                id=""
+                                formControlName="lcno"
+                                class="border-0 text-uppercase form-control input_control form-control font500 text-dark1 font12"
+                              />
+                            </div>
+                          </td>
+                          <td>
+                            <div
+                              class="input-group border border-light"
+                              appDate1
+                            >
+                              <input
+                                type="text"
+                                name=""
+                                id=""
+                                formControlName="inspectionDate"
+                                class="border-0 text-uppercase form-control input_control form-control font500 text-dark1 font12"
+                              />
+                            </div>
+                          </td>
+                          <td>
+                            <div class="input-group border border-light">
+                              <input
+                                type="text"
+                                name=""
+                                id=""
+                                formControlName="shipDate"
+                                class="border-0 text-uppercase form-control input_control form-control font500 text-dark1 font12"
+                              />
+                            </div>
+                          </td>
+                          <td>
+                            <div class="input-group border border-light">
+                              <input
+                                type="text"
+                                name=""
+                                id=""
+                                formControlName="docsRecdDate"
+                                class="border-0 text-uppercase form-control input_control form-control font500 text-dark1 font12"
+                              />
+                            </div>
+                          </td>
+                          <td>
+                            <div class="input-group border border-light">
+                              <input
+                                type="text"
+                                name=""
+                                id=""
+                                formControlName="boeNo"
+                                class="border-0 text-uppercase form-control input_control form-control font500 text-dark1 font12"
+                              />
+                            </div>
+                          </td>
+                          <td>
+                            <div class="input-group border border-light">
+                              <input
+                                type="text"
+                                name=""
+                                id=""
+                                formControlName="boeDate"
+                                class="border-0 text-uppercase form-control input_control form-control font500 text-dark1 font12"
+                              />
+                            </div>
+                          </td>
+                          <td>
+                            <div class="input-group border border-light">
+                              <input
+                                type="text"
+                                name=""
+                                id=""
+                                formControlName="certdt"
+                                class="border-0 text-uppercase form-control input_control form-control font500 text-dark1 font12"
+                              />
+                            </div>
+                          </td>
+
+                          <td>
+                            <div class="action_panel d-flex justify-content-center">
+                              <button
+                                type="button"
+                                class="border-0 bg-transparent ms-1 btn p-0 m-0 lh_0"
+                                (click)="deleteRow(index)"
+                              >
+                                <img
+                                  src="assets/images/delete.svg"
+                                  alt="remove"
+                                  class="delete_img"
+                                />
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-danger"
+          data-bs-dismiss="modal">Save</button>
+      </div> -->
+    </div>
+  </div>
+</div>

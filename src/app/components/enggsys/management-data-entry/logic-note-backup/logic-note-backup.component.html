@@ -1,0 +1,93 @@
+<!-- <p>logic-note-backup works!</p> -->
+<section>
+    <div class="row">
+      <div class="col-md-12">
+        <form [formGroup]="logicNoteBackupForm">
+          <div class="row g-2">
+            <div class="col-md-6">
+              <div
+                class="input-group"
+                [class.is-invalid]="(logicNoteBackupForm.get('project')?.hasError('required') &&  logicNoteBackupForm.get('project')?.touched) ||  logicNoteBackupForm.get('project')?.errors?.['notFound']"
+              >
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  ><b class="text-danger">*</b>Project</span
+                >
+                <input
+                  type="text"
+                  name=""
+                  id="otherDebit_project"
+                  class="form-control border-start-0 post_input_field font500 font12"
+                  upperCase
+                  formControlName="project"
+                  [f1]="{
+                    id: 'MATCERTLNPROJECTCODE',
+                    isSingleValue: true,
+                    formData: logicNoteBackupForm.get('projectName')
+                  }"
+                  (focusout)="onLeaveProject($event.target.value)"
+                />
+              </div>
+              <div
+                class="invalid-feedback d-block"
+                *ngIf=" (logicNoteBackupForm.get('project')?.touched &&  logicNoteBackupForm.get('project')?.invalid) && !logicNoteBackupForm.get('project')?.errors?.['notFound']"
+              >
+                Project Code is required.
+              </div>
+              <div
+                class="invalid-feedback d-block"
+                *ngIf=" logicNoteBackupForm.get('project')?.errors?.['notFound']"
+              >
+                Project Code is not valid.
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div
+                class="input-group"
+                [class.is-invalid]="(logicNoteBackupForm.get('racno')?.hasError('required') &&  logicNoteBackupForm.get('racno')?.touched) ||  logicNoteBackupForm.get('racno')?.errors?.['notFound']"
+              >
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  ><b class="text-danger">*</b>RAC No.</span
+                >
+                <input
+                  type="text"
+                  name=""
+                  id="otherDebit_racno"
+                  upperCase
+                  class="form-control border-start-0 post_input_field font500 font12"
+                  formControlName="racno"
+                  [f1]="{
+                    id: 'MATCERTLOGICNOTE',
+                    isSingleValue: true,
+                    formData: logicNoteBackupForm.get('racnoName'),
+                    subId: filters.getracno ? filters.getracno : ''
+                  }"
+                />
+              </div>
+              <div
+                class="invalid-feedback d-block"
+                *ngIf=" (logicNoteBackupForm.get('racno')?.touched &&  logicNoteBackupForm.get('racno')?.invalid) && !logicNoteBackupForm.get('racno')?.errors?.['notFound']"
+              >
+                RAC no is required.
+              </div>
+              <div
+                class="invalid-feedback d-block"
+                *ngIf=" logicNoteBackupForm.get('racno')?.errors?.['notFound']"
+              >
+                RAC no is not valid.
+              </div>
+            </div>
+          </div>
+  
+        </form>
+      </div>
+    </div>
+  </section>
+
+<!-- Bottom button start -->
+<app-buttons
+  [buttonsList]="buttonsList"
+  (eventTrigger)="buttonAction($event)"
+></app-buttons>
+<!-- Bottom button end -->

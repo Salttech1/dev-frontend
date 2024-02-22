@@ -1,0 +1,17 @@
+.customeSize {
+  height: 1rem;
+  width: 1rem;
+  margin-left: 1rem;
+}
+.custom-height {
+  height: 10rem;
+}
+.default-table-height {
+  height: 10rem !important;
+}
+.customeSize1{
+  height: 1rem;
+  width: 1rem;
+  margin-left: 1rem;
+  margin-top: 0.4rem;
+}

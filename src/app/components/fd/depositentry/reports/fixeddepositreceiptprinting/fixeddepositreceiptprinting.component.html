@@ -1,0 +1,140 @@
+<section class="depositrenewal_section" *ngIf="!isViewClicked">
+    <div class="container">
+        <div class="form_depositor_container pb-2">
+            <form [formGroup]="fixedDepositPrintSectionForm">
+                <div class="col-sm-12"  formGroupName="reportParameters">
+                    <div class="col-md-12 col-sm-12 col-xl-12 col-xxl-12 pt-3">
+                        <div class="">
+                            <div class="">
+                                <div class="input-group" [class.is-invalid]="
+                                fixedDepositPrintSectionForm.controls['reportParameters'].controls['coy'].invalid &&
+                                fixedDepositPrintSectionForm.controls['reportParameters'].controls['coy'].touched">
+                                    <span class="input-group-text leftform_lbl font500 text-dark1 font12">Company</span>
+                                    <app-f1
+                                    id="company4"
+                                    [formControlName]="'coy'"
+                                    placeholder=""
+                                    class="form-control post_input_field border-start-0 d-flex"
+                                    titleValue="{{ compData?.mainheader }}"
+                                    [tableData]="compData?.dataSet"
+                                    [colHeader]="compHeader"
+                                    [inputBBC]="bringBackColumn"
+                                    (updatedSelectedValue)="updateCompanyList($event)"
+                                    [dynaPopId]="'COMPANY'"
+                                    [queryConditon]="coy_condition"
+                                    [errorMessage]="'Invalid Company Code'"
+                                  ></app-f1>
+                                  <span class="position-relative span_divider"></span>
+                                    <input ype="text" class="form-control w-50 border-start-0 post_input_field font500 text-dark1 font12"
+                                    [formControlName]="'deptr_coy_1'" tabindex="-1"/>
+                                </div>
+                                <div *ngIf="fixedDepositPrintSectionForm.controls['reportParameters'].controls['coy'].invalid && fixedDepositPrintSectionForm.controls['reportParameters'].controls['coy'].touched">
+                                    <div class="errorField common_color_txt font12 font500"
+                                        *ngIf="fixedDepositPrintSectionForm.controls['reportParameters'].controls['coy'].errors && fixedDepositPrintSectionForm.controls['reportParameters'].controls['coy'].errors?.['required']">
+                                        * Company Code is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xl-12 col-xxl-12 pt-3">
+                        <div class="">
+                            <div class="">
+                              <div class="input-group"  [class.is-invalid]="
+                              fixedDepositPrintSectionForm.controls['reportParameters'].controls['Depositor'].invalid &&
+                              fixedDepositPrintSectionForm.controls['reportParameters'].controls['Depositor'].touched">
+                                <span class="input-group-text leftform_lbl font500 text-dark1 font12">Depositor</span>
+                                <app-f1 [formControlName]="'Depositor'" type="text" placeholder="" class="form-control post_input_field border-start-0 d-flex" (updatedSelectedValue)="updateListControl($event)" titleValue="{{depositorTableData?.mainheader}}"   [tableData]="depositorTableData?.dataSet" [colHeader]="deptColumnHeader"  [inputBBC]="depositorTableData?.bringBackColumn" [dynaPopId]="'DEPOSITORS'" [queryConditon]=deptDyanPop   [errorMessage]="'Invalid Depositor Code'" id="depositor4" (click)="setCompanyName()"></app-f1>
+                                <span class="position-relative span_divider"></span>
+                                <input type="text" class="form-control w-50 border-start-0 post_input_field font500 text-dark1 font12" [formControlName]="'depositorName'" tabindex="-1"> 
+                              </div>
+                              <div *ngIf="fixedDepositPrintSectionForm.controls['reportParameters'].controls['Depositor'].invalid && fixedDepositPrintSectionForm.controls['reportParameters'].controls['Depositor'].touched">
+                                <div class="errorField common_color_txt font12 font500"
+                                    *ngIf="fixedDepositPrintSectionForm.controls['reportParameters'].controls['Depositor'].errors && fixedDepositPrintSectionForm.controls['reportParameters'].controls['Depositor'].errors?.['required']">
+                                    * Depositor Id is required
+                                </div>
+                                </div>
+                            </div>
+                          </div>
+                    </div>
+                    <div class="col-md-9 col-sm-12 col-xl-8 col-xxl-8 pt-3">
+                        <div class="">
+                            <div class="">
+                              <div class="input-group"  [class.is-invalid]="
+                              fixedDepositPrintSectionForm.controls['reportParameters'].controls['ReceiptNum'].invalid &&
+                              fixedDepositPrintSectionForm.controls['reportParameters'].controls['ReceiptNum'].touched">
+                                <span class="input-group-text leftform_lbl font500 text-dark1 font12">Receipt</span>
+                                <app-f1 [formControlName]="'ReceiptNum'" type="text" placeholder="" class="form-control post_input_field border-start-0 d-flex" (updatedSelectedValue)="updateReciept($event)" titleValue="{{recieptTableData?.mainheader}}"   [tableData]="recieptTableData?.dataSet" [colHeader]="recieptColumnHeader"  [inputBBC]="recieptTableData?.bringBackColumn" [dynaPopId]="'FDRECEIPTNUM '" [queryConditon]=recieptDyanPop [errorMessage]="'Invalid reciept number'" id="receipt4" (click)="setDepositorName()"></app-f1>
+                              </div>
+                              <div *ngIf="fixedDepositPrintSectionForm.controls['reportParameters'].controls['ReceiptNum'].invalid && fixedDepositPrintSectionForm.controls['reportParameters'].controls['ReceiptNum'].touched">
+                                <div class="errorField common_color_txt font12 font500"
+                                    *ngIf="fixedDepositPrintSectionForm.controls['reportParameters'].controls['ReceiptNum'].errors && fixedDepositPrintSectionForm.controls['reportParameters'].controls['ReceiptNum'].errors?.['required']">
+                                    * Reciept Number is required
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<app-loader *ngIf="loaderToggle"></app-loader>
+
+<div *ngIf="isViewClicked">
+        <div class="page">
+            <div class="paginatio_pdf_container d-flex w-100">
+                <nav>
+                    <button
+                        (click)="prevPage()"
+                        [disabled]="page === 1"
+                        class="previous bg_common_red br-10 px-3 me-1"
+                    >
+                        Prev
+                    </button>
+                    <button
+                        (click)="nextPage()"
+                        [disabled]="page === totalPages"
+                        class="next bg_common_red br-10  px-3 me-1"
+                    >
+                        Next
+                    </button>
+                    <p class="mb-0 font500 ms-1">{{ page }} / {{ totalPages }}</p>
+                </nav>
+            </div>
+            <pdf-viewer
+                [src]="src"
+                [original-size]="true"
+                [render-text]="true"
+                [rotation]="0"
+                [show-all]="false"
+                [fit-to-page]="true"
+                [zoom]="1"
+                [zoom-scale]="'page-width'"
+                [external-link-target]="'blank'"
+                [autoresize]="true"
+                [show-borders]="false"
+                class="pdf-viewer"
+                [page]="page"
+                (after-load-complete)="afterLoadComplete($event)"
+                class="pdf-viewer"
+            ></pdf-viewer>
+        </div>
+</div>
+
+<section class="action_section position-fixed w-100">
+    <div class="container">
+        <div class="action_conatiner text-center bg-white br-10 w-100">
+            <div class="flex justify-content-between">
+                <button type="submit" class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white " [disabled]="isViewClicked" accesskey="v" (click)="handleViewClick()">View</button>
+              <button type="submit" class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone" [disabled]="!isViewClicked" accesskey="w" (click)="exportReport(false)">Do<span class="text-decoration-underline">w</span>nload</button>
+              <button type="submit" class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white" [disabled]="!isViewClicked"  (click)="fetchReportParams('P')"  accesskey="p">Print</button>
+              <button  *ngIf="isViewClicked" type="submit" class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white"  accesskey="b" (click)="handleBackClick()">Back</button>
+              <button *ngIf="!isViewClicked" type="submit" class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"  accesskey="x" (click)="handleExitClick()">E<span class="text-decoration-underline">x</span>it</button>
+            </div>
+        </div>
+    </div>
+</section>
+  
+  

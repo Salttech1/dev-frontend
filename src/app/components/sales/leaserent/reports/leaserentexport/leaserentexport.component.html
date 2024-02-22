@@ -1,0 +1,321 @@
+<section class="container">
+    <form [formGroup]="leaserentexportform">
+      <div class="d-flex justify-content-center">
+        <div formGroupName="reportParameters">
+          <div class="row g-2 mb-6">
+            <div class="col-lg-12">
+              <div
+                class="group_panel br-10 form_common_bg p-3 pt-3 position-relative"
+              >
+                <p
+                  class="bg-white font600 group_title mb-0 position-absolute"
+                ></p>
+                <!-- Radio Button -->
+                <div
+                  class="group_panel br-10 form_common_bg p-3 pt-3 mt-2 position-relative"
+                >
+                  <p class="bg-white font600 group_title mb-0 position-absolute">
+                    Select Type
+                  </p>
+                  <div class="input-group">
+                    <div class="my-2">
+                      <div class="form-check d-flex align-items-center">
+                        <input
+                          type="radio"
+                          class="form-check-input font12 font500 position-relative"
+                          id="radio1"
+                          name="reportOption"
+                          value="ReceiptNoDetail"
+                          formControlName="reportOption"
+                                    (change)="optionSelect($event.target)"
+                        />
+                        <label
+                          class="form-check-label first_letter_textdecorationone"
+                          for="xx"
+                          accesskey="h"
+                        >
+                          Leaserent bill
+                        </label>
+                      </div>
+                      <div class="form-check d-flex align-items-center">
+                        <input
+                          type="radio"
+                          class="form-check-input font12 font500 position-relative"
+                          id="radio2"
+                          name="reportOption"
+                          value="VoucherDetails"
+                          formControlName="reportOption"
+                          (change)="optionSelect($event.target)"
+                        />
+                        <label
+                          class="form-check-label first_letter_textdecorationone"
+                          for="xx"
+                          accesskey="h"
+                        >
+                          Leaserent Receipt
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- End of Radio Button -->
+                
+                <div class="row mb-2 mt-2">
+                  <div class="col-lg-12">
+                    <div class="input-group">
+                      <span
+                        class="input-group-text leftform_lbl font500 text-dark1 font12"
+                        ><span class="req_field common_color_txt fontBold font14"
+                        >*</span>Building/Party</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field"
+                        oninput="this.value = this.value.toUpperCase()"
+                        formControlName="BldgParty"
+                        [f1]="{ id: 'LEASE_BLDGPARTY',isSingleValue:true }"
+                        id="LEASE_BLDGPARTY"
+                        autocomplete="off"
+                      />
+                    </div>
+  
+                    <div
+                      class="disInl me-2"
+                      *ngIf="
+                        leaserentexportform.controls['reportParameters']
+                          .controls['BldgParty'].invalid &&
+                        (leaserentexportform.controls['reportParameters']
+                          .controls['BldgParty'].touched ||
+                          leaserentexportform.controls['reportParameters']
+                            .controls['BldgParty'].dirty)
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500 disInl"
+                        *ngIf="leaserentexportform.controls['reportParameters'].controls['BldgParty'].errors?.min || leaserentexportform.controls['reportParameters'].controls['BldgParty'].errors?.['required']"
+                      >
+                        Building/Party is required
+                      </div>
+                      <div
+                        class="errorField common_color_txt font12 font500 disInl"
+                        *ngIf="leaserentexportform.controls['reportParameters'].controls['BldgParty'].errors?.['notFound'] "
+                      >
+                        Invalid Building/Party
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col g-2 mb-2 mt-2">
+                    <div
+                      class="input-group"
+                      [class.is-invalid]="
+                        leaserentexportform.controls['reportParameters'].controls[
+                          'Fromdate'
+                        ].invalid &&
+                        (leaserentexportform.controls['reportParameters'].controls[
+                          'Fromdate'
+                        ].touched ||
+                          leaserentexportform.controls['reportParameters'].controls[
+                            'Fromdate'
+                          ].dirty)
+                      "
+                      appDate1
+                    >
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        ><span class="req_field common_color_txt fontBold font14">*</span
+                        >From Date</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        matInput
+                        id="fromDateField"
+                        [matDatepicker]="Fromdate"
+                        formControlName="Fromdate"
+                        (dateChange)="validateInvalidFormat($event,'fromDateField')" 
+                      />
+                      <div
+                        class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                      >
+                        <span class="input-group-addon">
+                          <mat-datepicker-toggle
+                            matSuffix
+                            [for]="Fromdate"
+                            tabindex="-1"
+                          ></mat-datepicker-toggle>
+                          <mat-datepicker #Fromdate tabindex="-1"></mat-datepicker>
+                        </span>
+                      </div>
+                    </div>
+                    <div
+                      class="disInl me-2"
+                      *ngIf="
+                        leaserentexportform.controls['reportParameters'].controls[
+                          'Fromdate'
+                        ].invalid &&
+                        (leaserentexportform.controls['reportParameters'].controls[
+                          'Fromdate'
+                        ].touched ||
+                          leaserentexportform.controls['reportParameters'].controls[
+                            'Fromdate'
+                          ].dirty)
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500 disInl"
+                        *ngIf="leaserentexportform.controls['reportParameters'].controls['Fromdate'].errors && leaserentexportform.controls['reportParameters'].controls['Fromdate'].errors?.['required']"
+                      >
+                        From Date is required
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-0 g-2">
+                    <div
+                      class="input-group"
+                      [class.is-invalid]="
+                        leaserentexportform.controls['reportParameters'].controls[
+                          'ToDate'
+                        ].invalid &&
+                        (leaserentexportform.controls['reportParameters'].controls[
+                          'ToDate'
+                        ].touched ||
+                          leaserentexportform.controls['reportParameters'].controls[
+                            'ToDate'
+                          ].dirty)
+                      "
+                      appDate1
+                    >
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        ><span class="req_field common_color_txt fontBold font14">*</span>To
+                        Date</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        matInput
+                        id="toDateField"
+                        [matDatepicker]="ToDate"
+                        formControlName="ToDate"
+                        (dateChange)="validateInvalidFormat($event,'toDateField')" 
+                      />
+                      <div
+                        class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                      >
+                        <span class="input-group-addon">
+                          <mat-datepicker-toggle
+                            matSuffix
+                            [for]="ToDate"
+                            tabindex="-1"
+                          ></mat-datepicker-toggle>
+                          <mat-datepicker #ToDate tabindex="-1"></mat-datepicker>
+                        </span>
+                      </div>
+                    </div>
+                    <div
+                      class="disInl me-2"
+                      *ngIf="
+                        leaserentexportform.controls['reportParameters'].controls[
+                          'ToDate'
+                        ].invalid &&
+                        (leaserentexportform.controls['reportParameters'].controls[
+                          'ToDate'
+                        ].touched ||
+                          leaserentexportform.controls['reportParameters'].controls[
+                            'ToDate'
+                          ].dirty)
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500 disInl"
+                        *ngIf="leaserentexportform.controls['reportParameters'].controls['ToDate'].errors && leaserentexportform.controls['reportParameters'].controls['ToDate'].errors?.['required']"
+                      >
+                        To Date is required
+                      </div>
+                    </div>
+                  </div>
+                   <!-- Export Type -->
+                  <div class="col-lg-12 col-sm-12" *ngIf="_service.getAccess('Export')">
+                    <p class="bg-white font600 group_title mb-1">
+                      Export Type
+                    </p>
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input position-relative"
+                        type="radio"
+                        name="exportType"
+                        id="exTy1"
+                        value="PDF"
+                        formControlName="exportType"
+                      />
+                      <label class="form-check-label" for="exTy1">
+                        PDF
+                      </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input position-relative"
+                        type="radio"
+                        name="exportType"
+                        id="exTy2"
+                        value="EXCEL_REPORT_DATA_FORMAT"
+                        formControlName="exportType"
+                      />
+                      <label class="form-check-label" for="exTy2">
+                        Excel (Report - Data Format)
+                      </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input position-relative"
+                        type="radio"
+                        name="exportType"
+                        id="exTy3"
+                        value="EXCEL_TEMPLATE_FORMAT"
+                        formControlName="exportType"
+                      />
+                      <label class="form-check-label" for="exTy3">
+                        Excel (Template Format)
+                      </label>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  
+  <app-loader *ngIf="loaderToggle"></app-loader>
+    <section class="action_section position-fixed w-100">
+      <div class="container">
+        <div class="action_conatiner text-center bg-white br-10">
+          <div class="flex justify-content-between">
+            <button
+              type="submit"
+              class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white exportcls first_letter_textdecorationone"
+              (click)="getReport(false)"
+              accesskey="w"
+            >
+              Do<span class="text-decoration-underline">w</span>nload
+            </button>
+            <button
+              type="submit"
+              class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white exportcls"
+              (click)="getReport(true)"
+              accesskey="p"
+            >
+              Print
+            </button>
+            <button
+              type="submit"
+              class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone"
+              accesskey="x"
+              (click)="handleExit()"
+            >
+              E<span class="text-decoration-underline">x</span>it
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </section>

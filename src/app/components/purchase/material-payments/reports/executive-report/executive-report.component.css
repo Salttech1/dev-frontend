@@ -1,0 +1,19 @@
+.input-group .form-control.is-invalid {
+  z-index: 0;
+}
+
+.common_action_btn {
+  margin: 0 0.2rem;
+  color: #fff;
+  border: 0;
+}
+
+.matForm {
+  display: flex;
+  align-items: center;
+  padding-left: 0.5rem;
+}
+
+.input-group > .form-control {
+  border-radius: 0 9px 9px 0;
+}

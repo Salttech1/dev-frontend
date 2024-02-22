@@ -1,0 +1,113 @@
+<section class="container-fluid h-100">
+  <div class="row h-100">
+    <div class="col-sm-12 col-md-12 col-lg-6 login_left"></div>
+    <div class="col-sm-12 col-md-12 col-lg-6">
+      <div class="right_login_container h-100 fontMontserrat">
+        <div
+          class="logo_container d-flex flex-column h-100 justify-content-center"
+        >
+          <a href="" class="login_container_a d-flex justify-content-center">
+            <img
+              src="assets/images/logo.svg"
+              alt="logo"
+              class="logo_cls"
+            />
+          </a>
+          <div class="login_title_container fontMontserrat">
+            <h4 class="erp_title text-center mb-15">ERP Login</h4>
+          </div>
+          <div class="login_form_container">
+            <form [formGroup]="loginForm" (ngSubmit)="login()">
+              <div class="col-sm-12">
+                <div class="input_container_first">
+                  <div class="position-relative">
+                    <div class="icon_span position-absolute d-flex">
+                      <img
+                        src="assets/images/user.svg"
+                        alt="user"
+                        class="m-auto"
+                      />
+                    </div>
+                    <input
+                      type="text"
+                      class="form-control text-uppercase loginfrm-input user-bg rounded-top"
+                      id="userid"
+                      placeholder="User Id"
+                      name="username"
+                      formControlName="username"
+                      autocomplete="on"
+                      appAutofocus
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="input_container">
+                  <div class="position-relative">
+                    <div class="icon_span position-absolute d-flex">
+                      <img
+                        src="assets/images/lock.svg"
+                        alt="user"
+                        class="m-auto"
+                      />
+                    </div>
+                    <input
+                      matInput
+                      type="password"
+                      [type]="hide ? 'password' : 'text'"
+                      class="form-control loginfrm-input pwd-bg rounded-top"
+                      id="pwd"
+                      placeholder="Password"
+                      name="password"
+                      formControlName="password"
+                    />
+                    <div class="position-absolute pwd_show">
+                      <button
+                        type="button"
+                        class="border-0 bg-transparent"
+                        mat-icon-button
+                        matSuffix
+                        (mousedown)="passwordShow($event)"
+                        (mouseup)="passwordHide($event)"
+                        (mouseout)="passwordHide($event)"
+                        tabindex="-1"
+                      >
+                        <mat-icon class="bg-transparent">{{
+                          hide ? "visibility_off" : "visibility"
+                        }}</mat-icon>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <button
+                  type="submit"
+                  class="btn w-100 login-btn text-white fs-6 font500"
+                >
+                  Login
+                  <div
+                    class="spinner-border spinner-border-sm text-light"
+                    role="status"
+                    *ngIf="loader"
+                  >
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                </button>
+              </div>
+              <div class="forget_pwd d-flex justify-content-center">
+                <h4 class="forgetPwd_text my-0 fs-6">Forgot Password?</h4>
+                <a
+                  href=""
+                  type="button"
+                  class="click-me-text text-decoration-underline fs-6 font600"
+                  >Click Me</a
+                >
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

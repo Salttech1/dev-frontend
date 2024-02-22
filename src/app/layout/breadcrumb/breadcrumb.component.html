@@ -1,0 +1,33 @@
+<section class="breadcrumb_section">
+  <div class="container">
+    <div
+      class="d-flex justify-content-between flex-column flex-sm-column flex-lg-row pb-3"
+    >
+      <nav
+        aria-label="breadcrumb"
+        style="
+          --bs-breadcrumb-divider: url(assets/images/breadarr.svg);
+        "
+      >
+        <ol class="breadcrumb font500 m-0">
+          <ng-container *ngFor="let i of breaCrumbArrList; let b = index">
+            <ng-container *ngIf="i">
+              <li class="breadcrumb-item">
+                <a
+                  class="text-decoration-none text-dark1 font13"
+                  [ngClass]="{ fontBold: b === breaCrumbArrList.length - 1 }"
+                  >{{ i }}
+                </a>
+              </li>
+            </ng-container>
+          </ng-container>
+        </ol>
+      </nav>
+      <div class="form_title">
+        <div class="font13 fontBold m-0">
+          Form Name : <span class="font500">{{ formNameData }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,379 @@
+<section>
+  <div class="row">
+    <div class="col-md-12">
+      <form [formGroup]="cancelMaterialPaymentForm">
+        <div class="row g-3">
+          <div class="col-lg-4 col-sm-6">
+            <div
+              class="input-group"
+              [class.is-invalid]="
+                cancelMaterialPaymentForm.controls['partyCode'].invalid &&
+                cancelMaterialPaymentForm.controls['partyCode'].touched
+              "
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                ><span class="text-danger font500 font12">* </span
+                >Supplier</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0"
+                id="suppCode123"
+                maxlength="4"
+                formControlName="partyCode"
+                [f1]="{ id: 'PARTYCODE' }"
+              />
+            </div>
+            <div
+              *ngIf="
+                cancelMaterialPaymentForm.controls['partyCode'].invalid &&
+                cancelMaterialPaymentForm.controls['partyCode'].touched
+              "
+            >
+              <div
+                class="errorField common_color_txt font12 font500"
+                *ngIf="cancelMaterialPaymentForm.controls['partyCode'].errors && cancelMaterialPaymentForm.controls['partyCode'].errors?.['required']"
+              >
+                * Suuplier Code is required
+              </div>
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="
+                cancelMaterialPaymentForm.controls['partyCode'].invalid &&
+                cancelMaterialPaymentForm.controls['partyCode'].touched
+              "
+            >
+              <div
+                *ngIf="cancelMaterialPaymentForm.controls['partyCode'].errors?.['notFound']"
+              >
+                * Invalid Supplier Code
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-sm-6">
+            <div
+              class="input-group"
+              [class.is-invalid]="
+                cancelMaterialPaymentForm.controls['buildingCode'].invalid &&
+                cancelMaterialPaymentForm.controls['buildingCode'].touched
+              "
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                ><span class="text-danger font500 font12">* </span
+                >Building</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0"
+                formControlName="buildingCode"
+                [f1]="{ id: 'BUILDINGS' }"
+                maxlength="5"
+                id="building123"
+              />
+            </div>
+            <div
+              *ngIf="
+                cancelMaterialPaymentForm.controls['buildingCode'].invalid &&
+                cancelMaterialPaymentForm.controls['buildingCode'].touched
+              "
+            >
+              <div
+                class="errorField common_color_txt font12 font500"
+                *ngIf="cancelMaterialPaymentForm.controls['buildingCode'].errors && cancelMaterialPaymentForm.controls['buildingCode'].errors?.['required']"
+              >
+                * Building Code is required
+              </div>
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="
+                cancelMaterialPaymentForm.controls['buildingCode'].invalid &&
+                cancelMaterialPaymentForm.controls['buildingCode'].touched
+              "
+            >
+              <div
+                *ngIf="cancelMaterialPaymentForm.controls['buildingCode'].errors?.['notFound']"
+              >
+                * Invalid Building Code
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-sm-6">
+            <div
+              class="input-group"
+              [class.is-invalid]="
+                cancelMaterialPaymentForm.controls['matGroup'].invalid &&
+                cancelMaterialPaymentForm.controls['matGroup'].touched
+              "
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                ><span class="text-danger font500 font12">* </span
+                >Material</span
+              >
+              <input
+                type="text"
+                id="matGroup123"
+                class="form-control border-start-0"
+                formControlName="matGroup"
+                maxlength="5"
+                [f1]="{ id: 'MATGROUPS' }"
+              />
+            </div>
+            <div
+              *ngIf="
+                cancelMaterialPaymentForm.controls['matGroup'].invalid &&
+                cancelMaterialPaymentForm.controls['matGroup'].touched
+              "
+            >
+              <div
+                class="errorField common_color_txt font12 font500"
+                *ngIf="cancelMaterialPaymentForm.controls['matGroup'].errors && cancelMaterialPaymentForm.controls['matGroup'].errors?.['required']"
+              >
+                * Material Code is required
+              </div>
+            </div>
+            <div
+              class="invalid-feedback d-block"
+              *ngIf="
+                cancelMaterialPaymentForm.controls['matGroup'].invalid &&
+                cancelMaterialPaymentForm.controls['matGroup'].touched
+              "
+            >
+              <div
+                *ngIf="cancelMaterialPaymentForm.controls['matGroup'].errors?.['notFound']"
+              >
+                * Invalid Material Code
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="br-10 group_panel p-3 position-relative">
+              <p class="bg-white font600 group_title mb-0 position-absolute">
+                Authorisations Header
+              </p>
+
+              <div
+                class="table_container table_wrapper"
+                *ngIf="isHeaderClicked"
+              >
+                <div
+                  class="d-flex w-100 justify-content-end deposit_charge_top mb-3"
+                >
+                  <div class="search_table_list me-3">
+                    <div class="input-group">
+                      <span
+                        class="input-group-text preinput_radius leftform_lbl font500 text-dark1 font12 pre_lbl_field global_search"
+                        >Search</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field lh-30 namefilter"
+                        id="globalSearchCalcText"
+                        (keyup)="
+                          tblSearch(
+                            'globalSearchCalcText',
+                            'enquiryStatusTable'
+                          )
+                        "
+                      />
+                    </div>
+                  </div>
+                </div>
+                <table
+                  class="table"
+                  id="enquiryStatusTable"
+                  style="width: 100%"
+                  datatable
+                  [dtOptions]="dtOptions"
+                  dt-instance="dtInstance"
+                >
+                  <thead>
+                    <tr tabindex="0">
+                      <th class="font500 font12 text-dark1">Auth#</th>
+                      <th class="font500 font12 text-dark1">Type</th>
+                      <th class="font500 font12 text-dark1">Auth Date</th>
+                      <th class="font500 font12 text-dark1">Auth Amount</th>
+                      <th class="font500 font12 text-dark1">Passed On</th>
+                      <th class="font500 font12 text-dark1">Tran Ser #</th>
+                      <th class="font500 font12 text-dark1">Paid Ref</th>
+                      <th class="font500 font12 text-dark1">Paid Date</th>
+                      <th class="font500 font12 text-dark1">Paid Amount</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      *ngFor="let data of authData; let idx = index"
+                      (click)="changeDetailTableRowColor(idx)"
+                      [style.background-color]="
+                        detailRowClicked == idx ? 'rgb(226 51 53 / 7%)' : ''
+                      "
+                      [class.active_tr]="detailRowClicked == idx"
+                    >
+                      <td>{{ data.authnum }}</td>
+                      <td>{{ data.authtype }}</td>
+                      <td>{{ data.authdate }}</td>
+                      <td>{{ data.authamount }}</td>
+                      <td>{{ data.passedon }}</td>
+                      <td>{{ data.transer }}</td>
+                      <td>{{ data.payref }}</td>
+                      <td>{{ data.paydate }}</td>
+                      <td>{{ data.payamount }}</td>
+                      <td>
+                        <input
+                          class="form-check-input activetbl-chk-input"
+                          type="checkbox"
+                          id="activeChkBox_{{ idx }}"
+                          [class.eventnone]="eventnone"
+                          [checked]="data.isSelected"
+                          (keypress.Enter)="
+                            onEnterTriggerCheckedCount($event, data, idx)
+                          "
+                        />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div
+                class="table_container table_wrapper"
+                *ngIf="isHeaderDataRecieved"
+              >
+                <div
+                  class="d-flex w-100 justify-content-end deposit_charge_top mb-3"
+                >
+                  <div class="search_table_list me-3">
+                    <div class="input-group">
+                      <span
+                        class="input-group-text preinput_radius leftform_lbl font500 text-dark1 font12 pre_lbl_field global_search"
+                        >Search</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field lh-30 namefilter"
+                        id="globalSearchCalcText"
+                        (keyup)="
+                          tblSearch(
+                            'globalSearchCalcText',
+                            'enquiryStatusTable'
+                          )
+                        "
+                      />
+                    </div>
+                  </div>
+                </div>
+                <table
+                  class="table"
+                  id="enquiryStatusTable"
+                  style="width: 100%"
+                  datatable
+                  [dtOptions]="headerOptions"
+                  dt-instance="dtInstance"
+                >
+                  <thead>
+                    <tr tabindex="0">
+                      <th class="font500 font12 text-dark1">Bill#</th>
+                      <th class="font500 font12 text-dark1">Bill Date</th>
+                      <th class="font500 font12 text-dark1">Quantity</th>
+                      <th class="font500 font12 text-dark1">Bill Amount</th>
+                      <th class="font500 font12 text-dark1">T D S</th>
+                      <th class="font500 font12 text-dark1">Retained</th>
+                      <th class="font500 font12 text-dark1">R \ Released</th>
+                      <th class="font500 font12 text-dark1">Adv. Adjusted</th>
+                      <th class="font500 font12 text-dark1">R \ Adjusted</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      *ngFor="let data of authHeaderData; let idx = index"
+                      (click)="changeHeaderTableRowColor(idx)"
+                      [style.background-color]="
+                        headerRowClicked == idx ? 'rgb(226 51 53 / 7%)' : ''
+                      "
+                      [class.active_tr]="headerRowClicked == idx"
+                    >
+                      <td>{{ data.suppbillno }}</td>
+                      <td>{{ data.suppbilldt }}</td>
+                      <td>{{ data.authqty }}</td>
+                      <td>{{ data.authamount }}</td>
+                      <td>{{ data.authtdsamt }}</td>
+                      <td>{{ data.retainamt }}</td>
+                      <td>{{ data.relretamt }}</td>
+                      <td>{{ data.advadj }}</td>
+                      <td>{{ data.retentionadj }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner bg-white br-10 d-flex justify-content-center">
+      <button
+        type="submit"
+        class="bg_common_red common_action_btn br-10"
+        accesskey="r"
+        [disabled]="isDataRecieved"
+        (click)="retrieveAuthHeader()"
+      >
+        Retrieve
+      </button>
+      <button
+        type="submit"
+        class="bg_common_red common_action_btn br-10 first_letter_textdecorationone"
+        accesskey="a"
+        [disabled]="isDetailsClicked"
+        (click)="backToDetailsPage()"
+      >
+        He<span class="text-decoration-underline">a</span>der
+      </button>
+      <button
+        type="submit"
+        class="bg_common_red common_action_btn br-10 first_letter_textdecorationone"
+        accesskey="t"
+        [disabled]="!isHeaderClicked"
+        (click)="getHeaderDetails()"
+      >
+        De<span class="text-decoration-underline">t</span>ails
+      </button>
+      <button
+        type="submit"
+        class="bg_common_red common_action_btn br-10"
+        accesskey="u"
+        (click)="cancelMaterialPayment()"
+        [disabled]="disableUpdate"
+      >
+        Update
+      </button>
+      <button
+        type="submit"
+        class="bg_common_red common_action_btn br-10"
+        accesskey="b"
+        [disabled]="!isHeaderClicked"
+        (click)="back()"
+      >
+        Back
+      </button>
+      <a
+        class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone text-decoration-none"
+        accesskey="x"
+        routerLink="/dashboard"
+      >
+        E<span class="text-decoration-underline">x</span>it
+      </a>
+    </div>
+  </div>
+</section>
+<app-loader *ngIf="loaderToggle"></app-loader>

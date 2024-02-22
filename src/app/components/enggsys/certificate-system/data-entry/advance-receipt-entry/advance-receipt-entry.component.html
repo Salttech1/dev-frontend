@@ -1,0 +1,191 @@
+<form [formGroup]="advanceReceiptForm">
+    <!-- first section -->
+    <section>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <!-- receipt type -->
+                <div class="input-group justify-content-center">
+                    <span class="mt-2 pt-1">Receipt for</span>
+                    <div class="m-2">
+                        <div class="form-check d-flex align-items-center">
+                            <input type="radio" class="form-check-input font12 font500 position-relative cursor-pointer"
+                                formControlName="receiptFor" [value]="receiptTypes[0].id" />
+                            <label class="form-check-label first_letter_textdecorationone mt-1" for="Policymattoday"
+                                accesskey="h">
+                                Certificate
+                            </label>
+                        </div>
+                    </div>
+                    <div class="m-2">
+                        <div class="form-check d-flex align-items-center">
+                            <input type="radio" class="form-check-input font12 font500 position-relative cursor-pointer"
+                                formControlName="receiptFor" [value]="receiptTypes[1].id" />
+                            <label class="form-check-label first_letter_textdecorationone mt-1" for="Policymattoday"
+                                accesskey="h">
+                                Authorisation
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- rec id -->
+                <div class="input-group mt-2" [class.is-invalid]="
+      (advanceReceiptForm?.get('recId')?.hasError('required') &&
+        advanceReceiptForm?.get('recId')?.touched) || advanceReceiptForm?.get('recId')?.errors?.['notFound']
+    ">
+                    <span class="input-group-text leftform_lbl font500 text-dark1 font12">Rec
+                        ID</span>
+                    <input type="text" upperCase id="id_recId"
+                        class="form-control border-start-0 post_input_field font500 font12" formControlName="recId"
+                        [f1]="{ id: 'CONTRACTID', subId: 'contt_closedate is null', isSingleValue: true }" />
+                    <div class="invalid-feedback d-block" *ngIf="
+       ( advanceReceiptForm.get('recId')?.touched &&
+        advanceReceiptForm.get('recId')?.invalid) && !advanceReceiptForm.get('recId')?.errors?.['notFound']
+      ">
+                        Rec ID is required.
+                    </div>
+                    <div class="invalid-feedback d-block" *ngIf="advanceReceiptForm.get('recId')?.errors?.['notFound']">
+                        Rec ID is not valid.
+                    </div>
+                </div>
+                <!-- company code -->
+                <div class="input-group mt-2" [class.is-invalid]="
+      (advanceReceiptForm?.get('company')?.hasError('required') &&
+        advanceReceiptForm?.get('company')?.touched) || advanceReceiptForm?.get('company')?.errors?.['notFound']
+    ">
+                    <span class="input-group-text leftform_lbl font500 text-dark1 font12">Company </span>
+                    <input type="text" upperCase id="id_company"
+                        class="form-control border-start-0 post_input_field font500 font12" formControlName="company"
+                        [f1]="{ id: 'CONTRACTID', subId: 'contt_closedate is null', isSingleValue: true }" />
+                    <div class="invalid-feedback d-block" *ngIf="
+       ( advanceReceiptForm.get('company')?.touched &&
+        advanceReceiptForm.get('company')?.invalid) && !advanceReceiptForm.get('company')?.errors?.['notFound']
+      ">
+                        Company is required.
+                    </div>
+                    <div class="invalid-feedback d-block"
+                        *ngIf="advanceReceiptForm.get('company')?.errors?.['notFound']">
+                        Company is not valid.
+                    </div>
+                </div>
+                <!-- party code -->
+                <div class="input-group mt-2" [class.is-invalid]="
+      (advanceReceiptForm?.get('party')?.hasError('required') &&
+        advanceReceiptForm?.get('party')?.touched) || advanceReceiptForm?.get('party')?.errors?.['notFound']
+    ">
+                    <span class="input-group-text leftform_lbl font500 text-dark1 font12">Party </span>
+                    <input type="text" upperCase id="id_party"
+                        class="form-control border-start-0 post_input_field font500 font12" formControlName="party"
+                        [f1]="{ id: 'CONTRACTID', subId: 'contt_closedate is null', isSingleValue: true }" />
+                    <div class="invalid-feedback d-block" *ngIf="
+       ( advanceReceiptForm.get('party')?.touched &&
+        advanceReceiptForm.get('party')?.invalid) && !advanceReceiptForm.get('party')?.errors?.['notFound']
+      ">
+                        party is required.
+                    </div>
+                    <div class="invalid-feedback d-block" *ngIf="advanceReceiptForm.get('party')?.errors?.['notFound']">
+                        party is not valid.
+                    </div>
+                </div>
+                <!-- building code -->
+                <div class="input-group mt-2" [class.is-invalid]="
+      (advanceReceiptForm?.get('building')?.hasError('required') &&
+        advanceReceiptForm?.get('building')?.touched) || advanceReceiptForm?.get('building')?.errors?.['notFound']
+    ">
+                    <span class="input-group-text leftform_lbl font500 text-dark1 font12">Building </span>
+                    <input type="text" upperCase id="id_building"
+                        class="form-control border-start-0 post_input_field font500 font12" formControlName="building"
+                        [f1]="{ id: 'CONTRACTID', subId: 'contt_closedate is null', isSingleValue: true }" />
+                    <div class="invalid-feedback d-block" *ngIf="
+       ( advanceReceiptForm.get('building')?.touched &&
+        advanceReceiptForm.get('building')?.invalid) && !advanceReceiptForm.get('building')?.errors?.['notFound']
+      ">
+                        building is required.
+                    </div>
+                    <div class="invalid-feedback d-block"
+                        *ngIf="advanceReceiptForm.get('building')?.errors?.['notFound']">
+                        building is not valid.
+                    </div>
+                </div>
+
+                <!-- mat certificate code -->
+                <div class="input-group mt-2">
+                    <span class="input-group-text leftform_lbl font500 text-dark1 font12">Mat Cert Code</span>
+                    <input type="text" id="id_matCertCode" name="matCertCode"
+                        class="form-control post_input_field border-start-0" formControlName="matCertCode" />
+                </div>
+
+                <!-- cert auth number -->
+                <div class="input-group mt-2">
+                    <span class="input-group-text leftform_lbl font500 text-dark1 font12">Cert/Auth No</span>
+                    <input type="text" id="id_certNo" name="certNo" class="form-control post_input_field border-start-0"
+                        formControlName="certNo" />
+                </div>
+                <!-- Receipt voucher number -->
+                <div class="input-group mt-2">
+                    <span class="input-group-text leftform_lbl font500 text-dark1 font12">Receipt Voucher Number</span>
+                    <input type="text" id="id_receiptVoucherNo" name="receiptVoucherNo"
+                        class="form-control post_input_field border-start-0" formControlName="receiptVoucherNo" />
+                </div>
+
+                <!-- Receipt  Date -->
+                <div class="input-group mt-2" appDate1>
+                    <span class="input-group-text leftform_lbl font500 text-dark1 font12">Receipt Voucher
+                        Date</span>
+                    <input type="text" id="receiptVoucherDate" [autocomplete]="'off'"
+                        class="form-control border-start-0 rounded-0 post_input_field font500 text-dark1 font12"
+                        matInput [matDatepicker]="receiptVoucherDate" formControlName="receiptVoucherDate" />
+                    <div class="input-group-append bg-white post_input_field datepicker_field border-start-0">
+                        <span class="input-group-addon">
+                            <mat-datepicker-toggle matSuffix [for]="receiptVoucherDate"></mat-datepicker-toggle>
+                            <mat-datepicker #receiptVoucherDate></mat-datepicker>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Advance Amount Advn -->
+                <div class="input-group mt-2">
+                    <span class="input-group-text leftform_lbl font500 text-dark1 font12">Advance Amount </span>
+                    <input type="text" id="id_AdvanceAmt" name="AdvanceAmt"
+                        class="form-control post_input_field border-start-0" formControlName="advanceAmt" />
+                </div>
+                <!-- CGST Amount Advn -->
+                <div class="input-group mt-2">
+                    <span class="input-group-text leftform_lbl font500 text-dark1 font12">CGST Amount </span>
+                    <input type="text" id="id_cgstAmt" name="cgstAmt"
+                        class="form-control post_input_field border-start-0" formControlName="cgstAmt" />
+                </div>
+                <!-- SGST Amount Advn -->
+                <div class="input-group mt-2">
+                    <span class="input-group-text leftform_lbl font500 text-dark1 font12">SGST Amount </span>
+                    <input type="text" id="id_sgstAmt" name="sgstAmt"
+                        class="form-control post_input_field border-start-0" formControlName="sgstAmt" />
+                </div>
+                <!-- IGST Amount Advn -->
+                <div class="input-group mt-2">
+                    <span class="input-group-text leftform_lbl font500 text-dark1 font12">IGST Amount </span>
+                    <input type="text" id="id_igstAmt" name="igstAmt"
+                        class="form-control post_input_field border-start-0" formControlName="igstAmt" />
+                </div>
+                <!-- UGST Amount Advn -->
+                <div class="input-group mt-2">
+                    <span class="input-group-text leftform_lbl font500 text-dark1 font12">UGST Amount </span>
+                    <input type="text" id="id_ugstAmt" name="ugstAmt"
+                        class="form-control post_input_field border-start-0" formControlName="ugstAmt" />
+                </div>
+
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+
+
+
+    </section>
+</form>
+
+<!-- Bottom button start -->
+<app-buttons [buttonsList]="buttonsList" (eventTrigger)="buttonAction($event)"></app-buttons>
+<!-- Bottom button end -->
+
+<app-loader *ngIf="config.isLoading"></app-loader>

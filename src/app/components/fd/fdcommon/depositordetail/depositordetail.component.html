@@ -1,0 +1,437 @@
+<form [formGroup]="depositorDetailForm">
+    <div class="tab_content_panel">
+        <!-- <div class="d-flex flex-wrap"> -->
+        <div class="row">
+            <div class="col-md-6 col-lg-6 col-xl-3 col-xxl-3">
+                <div class="mb-2">
+                    <div class="input-group flex-nowrap" [class.is-invalid]="
+                    depositorDetailForm.controls['deptype'].invalid &&
+                    depositorDetailForm.controls['deptype'].touched
+                  ">
+                        <span class="input-group-text leftform_lbl preinput_radius font500 text-dark1 font12">Type</span>
+                        <app-f1
+                            id="dtype1"
+                            class="form-control border-start-0 border-end-0 post_input_field text-center font500 text-dark1 font12"
+                            [formControlName]="'deptype'"
+                            placeholder
+                            titleValue="{{_depositorTypeTable?.mainheader}}"
+                            [tableData]="_depositorTypeTable?.dataSet"
+                            [colHeader]="_depositorTypeColHeader"
+                            (updatedSelectedValue)="updateListControl($event,depositorDetailForm.get('deptypeName'))"
+                            [inputBBC]="bringBackColumn"
+                            [dynaPopId]="'CUSTTYPE'"
+                            [queryConditon]="''"
+                            (sendFieldValueChange)="inputFieldValueChange()"
+                            (change)="fieldValueChange()"
+                            maxlength="5"
+                            [errorMessage]="'Invalid depositor type Code'"
+                        ></app-f1>
+                        <span class="position-relative span_divider"></span>
+                        <input
+                            type="text"
+                            class="form-control w_58 border-start-0 post_input_field font500 text-dark1 font12"
+                            id="deptDetailName"
+                            formControlName="deptypeName"
+                            readonly
+                            tabindex="-1"
+                        >
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-4 col-xxl-4">
+                <div class="mb-2">
+                    <div class="input-group flex-nowrap" [class.is-invalid]="
+                    depositorDetailForm.controls['title'].invalid &&
+                    depositorDetailForm.controls['title'].touched
+                  ">
+                        <span class="input-group-text leftform_lbl preinput_radius font500 text-dark1 font12">
+                            <span class="req_field common_color_txt fontBold font14">*</span>
+                            Title
+                        </span>
+                        <app-f1
+                            maxlength="10"
+                            class="form-control w-25 border-start-0 border-end-0 post_input_field text-center font500 text-dark1 font12"
+                            [formControlName]="'title'"
+                            placeholder="Enter Depositor Titles"
+                            titleValue="{{_depositorTitleTable?.mainheader}}"
+                            [tableData]="_depositorTitleTable?.dataSet"
+                            [colHeader]="_depositorTitleColHeader"
+                            (updatedSelectedValue)="updateListControl($event,depositorDetailForm.get('titleName'))"
+                            [inputBBC]="_depositorTitleTable?.bringBackColumn"
+                            [dynaPopId]="'TITLES'"
+                            [queryConditon]="''"
+                            (sendFieldValueChange)="inputFieldValueChangeTitle()"
+                            (change)="fieldValueChange()"
+                            [errorMessage]="'Invalid depositor title'"
+                        ></app-f1>
+                        <span class="position-relative span_divider"></span>
+                        <input
+                            type="text"
+                            class="form-control w-50 border-start-0 post_input_field font500 text-dark1 font12"
+                            id="deptDetailName"
+                            formControlName="titleName"
+                            tabindex="-1"
+                            readonly
+                        >
+                    </div>
+                    <div *ngIf="depositorDetailForm.controls['title'].invalid && depositorDetailForm.controls['title'].touched">
+                        <div
+                            class="errorField common_color_txt font12 font500"
+                            *ngIf="depositorDetailForm.controls['title'].errors && depositorDetailForm.controls['title'].errors?.['required']"
+                        >
+                            * Title is required
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-5 col-xxl-5">
+                <div class="mb-2">
+                    <div class="input-group "  [class.is-invalid]="
+                    depositorDetailForm.controls['name'].invalid &&
+                    depositorDetailForm.controls['name'].touched
+                  ">
+                        <span class="input-group-text leftform_lbl preinput_radius font500 text-dark1 font12">
+                            <span class="req_field common_color_txt fontBold font14">*</span>
+                            Name
+                        </span>
+                        <input
+                            type="text"
+                            class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                            id="deptositorName"
+                            formControlName="name"
+                            (change)="fieldValueChange()"
+                            maxlength="40"
+                        >
+                    </div>
+                    <div *ngIf="depositorDetailForm.controls['name'].invalid && depositorDetailForm.controls['name'].touched">
+                        <div
+                            class="errorField common_color_txt font12 font500"
+                            *ngIf="depositorDetailForm.controls['name'].errors && depositorDetailForm.controls['name'].errors?.['required']"
+                        >
+                            * Name is required
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-3 col-xxl-3">
+                <div class="mb-2">
+                    <div class="input-group ">
+                        <span class="input-group-text leftform_lbl preinput_radius font500 text-dark1 font12">Birth Date</span>
+                        <input
+                            type="text"
+                            class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                            id="birthdate"
+                            matInput
+                            [matDatepicker]="picker"
+                            formControlName="dbirthdate"
+                            name
+                            (dateChange)="updateCalcs($event,'birthdate')"
+                        >
+                        <div class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0">
+                            <span class="input-group-addon">
+                                <mat-datepicker-toggle
+                                    matSuffix
+                                    [for]="picker"
+                                    tabindex="-1"
+                                ></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-4 col-xxl-4">
+                <div class="mb-2">
+                    <div class="input-group ">
+                        <span class="input-group-text leftform_lbl bg-transparent border-0 font500 text-dark1 font12">Tax Payee</span>
+                        <div class="form-check d-flex align-items-center">
+                            <input
+                                type="radio"
+                                class="form-check-input font12 font500 position-relative"
+                                id="radio1"
+                                name="taxalwaysyn"
+                                value="Y"
+                                formControlName="taxalwaysyn"
+                            >
+                            <label
+                                class="form-check-label"
+                                for="radio1"
+                            >
+                                Yes
+                            </label>
+                        </div>
+                        <div class="form-check d-flex align-items-center">
+                            <input
+                                type="radio"
+                                class="form-check-input font12 font500  position-relative"
+                                id="radio2"
+                                name="taxalwaysyn"
+                                value="N"
+                                formControlName="taxalwaysyn"
+                            >
+                            <label
+                                class="form-check-label"
+                                for="radio2"
+                            >
+                                No
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-5 col-xxl-5">
+                <div class="mb-2">
+                    <div class="input-group "  [class.is-invalid]="
+                    depositorDetailForm.controls['pannum1'].invalid &&
+                    depositorDetailForm.controls['pannum1'].touched || depositorDetailForm.controls['pannum2'].invalid &&
+                    depositorDetailForm.controls['pannum2'].touched 
+                  ">
+                        <span class="input-group-text leftform_lbl preinput_radius font500 text-dark1 font12">PAN</span>
+                        <input
+                            type="text"
+                            class="form-control border-start-0 border-end-0 post_input_field text-center font500 text-dark1 font12 text-uppercase"
+                            id="pmtaccNo1"
+                            formControlName="pannum1"
+                            (change)="fieldValueChange()"
+                            maxlength="25"
+                        >
+                        <span class="position-relative span_divider"></span>
+                        <input
+                            type="text"
+                            class="form-control border-start-0 post_input_field font500 text-dark1 font12 text-center text-uppercase"
+                            id="pmtaccNo2"
+                            formControlName="pannum2"
+                            (change)="fieldValueChange()"
+                            maxlength="25"
+                        >
+                    </div>
+                    <div *ngIf="
+              depositorDetailForm.controls['pannum1'].invalid &&
+              depositorDetailForm.controls['pannum1'].touched
+            ">
+                        <div
+                            class="errorField common_color_txt font12 font500"
+                            *ngIf="depositorDetailForm.controls['pannum1'].errors?.['maxlength'] || depositorDetailForm.controls['pannum1'].errors?.['minlength']"
+                        >
+                            *PAN no. should be 10 Character. Current is
+              {{ depositorDetailForm.controls['pannum1'].errors?.['maxlength']?.actualLength || depositorDetailForm.controls['pannum1'].errors?.['minlength']?.actualLength }}
+              characters.
+                        </div>
+                        <div
+                            *ngIf="depositorDetailForm.controls['pannum1'].errors && depositorDetailForm.controls['pannum1'].errors?.['pattern']"
+                            class="errorField common_color_txt font12 font500"
+                        >
+                            * Invalid PAN
+                        </div>
+
+                    </div>
+                    <div *ngIf="
+              depositorDetailForm.controls['pannum2'].invalid &&
+              depositorDetailForm.controls['pannum2'].touched
+            ">
+                        <div
+                            class="errorField common_color_txt font12 font500"
+                            *ngIf="depositorDetailForm.controls['pannum2'].errors?.['maxlength'] || depositorDetailForm.controls['pannum2'].errors?.['minlength']"
+                        >
+                            *PAN no. should be 10 Character. Current is
+              {{ depositorDetailForm.controls['pannum2'].errors?.['maxlength']?.actualLength || depositorDetailForm.controls['pannum2'].errors?.['minlength']?.actualLength }}
+              characters.
+                        </div>
+                        <div
+                            *ngIf="depositorDetailForm.controls['pannum2'].errors && depositorDetailForm.controls['pannum2'].errors?.['pattern']"
+                            class="errorField common_color_txt font12 font500"
+                        >
+                            * Invalid PAN
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                <div class="mb-2">
+                    <div class="input-group ">
+                        <span class="input-group-text leftform_lbl preinput_radius font500 text-dark1 font12">Remarks</span>
+                        <input
+                            type="text"
+                            class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                            id="remarks"
+                            formControlName="remarks"
+                            (change)="fieldValueChange()"
+                            maxlength="30"
+                        >
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="tab_0">
+            <div class="mb-2">
+            <div class="input-group ">
+                <span class="input-group-text leftform_lbl preinput_radius font500 text-dark1 font12">Bank</span>
+                   <app-f1  class="form-control w_20 border-start-0 border-end-0 post_input_field text-center font500 text-dark1 font12"   [formControlName]="'parPayeebankcode1'" placeholder="" titleValue="{{_bankTable?.mainheader}}" [tableData]="_bankTable?.dataSet" [colHeader]="_bankColHead" (updatedSelectedValue)="updateListControl($event,depositorDetailForm.get('parPayeebankcode1Name'))" [inputBBC]="_bankTable?.bringBackColumn"></app-f1>
+                <span class="position-relative span_divider"></span>
+                <input
+                    type="text"
+                    class="form-control w-50 border-start-0 post_input_field font500 text-dark1 font12"
+                    id="bankName" formControlName="parPayeebankcode1Name" readonly
+                >
+            </div>
+            </div>
+        </div>
+        <div class="tab1">
+            <div class="mb-2">
+            <div class="input-group ">
+                <span class="input-group-text leftform_lbl preinput_radius font500 text-dark1 font12">Branch</span>
+                <input
+                    type="text"
+                    class="form-control  border-start-0 post_input_field font500 text-dark1 font12"
+                    id="branch" formControlName="parPayeebranch1"
+                >
+            </div>
+            </div>
+        </div>
+        <div class="tab2">
+            <div class="mb-2">
+            <div class="input-group ">
+                <span class="input-group-text leftform_lbl preinput_radius font500 text-dark1 font12">Account Number</span>
+                <input
+                    type="text"
+                    class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                    id="accNo"  formControlName="parPayeeacnum1"
+                >
+            </div>
+            </div>
+        </div>
+
+        <div class="tab_0">
+            <div class="mb-2">
+            <div class="input-group ">
+                <span class="input-group-text leftform_lbl preinput_radius font500 text-dark1 font12">IFSC</span>
+                <input
+                    type="text"
+                    class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                    id="ifsc"  formControlName="parPayeeifsc1"
+                >
+            </div>
+            </div>
+        </div>
+        <div class="tab1">
+            <div class="mb-2">
+            <div class="input-group ">
+                <span class="input-group-text leftform_lbl preinput_radius font500 text-dark1 font12">Aadhar No.</span>
+                <input
+                    type="text"
+                    class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                    id="adharno"  formControlName="parAadharno"
+                >
+            </div>
+            </div>
+        </div> -->
+            <app-party
+                [partyData]="depositFetchedData?.partyResponseBean"
+                [receiveCityData]="passCityData"
+                [receivePartyName]="depositorDetailForm.get('name')?.value"
+                [receivePmt]="depositorDetailForm.get('pannum1')?.value"
+                (sendPartyFormGroup)="receivePartFG($event)"
+                [partyTitle]="depositorDetailForm.get('title')?.value"
+                [getAddressFormGroupData]="getAddressFormGroup"
+                [getDepositorDetailFormGroup]="depositorDetailForm"
+                [titleValueChangeFieldFlag]="titleValueChangeField"
+                [getCityFieldUpdatedFlag]="getCityUpdatedFlag" [partClassResponsive]="'col-md-6 col-lg-6 col-xl-4 col-xxl-4'" [bankClassResponsive]="'col-md-12 col-lg-12 col-xl-7 col-xxl-7'" [branchClassResponsive]="'col-md-6 col-lg-6 col-xl-5 col-xxl-5'"
+            ></app-party>
+            <div class="col-lg-6 col-xl-4 col-xxl-4">
+                <div class="mb-2">
+                    <div class="input-group ">
+                        <!-- <span class="input-group-text leftform_lbl bg-transparent border-0 font500 text-dark1 font12 ps-0 pe-1">Lorem Ipsum</span> -->
+                        <div class="form-check d-flex align-items-center">
+                            <input
+                                type="radio"
+                                class="form-check-input font12 font500 position-relative"
+                                id="radio15H"
+                                name="depttds"
+                                value="depositorDetailForm.get('tds15hyn').value"
+                                [checked]="_15hTDS"
+                                (change)="handleChange($event,'15H')"
+                            >
+                            <label
+                                class="form-check-label"
+                                for="radio15H"
+                            >
+                                15H
+                            </label>
+                        </div>
+                        <div class="form-check d-flex align-items-center">
+                            <input
+                                type="radio"
+                                class="form-check-input font12 font500  position-relative"
+                                id="radio15g"
+                                name="depttds"
+                                value="depositorDetailForm.get('tds15gyn').value"
+                                [checked]="_15gTDS"
+                                (change)="handleChange($event,'15G')"
+                            >
+                            <label
+                                class="form-check-label"
+                                for="radio15g"
+                            >
+                                15G
+                            </label>
+                        </div>
+                        <div class="form-check d-flex align-items-center">
+                            <input
+                                type="radio"
+                                class="form-check-input font12 font500  position-relative"
+                                id="radionone"
+                                name="depttds"
+                                value="none"
+                                [checked]="none"
+                                (change)="handleChange($event,'none')"
+                            >
+                            <label
+                                class="form-check-label"
+                                for="radionone"
+                            >
+                                None
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-xl-4 col-xxl-4">
+                <div class="input-group ">
+                    <span class="input-group-text leftform_lbl bg-transparent border-0 font500 text-dark1 font12">Transfer Series</span>
+                    <div class="form-check d-flex align-items-center">
+                        <input
+                            type="radio"
+                            class="form-check-input font12 font500 position-relative"
+                            id="radioYesTransfer"
+                            name="transferSeries"
+                            value="Y"
+                            formControlName="transferSeries"
+                        >
+                        <label
+                            class="form-check-label"
+                            for="radioYesTransfer"
+                        >
+                            Yes
+                        </label>
+                    </div>
+                    <div class="form-check d-flex align-items-center">
+                        <input
+                            type="radio"
+                            class="form-check-input font12 font500  position-relative"
+                            id="radioNoTransfer"
+                            name="transferSeries"
+                            value="N"
+                            formControlName="transferSeries"
+                        >
+                        <label
+                            class="form-check-label"
+                            for="radioNoTransfer"
+                        >
+                            No
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

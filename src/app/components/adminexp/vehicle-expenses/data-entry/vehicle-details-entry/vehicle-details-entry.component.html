@@ -1,0 +1,1715 @@
+<div class="row g-3">
+  <div class="col-lg-12">
+    <div class="row">
+      <div class="col-lg-6">
+        <form [formGroup]="vehicleSelectionsForm">
+          <div
+            class="input-group has-validation"
+            [class.is-invalid]="
+              vehicleSelectionsForm.controls['eqpEqpnum'].invalid &&
+              (vehicleSelectionsForm.controls['eqpEqpnum'].touched ||
+                vehicleSelectionsForm.controls['eqpEqpnum'].dirty)
+            "
+          >
+            <span
+              class="input-group-text leftform_lbl font500 text-dark1 font12"
+              ><span class="req_field common_color_txt fontBold font14">*</span
+              >Vehicle No.:</span
+            >
+            <app-f1
+              id="eqpnum"
+              [formControlName]="'eqpEqpnum'"
+              name="VehicleNum"
+              class="form-control post_input_field border-start-0 d-flex"
+              titleValue="{{ EqpeqpnumF1List?.mainheader }}"
+              [tableData]="EqpeqpnumF1List?.dataSet"
+              [colHeader]="EqpeqpnumColHeadings"
+              [inputBBC]="EqpeqpnumF1Bbc"
+              [dynaPopId]="'VEHNUM'"
+              [queryConditon]=""
+              [errorMessage]="'Invalid Vehicle Code'"
+            >
+            </app-f1>
+          </div>
+          <div
+            class="disInl me-2"
+            *ngIf="
+              vehicleSelectionsForm.controls['eqpEqpnum'].invalid &&
+              (vehicleSelectionsForm.controls['eqpEqpnum'].touched ||
+                vehicleSelectionsForm.controls['eqpEqpnum'].dirty)
+            "
+          >
+            <div
+              class="errorField common_color_txt font12 font500 disInl"
+              *ngIf="vehicleSelectionsForm.controls['eqpEqpnum'].errors && vehicleSelectionsForm.controls['eqpEqpnum'].errors?.['required']"
+            >
+              Vehicle Code is required
+            </div>
+            <div
+              class="errorField common_color_txt font12 font500"
+              *ngIf="vehicleSelectionsForm.controls['eqpEqpnum'].errors?.['maxlength']?.actualLength"
+            >
+              Max 15 Character allowed. Current is
+              {{vehicleSelectionsForm.controls['eqpEqpnum'].errors?.['maxlength']?.actualLength}}
+              characters.
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-12">
+    <form [formGroup]="vehicleDetailsForm" *ngIf="initialMode">
+      <div class="row g-3">
+        <div class="col-lg-6">
+          <div class="row g-3">
+            <div class="col-lg-12">
+              <div
+                class="group_panel br-10 form_common_bg p-3 pt-4 position-relative"
+              >
+                <p class="bg-white font600 group_title mb-0 position-absolute">
+                  Vehicle Details
+                </p>
+
+                <div class="row g-2">
+                  <div class="col-md-12">
+                    <!-- <div class="input-group"> -->
+                    <div
+                      class="input-group has-validation"
+                      [class.is-invalid]="
+                        vehicleDetailsForm.controls['vehtype'].invalid &&
+                        (vehicleDetailsForm.controls['vehtype'].touched ||
+                          vehicleDetailsForm.controls['vehtype'].dirty)
+                      "
+                    >
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        ><span
+                          class="req_field common_color_txt fontBold font14"
+                          >*</span
+                        >Vehicle Type</span
+                      >
+                      <app-f1
+                        id="vehtype"
+                        [formControlName]="'vehtype'"
+                        name="VehicleType"
+                        class="form-control post_input_field border-end-0 d-flex"
+                        titleValue="{{ EqpvehtypeF1List?.mainheader }}"
+                        [tableData]="EqpvehtypeF1List?.dataSet"
+                        [colHeader]="EqpvehtypeColHeadings"
+                        [inputBBC]="EqpvehtypeF1Bbc"
+                        (updatedSelectedValue)="getDescForeqpVehtype($event)"
+                        [dynaPopId]="'VEHTYPES'"
+                        [errorMessage]="'Invalid Vehicle type'"
+                      >
+                      </app-f1>
+                      <span class="position-relative span_divider"></span>
+                      <input
+                        type="text"
+                        formControlName="eqpVehtypeDesc"
+                        tabindex="-1"
+                        class="form-control post_input_field border-start-0 d-flex w-50"
+                      />
+                    </div>
+                    <div
+                      class="disInl me-2"
+                      *ngIf="
+                        vehicleDetailsForm.controls['vehtype'].invalid &&
+                        (vehicleDetailsForm.controls['vehtype'].touched ||
+                          vehicleDetailsForm.controls['vehtype'].dirty)
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500 disInl"
+                        *ngIf="vehicleDetailsForm.controls['vehtype'].errors && vehicleDetailsForm.controls['vehtype'].errors?.['required']"
+                      >
+                        Vehicle type is required
+                      </div>
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="vehicleDetailsForm.controls['vehtype'].errors?.['maxlength']?.actualLength"
+                      >
+                        Max 1 Character allowed. Current is
+                        {{vehicleDetailsForm.controls['vehtype'].errors?.['maxlength']?.actualLength}}
+                        characters.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div
+                      class="input-group has-validation"
+                      [class.is-invalid]="
+                        vehicleDetailsForm.controls['vehmake'].invalid &&
+                        (vehicleDetailsForm.controls['vehmake'].touched ||
+                          vehicleDetailsForm.controls['vehmake'].dirty)
+                      "
+                    >
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        ><span
+                          class="req_field common_color_txt fontBold font14"
+                          >*</span
+                        >Vehicle Make</span
+                      >
+                      <input
+                        type="text"
+                        [formControlName]="'vehmake'"
+                        class="form-control post_input_field border-start-0 d-flex"
+                      />
+                    </div>
+                    <div
+                      class="disInl me-2"
+                      *ngIf="
+                        vehicleDetailsForm.controls['vehmake'].invalid &&
+                        (vehicleDetailsForm.controls['vehmake'].touched ||
+                          vehicleDetailsForm.controls['vehmake'].dirty)
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500 disInl"
+                        *ngIf="vehicleDetailsForm.controls['vehmake'].errors && vehicleDetailsForm.controls['vehmake'].errors?.['required']"
+                      >
+                        Vehicle Make is required
+                      </div>
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="vehicleDetailsForm.controls['vehmake'].errors?.['maxlength']?.actualLength"
+                      >
+                        Max 15 Character allowed. Current is
+                        {{vehicleDetailsForm.controls['vehmake'].errors?.['maxlength']?.actualLength}}
+                        characters.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div
+                      class="input-group has-validation"
+                      [class.is-invalid]="
+                        vehicleDetailsForm.controls['purcdate'].invalid &&
+                        (vehicleDetailsForm.controls['purcdate'].touched ||
+                          vehicleDetailsForm.controls['purcdate'].dirty)
+                      "
+                      appDate1
+                    >
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        ><span
+                          class="req_field common_color_txt fontBold font14"
+                          >*</span
+                        >Purchase Date</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        matInput
+                        id="purchDtId"
+                        [matDatepicker]="purcdate"
+                        autocomplete="off"
+                        formControlName="purcdate"
+                        (dateChange)="
+                          validateInvalidFormat($event, 'purchDtId')
+                        "
+                      />
+                      <div
+                        class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                      >
+                        <span class="input-group-addon">
+                          <mat-datepicker-toggle
+                            matSuffix
+                            [for]="purcdate"
+                            tabindex="-1"
+                          ></mat-datepicker-toggle>
+                          <mat-datepicker
+                            #purcdate
+                            tabindex="-1"
+                          ></mat-datepicker>
+                        </span>
+                      </div>
+                    </div>
+                    <div
+                      class="disInl me-2"
+                      *ngIf="
+                        vehicleDetailsForm.controls['purcdate'].invalid &&
+                        (vehicleDetailsForm.controls['purcdate'].touched ||
+                          vehicleDetailsForm.controls['purcdate'].dirty)
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500 disInl"
+                        *ngIf="vehicleDetailsForm.controls['purcdate'].errors && vehicleDetailsForm.controls['purcdate'].errors?.['required']"
+                      >
+                        Vehicle Purchase is required
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div
+                      class="input-group has-validation"
+                      [class.is-invalid]="
+                        vehicleDetailsForm.controls['bookvalue'].invalid &&
+                        (vehicleDetailsForm.controls['bookvalue'].touched ||
+                          vehicleDetailsForm.controls['bookvalue'].dirty)
+                      "
+                    >
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        ><span
+                          class="req_field common_color_txt fontBold font14"
+                          >*</span
+                        >Purchase Price</span
+                      >
+                      <input
+                        type="number"
+                        formControlName="bookvalue"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                      />
+                    </div>
+                    <div
+                      class="disInl me-2"
+                      *ngIf="
+                        vehicleDetailsForm.controls['bookvalue'].invalid &&
+                        (vehicleDetailsForm.controls['bookvalue'].touched ||
+                          vehicleDetailsForm.controls['bookvalue'].dirty)
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500 disInl"
+                        *ngIf="vehicleDetailsForm.controls['bookvalue'].errors?.min || vehicleDetailsForm.controls['bookvalue'].errors?.['required']"
+                      >
+                        Value should be greater than zero
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div
+                      class="input-group has-validation"
+                      [class.is-invalid]="
+                        vehicleDetailsForm.controls['engineno'].invalid &&
+                        (vehicleDetailsForm.controls['engineno'].touched ||
+                          vehicleDetailsForm.controls['engineno'].dirty)
+                      "
+                    >
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        ><span
+                          class="req_field common_color_txt fontBold font14"
+                          >*</span
+                        >Engine No.</span
+                      >
+                      <input
+                        type="text"
+                        formControlName="engineno"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                      />
+                    </div>
+                    <div
+                      class="disInl me-2"
+                      *ngIf="
+                        vehicleDetailsForm.controls['engineno'].invalid &&
+                        (vehicleDetailsForm.controls['engineno'].touched ||
+                          vehicleDetailsForm.controls['engineno'].dirty)
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500 disInl"
+                        *ngIf="vehicleDetailsForm.controls['engineno'].errors && vehicleDetailsForm.controls['engineno'].errors?.['required']"
+                      >
+                        Engine No is required
+                      </div>
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="vehicleDetailsForm.controls['engineno'].errors?.['maxlength']?.actualLength"
+                      >
+                        Max 15 Character allowed. Current is
+                        {{vehicleDetailsForm.controls['engineno'].errors?.['maxlength']?.actualLength}}
+                        characters.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-group">
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >Engine CC</span
+                      >
+                      <input
+                        type="text"
+                        formControlName="enginecc"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div
+                      class="input-group has-validation"
+                      [class.is-invalid]="
+                        vehicleDetailsForm.controls['chasisno'].invalid &&
+                        (vehicleDetailsForm.controls['chasisno'].touched ||
+                          vehicleDetailsForm.controls['chasisno'].dirty)
+                      "
+                    >
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        ><span
+                          class="req_field common_color_txt fontBold font14"
+                          >*</span
+                        >Chasis No.</span
+                      >
+                      <input
+                        type="text"
+                        formControlName="chasisno"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                      />
+                    </div>
+                    <div
+                      class="disInl me-2"
+                      *ngIf="
+                        vehicleDetailsForm.controls['chasisno'].invalid &&
+                        (vehicleDetailsForm.controls['chasisno'].touched ||
+                          vehicleDetailsForm.controls['chasisno'].dirty)
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500 disInl"
+                        *ngIf="vehicleDetailsForm.controls['chasisno'].errors && vehicleDetailsForm.controls['chasisno'].errors?.['required']"
+                      >
+                        Chasis No. is required
+                      </div>
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="vehicleDetailsForm.controls['chasisno'].errors?.['maxlength']?.actualLength"
+                      >
+                        Max 20 Character allowed. Current is
+                        {{vehicleDetailsForm.controls['chasisno'].errors?.['maxlength']?.actualLength}}
+                        characters.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div
+                      class="input-group has-validation"
+                      [class.is-invalid]="
+                        vehicleDetailsForm.controls['runon'].invalid &&
+                        (vehicleDetailsForm.controls['runon'].touched ||
+                          vehicleDetailsForm.controls['runon'].dirty)
+                      "
+                    >
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        ><span
+                          class="req_field common_color_txt fontBold font14"
+                          >*</span
+                        >Fuel</span
+                      >
+                      <app-f1
+                        id="runon"
+                        formControlName="runon"
+                        name="FUELTYPE"
+                        class="form-control post_input_field border-end-0 d-flex"
+                        titleValue="{{ runonF1List?.mainheader }}"
+                        [tableData]="runonF1List?.dataSet"
+                        [colHeader]="runonColHeadings"
+                        [inputBBC]="runonF1Bbc"
+                        (updatedSelectedValue)="getDescForRunOn($event)"
+                        [dynaPopId]="'FUELTYPE'"
+                        [errorMessage]="'Invalid Fuel type'"
+                      >
+                      </app-f1>
+                      <span class="position-relative span_divider"></span>
+                      <input
+                        type="text"
+                        formControlName="runonDesc"
+                        tabindex="-1"
+                        class="form-control post_input_field border-start-0 d-flex w-50"
+                      />
+                    </div>
+                    <div
+                      class="disInl me-2"
+                      *ngIf="
+                        vehicleDetailsForm.controls['runon'].invalid &&
+                        (vehicleDetailsForm.controls['runon'].touched ||
+                          vehicleDetailsForm.controls['runon'].dirty)
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500 disInl"
+                        *ngIf="vehicleDetailsForm.controls['runon'].errors && vehicleDetailsForm.controls['runon'].errors?.['required']"
+                      >
+                        Vehicle fuel is required
+                      </div>
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="vehicleDetailsForm.controls['runon'].errors?.['maxlength']?.actualLength"
+                      >
+                        Max 1 Character allowed. Current is
+                        {{vehicleDetailsForm.controls['runon'].errors?.['maxlength']?.actualLength}}
+                        characters.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div
+                      class="input-group has-validation"
+                      [class.is-invalid]="
+                        vehicleDetailsForm.controls['registrationauth']
+                          .invalid &&
+                        (vehicleDetailsForm.controls['registrationauth']
+                          .touched ||
+                          vehicleDetailsForm.controls['registrationauth'].dirty)
+                      "
+                    >
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >Registration Authority</span
+                      >
+                      <input
+                        type="text"
+                        formControlName="registrationauth"
+                        class="form-control post_input_field border-start-0 d-flex"
+                      />
+                    </div>
+                    <div
+                      class="errorField common_color_txt font12 font500"
+                      *ngIf="vehicleDetailsForm.controls['registrationauth'].errors?.['maxlength']?.actualLength"
+                    >
+                      Max 30 Character allowed. Current is
+                      {{vehicleDetailsForm.controls['registrationauth'].errors?.['maxlength']?.actualLength}}
+                      characters.
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-group" appDate1>
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >RTO Tax Paid Till</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        matInput
+                        id="rtotaxpaidtillId"
+                        [matDatepicker]="rtotaxpaidtill"
+                        formControlName="rtotaxpaidtill"
+                        autocomplete="off"
+                        (dateChange)="
+                          validateInvalidFormat($event, 'rtotaxpaidtillId')
+                        "
+                      />
+                      <div
+                        class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                      >
+                        <span class="input-group-addon">
+                          <mat-datepicker-toggle
+                            matSuffix
+                            [for]="rtotaxpaidtill"
+                            tabindex="-1"
+                          ></mat-datepicker-toggle>
+                          <mat-datepicker
+                            #rtotaxpaidtill
+                            tabindex="-1"
+                          ></mat-datepicker>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-group" appDate1>
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >Fitness Valid</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        matInput
+                        id="fitnessvalidtillId"
+                        [matDatepicker]="fitnessvalidtill"
+                        formControlName="fitnessvalidtill"
+                        autocomplete="off"
+                        (dateChange)="
+                          validateInvalidFormat($event, 'fitnessvalidtillId')
+                        "
+                      />
+                      <div
+                        class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                      >
+                        <span class="input-group-addon">
+                          <mat-datepicker-toggle
+                            matSuffix
+                            [for]="fitnessvalidtill"
+                            tabindex="-1"
+                          ></mat-datepicker-toggle>
+                          <mat-datepicker
+                            #fitnessvalidtill
+                            tabindex="-1"
+                          ></mat-datepicker>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-group" appDate1>
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >Permit Valid Till</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        matInput
+                        id="permitvalidtillId"
+                        [matDatepicker]="permitvalidtill"
+                        formControlName="permitvalidtill"
+                        autocomplete="off"
+                        (dateChange)="
+                          validateInvalidFormat($event, 'permitvalidtillId')
+                        "
+                      />
+                      <div
+                        class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                      >
+                        <span class="input-group-addon">
+                          <mat-datepicker-toggle
+                            matSuffix
+                            [for]="permitvalidtill"
+                            tabindex="-1"
+                          ></mat-datepicker-toggle>
+                          <mat-datepicker
+                            #permitvalidtill
+                            tabindex="-1"
+                          ></mat-datepicker>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-group" appDate1>
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >Auth Valid Till</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        matInput
+                        id="authorisationvalidtillId"
+                        [matDatepicker]="authorisationvalidtill"
+                        formControlName="authorisationvalidtill"
+                        autocomplete="off"
+                        (dateChange)="
+                          validateInvalidFormat(
+                            $event,
+                            'authorisationvalidtillId'
+                          )
+                        "
+                      />
+                      <div
+                        class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                      >
+                        <span class="input-group-addon">
+                          <mat-datepicker-toggle
+                            matSuffix
+                            [for]="authorisationvalidtill"
+                            tabindex="-1"
+                          ></mat-datepicker-toggle>
+                          <mat-datepicker
+                            #authorisationvalidtill
+                            tabindex="-1"
+                          ></mat-datepicker>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <div class="col-md-6">
+                    <div class="input-group" appDate1>
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >Battery Changed</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        id="batterychangedId"
+                        matInput
+                        (dateChange)="
+                          billDateValidation(
+                            $event.target.value,
+                            'batterychangedId'
+                          )
+                        "
+                        [matDatepicker]="batterychanged"
+                        formControlName="batterychanged"
+                        autocomplete="off"
+                      />
+                      <div
+                        class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                      >
+                        <span class="input-group-addon">
+                          <mat-datepicker-toggle
+                            matSuffix
+                            [for]="batterychanged"
+                            tabindex="-1"
+                          ></mat-datepicker-toggle>
+                          <mat-datepicker
+                            #batterychanged
+                            tabindex="-1"
+                          ></mat-datepicker>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-group" appDate1>
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >Battery Expiry</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        matInput
+                        id="batteryexpiryId"
+                        [matDatepicker]="batteryexpiry"
+                        formControlName="batteryexpiry"
+                        (dateChange)="
+                          validateStartAndEndDate(
+                            $event.target.value,
+                            'batteryexpiryId'
+                          )
+                        "
+                        autocomplete="off"
+                      />
+                      <div
+                        class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                      >
+                        <span class="input-group-addon">
+                          <mat-datepicker-toggle
+                            matSuffix
+                            [for]="batteryexpiry"
+                            tabindex="-1"
+                          ></mat-datepicker-toggle>
+                          <mat-datepicker
+                            #batteryexpiry
+                            tabindex="-1"
+                          ></mat-datepicker>
+                        </span>
+                      </div>
+                    </div>
+                  </div> -->
+                  <div class="col-md-12">
+                    <div
+                      class="input-group has-validation"
+                      [class.is-invalid]="
+                        vehicleDetailsForm.controls['servstatus'].invalid &&
+                        (vehicleDetailsForm.controls['servstatus'].touched ||
+                          vehicleDetailsForm.controls['servstatus'].dirty)
+                      "
+                    >
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        ><span
+                          class="req_field common_color_txt fontBold font14"
+                          >*</span
+                        >Serviceability Status</span
+                      >
+                      <app-f1
+                        id="servstatus"
+                        formControlName="servstatus"
+                        name="SERVSTAT"
+                        class="form-control post_input_field border-end-0 d-flex"
+                        titleValue="{{ EqpservstatusF1List?.mainheader }}"
+                        [tableData]="EqpservstatusF1List?.dataSet"
+                        [colHeader]="EqpservstatusColHeadings"
+                        [inputBBC]="EqpservstatusF1Bbc"
+                        (updatedSelectedValue)="getDescForeqpServstatus($event)"
+                        [dynaPopId]="'SERVSTAT'"
+                        [errorMessage]="'Invalid Service Status'"
+                      >
+                      </app-f1>
+                      <span class="position-relative span_divider"></span>
+                      <input
+                        type="text"
+                        formControlName="eqpServstatusDesc"
+                        tabindex="-1"
+                        class="form-control post_input_field border-start-0 d-flex w-50"
+                      />
+                    </div>
+                    <div
+                      class="disInl me-2"
+                      *ngIf="
+                        vehicleDetailsForm.controls['servstatus'].invalid &&
+                        (vehicleDetailsForm.controls['servstatus'].touched ||
+                          vehicleDetailsForm.controls['servstatus'].dirty)
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500 disInl"
+                        *ngIf="vehicleDetailsForm.controls['servstatus'].errors && vehicleDetailsForm.controls['servstatus'].errors?.['required']"
+                      >
+                        Serviceability Status is required
+                      </div>
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="vehicleDetailsForm.controls['servstatus'].errors?.['maxlength']?.actualLength"
+                      >
+                        Max 1 Character allowed. Current is
+                        {{vehicleDetailsForm.controls['servstatus'].errors?.['maxlength']?.actualLength}}
+                        characters.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div
+                class="group_panel br-10 form_common_bg p-3 pt-4 position-relative"
+              >
+                <p class="bg-white font600 group_title mb-0 position-absolute">
+                  Vehicle Allotment Details
+                </p>
+                <div class="row g-2">
+                  <div class="col-md-12">
+                    <div
+                      class="input-group has-validation"
+                      [class.is-invalid]="
+                        vehicleDetailsForm.controls['coy'].invalid &&
+                        (vehicleDetailsForm.controls['coy'].touched ||
+                          vehicleDetailsForm.controls['coy'].dirty)
+                      "
+                    >
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        ><span
+                          class="req_field common_color_txt fontBold font14"
+                          >*</span
+                        >Company</span
+                      >
+                      <app-f1
+                        id="coy"
+                        formControlName="coy"
+                        name="COMPANY"
+                        class="form-control post_input_field border-end-0 d-flex"
+                        titleValue="{{ EqpcoyF1List?.mainheader }}"
+                        [tableData]="EqpcoyF1List?.dataSet"
+                        [colHeader]="EqpcoyColHeadings"
+                        [inputBBC]="EqpcoyF1Bbc"
+                        (updatedSelectedValue)="getDescForeqpCoy($event)"
+                        [dynaPopId]="'COMPANY'"
+                        [errorMessage]="'Invalid Company'"
+                      >
+                      </app-f1>
+                      <span class="position-relative span_divider"></span>
+                      <input
+                        type="text"
+                        formControlName="eqpCoyName"
+                        tabindex="-1"
+                        class="form-control post_input_field border-start-0 d-flex w-50"
+                      />
+                    </div>
+                    <div
+                      class="disInl me-2"
+                      *ngIf="
+                        vehicleDetailsForm.controls['coy'].invalid &&
+                        (vehicleDetailsForm.controls['coy'].touched ||
+                          vehicleDetailsForm.controls['coy'].dirty)
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500 disInl"
+                        *ngIf="vehicleDetailsForm.controls['coy'].errors && vehicleDetailsForm.controls['coy'].errors?.['required']"
+                      >
+                        Company Code is required
+                      </div>
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="vehicleDetailsForm.controls['coy'].errors?.['maxlength']?.actualLength"
+                      >
+                        Max 5 Character allowed. Current is
+                        {{vehicleDetailsForm.controls['coy'].errors?.['maxlength']?.actualLength}}
+                        characters.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="input-group">
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >Proprietor</span
+                      >
+                      <input
+                        type="text"
+                        formControlName="prop"
+                        tabindex="-1"
+                        class="form-control post_input_field border-end-0 d-flex"
+                      />
+                      <span class="position-relative span_divider"></span>
+                      <input
+                        type="text"
+                        formControlName="propDesc"
+                        tabindex="-1"
+                        class="form-control post_input_field border-start-0 d-flex w-50"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div
+                      class="input-group has-validation"
+                      [class.is-invalid]="
+                        vehicleDetailsForm.controls['allottedto'].invalid &&
+                        (vehicleDetailsForm.controls['allottedto'].touched ||
+                          vehicleDetailsForm.controls['allottedto'].dirty)
+                      "
+                    >
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        ><span
+                          class="req_field common_color_txt fontBold font14"
+                          >*</span
+                        >Allotted To</span
+                      >
+                      <input
+                        type="text"
+                        formControlName="allottedto"
+                        class="form-control post_input_field border-start-0 d-flex"
+                      />
+                    </div>
+                    <div
+                      class="disInl me-2"
+                      *ngIf="
+                        vehicleDetailsForm.controls['allottedto'].invalid &&
+                        (vehicleDetailsForm.controls['allottedto'].touched ||
+                          vehicleDetailsForm.controls['allottedto'].dirty)
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500 disInl"
+                        *ngIf="vehicleDetailsForm.controls['allottedto'].errors && vehicleDetailsForm.controls['allottedto'].errors?.['required']"
+                      >
+                        Allotted To is required
+                      </div>
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="vehicleDetailsForm.controls['allottedto'].errors?.['maxlength']?.actualLength"
+                      >
+                        Max 30 Character allowed. Current is
+                        {{vehicleDetailsForm.controls['allottedto'].errors?.['maxlength']?.actualLength}}
+                        characters.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div
+                      class="input-group has-validation"
+                      [class.is-invalid]="
+                        vehicleDetailsForm.controls['sitebldg'].invalid &&
+                        (vehicleDetailsForm.controls['sitebldg'].touched ||
+                          vehicleDetailsForm.controls['sitebldg'].dirty)
+                      "
+                    >
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        ><span
+                          class="req_field common_color_txt fontBold font14"
+                          >*</span
+                        >Site/Building</span
+                      >
+                      <app-f1
+                        id="eqpnum"
+                        [formControlName]="'sitebldg'"
+                        name="sitebldg"
+                        class="form-control post_input_field border-start-0 d-flex"
+                        titleValue="{{ sitebldgF1List?.mainheader }}"
+                        [tableData]="sitebldgF1List?.dataSet"
+                        [colHeader]="sitebldgColHeadings"
+                        [inputBBC]="sitebldgF1Bbc"
+                        [dynaPopId]="'EQUIPSITE'"
+                        [queryConditon]=""
+                        [errorMessage]="'Invalid Site/Building'"
+                      >
+                      </app-f1>
+                      <!-- <input
+                          type="text"
+                          formControlName="sitebldg"
+                          class="form-control post_input_field border-start-0 d-flex"
+                        /> -->
+                    </div>
+                    <div
+                      class="disInl me-2"
+                      *ngIf="
+                        vehicleDetailsForm.controls['sitebldg'].invalid &&
+                        (vehicleDetailsForm.controls['sitebldg'].touched ||
+                          vehicleDetailsForm.controls['sitebldg'].dirty)
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500 disInl"
+                        *ngIf="vehicleDetailsForm.controls['sitebldg'].errors && vehicleDetailsForm.controls['sitebldg'].errors?.['required']"
+                      >
+                        Site/Building is required
+                      </div>
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="vehicleDetailsForm.controls['sitebldg'].errors?.['maxlength']?.actualLength"
+                      >
+                        Max 20 Character allowed. Current is
+                        {{vehicleDetailsForm.controls['sitebldg'].errors?.['maxlength']?.actualLength}}
+                        characters.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div
+                      class="input-group has-validation"
+                      [class.is-invalid]="
+                        vehicleDetailsForm.controls['kmslimit'].invalid &&
+                        (vehicleDetailsForm.controls['kmslimit'].touched ||
+                          vehicleDetailsForm.controls['kmslimit'].dirty)
+                      "
+                    >
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        ><span
+                          class="req_field common_color_txt fontBold font14"
+                          >*</span
+                        >Granted Kms</span
+                      >
+                      <input
+                        type="number"
+                        formControlName="kmslimit"
+                        class="form-control post_input_field border-start-0 d-flex"
+                      />
+                    </div>
+                    <div
+                      class="disInl me-2"
+                      *ngIf="
+                        vehicleDetailsForm.controls['kmslimit'].invalid &&
+                        (vehicleDetailsForm.controls['kmslimit'].touched ||
+                          vehicleDetailsForm.controls['kmslimit'].dirty)
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500 disInl"
+                        *ngIf="vehicleDetailsForm.controls['kmslimit'].errors?.min || vehicleDetailsForm.controls['kmslimit'].errors?.['required']"
+                      >
+                        Granted Kms should be greater than zero
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="row g-3">
+            <div class="col-lg-12">
+              <div
+                class="group_panel br-10 form_common_bg p-3 pt-4 position-relative"
+              >
+                <p class="bg-white font600 group_title mb-0 position-absolute">
+                  Insurance,Service,Tune-up Details
+                </p>
+                <div class="row g-2">
+                  <div class="col-md-6">
+                    <div
+                      class="input-group has-validation"
+                      [class.is-invalid]="
+                        vehicleDetailsForm.controls['inspolicyno'].invalid &&
+                        (vehicleDetailsForm.controls['inspolicyno'].touched ||
+                          vehicleDetailsForm.controls['inspolicyno'].dirty)
+                      "
+                    >
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        ><span
+                          class="req_field common_color_txt fontBold font14"
+                          >*</span
+                        >Ins. Policy No</span
+                      >
+                      <input
+                        type="text"
+                        formControlName="inspolicyno"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                      />
+                    </div>
+                    <div
+                      class="disInl me-2"
+                      *ngIf="
+                        vehicleDetailsForm.controls['inspolicyno'].invalid &&
+                        (vehicleDetailsForm.controls['inspolicyno'].touched ||
+                          vehicleDetailsForm.controls['inspolicyno'].dirty)
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500 disInl"
+                        *ngIf="vehicleDetailsForm.controls['inspolicyno'].errors && vehicleDetailsForm.controls['inspolicyno'].errors?.['required']"
+                      >
+                        Insurance Policy number is required
+                      </div>
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="vehicleDetailsForm.controls['inspolicyno'].errors?.['maxlength']?.actualLength"
+                      >
+                        Max 25 Character allowed. Current is
+                        {{vehicleDetailsForm.controls['inspolicyno'].errors?.['maxlength']?.actualLength}}
+                        characters.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div
+                      class="input-group has-validation"
+                      [class.is-invalid]="
+                        vehicleDetailsForm.controls['insexpon'].invalid &&
+                        (vehicleDetailsForm.controls['insexpon'].touched ||
+                          vehicleDetailsForm.controls['insexpon'].dirty)
+                      "
+                      appDate1
+                    >
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        ><span
+                          class="req_field common_color_txt fontBold font14"
+                          >*</span
+                        >Ins. Expries On</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        matInput
+                        [matDatepicker]="insexpon"
+                        formControlName="insexpon"
+                        autocomplete="off"
+                        id="insexponId"
+                        (dateChange)="
+                          validateInvalidFormat($event, 'insexponId')
+                        "
+                      />
+                      <div
+                        class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                      >
+                        <span class="input-group-addon">
+                          <mat-datepicker-toggle
+                            matSuffix
+                            [for]="insexpon"
+                            tabindex="-1"
+                          ></mat-datepicker-toggle>
+                          <mat-datepicker
+                            #insexpon
+                            tabindex="-1"
+                          ></mat-datepicker>
+                        </span>
+                      </div>
+                    </div>
+                    <div
+                      class="disInl me-2"
+                      *ngIf="
+                        vehicleDetailsForm.controls['insexpon'].invalid &&
+                        (vehicleDetailsForm.controls['insexpon'].touched ||
+                          vehicleDetailsForm.controls['insexpon'].dirty)
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500 disInl"
+                        *ngIf="vehicleDetailsForm.controls['insexpon'].errors && vehicleDetailsForm.controls['insexpon'].errors?.['required']"
+                      >
+                        Insurance Expiry Date is required
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div
+                      class="input-group has-validation"
+                      [class.is-invalid]="
+                        vehicleDetailsForm.controls['inscompany'].invalid &&
+                        (vehicleDetailsForm.controls['inscompany'].touched ||
+                          vehicleDetailsForm.controls['inscompany'].dirty)
+                      "
+                    >
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        ><span
+                          class="req_field common_color_txt fontBold font14"
+                          >*</span
+                        >Ins. Company</span
+                      >
+                      <input
+                        type="text"
+                        formControlName="inscompany"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                      />
+                    </div>
+                    <div
+                      class="disInl me-2"
+                      *ngIf="
+                        vehicleDetailsForm.controls['inscompany'].invalid &&
+                        (vehicleDetailsForm.controls['inscompany'].touched ||
+                          vehicleDetailsForm.controls['inscompany'].dirty)
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500 disInl"
+                        *ngIf="vehicleDetailsForm.controls['inscompany'].errors && vehicleDetailsForm.controls['inscompany'].errors?.['required']"
+                      >
+                        Insurance Company is required
+                      </div>
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="vehicleDetailsForm.controls['inscompany'].errors?.['maxlength']?.actualLength"
+                      >
+                        Max 40 Character allowed. Current is
+                        {{vehicleDetailsForm.controls['inscompany'].errors?.['maxlength']?.actualLength}}
+                        characters.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-group" appDate1>
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >Last Service</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        matInput
+                        id="servicedoneId"
+                        (dateChange)="
+                          validateInvalidFormat($event, 'servicedoneId')
+                        "
+                        [matDatepicker]="servicedone"
+                        formControlName="servicedone"
+                        autocomplete="off"
+                      />
+                      <div
+                        class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                      >
+                        <span class="input-group-addon">
+                          <mat-datepicker-toggle
+                            matSuffix
+                            [for]="servicedone"
+                            tabindex="-1"
+                          ></mat-datepicker-toggle>
+                          <mat-datepicker
+                            #servicedone
+                            tabindex="-1"
+                          ></mat-datepicker>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-group" appDate1>
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >Service Expiry On</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        matInput
+                        [matDatepicker]="servexpiry"
+                        formControlName="servexpiry"
+                        id="servexpiryeId"
+                        (dateChange)="
+                          validateInvalidFormat($event, 'servexpiryId')
+                        "
+                        autocomplete="off"
+                      />
+                      <div
+                        class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                      >
+                        <span class="input-group-addon">
+                          <mat-datepicker-toggle
+                            matSuffix
+                            [for]="servexpiry"
+                            tabindex="-1"
+                          ></mat-datepicker-toggle>
+                          <mat-datepicker
+                            #servexpiry
+                            tabindex="-1"
+                          ></mat-datepicker>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-group">
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >RC Signed by</span
+                      >
+                      <input
+                        type="text"
+                        formControlName="rcbooksignedby"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-group" appDate1>
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >Reg. Valid Till</span
+                      >
+                      <input
+                        type="text"
+                        id="regvalidtillId"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        matInput
+                        [matDatepicker]="regvalidtill"
+                        formControlName="regvalidtill"
+                        (dateChange)="
+                          validateInvalidFormat($event, 'regvalidtillId')
+                        "
+                        autocomplete="off"
+                      />
+                      <div
+                        class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                      >
+                        <span class="input-group-addon">
+                          <mat-datepicker-toggle
+                            matSuffix
+                            [for]="regvalidtill"
+                            tabindex="-1"
+                          ></mat-datepicker-toggle>
+                          <mat-datepicker
+                            #regvalidtill
+                            tabindex="-1"
+                          ></mat-datepicker>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div
+                class="group_panel br-10 form_common_bg p-3 pt-4 position-relative"
+              >
+                <p class="bg-white font600 group_title mb-0 position-absolute">
+                  Loan Details
+                </p>
+                <div class="row g-2">
+                  <div class="col-md-6">
+                    <div class="input-group">
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >Account No</span
+                      >
+                      <input
+                        type="text"
+                        formControlName="loanacno"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-group">
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >Amount</span
+                      >
+                      <input
+                        type="text"
+                        formControlName="loanamount"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-group">
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >Sign by</span
+                      >
+                      <input
+                        type="text"
+                        formControlName="loanpapersignedby"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-group">
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >HPA With</span
+                      >
+                      <input
+                        type="text"
+                        formControlName="hpawith"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-group" appDate1>
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >HPA CNL On</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        matInput
+                        id="hpacancelledonId"
+                        (dateChange)="
+                          validateInvalidFormat($event, 'hpacancelledonId')
+                        "
+                        [matDatepicker]="hpacancelledon"
+                        formControlName="hpacancelledon"
+                        autocomplete="off"
+                      />
+                      <div
+                        class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                      >
+                        <span class="input-group-addon">
+                          <mat-datepicker-toggle
+                            matSuffix
+                            [for]="hpacancelledon"
+                            tabindex="-1"
+                          ></mat-datepicker-toggle>
+                          <mat-datepicker
+                            #hpacancelledon
+                            tabindex="-1"
+                          ></mat-datepicker>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-group">
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >EMI Amt</span
+                      >
+                      <input
+                        type="text"
+                        formControlName="emiamount"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-group" appDate1>
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >EMI Start</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        matInput
+                        id="emistartdateId"
+                        (dateChange)="
+                          validateInvalidFormat($event, 'emistartdateId')
+                        "
+                        [matDatepicker]="emistartdate"
+                        formControlName="emistartdate"
+                        autocomplete="off"
+                      />
+                      <div
+                        class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                      >
+                        <span class="input-group-addon">
+                          <mat-datepicker-toggle
+                            matSuffix
+                            [for]="emistartdate"
+                            tabindex="-1"
+                          ></mat-datepicker-toggle>
+                          <mat-datepicker
+                            #emistartdate
+                            tabindex="-1"
+                          ></mat-datepicker>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-group" appDate1>
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >EMI End</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        matInput
+                        id="emienddateId"
+                        (dateChange)="
+                          validateStartAndEndDate(
+                            $event.target.value,
+                            'emienddateId'
+                          )
+                        "
+                        [matDatepicker]="emienddate"
+                        formControlName="emienddate"
+                        autocomplete="off"
+                      />
+                      <div
+                        class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                      >
+                        <span class="input-group-addon">
+                          <mat-datepicker-toggle
+                            matSuffix
+                            [for]="emienddate"
+                            tabindex="-1"
+                          ></mat-datepicker-toggle>
+                          <mat-datepicker
+                            #emienddate
+                            tabindex="-1"
+                          ></mat-datepicker>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div
+                class="group_panel br-10 form_common_bg p-3 pt-4 position-relative"
+              >
+                <p class="bg-white font600 group_title mb-0 position-absolute">
+                  Disposal
+                </p>
+                <div class="row g-2">
+                  <div class="col-md-12">
+                    <div class="input-group">
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >Buyer Name</span
+                      >
+                      <input
+                        type="text"
+                        formControlName="dispname"
+                        class="form-control post_input_field border-start-0 d-flex"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="input-group">
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >Address</span
+                      >
+                      <input
+                        type="text"
+                        formControlName=""
+                        formControlName="dispaddress"
+                        class="form-control post_input_field border-start-0 d-flex"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-group" appDate1>
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >Disposal Date</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        matInput
+                        id="dispdateId"
+                        (dateChange)="
+                          validateInvalidFormat($event, 'dispdateId')
+                        "
+                        [matDatepicker]="dispdate"
+                        formControlName="dispdate"
+                        autocomplete="off"
+                      />
+                      <div
+                        class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                      >
+                        <span class="input-group-addon">
+                          <mat-datepicker-toggle
+                            matSuffix
+                            [for]="dispdate"
+                            tabindex="-1"
+                          ></mat-datepicker-toggle>
+                          <mat-datepicker
+                            #dispdate
+                            tabindex="-1"
+                          ></mat-datepicker>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-group">
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >Value</span
+                      >
+                      <input
+                        type="text"
+                        formControlName="dispvalue"
+                        class="form-control post_input_field border-start-0 d-flex"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-group">
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >Cheque No.</span
+                      >
+                      <input
+                        type="text"
+                        formControlName="dispchequeno"
+                        class="form-control post_input_field border-start-0 d-flex"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-group" appDate1>
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >Cheque Date</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control post_input_field border-start-0 d-flex"
+                        name
+                        matInput
+                        id="dispchequedateId"
+                        (dateChange)="
+                          validateInvalidFormat($event, 'dispchequedateId')
+                        "
+                        [matDatepicker]="dispchequedate"
+                        formControlName="dispchequedate"
+                        autocomplete="off"
+                      />
+                      <div
+                        class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                        class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                      >
+                        <span class="input-group-addon">
+                          <mat-datepicker-toggle
+                            matSuffix
+                            [for]="dispchequedate"
+                            tabindex="-1"
+                          ></mat-datepicker-toggle>
+                          <mat-datepicker
+                            #dispchequedate
+                            tabindex="-1"
+                          ></mat-datepicker>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="input-group">
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >Phone</span
+                      >
+                      <input
+                        type="text"
+                        formControlName="dispcontactno"
+                        class="form-control post_input_field border-start-0 d-flex"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div
+                      class="input-group"
+                      [class.is-invalid]="
+                        vehicleDetailsForm.controls['disppan'].invalid &&
+                        vehicleDetailsForm.controls['disppan'].touched
+                      "
+                    >
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >PAN</span
+                      >
+                      <input
+                        type="text"
+                        formControlName="disppan"
+                        class="form-control post_input_field border-start-0 d-flex"
+                      />
+                    </div>
+                    <div
+                      *ngIf="
+                        vehicleDetailsForm.controls['disppan'].invalid &&
+                        vehicleDetailsForm.controls['disppan'].touched
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="vehicleDetailsForm.controls['disppan'].errors?.['maxlength'] || vehicleDetailsForm.controls['disppan'].errors?.['minlength']"
+                      >
+                        *PAN no. should be 10 Character. Current is
+                        {{ vehicleDetailsForm.controls['disppan'].errors?.['maxlength']?.actualLength || vehicleDetailsForm.controls['disppan'].errors?.['minlength']?.actualLength }}
+                        characters.
+                      </div>
+                      <div
+                        *ngIf="vehicleDetailsForm.controls['disppan'].errors && vehicleDetailsForm.controls['disppan'].errors?.['pattern']"
+                        class="errorField common_color_txt font12 font500"
+                      >
+                        * Invalid PAN
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div
+                      class="input-group"
+                      [class.is-invalid]="
+                        vehicleDetailsForm.controls['dispaadhaar'].invalid &&
+                        vehicleDetailsForm.controls['dispaadhaar'].touched
+                      "
+                    >
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >Aadhar</span
+                      >
+                      <input
+                        type="text"
+                        formControlName="dispaadhaar"
+                        oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                        class="form-control post_input_field border-start-0 d-flex"
+                      />
+                    </div>
+                    <div
+                      *ngIf="
+                        vehicleDetailsForm.controls['dispaadhaar'].invalid &&
+                        vehicleDetailsForm.controls['dispaadhaar'].touched
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="vehicleDetailsForm.controls['dispaadhaar'].errors?.['maxlength'] || vehicleDetailsForm.controls['dispaadhaar'].errors?.['minlength']"
+                      >
+                        *Aadhar no. should be 12 Character. Current is
+                        {{ vehicleDetailsForm.controls['dispaadhaar'].errors?.['maxlength']?.actualLength || vehicleDetailsForm.controls['dispaadhaar'].errors?.['minlength']?.actualLength }}
+                        characters.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner bg-white br-10 d-flex justify-content-center">
+      <button
+        type="submit"
+        class="bg_common_red common_action_btn br-10"
+        accesskey="a"
+        (click)="addEquipDetails()"
+        [disabled]="initialMode"
+      >
+        Add
+      </button>
+      <button
+        type="submit"
+        class="bg_common_red common_action_btn br-10"
+        accesskey="r"
+        (click)="retrieveEquipDetails()"
+        [disabled]="initialMode"
+      >
+        Retreive
+      </button>
+      <button
+        type="submit"
+        class="bg_common_red common_action_btn br-10"
+        accesskey="s"
+        (click)="saveEquip()"
+        [disabled]="disableSave"
+      >
+        Save
+      </button>
+      <button
+        type="button"
+        class="bg_common_red common_action_btn br-10 first_letter_textdecorationone"
+        accesskey="t"
+        (click)="reset()"
+        [disabled]="disableReset"
+      >
+        Rese<u>t</u>
+      </button>
+      <button
+        type="submit"
+        class="bg_common_red common_action_btn br-10"
+        accesskey="b"
+        [disabled]="!initialMode"
+        (click)="handleBackClick()"
+      >
+        Back
+      </button>
+      <a
+        class="bg_common_red border-0 common_action_btn text-white br-10 first_letter_textdecorationone text-decoration-none"
+        accesskey="x"
+        routerLink="/dashboard"
+      >
+        E<u>x</u>it
+      </a>
+    </div>
+  </div>
+</section>
+<app-loader *ngIf="loaderToggle"></app-loader>

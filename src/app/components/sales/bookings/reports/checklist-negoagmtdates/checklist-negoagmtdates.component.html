@@ -1,0 +1,254 @@
+<section class="container">
+  <form [formGroup]="checklistnegoagmtdates">
+    <div class="row d-flex justify-content-center">
+      <div formGroupName="reportParameters">
+        <div class="row g-2 mb-3 justify-content-center">
+          <div class="col-lg-6">
+            <div
+              class="group_panel br-10 form_common_bg p-3 pt-3 position-relative"
+            >
+              <p
+                class="bg-white font600 group_title mb-0 position-absolute"
+              ></p>
+              <div class="row mb-2 mb-2">
+                <div class="col-lg-12">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Buildings</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0 post_input_field"
+                      formControlName="pBldgCode"
+                      oninput="this.value = this.value.toUpperCase()"
+                      [f1]="{ id: 'BUILDINGS' }"
+                      id="BUILDINGS"
+                      autocomplete="off"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-2 mb-2">
+                <div class="col-lg-12">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Wing(s)</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0 post_input_field"
+                      formControlName="pWings"
+                      [f1]="{ id: 'BWINGS', multi: true, subId: bldgWingCode }"
+                      id="BWINGS"
+                      autocomplete="off"
+                    />
+                  </div>
+                </div>
+              </div>
+              <!-- Radio Button -->
+              <div
+                class="group_panel br-10 form_common_bg p-3 pt-3 mt-2 position-relative"
+              >
+                <p class="font600 group_title mb-0 position-absolute">
+                  Unit Types
+                </p>
+                <div class="input-group">
+                  <div class="my-2">
+                    <div class="form-check d-flex align-items-center">
+                      <input
+                        type="radio"
+                        class="form-check-input font12 font500 position-relative"
+                        id="RbParking"
+                        name="rbUnitType"
+                        value="P"
+                        formControlName="rbUnitType"
+                      />
+                      <label
+                        class="form-check-label first_letter_textdecorationone"
+                        for="xx"
+                        accesskey="p"
+                      >
+                        Parking
+                      </label>
+                    </div>
+                    <div class="form-check d-flex align-items-center">
+                      <input
+                        type="radio"
+                        class="form-check-input font12 font500 position-relative"
+                        id="RbFlats"
+                        name="rbUnitType"
+                        value="F"
+                        formControlName="rbUnitType"
+                      />
+                      <label
+                        class="form-check-label first_letter_textdecorationone"
+                        for="xx"
+                        accesskey="f"
+                      >
+                        Flats
+                      </label>
+                    </div>
+                    <div class="form-check d-flex align-items-center">
+                      <input
+                        type="radio"
+                        class="form-check-input font12 font500 position-relative"
+                        id="RbAll"
+                        name="rbUnitType"
+                        value="A"
+                        formControlName="rbUnitType"
+                      />
+                      <label
+                        class="form-check-label first_letter_textdecorationone"
+                        for="xx"
+                        accesskey="a"
+                      >
+                        All
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- End of Radio Button -->
+
+              <!-- Radio Button of Sorting  -->
+              <div
+                class="group_panel br-10 form_common_bg p-3 pt-3 mt-2 position-relative"
+              >
+                <p class="font600 group_title mb-0 position-absolute">
+                  Sort by
+                </p>
+                <div class="input-group">
+                  <div class="my-2">
+                    <div class="form-check d-flex align-items-center">
+                      <input
+                        type="radio"
+                        class="form-check-input font12 font500 position-relative"
+                        id="RbNegoDate"
+                        name="rbSortOpt"
+                        value="Nego Date"
+                        formControlName="rbSortOpt"
+                      />
+                      <label
+                        class="form-check-label first_letter_textdecorationone"
+                        for="xx"
+                        accesskey="n"
+                      >
+                        Nego. Date
+                      </label>
+                    </div>
+                    <div class="form-check d-flex align-items-center">
+                      <input
+                        type="radio"
+                        class="form-check-input font12 font500 position-relative"
+                        id="RbStampDuty"
+                        name="rbSortOpt"
+                        value="Stamp Duty"
+                        formControlName="rbSortOpt"
+                      />
+                      <label
+                        class="form-check-label first_letter_textdecorationone"
+                        for="xx"
+                        accesskey="s"
+                      >
+                        Stamp Duty
+                      </label>
+                    </div>
+                    <div class="form-check d-flex align-items-center">
+                      <input
+                        type="radio"
+                        class="form-check-input font12 font500 position-relative"
+                        id="RbAgreeDate"
+                        name="rbSortOpt"
+                        value="Agreement Date"
+                        formControlName="rbSortOpt"
+                      />
+                      <label
+                        class="form-check-label first_letter_textdecorationone"
+                        for="xx"
+                        accesskey="a"
+                      >
+                        Agreement Date
+                      </label>
+                    </div>
+                    <div class="form-check d-flex align-items-center">
+                      <input
+                        type="radio"
+                        class="form-check-input font12 font500 position-relative"
+                        id="RbReg"
+                        name="rbSortOpt"
+                        value="Registration"
+                        formControlName="rbSortOpt"
+                      />
+                      <label
+                        class="form-check-label first_letter_textdecorationone"
+                        for="xx"
+                        accesskey="r"
+                      >
+                        Registration
+                      </label>
+                    </div>
+                    <div class="form-check d-flex align-items-center">
+                      <input
+                        type="radio"
+                        class="form-check-input font12 font500 position-relative"
+                        id="RbPoss"
+                        name="rbSortOpt"
+                        value="Possession"
+                        formControlName="rbSortOpt"
+                      />
+                      <label
+                        class="form-check-label first_letter_textdecorationone"
+                        for="xx"
+                        accesskey="p"
+                      >
+                        Possession
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- End of Radio Button -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</section>
+
+<app-loader *ngIf="loaderToggle"></app-loader>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner text-center bg-white br-10 w-100">
+      <div class="flex justify-content-between">
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+          accesskey="w"
+          (click)="getReport(false)"
+        >
+          Do<span class="text-decoration-underline">w</span>nload
+        </button>
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white"
+          (click)="getReport(true)"
+          accesskey="p"
+        >
+          Print
+        </button>
+        <!-- <button type="submit" class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white" [disabled]="true" accesskey="p" >Preview</button> -->
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+          accesskey="x"
+          (click)="handleExitClick()"
+        >
+          E<span class="text-decoration-underline">x</span>it
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,105 @@
+  
+  .input-group > .form-control {
+    border-radius: 0 9px 9px 0;
+  }
+
+  .group_panel_padding {
+    border: 1px solid #cfd4e4;
+    padding: 10px;
+  }
+
+  .margin-left-100 {
+    margin-left: 100px;
+  }
+
+  .margin-top-30 {
+    margin-top: 30px;
+  }
+
+
+  table.datatable tbody td {
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
+    vertical-align: middle;
+ }
+ 
+ table.datatable.table-bordered tr th {
+    vertical-align: middle;
+    line-height: 5px;
+    border-bottom: 2px solid #120e0e !important;
+ }
+
+ .view table th:nth-child(1),
+ .view table td:nth-child(1) {
+    /* position: -webkit-sticky;
+    position: sticky; */
+    background-color: white;
+    width: 50px;
+    min-width: 50px;
+    max-width: 50px;
+    left: 0px;
+ }
+ 
+ .view table th:nth-child(2),
+ .view table td:nth-child(2) {
+    /* position: -webkit-sticky;
+    position: sticky; */
+    background-color: white;
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+    left: 50px;
+ }
+ 
+ .view table th:nth-child(3),
+ .view table td:nth-child(3) {
+    /* position: -webkit-sticky;
+    position: sticky; */
+    background-color: white;
+    width: 120px;
+    min-width: 120px;
+    max-width: 120px;
+    left: 230px;
+ }
+
+ .view table th:nth-child(4),
+ .view table td:nth-child(4) {
+    /* position: -webkit-sticky;
+    position: sticky; */
+    background-color: white;
+    width: 400px;
+    min-width: 400px;
+    max-width: 400px;
+    left: 230px;
+ }
+
+ .view th:last-child,
+ .view td:last-child {
+    background-color: #fff;
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+    right: 0px;
+ }
+ 
+ .view th:last-child,
+ .view th:first-child,
+ .view th:nth-child(2),
+ .view th:nth-child(3) {
+    background: #fff !important;
+    z-index: 1;
+ }
+ 
+ .itemDesc_input {
+    white-space: nowrap;
+    width: 170px;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+ }
+
+ .view table.datatable thead th:nth-child(n+5)>input,
+ .view table.datatable tbody td:nth-child(n+5)>input {
+    width: 70px;
+ }

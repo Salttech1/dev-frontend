@@ -1,0 +1,138 @@
+<section>
+  <div class="row">
+    <div class="col-md-12">
+      <form [formGroup]="queryForm">
+        <div class="row g-3">
+          <div class="col-lg-4 col-sm-6">
+            <div
+              class="input-group flex-nowrap"
+              appDate1
+              [class.is-invalid]="
+                (queryForm.get('range')?.controls['suppBillFromDate']
+                  ?.invalid &&
+                  queryForm.get('range')?.controls['suppBillFromDate']
+                    ?.touched) ||
+                (queryForm.get('range')?.controls['suppBillToDate']?.invalid &&
+                  queryForm.get('range')?.controls['suppBillToDate']?.touched)
+              "
+            >
+              <span class="input-group-text leftform_lbl font500 text-dark1"
+                >Date Range</span
+              >
+              <div
+                class="bg-white datepicker_field post_input_field flex-grow-1"
+                [class.is-invalid]="
+                  (queryForm.get('range')?.controls['suppBillFromDate']
+                    ?.invalid &&
+                    queryForm.get('range')?.controls['suppBillFromDate']
+                      ?.touched) ||
+                  (queryForm.get('range')?.controls['suppBillToDate']
+                    ?.invalid &&
+                    queryForm.get('range')?.controls['suppBillToDate']?.touched)
+                "
+              >
+                <span class="input-group-addon">
+                  <div mat-form-field appearance="fill" class="matForm">
+                    <mat-date-range-input
+                      [formGroup]="this.queryForm.controls['range']"
+                      [rangePicker]="picker"
+                    >
+                      <input appCommonAutoFocus
+                        matStartDate
+                        formControlName="suppBillFromDate"
+                        placeholder="Start date"
+                      />
+                      <input
+                        matEndDate
+                        formControlName="suppBillToDate"
+                        placeholder="End date"
+                      />
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="picker"
+                    ></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                  </div>
+                </span>
+              </div>
+            </div>
+            <div
+              *ngIf="
+                queryForm.controls['range'].invalid &&
+                queryForm.controls['range'].touched
+              "
+            >
+              <div
+                class="invalid-feedback d-block"
+                *ngIf="
+                  (queryForm.get('range').controls['start']?.invalid &&
+                    queryForm.get('range').controls['start']?.touched) ||
+                  (queryForm.get('range').controls['end']?.invalid &&
+                    queryForm.get('range').controls['end']?.touched)
+                "
+              >
+                Proper Date is required
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-sm-6">
+            <div class="input-group has-validation">
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Executive Code</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0"
+                formControlName="coyCode"
+                [f1]="{ id: 'COMPANY', multi: true }"
+              />
+              <div
+                class="invalid-feedback d-block"
+                *ngIf="
+                  queryForm.controls['coyCode'].invalid &&
+                  queryForm.controls['coyCode'].touched
+                "
+              >
+                <div *ngIf="queryForm.controls['coyCode'].errors?.['notFound']">
+                  Not Found
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner bg-white br-10 d-flex justify-content-center">
+      <button
+        type="submit"
+        class="bg_common_red common_action_btn br-10 first_letter_textdecorationone"
+        accesskey="w"
+        (click)="getReport(false)"
+      >
+        Do<span class="text-decoration-underline">w</span>nload
+      </button>
+      <button
+        type="submit"
+        class="bg_common_red common_action_btn br-10"
+        (click)="getReport(true)"
+        accesskey="p"
+      >
+        Print
+      </button>
+      <a
+        class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone text-decoration-none"
+        accesskey="x"
+        routerLink="/dashboard"
+      >
+        E<span class="text-decoration-underline">x</span>it
+      </a>
+    </div>
+  </div>
+</section>
+<app-loader *ngIf="loaderToggle"></app-loader>

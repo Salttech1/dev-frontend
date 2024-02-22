@@ -1,0 +1,110 @@
+<form [formGroup]="depositorEntryForm">
+    <div class="form_depositor_container">
+          <div class="row">
+              <div class="mb-3 col-md-12 col-lg-6 col-xl-6 col-xxl-6">
+                    <div class="input-group" [class.is-invalid]="
+                    depositorEntryForm.controls['companyCode'].invalid &&
+                    depositorEntryForm.controls['companyCode'].touched
+                  ">
+                      <span class="input-group-text leftform_lbl font500 text-dark1 font12">Company</span>
+                      <app-f1 id="company2" [formControlName]="'companyCode'" placeholder="" class="form-control post_input_field border-start-0 border-end-0 d-flex"  titleValue="{{tableData?.mainheader}}" [tableData]="tableData?.dataSet" [colHeader]="columnHeader"  [inputBBC]="bringBackColumn" (updatedSelectedValue)="updateCompanyList($event)" [dynaPopId]="'COMPANY'" [queryConditon]=coy_condition  maxlength="7" type="text" [errorMessage]="'Invalid Company Code'"   (change)="updateOnChangeCompanyList($event)"></app-f1>
+                      <span class="position-relative span_divider"></span>
+                      <input
+                      type="text"
+                      class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+                      id="compName" formControlName="companyName"  tabindex="-1"
+                      
+                  >
+                    </div>
+                      <div
+                      *ngIf="depositorEntryForm.controls['companyCode'].invalid && depositorEntryForm.controls['companyCode'].touched">
+                      <div class="errorField common_color_txt font12 font500"
+                          *ngIf="depositorEntryForm.controls['companyCode'].errors && depositorEntryForm.controls['companyCode'].errors?.['required']">
+                          * Company Code is required
+                      </div>
+                      </div>
+              </div>
+                
+          
+              <div class="mb-3 col-md-12 col-lg-6 col-xl-6 col-xxl-6">
+                <div class="input-group has-validation" [class.is-invalid]="
+                depositorEntryForm.controls['depositorId'].invalid &&
+                depositorEntryForm.controls['depositorId'].touched
+              ">
+                  <span class="input-group-text leftform_lbl font500 text-dark1 font12  border-end-0">Depositor</span>
+                  <app-f1 maxlength="6" [formControlName]="'depositorId'" type="text" class="form-control post_input_field border-start-0 border-end-0 d-flex" (updatedSelectedValue)="updateListControl($event,depositorEntryForm.get('name'))"  titleValue="{{depositorTableData?.mainheader}}"   [tableData]="depositorTableData?.dataSet" [colHeader]="deptColumnHeader"  [inputBBC]="depositorTableData?.bringBackColumn" [dynaPopId]="'DEPOSITORS'" [queryConditon]=deptDyanPop [errorMessage]="'Invalid Depositor code Code'" (click)="updateDepositorList()" (change)="updateDepositorOnChange($event)"></app-f1>
+                  <span class="position-relative span_divider"></span>
+                      <input
+                      type="text"
+                      class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+                      id="name" formControlName="name"   tabindex="-1" 
+                  >
+                </div>
+                <div
+                *ngIf="depositorEntryForm.controls['depositorId'].invalid && depositorEntryForm.controls['depositorId'].touched">
+                <div class="errorField common_color_txt font12 font500"
+                    *ngIf="depositorEntryForm.controls['depositorId'].errors && depositorEntryForm.controls['depositorId'].errors?.['required']">
+                    * Depositor Id is required
+                </div>
+                </div>
+              </div>
+            
+                  <div class="mb-3 col-md-12 col-lg-6 col-xl-6 col-xxl-6">
+                    <div class="input-group">
+                      <span class="input-group-text leftform_lbl font500 text-dark1 font12  border-end-0">Proprietor</span>
+                      <input type="text" class="form-control border-start-0  border-end-0 post_input_field" id="compCode" formControlName="proprietor"  tabindex="-1">
+                      <span class="position-relative span_divider"></span>
+                      <input
+                      type="text"
+                      class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+                      id="propName"  formControlName="propName"  tabindex="-1"
+                  >
+                    </div>
+                  </div>
+               
+          
+        </div>
+      </div>
+    <div class="tabs_container pt-2" *ngIf="tabContentFlag">
+        <div class="tabs_inner_container">
+          <ul class="nav nav-tabs">
+            <li class="nav-item" (click)="activeDepositorField($event)">
+              <a class="nav-link lh-20 active text-decoration-none font14 text-dark1 font500" data-bs-toggle="tab" href="#depositorEntryDetail" accesskey="o">Dep<span class="text-decoration-underline">o</span>sitor Entry Detail</a>
+            </li>
+            <li class="nav-item" (click)="activeAddressField($event)">
+              <a class="nav-link lh-20 text-decoration-none font14 text-dark1 font500" data-bs-toggle="tab" href="#address" accesskey="i">Address Deta<span class="text-decoration-underline">i</span>l</a>
+            </li>
+          </ul>
+        </div>
+     
+        <div class="tab-content" >
+            <div class="tab-pane container active p-0" id="depositorEntryDetail">
+                <app-depositordetail (passDepositorData)="receiveDepositorEntryData($event)" [depositFetchedData]="depositEntryTabVal" [passCityData]="receivedAddressData?.value.addressResponseBean?.city" (passPartFormGroupEmit)="receivePartyEntryData($event)" [getAddressFormGroup]="receivedAddressData" [getCityUpdatedFlag]="cityValueChangeFlag"></app-depositordetail>
+            </div>
+            <div class="tab-pane container fade p-0" id="address">
+              <app-address [addressListFlag]="true"  (passAddressData)="getReceiveAddressData($event)" [addressFetchData]="addressTabVal" [receiveBirthDay]="receiveDepositorData?.value.dbirthdate" [classesResponsive]="'col-md-6 col-xl-4'" [getDepositorDetailForm]="receiveDepositorData" (cityFieldValueChange)="updateCityFieldValueChange($event)"></app-address>
+            </div>
+        </div>
+    </div>
+  
+    <section class="action_section position-fixed w-100">
+      <div class="container">
+          <div class="action_conatiner text-center bg-white br-10">
+              <div class="flex justify-content-between">
+                <button type="submit" class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"   accesskey="a" (click)="add()" [disabled]='disabledFlagAdd'>Add</button>
+                <button type="submit" class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"  (click)="retrieveData()"   accesskey="r" [disabled]='disabledFlagRetrieve'>Retreive</button>
+                <button type="submit" class="bg_common_red border-0 common_action_btn text-white br-10 ms-1" [disabled]='disabledFlagNewDeposit' (click)="routeToDepositor($event)">New Deposit</button>
+                <button type="submit" (click)="save()" class="bg_common_red border-0 text-white br-10 ms-1 common_action_btn"  accesskey="s" [disabled]='disabledFlagSave'>Save</button>
+                <button type="submit" class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone" accesskey="t" [disabled]='disabledFlagReset' (click)="reset()">Rese<span class="text-decoration-underline">t</span></button>
+                <button type="submit"  class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"   accesskey="b" (click)="back()" [disabled]='disabledFlagBack'>Back</button>
+                <button type="submit" class="first_letter_textdecorationone bg_common_red border-0 common_action_btn text-white br-10 ms-1"  accesskey="x" [disabled]="disabledFlagExit" (click)="handleExit()">E<span class="text-decoration-underline">x</span>it</button>
+              </div>
+          </div>
+      </div>
+    </section>
+   <!-- <app-actionpanel  [reterieveFormData]="depositorEntryForm" [getRetrieveApiUrl]="passRetrieveApiUrl" [sendRetrievePostBody]="{companyCode:depositorEntryForm.get('companyCode')?.value,depositorId:depositorEntryForm.get('depositorId')?.value}"
+    [shareActionSaveData]="receivedData"  [savedApiUrl]="passSaveApiUrl"  [savedFgValidationFlag]="receivedAddressData?.valid && receiveDepositorData?.valid"  [addChkApiUrl]="addChkApi" [getParamsValue]="paramsPost" 
+    [addValidationChk]="depositorEntryForm.controls['companyCode']" (sendAddErrorField)="resetAddErrorField($event)" [getApiMethodString]="'postBody'"
+   ></app-actionpanel>  -->
+</form>
+<app-loader *ngIf="loader"></app-loader>

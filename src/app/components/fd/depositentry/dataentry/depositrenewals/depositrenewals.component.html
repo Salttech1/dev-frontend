@@ -1,0 +1,387 @@
+<section class="depositrenewal_section">
+    <div class="container">
+            <form class="depositor_all_form">
+                <div class="form_depositor_container pb-2">
+                    <form [formGroup]="renewalSectionForm">
+                        <div class="row g-2">
+                            <div class="col-md-8 col-lg-5 col-xl-5 col-xxl-5">
+                                <div class="">
+                                    <div class="">
+                                      <div class="input-group"  [class.is-invalid]="
+                                      renewalSectionForm.controls['companyCode'].invalid &&
+                                      renewalSectionForm.controls['companyCode'].touched
+                                    ">
+                                        <span class="input-group-text leftform_lbl font500 text-dark1 font12">Company</span>
+                                        <app-f1 id="company12" [formControlName]="'companyCode'" placeholder="" class="form-control post_input_field border-start-0 d-flex" titleValue="{{compData?.mainheader}}" [tableData]="compData?.dataSet" [colHeader]="compHeader"  [inputBBC]="bringBackColumn" (updatedSelectedValue)="updateCompanyList($event)" [dynaPopId]="'COMPANY'" [queryConditon]=coy_condition [errorMessage]="'Invalid Company Code'"></app-f1>
+                                        <span class="position-relative span_divider"></span>
+                                       <input type="text" class="form-control  w-50 border-start-0 post_input_field font500 text-dark1 font12 disabled_cls" [formControlName]="'companyName'" tabindex="-1"  [readonly]="readonlyAttr">
+                                      </div>
+                                      <div *ngIf="renewalSectionForm.controls['companyCode'].invalid && renewalSectionForm.controls['companyCode'].touched">
+                                        <div class="errorField common_color_txt font12 font500"
+                                            *ngIf="renewalSectionForm.controls['companyCode'].errors && renewalSectionForm.controls['companyCode'].errors?.['required']">
+                                            * Company Code is required
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8 col-lg-5 col-xl-5 col-xxl-5">
+                                <!-- <label class="form-label formlbl font600 text-dark1 pb-3 mb-0 font12">Depositor</label> -->
+                                <div class="">
+                                  <div class="">
+                                    <div class="input-group" [class.is-invalid]="
+                                    renewalSectionForm.controls['depositorId'].invalid &&
+                                    renewalSectionForm.controls['depositorId'].touched
+                                  ">
+                                      <span class="input-group-text leftform_lbl font500 text-dark1 font12">Depositor</span>
+                                      <app-f1  id="depositor12434" [formControlName]="'depositorId'" type="text" class="form-control post_input_field border-start-0 d-flex" (updatedSelectedValue)="updateDepositorList($event)"  titleValue="{{depositorTableData?.mainheader}}"   [tableData]="depositorTableData?.dataSet" [colHeader]="deptColumnHeader"  [inputBBC]="depositorTableData?.bringBackColumn" [dynaPopId]="'DEPOSITORS'" [queryConditon]=deptDyanPop [errorMessage]="'Invalid Depositor Code'"></app-f1>
+                                      <span class="position-relative span_divider"></span>
+                                      <input type="text" class="form-control w-50 border-start-0 post_input_field font500 text-dark1 font12 disabled_cls" [formControlName]="'depositorName'" tabindex="-1" [readonly]="readonlyAttr">
+                                    </div>
+                                    <div *ngIf="renewalSectionForm.controls['depositorId'].invalid && renewalSectionForm.controls['depositorId'].touched">
+                                      <div class="errorField common_color_txt font12 font500"
+                                          *ngIf="renewalSectionForm.controls['depositorId'].errors && renewalSectionForm.controls['depositorId'].errors?.['required']">
+                                          * Depositor Id is required
+                                      </div>
+                                      </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-4 col-lg-2 col-xl-2 col-xxl-2">
+                   
+                                <div class="">
+                                    <div class="">
+                                      <div class="input-group"  [class.is-invalid]="
+                                      renewalSectionForm.controls['recieptNum'].invalid &&
+                                      renewalSectionForm.controls['recieptNum'].touched
+                                    ">
+                                        <span class="input-group-text leftform_lbl font500 text-dark1 font12">Receipt</span>
+                                        <app-f1   id="receiptNum12" [formControlName]="'recieptNum'" type="text" placeholder="" class="form-control post_input_field border-start-0 d-flex" (updatedSelectedValue)="updateReciept($event)" titleValue="{{recieptTableData?.mainheader}}"   [tableData]="recieptTableData?.dataSet" [colHeader]="recieptColumnHeader"  [inputBBC]="recieptTableData?.bringBackColumn" [dynaPopId]="'FDRECEIPTNUM '" [queryConditon]=recieptDyanPop [errorMessage]="'Invalid reciept number'"></app-f1>
+                                      </div>
+                                      <div *ngIf="renewalSectionForm.controls['recieptNum'].invalid && renewalSectionForm.controls['recieptNum'].touched">
+                                        <div class="errorField common_color_txt font12 font500"
+                                            *ngIf="renewalSectionForm.controls['recieptNum'].errors && renewalSectionForm.controls['recieptNum'].errors?.['required']">
+                                            * Reciept Number is required
+                                        </div>
+                                        </div>
+                                    </div>
+                                  
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </form>
+        </div>
+</section>
+<div class="deposit_renewals pt-2 mt-1">
+  <div class="row" *ngIf="isRetrieveClicked">
+    <div class="col-sm-8 col-md-12 col-lg-8 col-xl-8 col-xxl-8" >
+      <div class="group_panel br-10 form_common_bg p-3 pb-0 position-relative pt-4" >
+        <h5 class="fs-6 mb-0 position-absolute form_common_bg font600 group_title lh-24">Matured Deposit Details</h5>
+        <div class="deposit_renewals_container">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xl-6">
+              <div class="input-group mb-2 pb-1">
+                <span class="input-group-text leftform_lbl font500 text-dark1 font12">Receipt</span>
+                <input type="text" class="form-control  border-start-0 post_input_field font500 text-dark1 font12"  [(ngModel)]="renewalSectionForm?.getRawValue().recieptNum" disabled>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-6">
+              <div class="input-group mb-2 pb-1">
+                <span class="input-group-text leftform_lbl font500 text-dark1 font12">Company</span>
+                <input type="text" class="form-control  border-start-0 post_input_field font500 text-dark1 font12" [(ngModel)]="renewalSectionForm?.getRawValue().companyCode" disabled>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-6">
+              <div class="input-group mb-2 pb-1">
+                <span class="input-group-text leftform_lbl font500 text-dark1 font12">Orig Receipt</span>
+                <input type="text" class="form-control border-start-0 post_input_field font500 text-dark1 font12" [(ngModel)]="depositEntryTabVal.origreceipt" disabled>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-6">
+              <div class="input-group mb-2 pb-1">
+                <span class="input-group-text leftform_lbl font500 text-dark1 font12">Proprietor</span>
+                <input type="text" class="form-control  border-start-0 post_input_field font500 text-dark1 font12" [(ngModel)]="depositEntryTabVal.proprietor" disabled>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-6">
+              <div class="input-group mb-2 pb-1">
+                <span class="input-group-text leftform_lbl font500 text-dark1 font12">Origin</span>
+                <input type="text" class="form-control  border-start-0 post_input_field font500 text-dark1 font12" [(ngModel)]="origin" disabled>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-6">
+              <div class="input-group mb-2 pb-1">
+                <span class="input-group-text leftform_lbl font500 text-dark1 font12">Deposit Amount</span>
+                <input type="text" class="form-control border-start-0 post_input_field font500 text-dark1 font12" [(ngModel)]="depositEntryTabVal.depamount" disabled>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-6">
+              <div class="input-group mb-2 pb-1">
+                <span class="input-group-text leftform_lbl font500 text-dark1 font12">Pay To</span>
+                <input type="text" class="form-control border-start-0 post_input_field font500 text-dark1 font12" [(ngModel)]="payTo" disabled>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-6">
+              <div class="input-group mb-2 pb-1">
+                <span class="input-group-text leftform_lbl font500 text-dark1 font12">Deposit Date</span>
+                <input type="text" class="form-control border-start-0 post_input_field font500 text-dark1 font12" [(ngModel)]="depositDate" disabled>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-6">
+              <div class="input-group mb-2 pb-1">
+                <span class="input-group-text leftform_lbl font500 text-dark1 font12">Natural Guardian</span>
+                <input type="text" class="form-control border-start-0 post_input_field font500 text-dark1 font12" id="depositdate" disabled>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-6">
+              <div class="input-group mb-2 pb-1">
+                <span class="input-group-text leftform_lbl font500 text-dark1 font12">Duration</span>
+                <input type="text" class="form-control border-start-0 post_input_field font500 text-dark1 font12" id="duration" value="12" disabled>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-6">
+              <div class="input-group mb-2 pb-1">
+                <span class="input-group-text leftform_lbl font500 text-dark1 font12">Broker</span>
+                <input type="text" class="form-control border-start-0 post_input_field font500 text-dark1 font12" [(ngModel)]="depositEntryTabVal.broker" disabled >
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-6">
+              <div class="input-group mb-2 pb-1">
+                <span class="input-group-text leftform_lbl font500 text-dark1 font12">Liquidity Type</span>
+                <input type="text" class="form-control border-start-0 post_input_field font500 text-dark1 font12" [(ngModel)]="liquidity" disabled>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-6">
+              <div class="input-group mb-2 pb-1">
+                <span class="input-group-text leftform_lbl font500 text-dark1 font12">Discharged On</span>
+                <input type="text" class="form-control border-start-0 post_input_field font500 text-dark1 font12" id="discahrged On" disabled>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-6">
+              <div class="input-group mb-2 pb-1">
+                <span class="input-group-text leftform_lbl font500 text-dark1 font12">Interest Freq.</span>
+                <input type="text" class="form-control border-start-0 post_input_field font500 text-dark1 font12" [(ngModel)]="depositEntryTabVal.intfreq" disabled>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-6">
+              <div class="input-group mb-2 pb-1">
+                <span class="input-group-text leftform_lbl font500 text-dark1 font12">Maturity Date</span>
+                <input type="text" class="form-control border-start-0 post_input_field font500 text-dark1 font12"  [(ngModel)]="maturityDate" disabled>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-6">
+              <div class="input-group mb-2 pb-1">
+                <span class="input-group-text leftform_lbl font500 text-dark1 font12">Interest Rate</span>
+                <input type="text" class="form-control border-start-0 post_input_field font500 text-dark1 font12" [(ngModel)]="rateOfInterest" disabled>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-6">
+              <div class="input-group mb-2 pb-1">
+                <span class="input-group-text leftform_lbl font500 text-dark1 font12">Maturity Amount</span>
+                <input type="text" class="form-control border-start-0 post_input_field font500 text-dark1 font12" [(ngModel)]="depositEntryTabVal.matamount" disabled>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-6">
+              <div class="input-group mb-2 pb-1">
+                <span class="input-group-text leftform_lbl font500 text-dark1 font12">Gross Interest</span>
+                <input type="text" class="form-control border-start-0 post_input_field font500 text-dark1 font12" [(ngModel)]="depositEntryTabVal.grossint" disabled>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-6">
+              <div class="input-group mb-2 pb-1">
+                <span class="input-group-text leftform_lbl font500 text-dark1 font12">Instruction</span>
+                <input type="text" class="form-control border-start-0 post_input_field font500 text-dark1 font12" [(ngModel)]="depositEntryTabVal.instructions" disabled >
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-6">
+              <div class="input-group mb-2 pb-1">
+                <span class="input-group-text leftform_lbl font500 text-dark1 font12">Nominee</span>
+                <input type="text" class="form-control border-start-0 post_input_field font500 text-dark1 font12" [(ngModel)]="depositEntryTabVal.nominee" disabled>
+              </div>
+            </div>
+          </div>
+          <div class="">
+            <span class="d-flex font12 font600 mb-2 mt-1">
+              Joint Owners
+            </span>
+            <div class="row">
+              <div class="col-md-6 col-lg-6 col-xl-6">
+                <div class="input-group mb-2 pb-1">
+                  <span class="input-group-text leftform_lbl font500 text-dark1 font12">1.</span>
+                  <input type="text" class="form-control  border-start-0 post_input_field font500 text-dark1 font12" [(ngModel)]="depositEntryTabVal.jowner1" disabled>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-6 col-xl-6">
+                <div class="input-group">
+                  <span class="input-group-text leftform_lbl font500 text-dark1 font12">BirthDate</span>
+                  <input type="text" class="form-control font12 border-start-0 post_input_field" [(ngModel)]="dob" disabled>
+                  <span class="position-relative span_divider"></span>
+                  <input type="text" class="form-control  border-start-0 post_input_field font500 text-dark1 font12" [(ngModel)]="age" disabled>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-6 col-xl-6">
+                <div class="input-group mb-2 pb-1">
+                  <span class="input-group-text leftform_lbl font500 text-dark1 font12">2.</span>
+                  <input type="text" class="form-control  border-start-0 post_input_field font500 text-dark1 font12" [(ngModel)]="depositEntryTabVal.jowner2" disabled>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-6 col-xl-6">
+                <div class="input-group">
+                  <span class="input-group-text leftform_lbl font500 text-dark1 font12">Accrued Interest</span>
+                  <input type="text" class="form-control font12 border-start-0 post_input_field" [(ngModel)]="depositEntryTabVal.accint" disabled>
+                  
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-6 col-xl-6">
+                <div class="input-group mb-2 pb-1">
+                  <span class="input-group-text leftform_lbl font500 text-dark1 font12">3.</span>
+                  <input type="text" class="form-control  border-start-0 post_input_field font500 text-dark1 font12" [(ngModel)]="depositEntryTabVal.jowner3" disabled disabled>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-6 col-xl-6">
+                <div class="input-group">
+                  <span class="input-group-text leftform_lbl font500 text-dark1 font12">Interest Paid YYMM</span>
+                  <input type="text" class="form-control font12 border-start-0 post_input_field" id="accuredInterest" value="" disabled>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4 col-md-12 col-lg-4 col-xl-4 col-xxl-4" [hidden]="!dataRenewable">
+      <div class="deposits_panel br-10 form_common_bg mt-md-3 mt-lg-0 mt-xl-0 mt-xxl-0 p-3 pb-0 position-relative pt-4">
+        <h5 class="fs-6 mb-0 position-absolute font600 deposits_title lh-24 form_common_bg">Renewal Information</h5>
+        <form [formGroup]="depositRenewalForm">
+        <div class="deposit_renewals_container">
+          <div class="row">
+            <div class="col-md-6 col-lg-12 col-xl-12">
+              <div class="input-group mb-2 pb-1">
+                <span class="input-group-text leftform_lbl font500 text-dark1 font12">Receipt</span>
+                <input type="text" class="form-control  border-start-0 post_input_field font500 text-dark1 font12" id="receipt" disabled>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-12 col-xl-12">
+              <div class="input-group mb-2 pb-1">
+                <span class="input-group-text leftform_lbl font500 text-dark1 font12">Orig Receipt</span>
+                <input type="text" class="form-control border-start-0 post_input_field font500 text-dark1 font12" [formControlName]="'receiptnum'" disabled>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-12 col-xl-12">
+              <div class="input-group mb-2 pb-1">
+                <span class="input-group-text leftform_lbl font500 text-dark1 font12">Deposit Amount</span>
+                <input type="text" class="form-control border-start-0 post_input_field font500 text-dark1 font12" [formControlName]="'depamount'" disabled>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-12 col-xl-12">
+              <div class="input-group mb-2 pb-1">
+                <span class="input-group-text leftform_lbl font500 text-dark1 font12">Interest Rate</span>
+                <input type="text" class="form-control border-start-0 post_input_field font500 text-dark1 font12" (keydown.f1)="handleF1Event($event)" [formControlName]="'intrate'" id="interestRate" (keydown.tab)="checkInterestValid()" oninput="this.value=this.value.replace(/[^0-9\.]/g,'');" (keydown.tab)="scrollPage(300)" >
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-12 col-xl-12">
+              <div class="input-group mb-2 pb-1">
+                <span class="input-group-text leftform_lbl font500 text-dark1 font12">Duration</span>
+                <app-f1 [formControlName]="'depmonthnew'" placeholder="" class="form-control  border-start-0 post_input_field font500 text-dark1 font12" titleValue="{{durationTableDate?.mainheader}}" [tableData]="durationTableDate?.dataSet" [colHeader]="durationColumnHeader" (updatedSelectedValue)="updateDuration($event)" [dynaPopId]="'DURATION'" [inputBBC]="durationTableDate?.bringBackColumn" (keydown.tab)="setMaturityDate()" [queryConditon]=duration_condition [errorMessage]="'Invalid duration'"></app-f1>  
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-12 col-xl-12">
+              <div class="input-group mb-2 pb-1">
+                <span class="input-group-text leftform_lbl font500 text-dark1 font12">Interest Freq.</span>
+                <app-f1 [formControlName]="'intfreq'" placeholder="" class="form-control  border-start-0 post_input_field font500 text-dark1 font12" titleValue="{{inFreqTableDate?.mainheader}}" [tableData]="inFreqTableDate?.dataSet" [colHeader]="inFreqColumnHeader" (updatedSelectedValue)="updateInterestFreq($event)" [dynaPopId]="'INTFREQ'" [inputBBC]="inFreqTableDate?.bringBackColumn" [queryConditon]=interest_condtion [errorMessage]="'Invalid interest frequency'" id="test13219"></app-f1>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-12 col-xl-12">
+              <div class="input-group mb-2 pb-1">
+                <span class="input-group-text leftform_lbl font500 text-dark1 font12">Broker</span>
+                <app-f1 [formControlName]="'broker'" placeholder="" class="form-control  border-start-0 post_input_field font500 text-dark1 font12" titleValue="{{brokerTableDate?.mainheader}}" [tableData]="brokerTableDate?.dataSet" [colHeader]="brokerColumnHeader" (updatedSelectedValue)="updateBrokerList($event)" [dynaPopId]="'BROKERS'" [inputBBC]="brokerTableDate?.bringBackColumn" [errorMessage]="'Invalid broker code'" [queryConditon]=broker_condition ></app-f1> 
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-12 col-xl-12">
+              <div class="input-group mb-2 pb-1">
+                <span class="input-group-text leftform_lbl font500 text-dark1 font12">Deposit Date</span>
+                <input type="text" class="form-control border-start-0 post_input_field font500 text-dark1 font12" id="depositdate" disabled [formControlName]="'depdate'">
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-12 col-xl-12">
+              <div class="input-group mb-2 pb-1">
+                <span class="input-group-text leftform_lbl font500 text-dark1 font12">Maturity Date</span>
+                <input type="text" class="form-control border-start-0 post_input_field font500 text-dark1 font12" id="maturitydate" disabled [formControlName]="'matdate'">
+              </div>
+            </div>
+
+            <div class="col-md-6 col-lg-12 col-xl-12">
+              <div class="input-group mb-2 pb-1">
+                <span class="input-group-text leftform_lbl font500 text-dark1 font12">Pay To</span>
+                <app-f1 [formControlName]="'payeecode'" placeholder="" class="form-control  border-start-0 post_input_field font500 text-dark1 font12" titleValue="{{payToTableDate?.mainheader}}" [tableData]="payToTableDate?.dataSet" [colHeader]="payToColumnHeader" (updatedSelectedValue)="updatePayTo($event)" [dynaPopId]="'PAYEETO'" [inputBBC]="payToTableDate?.bringBackColumn" [queryConditon]=payto_condition [errorMessage]="'Invalid pay to'"></app-f1>
+              </div>
+            </div>
+          
+            <div class="col-md-6 col-lg-12 col-xl-12">
+              <div class="input-group mb-2 pb-1">
+                <span class="input-group-text leftform_lbl font500 text-dark1 font12">Instruction</span>
+                <input type="text" class="form-control border-start-0 post_input_field font500 text-dark1 font12"  (keydown.f1)="handleF1Event($event)" [formControlName]="'instructions'" maxlength="30" (keydown.tab)="scrollToEnd()">
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-12 col-xl-12">
+              <div class="input-group mb-2 pb-1">
+                <span class="input-group-text leftform_lbl font500 text-dark1 font12">Nominee</span>
+                <input type="text" class="form-control border-start-0 post_input_field font500 text-dark1 font12"  (keydown.f1)="handleF1Event($event)" [formControlName]="'nominee'" maxlength="35">
+              </div>
+            </div>
+          </div>
+          <div class="">
+            <span class="d-flex font12 font600 mb-2 mt-1">
+              Joint Owners
+            </span>
+            <div class="row">
+              <div class="col-md-12 col-lg-12 col-xl-12">
+                <div class="input-group mb-2 pb-1">
+                  <span class="input-group-text leftform_lbl font500 text-dark1 font12">1.</span>
+                  <input type="text" class="form-control  border-start-0 post_input_field font500 text-dark1 font12" (keydown.f1)="handleF1Event($event)" [formControlName]="'jowner1'" maxlength="35">
+                </div>
+              </div>
+              <div class="col-md-12 col-lg-12 col-xl-12">
+                <div class="input-group mb-2 pb-1">
+                  <span class="input-group-text leftform_lbl font500 text-dark1 font12">2.</span>
+                  <input type="text" class="form-control  border-start-0 post_input_field font500 text-dark1 font12" (keydown.f1)="handleF1Event($event)" [formControlName]="'jowner2'" maxlength="35">
+                </div>
+              </div>
+              <div class="col-md-12 col-lg-12 col-xl-12">
+                <div class="input-group mb-2 pb-1">
+                  <span class="input-group-text leftform_lbl font500 text-dark1 font12">3.</span>
+                  <input type="text" class="form-control  border-start-0 post_input_field font500 text-dark1 font12" (keydown.f1)="handleF1Event($event)" [formControlName]="'jowner3'" maxlength="35" >
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+      </form>
+    </div>
+</div>
+</div>
+</div>
+    <!-- <app-actionpanel  [reterieveFormData]="renewalSectionForm"  (depositorInfo)="depositData($event)" (tabContentDataFlag)="tabContainerFlagRefresh($event)" [getRetrieveApiUrl]="passRetrieveApiUrl" [sendRetrievePostBody]=""
+    [shareActionSaveData]="receivedData"  [savedApiUrl]="passSaveApiUrl"  [savedFgValidationFlag]="receiveDepositData?.valid"  [addChkApiUrl]="addChkApi" [getParamsValue]="paramsPost"
+    [addValidationChk]="renewalSectionForm.controls['companyCode'] && renewalSectionForm.controls['depositorId']" (sendAddErrorField)="resetAddErrorField($event)"   [getApiMethodString]="'getParams'"
+   ></app-actionpanel> -->
+   <section class="action_section position-fixed w-100">
+    <div class="container">
+        <div class="action_conatiner text-center bg-white br-10">
+            <div class="flex justify-content-between">
+              <button type="submit" class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"  accesskey="r" [disabled]="isRetrieveClicked" (click)="getDepositRenewalData()">Retrieve</button>  
+              <button type="submit" class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone" [disabled]="!renewClick" (click)="setRenewableData()" accesskey="n">Re<span class="text-decoration-underline">n</span>ew</button>
+              <button type="submit" class="bg_common_red border-0 common_action_btn text-white br-10 ms-1" accesskey="s" [disabled]="saveClick" (click)="renewDepositDetails()">Save</button>
+              <button type="submit" class="bg_common_red border-0 common_action_btn text-white br-10 ms-1" accesskey="b" [disabled]="backClick" (click)="handleBackClick()">Back</button>
+              <button type="submit" class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone" [disabled]="isRetrieveClicked" accesskey="t" (click)="resetData()">Rese<span class="text-decoration-underline">t</span></button>
+              <button type="submit" class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone" accesskey="x" (click)="handleExitClick()">E<span class="text-decoration-underline">x</span>it</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<app-loader *ngIf="loader"></app-loader>
+  

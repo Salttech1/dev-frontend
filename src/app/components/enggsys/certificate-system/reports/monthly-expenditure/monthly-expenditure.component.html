@@ -1,0 +1,105 @@
+<section>
+  <form [formGroup]="qf">
+    <div class="d-flex justify-content-center">
+      <div class="col-sm-7">
+        <div class="br-10 group_panel p-3 position-relative">
+          <p class="bg-white font600 group_title mb-0 position-absolute">
+            List Of Outstanding Certificate
+          </p>
+          <div class="row g-3">
+            <div class="col-sm-12">
+              <div class="input-group">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Building code</span
+                >
+                <input
+                  appCommonAutoFocus
+                  type="text"
+                  class="form-control border-start-0 br-9"
+                  formControlName="bldgCode"
+                  [f1]="{ id: 'ENGGBUILDINGS', subId: bldgSQ, multi: true }"
+                />
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="input-group">
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >Period (e.g. {{ monthDateField }})</span
+                >
+                <input
+                  type="text"
+                  class="form-control border-start-0 br-9"
+                  formControlName="period"
+                />
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div
+                class="input-group"
+                [class.is-invalid]="
+                  qf.controls['city'].invalid && qf.controls['city'].touched
+                "
+              >
+                <span
+                  class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >City</span
+                >
+                <input
+                  type="text"
+                  class="form-control border-start-0 br-9"
+                  formControlName="city"
+                  [f1]="{ id: 'BLDGREGION' }"
+                />
+              </div>
+              <div
+                *ngIf="
+                  qf.controls['city'].invalid && qf.controls['city'].touched
+                "
+              >
+                <div
+                  class="errorField common_color_txt font12 font500"
+                  *ngIf="qf.get('city')?.errors?.['notFound']"
+                >
+                  Invalid
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</section>
+<app-loader *ngIf="loaderToggle"></app-loader>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner text-center bg-white br-10 w-100">
+      <div class="flex justify-content-between">
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+          [attr.accesskey]="loaderToggle == true ? '' : 'w'"
+          (click)="getReport(false)"
+        >
+          Do<u>w</u>nload
+        </button>
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white"
+          (click)="getReport(true)"
+          [attr.accesskey]="loaderToggle == true ? '' : 'p'"
+        >
+          Print
+        </button>
+        <a
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white text-decoration-none first_letter_textdecorationone"
+          [attr.accesskey]="loaderToggle == true ? '' : 'x'"
+          routerLink="/dashboard"
+          >E<u>x</u>it
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

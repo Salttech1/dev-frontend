@@ -1,0 +1,959 @@
+<!-- 
+// Developed By  - 	rahul.s
+// Developed on - 06-05-23
+// Mode  - Data Entry
+// Purpose - Outrate Entry / Edit
+// Modification Details
+// =======================================================================================================================================================
+// Date		Coder  Version User    Reason              
+// =======================================================================================================================================================
+ -->
+
+<section>
+  <div class="container">
+    <div class="row g-3">
+      <div class="col-md-12">
+        <form [formGroup]="outRateSelectionsForm">
+          <div class="row g-3">
+            <div class="col-md-4">
+              <div
+                class="input-group"
+                [class.is-invalid]="
+                  outRateSelectionsForm.controls['bldgCode'].invalid &&
+                  outRateSelectionsForm.controls['bldgCode'].touched
+                "
+              >
+                <span class="input-group-text leftform_lbl font500 font12"
+                  >bldgCode
+                </span>
+                <input
+                  type="text"
+                  formControlName="bldgCode"
+                  class="form-control w-50 border-start-0 post_input_field font500 font12"
+                  [f1]="{ id: 'BUILDINGS' }"
+                  (focusout)="setSubidBldgcode()"
+                />
+              </div>
+            </div>
+            <div
+              *ngIf="
+                outRateSelectionsForm.controls['bldgCode'].invalid &&
+                outRateSelectionsForm.controls['bldgCode'].touched
+              "
+            >
+              <div
+                class="errorField common_color_txt font12 font500"
+                *ngIf="outRateSelectionsForm.controls['bldgCode'].errors?.['required']"
+              >
+                * bldgCode is required
+              </div>
+            </div>
+            <div class="col-md-4">
+              <!-- 
+                [class.is-invalid]="
+                  outRateSelectionsForm.controls['wing'].invalid &&
+                  outRateSelectionsForm.controls['wing'].touched
+                " -->
+              <div class="input-group">
+                <span class="input-group-text leftform_lbl font500 font12"
+                  >wing
+                </span>
+                <input
+                  type="text"
+                  formControlName="wing"
+                  class="form-control w-50 border-start-0 post_input_field font500 font12"
+                  [f1]="{ id: 'BWINGS', subId: subidBldgcode }"
+                  (focusout)="setSubidBldgcodeAndWing()"
+                />
+              </div>
+            </div>
+            <!-- <div
+              *ngIf="
+                outRateSelectionsForm.controls['wing'].invalid &&
+                outRateSelectionsForm.controls['wing'].touched
+              "
+            >
+              <div
+                class="errorField common_color_txt font12 font500"
+                *ngIf="outRateSelectionsForm.controls['wing'].errors?.['required']"
+              >
+                * wing is required
+              </div>
+            </div> -->
+            <div class="col-md-4">
+              <div
+                class="input-group"
+                [class.is-invalid]="
+                  outRateSelectionsForm.controls['flatnum'].invalid &&
+                  outRateSelectionsForm.controls['flatnum'].touched
+                "
+              >
+                <span class="input-group-text leftform_lbl font500 font12"
+                  >flatnum
+                </span>
+                <input
+                  type="text"
+                  formControlName="flatnum"
+                  class="form-control w-50 border-start-0 post_input_field font500 font12"
+                  [f1]="{ id: 'FLATSOLD', subId: subidBldgcodeAndWing }"
+                />
+              </div>
+            </div>
+            <div
+              *ngIf="
+                outRateSelectionsForm.controls['flatnum'].invalid &&
+                outRateSelectionsForm.controls['flatnum'].touched
+              "
+            >
+              <div
+                class="errorField common_color_txt font12 font500"
+                *ngIf="outRateSelectionsForm.controls['flatnum'].errors?.['required']"
+              >
+                * flatnum is required
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-md-12">
+        <div class="row g-3">
+          <div class="col-md-4"></div>
+          <div class="col-md-4 border">Outgoing Rates</div>
+          <div class="col-md-4 border">Infra Rates</div>
+        </div>
+      </div>
+
+      <!-- <div class="col-md-10">
+        <div class="row g-3">
+          <div class="col-md-4"></div>
+          <div class="col-md-4 border-5; text-align: center;">Outgoing Rates</div>
+          <div class="col-md-4 border-5; text-align: center;">Infra Rates</div>
+        </div>
+      </div> -->
+
+      <div class="col-md-12">
+        <form [formGroup]="outRateForm">
+          <div class="row" *ngIf="initialMode">
+            <div class="col-md-12" formArrayName="outrateDetailsBreakUp">
+              <div class="table-responsive">
+                <table
+                  class="table table-bordered table-rounded"
+                  [cellNavi]="'cell'"
+                >
+                  <thead>
+                    <tr>
+                      <th class="fontBold font12 text-dark1">
+                        Start<br />Month
+                      </th>
+                      <th class="fontBold font12 text-dark1">End<br />Month</th>
+                      <th class="fontBold font12 text-dark1">Bill<br />Type</th>
+                      <th class="fontBold font12 text-dark1 text-end">
+                        Prop<br />Sqft
+                      </th>
+                      <th
+                        class="fontBold font12 text-dark1 text-end"
+                        style="width: 37px"
+                      >
+                        Outg<br />Prop
+                      </th>
+                      <th class="fontBold font12 text-dark1 text-end">
+                        Outg<br />Maint
+                      </th>
+                      <th class="fontBold font12 text-dark1 text-end">
+                        Outg<br />Infra
+                      </th>
+                      <th class="fontBold font12 text-dark1 text-end">
+                        Outg<br />Water
+                      </th>
+                      <th class="fontBold font12 text-dark1 text-end">
+                        Outg<br />Elect
+                      </th>
+                      <th class="fontBold font12 text-dark1 text-end">
+                        Outg<br />NATax
+                      </th>
+                      <th class="fontBold font12 text-dark1 text-end">
+                        Rate<br />Total
+                      </th>
+                      <th class="fontBold font12 text-dark1 text-end">
+                        Outg<br />Admin
+                      </th>
+                      <th class="fontBold font12 text-dark1 text-end">
+                        Infra<br />Rate
+                      </th>
+                      <th class="fontBold font12 text-dark1 text-end">
+                        Infra<br />Admin
+                      </th>
+                      <th class="fontBold font12 text-dark1 text-end">
+                        Auxi<br />Rate
+                      </th>
+                      <th class="fontBold font12 text-dark1 text-end">
+                        Auxi<br />Admin
+                      </th>
+                      <th class="fontBold font12 text-dark1 text-end">
+                        Outg<br />TDS
+                      </th>
+                      <th class="fontBold font12 text-dark1 text-end">
+                        Infra<br />TDS
+                      </th>
+                      <th class="fontBold font12 text-dark1 text-end">
+                        Auxi<br />TDS
+                      </th>
+
+                      <!-- <th class="fontBold font12 text-dark1">oldadmin_notused</th>
+                      <th class="fontBold font12 text-dark1">proponbucaarea</th> -->
+                      <th
+                        class="fontBold font12 text-dark1 sticky-table-column__sticky"
+                      >
+                        Del
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- <tr
+                        *ngFor="
+                          let item of qf.controls.advrecvoucherRequestBeanList
+                            .controls;
+                          let i = index
+                        "
+                        [formGroupName]="i"
+                      > -->
+                    <tr
+                      VALIGN="MIDDLE"
+                      *ngFor="let item of outRateForm.controls?.['outrateDetailsBreakUp'].controls;let cellIndex = index"
+                      [formGroupName]="cellIndex"
+                    >
+                      <!-- OUTR_BLDGCODE -- Start  -->
+                      <!-- <td>
+                          <div
+                            class="input-group border border-light"
+                            [class.is-invalid]="
+                              outRateForm.controls.outrateDetailsBreakUp
+                                .controls[cellIndex].controls['bldgcode']
+                                .invalid &&
+                              outRateForm.controls.outrateDetailsBreakUp
+                                .controls[cellIndex].controls['bldgcode'].touched
+                            "
+                          >
+                            <input
+                              class="border-0 form-control input_control form-control font500 fonttxt_black font12"
+                              type="text"
+                              formControlName="bldgcode"
+                              (change)="('')"
+                            />
+                          </div>
+                          <div
+                            *ngIf="outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['bldgcode'].errors?.['bldgcodeRequired']"
+                            class="errorField common_color_txt font12 font500"
+                          >
+                            bldgcode is required
+                          </div>
+                          <div
+                            class="errorField common_color_txt font12 font500"
+                            *ngIf="outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['bldgcode'].errors?.['maxlength']?.actualLength"
+                          >
+                            Max 4 Character allowed. Current is{{outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['bldgcode'].errors?.['maxlength']?.actualLength}}
+                            characters.
+                          </div>
+                        </td> -->
+                      <!-- OUTR_BLDGCODE -- End   -->
+
+                      <!-- OUTR_FLATNUM -- Start  -->
+                      <!-- <td>
+                          <div
+                            class="input-group border border-light"
+                            [class.is-invalid]="
+                              outRateForm.controls.outrateDetailsBreakUp
+                                .controls[cellIndex].controls['flatnum']
+                                .invalid &&
+                              outRateForm.controls.outrateDetailsBreakUp
+                                .controls[cellIndex].controls['flatnum'].touched
+                            "
+                          >
+                            <input
+                              class="border-0 form-control input_control form-control font500 fonttxt_black font12"
+                              type="text"
+                              formControlName="flatnum"
+                              (change)="('')"
+                            />
+                          </div>
+                          <div
+                            *ngIf="outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['flatnum'].errors?.['flatnumRequired']"
+                            class="errorField common_color_txt font12 font500"
+                          >
+                            flatnum is required
+                          </div>
+                          <div
+                            class="errorField common_color_txt font12 font500"
+                            *ngIf="outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['flatnum'].errors?.['maxlength']?.actualLength"
+                          >
+                            Max 6 Character allowed. Current is{{outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['flatnum'].errors?.['maxlength']?.actualLength}}
+                            characters.
+                          </div>
+                        </td> -->
+                      <!-- OUTR_FLATNUM -- End   -->
+
+                      <!-- OUTR_WING -- Start  -->
+                      <!-- <td>
+                          <div
+                            class="input-group border border-light"
+                            [class.is-invalid]="
+                              outRateForm.controls.outrateDetailsBreakUp
+                                .controls[cellIndex].controls['wing'].invalid &&
+                              outRateForm.controls.outrateDetailsBreakUp
+                                .controls[cellIndex].controls['wing'].touched
+                            "
+                          >
+                            <input
+                              class="border-0 form-control input_control form-control font500 fonttxt_black font12"
+                              type="text"
+                              formControlName="wing"
+                              (change)="('')"
+                            />
+                          </div>
+                          <div
+                            *ngIf="outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['wing'].errors?.['wingRequired']"
+                            class="errorField common_color_txt font12 font500"
+                          >
+                            wing is required
+                          </div>
+                          <div
+                            class="errorField common_color_txt font12 font500"
+                            *ngIf="outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['wing'].errors?.['maxlength']?.actualLength"
+                          >
+                            Max 2 Character allowed. Current is{{outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['wing'].errors?.['maxlength']?.actualLength}}
+                            characters.
+                          </div>
+                        </td> -->
+                      <!-- OUTR_WING -- End   -->
+
+                      <!-- OUTR_STARTDATE -- Start  -->
+                      <td>
+                        <input
+                          [id]="'cell' + cellIndex + '-1'"
+                          class="border-0 form-control input_control form-control font500 text-dark1 font12"
+                          type="text"
+                          formControlName="startdate"
+                          (blur)="
+                            validateMonth(
+                              cellIndex, outRateForm.controls.outrateDetailsBreakUp.controls[
+                                cellIndex
+                              ].get('startdate')?.value,
+                              'startdate',
+                              $event
+                            )
+                          "
+                          style="width: 45px"
+                          [readOnly]="isReadOnly"
+                        />
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['startdate'].errors?.['maxlength']?.actualLength"
+                        >
+                          Max 6 Character allowed. Current is{{outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['startdate'].errors?.['maxlength']?.actualLength}}
+                          characters.
+                        </div>
+                      </td>
+                      <!-- OUTR_STARTDATE -- End   -->
+
+                      <!-- OUTR_ENDDATE -- Start  -->
+                      <td>
+                        <input
+                          [id]="'cell' + cellIndex + '-2'"
+                          class="border-0 form-control input_control form-control font500 text-dark1 font12"
+                          type="text"
+                          formControlName="enddate"
+                          (blur)="
+                            validateMonth(
+                              cellIndex, outRateForm.controls.outrateDetailsBreakUp.controls[
+                                cellIndex
+                              ].get('enddate')?.value,
+                              'enddate' , 
+                              $event
+                            )
+                          "
+                          style="width: 45px"
+                        />
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['enddate'].errors?.['maxlength']?.actualLength"
+                        >
+                          Max 6 Character allowed. Current is{{outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['enddate'].errors?.['maxlength']?.actualLength}}
+                          characters.
+                        </div>
+                      </td>
+                      <!-- OUTR_ENDDATE -- End   -->
+
+                      <!-- OUTR_BILLTYPE -- Start  -->
+                      <td class="p-1">
+                        <!-- <input
+                                                [id]="'cell' + cellIndex + '-14'"
+                                                class="border-0 form-control input_control form-control font500 text-dark1 font12"
+                                                type="text"
+                                                formControlName="billtype"
+                                                (change)="('')"
+                                              /> -->
+                        <select
+                          class="form-select form-select-sm w-auto font12"
+                          formControlName="billtype"
+                        >
+                          <option [value]="'F'">First</option>
+                          <option [value]="'N'">Normal</option>
+                          style="width: 32px; height: 23px; padding-top: 1px;
+                          padding-bottom: 1px;padding-right: 1px; padding-left:
+                          1px;"
+                        </select>
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['billtype'].errors?.['maxlength']?.actualLength"
+                        >
+                          Max 1 Character allowed. Current is{{outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['billtype'].errors?.['maxlength']?.actualLength}}
+                          characters.
+                        </div>
+                      </td>
+                      <!-- OUTR_BILLTYPE -- End   -->
+
+                      <!-- OUTR_PROPRATESQFT -- Start  -->
+                      <td>
+                        <input
+                          [id]="'cell' + cellIndex + '-10'"
+                          class="text-end border-0 form-control input_control form-control font500 text-dark1 font12"
+                          type="text"
+                          value="0"
+                          oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                          formControlName="propratesqft"
+                          (change)="('')"
+                          style="width: 40px"
+                        />
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['propratesqft'].errors?.['maxlength']?.actualLength"
+                        >
+                          Max 22 Character allowed. Current is{{outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['propratesqft'].errors?.['maxlength']?.actualLength}}
+                          characters.
+                        </div>
+                      </td>
+                      <!-- OUTR_PROPRATESQFT -- End   -->
+
+                      <!-- OUTR_PROPRATE -- Start  -->
+                      <td>
+                        <input
+                          [id]="'cell' + cellIndex + '-7'"
+                          class="text-end border-0 form-control input_control form-control font500 text-dark1 font12"
+                          type="text"
+                          value="0"
+                          oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                          formControlName="proprate"
+                          (blur)="calcTotRate(cellIndex)"
+                          style="width: 67px"
+                        />
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['proprate'].errors?.['maxlength']?.actualLength"
+                        >
+                          Max 22 Character allowed. Current is{{outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['proprate'].errors?.['maxlength']?.actualLength}}
+                          characters.
+                        </div>
+                      </td>
+                      <!-- OUTR_PROPRATE -- End   -->
+
+                      <!-- OUTR_MAINT -- Start  -->
+                      <td>
+                        <input
+                          [id]="'cell' + cellIndex + '-8'"
+                          class="text-end border-0 form-control input_control form-control font500 text-dark1 font12"
+                          type="text"
+                          value="0"
+                          oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                          formControlName="maint"
+                          (blur)="calcTotRate(cellIndex)"
+                          style="width: 67px"
+                        />
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['maint'].errors?.['maxlength']?.actualLength"
+                        >
+                          Max 22 Character allowed. Current is{{outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['maint'].errors?.['maxlength']?.actualLength}}
+                          characters.
+                        </div>
+                      </td>
+                      <!-- OUTR_MAINT -- End   -->
+
+                      <!-- OUTR_INFRA -- Start  -->
+                      <td>
+                        <input
+                          [id]="'cell' + cellIndex + '-9'"
+                          class="text-end border-0 form-control input_control form-control font500 text-dark1 font12"
+                          type="text"
+                          value="0"
+                          oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                          formControlName="infra"
+                          (blur)="calcTotRate(cellIndex)"
+                          style="width: 40px"
+                        />
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['infra'].errors?.['maxlength']?.actualLength"
+                        >
+                          Max 22 Character allowed. Current is{{outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['infra'].errors?.['maxlength']?.actualLength}}
+                          characters.
+                        </div>
+                      </td>
+                      <!-- OUTR_INFRA -- End   -->
+
+                      <!-- OUTR_WATER -- Start  -->
+                      <td>
+                        <input
+                          [id]="'cell' + cellIndex + '-17'"
+                          class="text-end border-0 form-control input_control form-control font500 text-dark1 font12"
+                          type="text"
+                          value="0"
+                          oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                          formControlName="water"
+                          (blur)="calcTotRate(cellIndex)"
+                          style="width: 37px"
+                        />
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['water'].errors?.['maxlength']?.actualLength"
+                        >
+                          Max 22 Character allowed. Current is{{outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['water'].errors?.['maxlength']?.actualLength}}
+                          characters.
+                        </div>
+                      </td>
+                      <!-- OUTR_WATER -- End   -->
+
+                      <!-- OUTR_ELECT -- Start  -->
+                      <td>
+                        <input
+                          [id]="'cell' + cellIndex + '-18'"
+                          class="text-end border-0 form-control input_control form-control font500 text-dark1 font12"
+                          type="text"
+                          value="0"
+                          oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                          formControlName="elect"
+                          (blur)="calcTotRate(cellIndex)"
+                          style="width: 37px"
+                        />
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['elect'].errors?.['maxlength']?.actualLength"
+                        >
+                          Max 22 Character allowed. Current is{{outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['elect'].errors?.['maxlength']?.actualLength}}
+                          characters.
+                        </div>
+                      </td>
+                      <!-- OUTR_ELECT -- End   -->
+
+                      <!-- OUTR_NATAX -- Start  -->
+                      <td>
+                        <input
+                          [id]="'cell' + cellIndex + '-19'"
+                          class="text-end border-0 form-control input_control form-control font500 text-dark1 font12"
+                          type="text"
+                          value="0"
+                          oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                          formControlName="natax"
+                          (blur)="calcTotRate(cellIndex)"
+                          style="width: 37px"
+                        />
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['natax'].errors?.['maxlength']?.actualLength"
+                        >
+                          Max 22 Character allowed. Current is{{outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['natax'].errors?.['maxlength']?.actualLength}}
+                          characters.
+                        </div>
+                      </td>
+                      <!-- OUTR_NATAX -- End   -->
+
+                      <!-- OUTR_RATE -- Start  -->
+                      <td>
+                        <input
+                          [id]="'cell' + cellIndex + '-3'"
+                          class="text-end border-0 form-control input_control form-control font500 text-dark1 font12"
+                          type="text"
+                          value="0"
+                          oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                          formControlName="rate"
+                          (change)="('')"
+                          style="width: 67px"
+                          [readOnly]=true
+                        />
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['rate'].errors?.['maxlength']?.actualLength"
+                        >
+                          Max 22 Character allowed. Current is{{outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['rate'].errors?.['maxlength']?.actualLength}}
+                          characters.
+                        </div>
+                      </td>
+                      <!-- OUTR_RATE -- End   -->
+
+                      <!-- OUTR_ADMINCHARGES -- Start  -->
+                      <td>
+                        <input
+                          [id]="'cell' + cellIndex + '-4'"
+                          class="text-end border-0 form-control input_control form-control font500 text-dark1 font12"
+                          type="text"
+                          value="0"
+                          oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                          formControlName="admincharges"
+                          (change)="('')"
+                          style="width: 57px"
+                        />
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['admincharges'].errors?.['maxlength']?.actualLength"
+                        >
+                          Max 22 Character allowed. Current is{{outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['admincharges'].errors?.['maxlength']?.actualLength}}
+                          characters.
+                        </div>
+                      </td>
+                      <!-- OUTR_ADMINCHARGES -- End   -->
+
+                      <!-- OUTR_INFRRATE -- Start  -->
+                      <td>
+                        <input
+                          [id]="'cell' + cellIndex + '-5'"
+                          class="text-end border-0 form-control input_control form-control font500 text-dark1 font12"
+                          type="text"
+                          value="0"
+                          oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                          formControlName="infrrate"
+                          (change)="('')"
+                          style="width: 57px"
+                        />
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['infrrate'].errors?.['maxlength']?.actualLength"
+                        >
+                          Max 22 Character allowed. Current is{{outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['infrrate'].errors?.['maxlength']?.actualLength}}
+                          characters.
+                        </div>
+                      </td>
+                      <!-- OUTR_INFRRATE -- End   -->
+
+                      <!-- OUTR_INFRADMIN -- Start  -->
+                      <td>
+                        <input
+                          [id]="'cell' + cellIndex + '-6'"
+                          class="text-end border-0 form-control input_control form-control font500 text-dark1 font12"
+                          type="text"
+                          value="0"
+                          oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                          formControlName="infradmin"
+                          (change)="('')"
+                          style="width: 50px"
+                        />
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['infradmin'].errors?.['maxlength']?.actualLength"
+                        >
+                          Max 22 Character allowed. Current is{{outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['infradmin'].errors?.['maxlength']?.actualLength}}
+                          characters.
+                        </div>
+                      </td>
+                      <!-- OUTR_INFRADMIN -- End   -->
+
+                      <!-- OUTR_AUXIRATE -- Start  -->
+                      <td>
+                        <input
+                          [id]="'cell' + cellIndex + '-15'"
+                          class="text-end border-0 form-control input_control form-control font500 text-dark1 font12"
+                          type="text"
+                          value="0"
+                          oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                          formControlName="auxirate"
+                          (change)="('')"
+                          style="width: 42px"
+                        />
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['auxirate'].errors?.['maxlength']?.actualLength"
+                        >
+                          Max 22 Character allowed. Current is{{outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['auxirate'].errors?.['maxlength']?.actualLength}}
+                          characters.
+                        </div>
+                      </td>
+                      <!-- OUTR_AUXIRATE -- End   -->
+
+                      <!-- OUTR_AUXIADMIN -- Start  -->
+                      <td>
+                        <input
+                          [id]="'cell' + cellIndex + '-16'"
+                          class="text-end border-0 form-control input_control form-control font500 text-dark1 font12"
+                          type="text"
+                          value="0"
+                          oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                          formControlName="auxiadmin"
+                          (change)="('')"
+                          style="width: 35px"
+                        />
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['auxiadmin'].errors?.['maxlength']?.actualLength"
+                        >
+                          Max 22 Character allowed. Current is{{outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['auxiadmin'].errors?.['maxlength']?.actualLength}}
+                          characters.
+                        </div>
+                      </td>
+                      <!-- OUTR_AUXIADMIN -- End   -->
+
+                      <!-- OUTR_MAINT_TDS -- Start  -->
+
+                      <!--"
+                      oninput="validity.valid||(value='');"
+                    -->
+                      <td>
+                        <input
+                          [id]="'cell' + cellIndex + '-20'"
+                          class="text-end border-0 form-control input_control form-control font500 text-dark1 font12"
+                          type="text"
+                          value="0"
+                          formControlName="maint_tds"
+                          (change)="('')"
+                          style="width: 35px"
+                          max="0"
+                          oninput="this.value=this.value.replace(/[^0--9\.]/g,'');"
+                          (blur)="
+                            validateNegativeAmt(
+                              cellIndex, outRateForm.controls.outrateDetailsBreakUp.controls[
+                                cellIndex
+                              ].get('maint_tds')?.value,
+                              'Outg TDS' , 
+                              $event
+                            )
+                          "
+                        />
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['maint_tds'].errors?.['maxlength']?.actualLength"
+                        >
+                          Max 22 Character allowed. Current is{{outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['maint_tds'].errors?.['maxlength']?.actualLength}}
+                          characters.
+                        </div>
+                      </td>
+                      <!-- OUTR_MAINT_TDS -- End   -->
+
+                      <!-- OUTR_INFRA_TDS -- Start  -->
+                      <td>
+                        <input
+                          [id]="'cell' + cellIndex + '-21'"
+                          class="text-end border-0 form-control input_control form-control font500 text-dark1 font12"
+                          type="text"
+                          value="0"
+                          formControlName="infra_tds"
+                          oninput="this.value=this.value.replace(/[^0--9\.]/g,'');"
+                          (blur)="
+                            validateNegativeAmt(
+                              cellIndex, outRateForm.controls.outrateDetailsBreakUp.controls[
+                                cellIndex
+                              ].get('infra_tds')?.value,
+                              'Infra TDS' , 
+                              $event
+                            )
+                          "
+                          style="width: 35px"
+                        />
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['infra_tds'].errors?.['maxlength']?.actualLength"
+                        >
+                          Max 22 Character allowed. Current is{{outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['infra_tds'].errors?.['maxlength']?.actualLength}}
+                          characters.
+                        </div>
+                      </td>
+                      <!-- OUTR_INFRA_TDS -- End   -->
+
+                      <!-- OUTR_AUXI_TDS -- Start  -->
+                      <td>
+                        <input
+                          [id]="'cell' + cellIndex + '-22'"
+                          class="text-end border-0 form-control input_control form-control font500 text-dark1 font12"
+                          type="text"
+                          value="0"
+                          formControlName="auxi_tds"
+                          oninput="this.value=this.value.replace(/[^0--9\.]/g,'');"
+                          (blur)="
+                            validateNegativeAmt(
+                              cellIndex, outRateForm.controls.outrateDetailsBreakUp.controls[
+                                cellIndex
+                              ].get('auxi_tds')?.value,
+                              'Auxi TDS' , 
+                              $event
+                            )
+                          "
+                          style="width: 35px"
+                        />
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['auxi_tds'].errors?.['maxlength']?.actualLength"
+                        >
+                          Max 22 Character allowed. Current is{{outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['auxi_tds'].errors?.['maxlength']?.actualLength}}
+                          characters.
+                        </div>
+                      </td>
+                      <!-- OUTR_AUXI_TDS -- End   -->
+
+                      <!-- OUTR_OLDADMIN_NOTUSED -- Start  -->
+                      <!-- <td>
+                                              <input
+                                                [id]="'cell' + cellIndex + '-11'"
+                                                class="text-end border-0 form-control input_control form-control font500 text-dark1 font12"
+                                                type="text"
+                                                value="0"
+                                                oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                                                formControlName="oldadmin_notused"
+                                                (change)="('')"
+                                              />
+                                              <div
+                                                class="errorField common_color_txt font12 font500"
+                                                *ngIf="outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['oldadmin_notused'].errors?.['maxlength']?.actualLength"
+                                              >
+                                                Max 22 Character allowed. Current is{{outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['oldadmin_notused'].errors?.['maxlength']?.actualLength}}
+                                                characters.
+                                              </div>
+                                            </td> -->
+                      <!-- OUTR_OLDADMIN_NOTUSED -- End   -->
+
+                      <!-- OUTR_PROPONBUCAAREA -- Start  -->
+                      <!-- <td>
+                                              <input
+                                                [id]="'cell' + cellIndex + '-13'"
+                                                class="border-0 form-control input_control form-control font500 text-dark1 font12"
+                                                type="text"
+                                                formControlName="proponbucaarea"
+                                                (change)="('')"
+                                              />
+                                              <div
+                                                class="errorField common_color_txt font12 font500"
+                                                *ngIf="outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['proponbucaarea'].errors?.['maxlength']?.actualLength"
+                                              >
+                                                Max 1 Character allowed. Current is{{outRateForm.controls.outrateDetailsBreakUp.controls[cellIndex].controls['proponbucaarea'].errors?.['maxlength']?.actualLength}}
+                                                characters.
+                                              </div>
+                                            </td> -->
+                      <!-- OUTR_PROPONBUCAAREA -- End   -->
+
+                      <td class="sticky-table-column__sticky">
+                        <div class="action_panel d-flex justify-content-center">
+                          <!-- <button
+                            type="button"
+                            class="btn action_btn d-flex bg_common_red"
+                            (click)="addOutrateRow()"
+                          >
+                            <img
+                              src="/assets/images/add.svg"
+                              alt="add"
+                              class="add_img"
+                            />
+                          </button> -->
+                          <button
+                            type="button"
+                            class="btn action_btn d-flex bg_common_red ms-1"
+                            (click)="deleteOutrateRow(cellIndex)"
+                          >
+                            <img
+                              src="/assets/images/trash.svg"
+                              alt="remove"
+                              class="delete_img"
+                            />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- <div
+                class="group_panel br-10 form_common_bg p-3 pt-4 position-relative"
+                
+              >
+                
+              </div> -->
+            </div>
+
+            <!-- <p></p> -->
+            <!-- </div> -->
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- </div>
+  </div> -->
+  <!-- </div>
+  
+  </div>
+  </div> -->
+</section>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner text-center bg-white br-10">
+      <div class="flex justify-content-between">
+        <!-- <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="a"
+          (click)="addOutrateDetails()"
+          [disabled]="initialMode"
+        >
+          Add
+        </button> -->
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="r"
+          (click)="retrieveOutrateDetails()"
+          [disabled]="initialMode"
+        >
+          Retrieve
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone"
+          accesskey="o"
+          (click)="addRow()"
+          [disabled]="!initialMode"
+        >
+          Add R<u>o</u>w
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="d"
+          (click)="deleteOutrate()"
+          disabled="true"
+        >
+          Delete
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="s"
+          (click)="saveOutrate()"
+          [disabled]="!initialMode"
+        >
+          Save
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="b"
+          (click)="handleBackClick()"
+          [disabled]="!initialMode"
+        >
+          Back
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone"
+          accesskey="x"
+          (click)="router.navigateByUrl('/dashboard')"
+        >
+          E<u>x</u>it
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,45 @@
+/* for date picker control   - start */
+.matForm {
+    display: flex;
+    align-items: center;
+    padding-left: 0.5rem;
+  }
+  
+  .form-text {
+    margin-top: 0.25rem;
+    font-size: 0.875em;
+  }
+  
+  .flex-nowrap {
+    flex-wrap: nowrap;
+  }
+  
+  .max_wid_50 {
+    min-width: 50px;
+  }
+  
+  .max_wid_70 {
+    min-width: 70px;
+  }
+  
+  .max_wid_100 {
+    min-width: 100px;
+  }
+  
+  /* for date picker control   - End */
+
+  /* For radio button  ------------start*/
+  .form-check-label {
+    margin-left: 0;
+    font-weight: 500;
+  }
+  
+  .form-check-input[type="radio"]:after {
+    display: none;
+  }
+  
+  .form-check-input:checked[type="radio"] {
+    border-width: 4px;
+  }
+
+  /* For radio button  ------------End*/

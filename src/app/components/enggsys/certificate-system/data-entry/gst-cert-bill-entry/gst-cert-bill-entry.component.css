@@ -1,0 +1,103 @@
+.matForm {
+  display: flex;
+  align-items: center;
+  padding-left: 0.5rem;
+}
+.view {
+  margin: auto;
+  width: 99%;
+}
+
+.wrapper {
+  position: relative;
+  overflow: auto;
+  white-space: nowrap;
+}
+
+.sticky-col {
+  position: -webkit-sticky;
+  position: sticky;
+  background-color: white;
+}
+
+.view table th:nth-child(1),
+.view table td:nth-child(1),
+.view table th:nth-child(2),
+.view table td:nth-child(2),
+.view table th:nth-child(3),
+.view table td:nth-child(3),
+.view table th:nth-child(4),
+.view table td:nth-child(4),
+.view table th:nth-child(5),
+.view table td:nth-child(5) ,
+.view th:last-child,
+.view td:last-child {
+   position: -webkit-sticky;
+   position: sticky;
+   background-color: white;
+}
+
+.view th:last-child,
+.view td:last-child{
+   width: 30px;
+   min-width: 30px;
+   max-width: 30px;
+   right: 0px;
+}
+
+.view table th:nth-child(1),
+.view table td:nth-child(1) {
+
+  width: 40px;
+  min-width: 40px;
+  max-width: 40px;
+  left: 0px;
+  z-index: 1;
+}
+
+.view table th:nth-child(2),
+.view table td:nth-child(2) {
+  width: 85px;
+  min-width: 85px;
+  max-width: 85px;
+  left: 40px;
+}
+
+.view table th:nth-child(3),
+.view table td:nth-child(3) {
+  width: 150px;
+  min-width: 150px;
+  max-width: 150px;
+  left: 125px;
+}
+.view table th:nth-child(4),
+.view table td:nth-child(4) {
+  width: 150px;
+  min-width: 150px;
+  max-width: 150px;
+  left: 275px;
+}
+.view table th:nth-child(5),
+.view table td:nth-child(5) {
+  width: 150px;
+  min-width: 150px;
+  max-width: 150px;
+  left: 425px;
+}
+
+.table-bordered>:not(caption)>* {
+   border-width: 0 1px;
+   border-bottom: 1px solid #ccc !important;
+}
+.table tbody td, .table thead th{
+   padding: 0.2rem 0.5rem;
+   vertical-align: middle;
+}
+.view .table th:last-child,
+.view .table td:last-child {
+   padding: 0;
+}
+.view table tbody  td  input.form-control ,.del_btn{
+  line-height: 10px;
+  padding: 1px;
+}

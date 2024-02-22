@@ -1,0 +1,581 @@
+<section>
+  <div class="row">
+    <div class="col-md-12">
+      <form [formGroup]="reverBillForm">
+        <div class="row g-3">
+          <div class="col-md-12">
+            <div class="row g-3">
+              <div class="mb-2 col-md-6 col-lg-5 col-xl-5 col-xxl-5">
+                <div
+                  class="input-group"
+                  [class.is-invalid]="
+                  reverBillForm.controls['suppCode'].invalid &&
+                  reverBillForm.controls['suppCode'].touched
+                  "
+                >
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    ><span class="text-danger font500 font12">* </span>Suplier Code</span
+                  >
+                  <input
+                  type="text"
+                  class="form-control border-start-0"
+                  id="suppCode123"
+                  formControlName="suppCode"
+                  maxlength="4"
+                  autocomplete="off"
+                  [f1]="{ id: 'PARTYCODE', subId:supplier_condition}"
+                  autofocus
+                />
+
+                </div>
+                <div
+                *ngIf="
+                reverBillForm.controls['suppCode'].invalid &&
+                reverBillForm.controls['suppCode'].touched
+                "
+              >
+                <div
+                  class="errorField common_color_txt font12 font500"
+                  *ngIf="reverBillForm.controls['suppCode'].errors && reverBillForm.controls['suppCode'].errors?.['required']"
+                >
+                  *Supplier code is required
+                </div>
+              </div>
+              <div
+              class="invalid-feedback d-block"
+              *ngIf="
+              reverBillForm.controls['suppCode'].invalid &&
+              reverBillForm.controls['suppCode'].touched
+"
+          >
+              <div *ngIf="reverBillForm.controls['suppCode'].errors?.['notFound']">* Invalid Supplier Code</div>
+          </div>
+              </div>
+              <div class="mb-2 col-md-6 col-lg-5 col-xl-5 col-xxl-5">
+                <div class="">
+                    <div class="">
+                        <div class="input-group" [class.is-invalid]="
+                        reverBillForm.controls['bldgCode'].invalid &&
+                        reverBillForm.controls['bldgCode'].touched">
+                            <span class="input-group-text leftform_lbl font500 text-dark1 font12"><span class="text-danger font500 font12">* </span>Building</span>
+                            <input
+                            type="text"
+                            class="form-control border-start-0"
+                            formControlName="bldgCode"
+                            id="bldgCode123"
+                            maxlength="4"
+                            autocomplete="off"
+                            [f1]="{ id: 'BUILDINGS'}"
+                          />
+                        </div>
+                        <div
+                        *ngIf="
+                        reverBillForm.controls['bldgCode'].invalid &&
+                        reverBillForm.controls['bldgCode'].touched
+                        "
+                      >
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="reverBillForm.controls['bldgCode'].errors && reverBillForm.controls['bldgCode'].errors?.['required']"
+                        >
+                          *Building code is required
+                        </div>
+                      </div>
+                      <div
+                      class="invalid-feedback d-block"
+                      *ngIf="
+                      reverBillForm.controls['bldgCode'].invalid &&
+                      reverBillForm.controls['bldgCode'].touched
+        "
+                  >
+                      <div *ngIf="reverBillForm.controls['bldgCode'].errors?.['notFound']">* Invalid Building Code</div>
+                  </div>
+                    </div>
+                </div>
+            </div>
+            <!-- SUPPBILLNO -->
+            <div class="mb-2 col-md-6 col-lg-5 col-xl-5 col-xxl-5">
+              <div class="">
+                  <div class="">
+                      <div class="input-group" [class.is-invalid]="
+                      reverBillForm.controls['suppBillNo'].invalid &&
+                      reverBillForm.controls['suppBillNo'].touched">
+                          <span class="input-group-text leftform_lbl font500 text-dark1 font12"><span class="text-danger font500 font12">* </span>Supplier Bill #</span>
+                          <input
+                          type="text"
+                          class="form-control border-start-0"
+                          formControlName="suppBillNo"
+                          id="suppBill123"
+                          autocomplete="off"
+                          [f1]="{ id: 'SUPPBILLNO',  subId:suppBill_condition}"
+                        />
+                      </div>
+                      <div
+                      *ngIf="
+                      reverBillForm.controls['suppBillNo'].invalid &&
+                      reverBillForm.controls['suppBillNo'].touched
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="reverBillForm.controls['suppBillNo'].errors && reverBillForm.controls['suppBillNo'].errors?.['required']"
+                      >
+                       * Supplier Bill Number is required
+                      </div>
+                    </div>
+                  </div>
+              </div>
+          </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="br-10 group_panel p-3 position-relative">
+              <p class="bg-white font600 group_title mb-0 position-absolute">
+                Bill Header
+              </p>
+              <div class="row g-2">
+                <div class="col-md-12">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Proprietor</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0"
+                      formControlName="proprietorName"
+                      disabled
+                    />
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Company</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0"
+                      formControlName="companyName"
+                      disabled
+                    />
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Project</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0"
+                      formControlName="projectName"
+                      disabled
+                    />
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Property</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0"
+                      formControlName="property"
+                      disabled
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-6 col-12">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Sup Bill Date</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0"
+                      formControlName="supBilldt"
+                      disabled
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-6 col-12">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Credit Days</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0 text-end"
+                      formControlName="crdays"
+                      disabled
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-6 col-12">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Bill Amt</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0 text-end"
+                      formControlName="amount"
+                      disabled
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-6 col-12">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >TDS %</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0 text-end"
+                      formControlName="tdsperc"
+                      disabled
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-6 col-12">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Tran Serial</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0"
+                      formControlName="tranSerialNo"
+                      disabled
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-6 col-12">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >TDS</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0 text-end"
+                      formControlName="tdsamount"
+                      disabled
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-6 col-12">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12 text-end"
+                      >Retention</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0 text-end"
+                      formControlName="retention"
+                      disabled
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-6 col-12">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12 "
+                      >Debit Amt</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0 text-end"
+                      formControlName="debitamt"
+                      disabled
+                    />
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Narration</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0"
+                      formControlName="narration"
+                      disabled
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="br-10 group_panel p-3 position-relative">
+              <p class="bg-white font600 group_title mb-0 position-absolute">
+                Bill Details
+              </p>
+              <div class="row g-2">
+                <div class="col-md-12">
+                  <div
+                  class="input-group"
+              >
+                  <span class="input-group-text leftform_lbl font500 text-dark1 font12">Mat Group</span>
+                  <input
+                      type="text"
+                      class="form-control post_input_field border-end-0 border-start-0 d-flex"
+                      id
+                      formControlName="matgroup"
+                      tabindex="-1"
+                      disabled                  >
+                  <span class="position-relative span_divider"></span>
+                  <input
+                      type="text"
+                      class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+                      id
+                      formControlName="matgroupName"
+                      tabindex="-1"
+                      disabled
+                  >
+
+              </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="input-group">
+                    <span class="input-group-text leftform_lbl font500 text-dark1 font12">Mat Code</span>
+                    <input
+                        type="text"
+                        class="form-control post_input_field border-end-0 border-start-0 d-flex"
+                        id
+                        formControlName="matcode"
+                        tabindex="-1"
+                        disabled                  >
+                    <span class="position-relative span_divider"></span>
+                    <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+                        id
+                        formControlName="matcodeName"
+                        tabindex="-1"
+                        disabled
+                    >
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="input-group">
+                    <span class="input-group-text leftform_lbl font500 text-dark1 font12">Item Code</span>
+                  <input
+                      type="text"
+                      class="form-control post_input_field border-end-0 border-start-0 d-flex"
+                      id
+                      formControlName="itemcode"
+                      tabindex="-1"
+                      disabled                  >
+                  <span class="position-relative span_divider"></span>
+                  <input
+                      type="text"
+                      class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+                      id
+                      formControlName="itemcodeName"
+                      tabindex="-1"
+                      disabled
+                  >
+                  </div>
+                </div>
+                <div class="col-lg-6 col-12">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Auth no.</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0"
+                      formControlName="authnum"
+                      disabled
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-6 col-12"></div>
+                <div class="col-lg-6 col-12">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Auth date</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0"
+                      formControlName="authdate"
+                      disabled
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-6 col-12"></div>
+                <div class="col-lg-6 col-12">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >UoM</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0"
+                      formControlName="uom"
+                      disabled
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-6 col-12">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >SKU</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0"
+                      formControlName="sku"
+                      disabled
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-6 col-12">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Line Qty</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0 text-end"
+                      formControlName="dequantity"
+                      disabled
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-6 col-12">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >SKU Qty</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0 text-end"
+                      formControlName="quantity"
+                      disabled
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-6 col-12">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Item Rate</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0 text-end"
+                      formControlName="derate"
+                      disabled
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-6 col-12">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >SKU Rate</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0 text-end"
+                      formControlName="rate"
+                      disabled
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-6 col-12">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Value</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0 text-end"
+                      formControlName="amount"
+                      disabled
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<app-loader *ngIf="loaderToggle"></app-loader>
+
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner text-center bg-white br-10">
+      <div class="flex justify-content-between">
+        <button
+          type="submit"
+          [disabled]="reverseBillDetails"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="r"
+          (click)="fetchBillSerNo()"
+        >
+          Retrieve
+        </button>
+        <button
+          type="submit"
+          [disabled]="saveDisable"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="s"
+          (click)="handleSaveClick()"
+        >
+          Save
+        </button>
+        <button
+          type="submit"
+          [disabled]="!reverseBillDetails"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="b"
+          (click)="back()"
+        >
+          Back
+        </button>
+
+        <button
+          type="submit"
+          [disabled]="reverseBillDetails"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone"
+          accesskey="x"
+          (click)="handleExitClick()"
+        >
+          E<span class="text-decoration-underline">x</span>it
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<app-loader *ngIf="loader"></app-loader>
+

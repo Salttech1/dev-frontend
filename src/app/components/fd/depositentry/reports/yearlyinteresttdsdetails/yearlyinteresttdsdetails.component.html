@@ -1,0 +1,114 @@
+<section>
+    <div class="reports_detail_container">
+      <form [formGroup]="yearlyInterestDetailsTdsReportForm">
+        <div class="row" formGroupName="reportParameters">
+            <div class="mb-3 col-md-12 col-lg-6 col-xl-6 col-xxl-6">
+              <div class="">
+                        <div class="">
+                          <div class="input-group" [class.is-invalid]="
+                          yearlyInterestDetailsTdsReportForm.controls['reportParameters'].controls['CompanyName'].invalid &&
+                          yearlyInterestDetailsTdsReportForm.controls['reportParameters'].controls['CompanyName'].touched">
+                            <span class="input-group-text leftform_lbl font500 text-dark1 font12">Company</span>
+                            <app-f1 [formControlName]="'CompanyName'" placeholder="" class="form-control post_input_field border-start-0  border-end-0 d-flex" titleValue="{{tableData?.mainheader}}" [tableData]="tableData?.dataSet" [colHeader]="columnHeader"  [inputBBC]="bringBackColumn" (updatedSelectedValue)="updateCompanyList($event)" [dynaPopId]="'COMPANY'" [queryConditon]=coy_condition id="companyCode" [errorMessage]="'Invalid Company Code'" (change)="updateOnChangeCompanyList($event)"></app-f1>
+                            <span class="position-relative span_divider"></span>
+                            <input
+                            type="text"
+                            class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500 disabled_cls"
+                            id
+                            formControlName="CoyName" tabindex="-1"
+                            readonly
+                        >
+                          </div>
+                          <div
+                            *ngIf="yearlyInterestDetailsTdsReportForm.controls['reportParameters'].controls['CompanyName'].invalid && yearlyInterestDetailsTdsReportForm.controls['reportParameters'].controls['CompanyName'].touched">
+                              <div class="errorField common_color_txt font12 font500"
+                                  *ngIf="yearlyInterestDetailsTdsReportForm.controls['reportParameters'].controls['CompanyName'].errors && yearlyInterestDetailsTdsReportForm.controls['reportParameters'].controls['CompanyName'].errors?.['required']">
+                                  * Company Code is required
+                              </div>
+                          </div>
+                        </div>
+               </div>
+            </div>
+            <div class="mb-3 col-md-12 col-lg-6 col-xl-6 col-xxl-6">
+               <div class="">
+                  <div class="input-group" [class.is-invalid]="
+                  yearlyInterestDetailsTdsReportForm.controls['reportParameters'].controls['Depositor'].invalid &&
+                  yearlyInterestDetailsTdsReportForm.controls['reportParameters'].controls['Depositor'].touched">
+                      <span class="input-group-text leftform_lbl font500 text-dark1 font12">Depositor</span>
+                      <app-f1 [formControlName]="'Depositor'" type="text" placeholder="" class="form-control post_input_field border-start-0  border-end-0  d-flex" (updatedSelectedValue)="updateListControl($event,yearlyInterestDetailsTdsReportForm.get('reportParameters.DepositorName'))" titleValue="{{depositorTableData?.mainheader}}"   [tableData]="depositorTableData?.dataSet" [colHeader]="deptColumnHeader"  [inputBBC]="depositorTableData?.bringBackColumn" [dynaPopId]="'DEPOSITORS'" [queryConditon]=deptDyanPop id="depositorCode" [errorMessage]="'Invalid Depositor Code'"  (click)="updateDepositorList()" (change)="updateDepositorOnChange($event)"></app-f1>
+                      <span class="position-relative span_divider"></span>
+                      <input
+                      type="text"
+                      class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500 disabled_cls"
+                      id
+                      formControlName="DepositorName" tabindex="-1"
+                      readonly
+                  >
+                    </div>
+                  <div
+                    *ngIf="yearlyInterestDetailsTdsReportForm.controls['reportParameters'].controls['Depositor'].invalid && yearlyInterestDetailsTdsReportForm.controls['reportParameters'].controls['Depositor'].touched">
+                    <div class="errorField common_color_txt font12 font500"
+                        *ngIf="yearlyInterestDetailsTdsReportForm.controls['reportParameters'].controls['Depositor'].errors && yearlyInterestDetailsTdsReportForm.controls['reportParameters'].controls['Depositor'].errors?.['required']">
+                        * Depositor Id is required
+                    </div>
+                 </div>
+                </div>
+            </div>
+            <!-- <div class="mb-3 col-md-7 col-lg-6 col-xl-5 col-xxl-5">
+              <div class="">
+                 <div class="input-group">
+                     <span class="input-group-text leftform_lbl font500 text-dark1 font12">Name</span>
+                     <input type="text" class="form-control  w-50 border-start-0 post_input_field font500 text-dark1 font12" id=""  formControlName="DepositorName"  (updatedSelectedValue)="updateListControl($event,yearlyInterestDetailsTdsReportForm.get('reportParameters.DepositorName'))" readonly tabindex="-1">
+                 </div>
+               
+               </div>
+           </div> -->
+        <div class="col-xl-12">
+          <label class="form-label formlbl font600 text-dark1 pb-2 mb-0 font12">Year (e.g. {{accYear}})</label>
+          <div class="row">
+            <div class="mb-3 col-md-5 col-lg-4 col-xl-3 col-xxl-3">
+              <div class="">
+                  <div class="">
+                    <div class="input-group" [class.is-invalid]="
+                    yearlyInterestDetailsTdsReportForm.controls['reportParameters'].controls['accountingYear'].invalid &&
+                    yearlyInterestDetailsTdsReportForm.controls['reportParameters'].controls['accountingYear'].touched">
+                      <span class="input-group-text leftform_lbl font500 text-dark1 font12">Accounting Year</span>
+                      <input type="text" [min]="8"  class="form-control border-start-0 post_input_field" formControlName="accountingYear" (input)="limitInputLength($event.target.value,$event)" id="accountingYear">
+                    </div>
+                    <div
+                    *ngIf="yearlyInterestDetailsTdsReportForm.controls['reportParameters'].controls['accountingYear'].invalid && yearlyInterestDetailsTdsReportForm.controls['reportParameters'].controls['accountingYear'].touched">
+                    <div class="errorField common_color_txt font12 font500"
+                        *ngIf="yearlyInterestDetailsTdsReportForm.controls['reportParameters'].controls['accountingYear'].errors && yearlyInterestDetailsTdsReportForm.controls['reportParameters'].controls['accountingYear'].errors?.['required']">
+                        *Accounting Year is required
+                    </div>
+                    <div class="errorField common_color_txt font12 font500" *ngIf="yearlyInterestDetailsTdsReportForm.controls['reportParameters'].controls['accountingYear'].errors && yearlyInterestDetailsTdsReportForm.controls['reportParameters'].controls['accountingYear'].errors?.['minlength']">
+                      Accounting Year must be at least 8 characters long.
+                    </div> 
+                    <div class="errorField common_color_txt font12 font500" *ngIf="yearlyInterestDetailsTdsReportForm.controls['reportParameters'].controls['accountingYear'].errors && yearlyInterestDetailsTdsReportForm.controls['reportParameters'].controls['accountingYear'].errors?.['pattern']">
+                      Accounting Year should be only numeric
+                    </div> 
+                    <div *ngIf="yearlyInterestDetailsTdsReportForm.controls['reportParameters'].controls['accountingYear'].errors?.['yearVal']" class="errorField common_color_txt font12 font500">Invalid Accounting Year</div>
+                  </div>
+                  </div>
+              </div>
+          </div>
+         
+          </div>
+        </div>
+        </div>
+      </form>
+    </div>
+    <app-loader *ngIf="loaderToggle"></app-loader>
+    <section class="action_section position-fixed w-100">
+      <div class="container">
+          <div class="action_conatiner text-center bg-white br-10">
+              <div class="flex justify-content-between">
+                  <button type="submit" class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white exportcls first_letter_textdecorationone" (click)="getReport(false)" accesskey="w">Do<span class="text-decoration-underline">w</span>nload</button>
+                  <button type="submit" class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white exportcls" (click)="getReport(true)" accesskey="p">Print</button>
+                  <button type="submit" class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone"  accesskey="x" (click)="handleExit()">E<span class="text-decoration-underline">x</span>it</button>
+              </div>
+          </div>
+      </div>
+  </section>
+    <!-- <app-actionpanel  [exportFormGroup]="yearlyInterestDetailsTdsReportForm" (sendLoaderFlag)="updateLoaderFlag($event)" [printFormGroup]="yearlyInterestDetailsTdsReportForm"></app-actionpanel> -->
+</section>

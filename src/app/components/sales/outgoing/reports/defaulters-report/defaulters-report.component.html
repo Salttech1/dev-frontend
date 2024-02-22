@@ -1,0 +1,493 @@
+<!-- 
+// Developed By  - 	rahul.shringarpre
+// Developed on - 04-11-23
+// Mode  - Report
+// Purpose - Outgoing Defaulter's list
+// Modification Details
+// =======================================================================================================================================================
+// Date		Coder  Version User    Reason              
+// =======================================================================================================================================================
+ -->
+<section>
+  <div class="row">
+    <div class="col-md-12">
+      <form [formGroup]="queryForm">
+        <div class="row g-3">
+          <div class="col-md-4">
+            <div class="row g-3">
+              <!-- Ougtoing Defaulter's Report Container --Start -->
+              <div class="col-md-12" style="padding-bottom: 30px;">
+                <div class="br-10 group_panel p-3 position-relative">
+                  <p
+                    class="bg-white font600 group_title mb-0 position-absolute"
+                  >
+                    <ng-container
+                      >Customer Type</ng-container
+                    >
+                  </p>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input position-relative"
+                      type="radio"
+                      name="custType"
+                      id="billRadioDefault1"
+                      value="ALL"
+                      formControlName="custType"
+                    />
+                    <label class="form-check-label" for="billRadioDefault1">
+                      For All Customer Types
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input position-relative"
+                      type="radio"
+                      name="custType"
+                      id="billRadio2"
+                      value="C"
+                      formControlName="custType"
+                    />
+                    <label class="form-check-label" for="billRadio2">
+                      For Corporate Customers only
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input position-relative"
+                      type="radio"
+                      name="custType"
+                      id="billRadio3"
+                      value="I"
+                      formControlName="custType"
+                    />
+                    <label class="form-check-label" for="billRadio3">
+                      For Individual Customers Only
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <!-- Ougtoing Defaulter's Report Container --End -->
+              <!-- Outstanding Amount Container --Start -->
+              <!-- <div class="col-md-12">
+                <div class="br-10 group_panel p-3 position-relative">
+                  <p
+                    class="bg-white font600 group_title mb-0 position-absolute"
+                  >
+                    Outstanding Amount filter
+                  </p>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input position-relative"
+                      type="radio"
+                      name="osAmtYN"
+                      id="flexRadioDefault5"
+                      value="1"
+                      (click)="enableOsAmt()"
+                      formControlName="osAmtYN"
+                    />
+                    <label class="form-check-label" for="flexRadioDefault5">
+                      Yes
+                    </label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input position-relative"
+                      type="radio"
+                      name="osAmtYN"
+                      id="flexRadioDefault6"
+                      value="2"
+                      (click)="disableOsAmt()"
+                      formControlName="osAmtYN"
+                    />
+                    <label class="form-check-label" for="flexRadioDefault6">
+                      No
+                    </label>
+                  </div>
+                </div>
+              </div> -->
+              <!-- Outstanding Amount Container --End -->
+              <!-- Report Field Settings Container --Start -->
+              <div class="col-md-12">
+                <div class="br-10 group_panel p-3 position-relative">
+                  <p
+                    class="bg-white font600 group_title mb-0 position-absolute"
+                  >
+                    Report Field Settings
+                  </p>
+                  <!-- <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input position-relative"
+                      type="radio"
+                      name="name"
+                      id="flexRadioDefault3"
+                      value="RptOutgoingDefaulterList.rpt"
+                      formControlName="name"
+                    />
+                    <label class="form-check-label" for="flexRadioDefault3">
+                      Detail
+                    </label>
+                  </div> -->
+                  <div class="form-check">
+                    <input
+                      formControlName="checkedOSAmt"
+                      class="form-check-input"
+                      type="checkbox"
+                      (change)="osAmtstatusChanged($event)"
+                    />
+                    <!-- (change)="enableOsAmt()" -->
+                    <!-- (checked)="enableOsAmt()"
+                     -->
+                  <!-- [(ngModel)]="isChecked" (change)="checkValue(isChecked?'enableOsAmt()':'disableOsAmt()')" -->
+                    <label class="form-check-label" for="flexCheckDefault">
+                      Outstanding Amount
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      formControlName="checkedSpecial"
+                      class="form-check-input"
+                      type="checkbox"
+                      checked
+                    />
+                    <label class="form-check-label" for="flexCheckDefault">
+                      Show Special Field
+                    </label>
+                  </div>
+
+                  <div class="form-check">
+                    <input
+                      formControlName="checkedOGStart"
+                      class="form-check-input"
+                      type="checkbox"
+                    />
+                    <label class="form-check-label" for="flexCheckDefault">
+                      Show Outgoing Start Month
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <!-- Report Field Settings Container --End -->
+
+              <!-- Show Special Fields in report Container --Start -->
+              <!-- <div class="col-md-12">
+                <div class="br-10 group_panel p-3 position-relative">
+                  <p
+                    class="bg-white font600 group_title mb-0 position-absolute"
+                  >
+                    Show Special Fields in report
+                  </p>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input position-relative"
+                      type="radio"
+                      name="showsplfields"
+                      id="flexRadioDefault7"
+                      value="Y"
+                      formControlName="showsplfields"
+                    />
+                    <label class="form-check-label" for="flexRadioDefault7">
+                      Yes
+                    </label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input position-relative"
+                      type="radio"
+                      name="showsplfields"
+                      id="flexRadioDefault8"
+                      value="N"
+                      formControlName="showsplfields"
+                    />
+                    <label class="form-check-label" for="flexRadioDefault8">
+                      No
+                    </label>
+                  </div>
+                </div>
+              </div> -->
+              <!-- Show Special Fields in report Container --End -->
+            </div>
+          </div>
+          <!-- Other Input & Export Type Container --Start -->
+          <div class="col-md-8">
+            <div class="row g-3 h-100">
+              <div class="col-md-12 h-100">
+                <div class="br-10 group_panel p-3 position-relative h-100">
+                  <p
+                    class="bg-white font600 group_title mb-0 position-absolute"
+                  >
+                    Other Input
+                  </p>
+                  <div class="row g-2 h-100">
+                    <!-- Building Code --Start -->
+                    <div class="col-md-12">
+                      <div
+                        class="input-group has-validation"
+                        [class.is-invalid]="
+                        queryForm.controls['bldgCode'].touched &&
+                        queryForm.controls['wing'].touched &&
+                        queryForm.controls['ownerId'].touched &&
+                        queryForm.controls['cutOffDate'].touched &&
+                        queryForm.controls['osAmt'].touched &&
+                        queryForm?.errors?.['atLeastOneFilter']
+                    "
+                      >
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Building Code</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0"
+                          formControlName="bldgCode"
+                          [f1]="{ id: 'BUILDINGS', multi: true }"
+                          (focusout)="setSubidBldgcode()"
+                        />
+                      </div>
+                    </div>
+                    <!-- Building Code --End -->
+                    <!--Wing --Start -->
+                    <div class="col-md-12">
+                      <div
+                        class="input-group has-validation"
+                        [class.is-invalid]="
+                        queryForm.controls['bldgCode'].touched &&
+                        queryForm.controls['wing'].touched &&
+                        queryForm.controls['ownerId'].touched &&
+                        queryForm.controls['cutOffDate'].touched &&
+                        queryForm.controls['osAmt'].touched &&
+                        queryForm?.errors?.['atLeastOneFilter']
+                    "
+                      >
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Wing</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0"
+                          formControlName="wing"
+                          [f1]="{
+                            id: 'BWINGS',
+                            subId: subidBldgcode,
+                            multi: true
+                          }"
+                          (focusout)="setSubidBldgcodeAndWing()"
+                        />
+                      </div>
+                    </div>
+                    <!--Wing --End -->
+                    <!--Owner Id --Start -->
+                    <div class="col-md-12">
+                      <div
+                        class="input-group has-validation"
+                        [class.is-invalid]="
+                        queryForm.controls['bldgCode'].touched &&
+                        queryForm.controls['wing'].touched &&
+                        queryForm.controls['ownerId'].touched &&
+                        queryForm.controls['cutOffDate'].touched &&
+                        queryForm.controls['osAmt'].touched &&
+                        queryForm?.errors?.['atLeastOneFilter']
+                    "
+                      >
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Owner Id</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0"
+                          formControlName="ownerId"
+                          [f1]="{
+                            id: 'FLATOWNERS',
+                            subId: subidBldgcodeAndWing,
+                            multi: true
+                          }"
+                        />
+                      </div>
+                    </div>
+                    <!--Owner Id --End -->
+                    <!--O/s Amt Filter --Start -->
+                    <div class="col-md-12">
+                      <div
+                        class="input-group has-validation"
+                        [class.is-invalid]="
+                          queryForm.controls['osAmt'].invalid &&
+                          queryForm.controls['bldgCode'].touched &&
+                          queryForm.controls['wing'].touched &&
+                          queryForm.controls['ownerId'].touched &&
+                          queryForm.controls['cutOffDate'].touched &&
+                          queryForm.controls['osAmt'].touched &&
+                          queryForm?.errors?.['atLeastOneFilter']
+                          "
+                      >
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          >Show Only O/s Amt greater than</span
+                        >
+                        <input
+                          type="number"
+                          class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+                          formControlName="osAmt"
+                        />
+                      </div>
+                    </div>
+                    <!--O/s Amt Filter --End -->
+                    <!--Cutoff Date --Start -->
+                    <div class="col-md-12">
+                      <div
+                        class="input-group"
+                        [class.is-invalid]="
+                          queryForm.controls['cutOffDate'].invalid &&
+                          queryForm.controls['bldgCode'].touched &&
+                          queryForm.controls['wing'].touched &&
+                          queryForm.controls['ownerId'].touched &&
+                          queryForm.controls['cutOffDate'].touched &&
+                          queryForm.controls['osAmt'].touched &&
+                          queryForm?.errors?.['atLeastOneFilter']
+                          "
+                        appDate1
+                      >
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          ><span class="text-danger font500 font12">*</span
+                          >Cut-Off Date</span
+                        >
+                        <input
+                          type="text"
+                          [autocomplete]="'off'"
+                          class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                          id="formDateField"
+                          matInput
+                          [matDatepicker]="pickerAsOnDate"
+                          formControlName="cutOffDate"
+                        />
+                        <div
+                          class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                        >
+                          <span class="input-group-addon">
+                            <mat-datepicker-toggle
+                              matSuffix
+                              [for]="pickerAsOnDate"
+                              tabindex="-1"
+                            ></mat-datepicker-toggle>
+                            <mat-datepicker #pickerAsOnDate></mat-datepicker>
+                          </span>
+                        </div>
+                      </div>
+                      <div
+                        *ngIf="
+                          queryForm.controls['cutOffDate'].invalid &&
+                          queryForm.controls['bldgCode'].touched &&
+                          queryForm.controls['wing'].touched &&
+                          queryForm.controls['ownerId'].touched &&
+                          queryForm.controls['cutOffDate'].touched &&
+                          queryForm.controls['osAmt'].touched &&
+                          queryForm?.errors?.['atLeastOneFilter']
+                        "
+                      >
+                        <div
+                          class="errorField common_color_txt font12 font500"
+                          *ngIf="purchaseBillEntryForm.controls['cutOffDate'].errors && purchaseBillEntryForm.controls['cutOffDate'].errors?.['required']"
+                        >
+                          Date is required
+                        </div>
+                      </div>
+                    </div>
+                    <!--Cutoff Date --End -->
+                    <!--Export Type --Start -->
+                    <div class="col-sm-12" *ngIf="_service.getAccess('Export')">
+                      <p class="bg-white font600 group_title mb-1">
+                        Export Type
+                      </p>
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input position-relative"
+                          type="radio"
+                          name="exportType"
+                          id="exTy1"
+                          value="PDF"
+                          formControlName="exportType"
+                        />
+                        <label class="form-check-label" for="exTy1">
+                          PDF
+                        </label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input position-relative"
+                          type="radio"
+                          name="exportType"
+                          id="exTy2"
+                          value="EXCEL_REPORT_DATA_FORMAT"
+                          formControlName="exportType"
+                        />
+                        <label class="form-check-label" for="exTy2">
+                          Excel (Report - Data Format)
+                        </label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input position-relative"
+                          type="radio"
+                          name="exportType"
+                          id="exTy3"
+                          value="EXCEL_TEMPLATE_FORMAT"
+                          formControlName="exportType"
+                        />
+                        <label class="form-check-label" for="exTy3">
+                          Excel (Template Format)
+                        </label>
+                      </div>
+                    </div>
+                    <!--Export Type --End -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Other Input & Export Type Container --End -->
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner bg-white br-10 d-flex justify-content-center">
+      <button
+        *ngIf="_service.getAccess('Export')"
+        type="submit"
+        class="bg_common_red common_action_btn br-10 first_letter_textdecorationone"
+        [attr.accesskey]="loaderToggle == true ? '' : 'w'"
+        (click)="getReport(false)"
+      >
+        Do<u>w</u>nload
+      </button>
+      <button
+        *ngIf="_service.getAccess('Print')"
+        type="submit"
+        class="bg_common_red common_action_btn br-10"
+        (click)="getReport(true)"
+        [attr.accesskey]="loaderToggle == true ? '' : 'p'"
+      >
+        Print
+      </button>
+      <button
+        type="submit"
+        (click)="resetForm()"
+        class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone"
+        accesskey="t"
+      >
+        Rese<span class="text-decoration-underline">t</span>
+      </button>
+      <a
+        class="bg_common_red border-0 common_action_btn text-white br-10 first_letter_textdecorationone text-decoration-none"
+        [attr.accesskey]="loaderToggle == true ? '' : 'x'"
+        routerLink="/dashboard"
+      >
+        E<u>x</u>it
+      </a>
+    </div>
+  </div>
+</section>
+<app-loader *ngIf="loaderToggle"></app-loader>

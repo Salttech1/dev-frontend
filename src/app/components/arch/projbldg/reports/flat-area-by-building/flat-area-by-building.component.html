@@ -1,0 +1,147 @@
+<section class="container">
+  <div class="col-md-6">
+    <form [formGroup]="BldgWingSelectionform" #formDirective="ngForm">
+      <div class="row mb-3">
+        <div class="col-sm-12">
+          <div formGroupName="reportParameters">
+            <div class="row">
+              <div class="col-md-6 mb-2">
+                <div
+                  class="input-group"
+                  [class.is-invalid]="
+                    BldgWingSelectionform.controls['reportParameters'].controls[
+                      'TxtBldgCode'
+                    ].invalid &&
+                    (BldgWingSelectionform.controls['reportParameters']
+                      .controls['TxtBldgCode'].touched ||
+                      BldgWingSelectionform.controls['reportParameters']
+                        .controls['TxtBldgCode'].dirty)
+                  "
+                >
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                  >
+                    <span class="req_field common_color_txt fontBold font14"
+                      >*</span
+                    >Building</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control w-50 border-start-0 post_input_field font500 font12"
+                    formControlName="TxtBldgCode"
+                    [f1]="{ id: 'SALESBLDG', multi: true }"
+                  />
+                </div>
+                <div
+                  *ngIf="
+                    BldgWingSelectionform.controls['reportParameters'].controls[
+                      'TxtBldgCode'
+                    ].invalid &&
+                    (BldgWingSelectionform.controls['reportParameters']
+                      .controls['TxtBldgCode'].touched ||
+                      BldgWingSelectionform.controls['reportParameters']
+                        .controls['TxtBldgCode'].dirty)
+                  "
+                >
+                  <div
+                    class="errorField common_color_txt font12 font500"
+                    *ngIf="BldgWingSelectionform.controls['reportParameters'].controls['TxtBldgCode'].errors && BldgWingSelectionform.controls['reportParameters'].controls['TxtBldgCode'].errors?.['required']"
+                  >
+                    * Building Code is required
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6 mb-2">
+                <div class="input-group mb-2">
+                  <span class="input-group-text leftform_lbl font500 font12"
+                    >Wing</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control w-50 border-start-0 post_input_field font500 font12"
+                    formControlName="Txtwing"
+                    [f1]="{ id: 'BWINGS', multi: true, subId: bldgCode }"
+                  />
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="br-10 group_panel p-3 position-relative">
+                  <p
+                    class="bg-white font600 group_title mb-0 position-absolute"
+                  >
+                    Type
+                  </p>
+                  <div class="form-check form-check-inline">
+                    <input
+                      type="radio"
+                      class="form-check-input position-relative"
+                      name="flatType"
+                      [formControlName]="'flatType'"
+                      value="U"
+                    />
+                    <label class="form-check-label" for="radio1">Unit</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      type="radio"
+                      class="form-check-input position-relative"
+                      name="flatType"
+                      [formControlName]="'flatType'"
+                      value="P"
+                    />
+                    <label class="form-check-label" for="radio2">Parking</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      type="radio"
+                      class="form-check-input position-relative"
+                      name="flatType"
+                      [formControlName]="'flatType'"
+                      value="A"
+                    />
+                    <label class="form-check-label" for="radio3">All</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+<app-loader *ngIf="loaderToggle"></app-loader>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner text-center bg-white br-10 w-100">
+      <div class="flex justify-content-between">
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+          accesskey="w"
+          (click)="getReport(false)"
+        >
+          Do<span class="text-decoration-underline">w</span>nload
+        </button>
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white"
+          (click)="getReport(true)"
+          accesskey="p"
+        >
+          Print
+        </button>
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+          accesskey="x"
+          (click)="handleExitClick()"
+        >
+          E<span class="text-decoration-underline">x</span>it
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

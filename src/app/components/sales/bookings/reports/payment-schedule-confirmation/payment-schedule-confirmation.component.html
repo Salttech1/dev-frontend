@@ -1,0 +1,112 @@
+<section class="container">
+    <section class="form-section-wrapper">
+        <form [formGroup]="ReportCriteria">
+            <div class="row">
+                <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <!-- building code -->
+                <div
+                  class="input-group"
+                  [class.is-invalid]="
+                    (ReportCriteria
+                      .get('bldgCode')
+                      ?.hasError('required') &&
+                      ReportCriteria.controls['bldgCode'].touched) ||
+                      ReportCriteria.get('bldgCode')?.errors?.['notFound']
+                  "
+                >
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    ><b class="text-danger">*</b>Building<Code></Code
+                  ></span>
+                  <input
+                    type="text"
+                    id=""
+                    upperCase
+                    class="form-control border-start-0 br-9"
+                    formControlName="bldgCode"
+                    [f1]="{
+                      id: 'SALESBLDG',
+                      formData: ReportCriteria.get('bldgName')
+                    }"
+                    (focusout)="onLeaveBuildingCode($event.target.value)"
+                  />
+                  <span class="position-relative span_divider"></span>
+                  <input
+                    type="text"
+                    class="form-control w-50 border-start-0 post_input_field font500 font12"
+                    formControlName="bldgName"
+                  />
+                  <div
+                    class="invalid-feedback d-block"
+                    *ngIf="
+                      (ReportCriteria.get('bldgCode')?.touched &&
+                      ReportCriteria.get('bldgCode')?.invalid) && !ReportCriteria.get('bldgCode')?.errors?.['notFound'] 
+                    "
+                  >
+                    Bldg code required.
+                  </div>
+                  <div
+                    class="invalid-feedback d-block"
+                    *ngIf="ReportCriteria.get('bldgCode')?.errors?.['notFound']"
+                  >
+                    Bldg Code not valid.
+                  </div>
+                </div>
+      
+                <div class="row">
+                  <!-- wing -->
+                  <div class="col-md-5">
+                    <div
+                      class="input-group mt-4"
+                      [class.is-invalid]="ReportCriteria.controls?.['wing'].errors?.['notFound'] "
+                    >
+                      <span
+                        class="input-group-text leftform_lbl font500 text-dark1 font12"
+                        >Wing &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      </span>
+                      <input
+                        type="text"
+                        formControlName="wing"
+                        upperCase
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        [f1]="{
+                          id: 'BWINGS',
+                          isSingleValue: true,
+                          subId: filter_wing
+                        }"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-7">
+                    <!-- Flat No -->
+                    <div class="input-group mt-4" >
+                      <span
+                        class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >
+                      <b class="text-danger">*</b>Flat No
+                      </span>
+                      <input
+                        type="text"
+                        formControlName="flatNo"
+                        class="form-control border-start-0 br-9"
+                        upperCase
+                        [f1]="{
+                          id: 'SOLDUNITS',
+                          multi: true,
+                          subId: filter_flat
+                        }"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </form>
+    </section>
+</section>
+<app-buttons
+  [buttonsList]="buttonsList"
+  (eventTrigger)="buttonAction($event)"
+></app-buttons>
+<app-loader *ngIf="config.isLoading"></app-loader>

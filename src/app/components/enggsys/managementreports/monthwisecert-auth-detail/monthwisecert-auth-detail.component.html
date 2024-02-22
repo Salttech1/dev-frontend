@@ -1,0 +1,122 @@
+<section>
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-6">
+      <form [formGroup]="monthWiseCertAuthDetailForm">
+        <div class="row g-2">
+          <!-- building code and name -->
+          <div
+            class="input-group has-validation mt-4"
+            [class.is-invalid]="
+                    ( monthWiseCertAuthDetailForm.get('BldgCodes')?.hasError('required') &&
+                     monthWiseCertAuthDetailForm.controls['BldgCodes'].touched)|| monthWiseCertAuthDetailForm.controls?.['BldgCodes'].errors?.['notFound'] 
+                   "
+          >
+            <span
+              class="input-group-text leftform_lbl font500 text-dark1 font12"
+            >
+              <b><span class="text-danger">*</span></b
+              >Building
+            </span>
+            <input
+              appCommonAutoFocus
+              type="text"
+              formControlName="BldgCodes"
+              class="form-control border-start-0 post_input_field font500 font12"
+              upperCase
+              [f1]="{
+                id: 'BUILDINGS',
+                formData: monthWiseCertAuthDetailForm.get('blgdName')
+              }"
+              (focusout)="onLeaveBuildingCode($event.target.value)"
+            />
+            <span class="position-relative span_divider"></span>
+            <input
+              type="text"
+              class="form-control w-50 border-start-0 post_input_field font500 text-dark1 font12"
+              [formControlName]="'blgdName'"
+              tabindex="-1"
+            />
+          </div>
+          <div
+            class="errorField common_color_txt font12 font500 disInl"
+            *ngIf="monthWiseCertAuthDetailForm.controls?.['BldgCodes'].errors?.['notFound'] "
+          >
+            Invalid Building Code.
+          </div>
+        </div>
+        <!-- From Date & To Date -->
+        <div class="row g-2">
+          <div class="col-md-6">
+            <div class="input-group mt-4" appDate1>
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >From Date</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control border-start-0 post_input_field font500 font12"
+                [autocomplete]="'off'"
+                matInput
+                id="StartDateField"
+                [matDatepicker]="StartDate"
+                formControlName="StartDate"
+                (dateChange)="validateInvalidFormat($event,'StartDateField')"
+              />
+              <div
+                class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+              >
+                <span class="input-group-addon">
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="StartDate"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #StartDate></mat-datepicker>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="input-group mt-4" appDate1>
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >To Date</span
+              >
+              <input
+                type="text"
+                name=""
+                id=""
+                class="form-control border-start-0 post_input_field font500 font12"
+                [autocomplete]="'off'"
+                matInput
+                id="EndDateField"
+                [matDatepicker]="EndDate"
+                formControlName="EndDate"
+                (dateChange)="validateInvalidFormat($event,'EndDateField')"
+              />
+              <div
+                class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+              >
+                <span class="input-group-addon">
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="EndDate"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #EndDate></mat-datepicker>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<app-buttons
+  [buttonsList]="buttonsList"
+  (eventTrigger)="buttonAction($event)"
+></app-buttons>
+
+<app-loader *ngIf="config.isLoading"></app-loader>

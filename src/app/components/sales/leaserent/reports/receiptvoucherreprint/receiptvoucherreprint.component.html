@@ -1,0 +1,191 @@
+<section class="container">
+  <form [formGroup]="receiptVoucherRePrintForm">
+    <div class="d-flex justify-content-center">
+      <div formGroupName="reportParameters">
+        <div class="row g-2 mb-3">
+          <div class="col-lg-12">
+            <div
+              class="group_panel br-10 form_common_bg p-3 pt-3 position-relative"
+            >
+              <p
+                class="bg-white font600 group_title mb-0 position-absolute"
+              ></p>
+              <!-- Radio Button -->
+              <div
+                class="group_panel br-10 form_common_bg p-3 pt-3 mt-2 position-relative"
+              >
+                <p class="bg-white font600 group_title mb-0 position-absolute">
+                  Report Options
+                </p>
+                <div class="input-group">
+                  <div class="my-2">
+                    <div class="form-check d-flex align-items-center">
+                      <input
+                        type="radio"
+                        class="form-check-input font12 font500 position-relative"
+                        id="radio1"
+                        name="reportOption"
+                        value="ReceiptNoDetail"
+                        formControlName="reportOption"
+						          (change)="optionSelect($event.target)"
+                      />
+                      <label
+                        class="form-check-label first_letter_textdecorationone"
+                        for="xx"
+                        accesskey="h"
+                      >
+                        ReceiptNo
+                      </label>
+                    </div>
+                    <div class="form-check d-flex align-items-center">
+                      <input
+                        type="radio"
+                        class="form-check-input font12 font500 position-relative"
+                        id="radio2"
+                        name="reportOption"
+                        value="VoucherDetails"
+                        formControlName="reportOption"
+                        (change)="optionSelect($event.target)"
+                      />
+                      <label
+                        class="form-check-label first_letter_textdecorationone"
+                        for="xx"
+                        accesskey="h"
+                      >
+                        Voucher
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- End of Radio Button -->
+			  
+              <div class="row mb-2 mt-2">
+                <div class="col-lg-12">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      ><span class="req_field common_color_txt fontBold font14"
+                      >*</span>Building/Party</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0 post_input_field"
+                      oninput="this.value = this.value.toUpperCase()"
+                      formControlName="BldgParty"
+                      [f1]="{ id: 'LEASE_BLDGPARTY',isSingleValue:true }"
+                      id="LEASE_BLDGPARTY"
+                      autocomplete="off"
+                    />
+                  </div>
+
+                  <div
+                    class="disInl me-2"
+                    *ngIf="
+                      receiptVoucherRePrintForm.controls['reportParameters']
+                        .controls['BldgParty'].invalid &&
+                      (receiptVoucherRePrintForm.controls['reportParameters']
+                        .controls['BldgParty'].touched ||
+                        receiptVoucherRePrintForm.controls['reportParameters']
+                          .controls['BldgParty'].dirty)
+                    "
+                  >
+                    <div
+                      class="errorField common_color_txt font12 font500 disInl"
+                      *ngIf="receiptVoucherRePrintForm.controls['reportParameters'].controls['BldgParty'].errors?.min || receiptVoucherRePrintForm.controls['reportParameters'].controls['BldgParty'].errors?.['required']"
+                    >
+                      Building/Party is required
+                    </div>
+                    <div
+                      class="errorField common_color_txt font12 font500 disInl"
+                      *ngIf="receiptVoucherRePrintForm.controls['reportParameters'].controls['BldgParty'].errors?.['notFound'] "
+                    >
+                      Invalid Building/Party
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-lg-12">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      ><span class="req_field common_color_txt fontBold font14"
+                      >*</span>ReceiptNo</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0 post_input_field"
+                      formControlName="ReceiptNo"
+                      [f1]="{ id: 'LS_RECNUM', isSingleValue: true }"
+                      id="LS_RECNUM"
+                      autocomplete="off"
+                    />
+					<div
+                    class="disInl me-2"
+                    *ngIf="
+                      receiptVoucherRePrintForm.controls['reportParameters']
+                        .controls['ReceiptNo'].invalid &&
+                      (receiptVoucherRePrintForm.controls['reportParameters']
+                        .controls['ReceiptNo'].touched ||
+                        receiptVoucherRePrintForm.controls['reportParameters']
+                          .controls['ReceiptNo'].dirty)
+                    "
+                  >
+                    <div
+                      class="errorField common_color_txt font12 font500 disInl"
+                      *ngIf="receiptVoucherRePrintForm.controls['reportParameters'].controls['ReceiptNo'].errors?.min || receiptVoucherRePrintForm.controls['reportParameters'].controls['ReceiptNo'].errors?.['required']"
+                    >
+                      ReceiptNo is required
+                    </div>
+                    <div
+                      class="errorField common_color_txt font12 font500 disInl"
+                      *ngIf="receiptVoucherRePrintForm.controls['reportParameters'].controls['ReceiptNo'].errors?.['notFound'] "
+                    >
+                      Invalid ReceiptNo
+                    </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+<app-loader *ngIf="loaderToggle"></app-loader>
+  <section class="action_section position-fixed w-100">
+    <div class="container">
+      <div class="action_conatiner text-center bg-white br-10">
+        <div class="flex justify-content-between">
+          <button
+            type="submit"
+            class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white exportcls first_letter_textdecorationone"
+            (click)="getReport(false)"
+            accesskey="w"
+          >
+            Do<span class="text-decoration-underline">w</span>nload
+          </button>
+          <button
+            type="submit"
+            class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white exportcls"
+            (click)="getReport(true)"
+            accesskey="p"
+          >
+            Print
+          </button>
+          <button
+            type="submit"
+            class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone"
+            accesskey="x"
+            (click)="handleExit()"
+          >
+            E<span class="text-decoration-underline">x</span>it
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+</section>

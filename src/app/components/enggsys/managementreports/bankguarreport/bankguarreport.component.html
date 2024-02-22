@@ -1,0 +1,49 @@
+<section>
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-6">
+      <form [formGroup]="bankGuarReportForm">
+        <div class="row g-2">
+          <!-- building code and name -->
+          <div
+            class="input-group mt-4"
+            [class.is-invalid]="
+                      ( bankGuarReportForm.get('Project')?.hasError('required') &&
+                       bankGuarReportForm.controls['Project'].touched)|| bankGuarReportForm.controls?.['Project'].errors?.['notFound'] 
+                     "
+          >
+            <span
+              class="input-group-text leftform_lbl font500 text-dark1 font12"
+            >
+              <b><span class="text-danger">*</span></b
+              >Project
+            </span>
+            <input
+              appCommonAutoFocus
+              type="text"
+              formControlName="Project"
+              class="form-control border-start-0 post_input_field font500 font12"
+              upperCase
+              [f1]="{
+                id: 'BUILDINGS'
+              }"
+              (focusout)="onLeaveBuildingCode($event.target.value)"
+            />
+          </div>
+          <div
+            class="errorField common_color_txt font12 font500 disInl"
+            *ngIf="bankGuarReportForm.controls?.['Project'].errors?.['notFound'] "
+          >
+            Invalid Project Code.
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<app-buttons
+  [buttonsList]="buttonsList"
+  (eventTrigger)="buttonAction($event)"
+></app-buttons>
+
+<app-loader *ngIf="config.isLoading"></app-loader>

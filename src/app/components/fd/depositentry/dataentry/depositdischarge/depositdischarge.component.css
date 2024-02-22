@@ -1,0 +1,33 @@
+.deposits_title {
+    top: -10px
+}
+
+.search_table_list {
+    max-width: 320px;
+    width: 100%;
+}
+
+.max_wid_150 {
+    max-width: 150px;
+    width: 150px
+}
+.max_wid_30{
+    width:30px !important
+}
+.max_wid_120{
+    width: 120px !important;
+}
+.res_minwid{
+    min-width:8rem
+}
+@media only screen and (max-width: 992px) {
+    .input-group {
+        flex-wrap: nowrap;
+    }
+}
+@media only screen and (min-width: 600px) {
+    .common_action_btn{padding: 6px 15px;}
+} 
+@media only screen and (min-width: 992px) {
+    .common_action_btn{padding: 6px 20px;}
+}

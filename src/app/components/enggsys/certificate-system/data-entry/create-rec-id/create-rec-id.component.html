@@ -1,0 +1,386 @@
+<section>
+  <div class="container">
+    <form [formGroup]="rf">
+      <div class="d-flex justify-content-center mb-2">
+        <div class="col-sm-6 col-md-6 col-lg-4">
+          <div class="input-group" [class.is-invalid]="
+              rf.controls['recid'].invalid && rf.controls['recid'].touched
+            ">
+            <span class="input-group-text leftform_lbl font500 text-dark1 font12">Rec Id</span>
+            <input appCommonAutoFocus type="text" class="form-control border-start-0 br-9" id="recid" autocomplete="off"
+              formControlName="recid" [f1]="{ id: 'CONTRACTID', subId: 'contt_closedate is null' }" />
+
+          </div>
+          <div *ngIf="rf.controls['recid'].invalid && rf.controls['recid'].touched">
+            <div class="errorField common_color_txt font12 font500"
+              *ngIf="rf.controls['recid'].errors && rf.controls['recid'].errors?.['required']">
+              Rec Id required
+            </div>
+            <div class="errorField common_color_txt font12 font500" *ngIf="rf.get('recid')?.errors?.['notFound']">
+              Invalid
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row g-2 mb-3">
+        <div class="col-lg-6 ">
+          <div class="input-group" [class.is-invalid]="
+              rf.controls['bldgcode'].invalid && rf.controls['bldgcode'].touched
+            ">
+            <span class="input-group-text leftform_lbl font500 text-dark1 font12"><span
+                class="text-danger font600 font12">*</span> Building
+              Code</span>
+            <input type="text" class="form-control border-start-0 br-9" formControlName="bldgcode"
+              [f1]="{ id: 'ENGGBUILDINGS', subId: bldgSQ ,   isSingleValue: true, formData: rf.get('bldgName')}"
+              id="bldgid" />
+            <span class="position-relative span_divider"></span>
+            <input type="text" class="form-control w-50 border-start-0 post_input_field font500 text-dark1 font12"
+              [formControlName]="'bldgName'" tabindex="-1" />
+          </div>
+          <div *ngIf="
+              rf.controls['bldgcode'].invalid && rf.controls['bldgcode'].touched
+            ">
+            <div class="errorField common_color_txt font12 font500"
+              *ngIf="rf.get('bldgcode').errors && rf.get('bldgcode').errors?.['required']">
+              Building code is required
+            </div>
+            <div class="errorField common_color_txt font12 font500" *ngIf="rf.get('bldgcode')?.errors?.['notFound']">
+              Invalid
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+          <div class="input-group">
+            <span class="input-group-text leftform_lbl font500 text-dark1 font12">Company</span>
+            <input type="text" class="form-control border-start-0 br-9" formControlName="coy" />
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6">
+          <div class="input-group" [class.is-invalid]="
+              rf.controls['workcode'].invalid && rf.controls['workcode'].touched
+            ">
+            <span class="input-group-text leftform_lbl font500 text-dark1 font12"><span
+                class="text-danger font600 font12">*</span> Work Code</span>
+            <input type="text" class="form-control border-start-0 br-9" formControlName="workcode"
+              [f1]="{ id: 'WORKCODES', subId: 'ep_closedate is null' ,  isSingleValue: true, formData: rf.get('workcodeName')}" />
+            <span class="position-relative span_divider"></span>
+            <input type="text" class="form-control w-50 border-start-0 post_input_field font500 text-dark1 font12"
+              [formControlName]="'workcodeName'" tabindex="-1" />
+          </div>
+          <div *ngIf="
+              rf.controls['workcode'].invalid && rf.controls['workcode'].touched
+            ">
+            <div class="errorField common_color_txt font12 font500"
+              *ngIf="rf.get('workcode').errors && rf.get('workcode').errors?.['required']">
+              Work code is required
+            </div>
+            <div class="errorField common_color_txt font12 font500" *ngIf="rf.get('workcode')?.errors?.['notFound']">
+              Invalid
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6">
+          <div class="input-group" [class.is-invalid]="
+              rf.controls['conttor'].invalid && rf.controls['conttor'].touched
+            ">
+            <span class="input-group-text leftform_lbl font500 text-dark1 font12"><span
+                class="text-danger font600 font12">*</span> Contractor
+              Code</span>
+            <input type="text" class="form-control border-start-0 br-9" formControlName="conttor"
+              [f1]="{ id: 'CONTRACTORS', subId: conttorSQ,  isSingleValue: true, formData: rf.get('conttorName')}" />
+              <span class="position-relative span_divider"></span>
+              <input type="text" class="form-control w-50 border-start-0 post_input_field font500 text-dark1 font12"
+                [formControlName]="'conttorName'" tabindex="-1" />
+          </div>
+          <div *ngIf="
+              rf.controls['conttor'].invalid && rf.controls['conttor'].touched
+            ">
+            <div class="errorField common_color_txt font12 font500"
+              *ngIf="rf.get('conttor').errors && rf.get('conttor').errors?.['required']">
+              Contractor Code is required
+            </div>
+            <div class="errorField common_color_txt font12 font500" *ngIf="rf.get('conttor')?.errors?.['notFound']">
+              Invalid
+            </div>
+          </div>
+        </div>
+      </div>
+      <ng-container *ngIf="details">
+        <div class="row g-2">
+          <div class="col-md-12 col-lg-12 mb-2">
+            <div class="br-10 group_panel p-3 position-relative">
+              <p class="bg-white font600 group_title mb-0 position-absolute">
+                TDS Details
+              </p>
+              <div class="row g-2">
+                <div class="col-sm-12 col-lg-6">
+                  <div class="input-group" [class.is-invalid]="
+                      rf.controls['tdsptype'].invalid &&
+                      rf.controls['tdsptype'].touched
+                    ">
+                    <span class="input-group-text leftform_lbl font500 text-dark1 font12"><span
+                        class="text-danger font600 font12">*</span> TDS
+                      Party Type</span>
+                    <input type="text" class="form-control border-start-0 br-9" formControlName="tdsptype"
+                      [f1]="{ id: 'TDSPTYPES' }" id="tdsptype" />
+                  </div>
+                  <div *ngIf="
+                      rf.controls['tdsptype'].invalid &&
+                      rf.controls['tdsptype'].touched
+                    ">
+                    <div class="errorField common_color_txt font12 font500"
+                      *ngIf="rf.get('tdsptype').errors && rf.get('tdsptype').errors?.['required']">
+                      Tds Party Type is required
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                  <div class="input-group">
+                    <span class="input-group-text leftform_lbl font500 text-dark1 font12">TDS Code</span>
+                    <input type="text" class="form-control border-start-0 br-9 text-end" formControlName="tdscode" />
+                  </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                  <div class="input-group">
+                    <span class="input-group-text leftform_lbl font500 text-dark1 font12">TDS %</span>
+                    <input appPercentageDirective type="text" class="form-control border-start-0 br-9 text-end"
+                      formControlName="tdsper" />
+                  </div>
+                </div>
+                <div class="col-sm-7 col-lg-6 col-xl-4">
+                  <div class="input-group flex-nowrap" appDate1 [class.is-invalid]="
+                      (rf.get('range')?.invalid && rf.get('range')?.touched) ||
+                      (rf.get('range')?.invalid && rf.get('range')?.touched)
+                    ">
+                    <span class="input-group-text leftform_lbl font500 text-dark1">TDS Application</span>
+                    <div class="bg-white datepicker_field post_input_field flex-grow-1" [class.is-invalid]="
+                        (rf.get('range')?.invalid &&
+                          rf.get('range')?.touched) ||
+                        (rf.get('range')?.invalid && rf.get('range')?.touched)
+                      ">
+                      <span class="input-group-addon">
+                        <div mat-form-field appearance="fill" class="matForm">
+                          <mat-date-range-input [formGroup]="this.rf.controls['range']" [rangePicker]="picker">
+                            <input class="text-capitalize font12" matStartDate formControlName="tdsfrom"
+                              placeholder=" From date" />
+                            <input matEndDate formControlName="tdsupto" placeholder="To date"
+                              class="text-capitalize font12" />
+                          </mat-date-range-input>
+                          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                          <mat-date-range-picker #picker></mat-date-range-picker>
+                        </div>
+                      </span>
+                    </div>
+                  </div>
+                  <div *ngIf="
+                      rf.controls['range'].invalid &&
+                      rf.controls['range'].touched
+                    ">
+                    <div class="invalid-feedback d-block" *ngIf="rf.get('range')?.errors?.['properDate']">
+                      Proper Date is required
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-5 col-lg-3 col-xl-2">
+                  <div class="input-group">
+                    <span class="input-group-text leftform_lbl font500 text-dark1 font12">%</span>
+                    <input appPercentageDirective type="text" class="form-control border-start-0 br-9 text-end"
+                      formControlName="sptdsper" />
+                  </div>
+                </div>
+                <!-- <div class="col-sm-12">
+                <div class="input-group">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Work Contract Tax(%)</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0 br-9"
+                    formControlName="wctaxper"
+                    [f1]="{ id: 'BUILDINGS' }"
+                  />
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="input-group">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Estimate</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0 br-9"
+                    formControlName="estval"
+                    [f1]="{ id: 'BUILDINGS' }"
+                  />
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="input-group">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Service Tax %</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0 br-9"
+                    formControlName="recid"
+                    [f1]="{ id: 'BUILDINGS' }"
+                  />
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="input-group">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Swachh Cess %</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0 br-9"
+                    formControlName="recid"
+                    [f1]="{ id: 'BUILDINGS' }"
+                  />
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="input-group">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Krishi Cess %</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0 br-9"
+                    formControlName="recid"
+                    [f1]="{ id: 'BUILDINGS' }"
+                  />
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="input-group">
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >VAT %</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0 br-9"
+                    formControlName="vatperc"
+                    [f1]="{ id: 'BUILDINGS' }"
+                  />
+                </div>
+              </div> -->
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 col-lg-12">
+            <div class="br-10 group_panel p-3 position-relative h-100">
+              <p class="bg-white font600 group_title mb-0 position-absolute">
+                Party's Detail
+              </p>
+              <div class="row g-2">
+                <div class="col-sm-12 col-lg-8 col-xl-8">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text input-group-text leftform_lbl font500 text-dark1 font12" id="">PAN /
+                        GST No</span>
+                    </div>
+                    <input type="text" class="form-control border-start-0 br-9" formControlName="pmtacnum" />
+                    <input type="text" class="form-control br-9" formControlName="gstno" />
+                  </div>
+                </div>
+                <div class="col-sm-12 col-lg-4 col-xl-4">
+                  <div class="input-group">
+                    <span class="input-group-text leftform_lbl font500 text-dark1 font12">Party VAT No</span>
+                    <input type="text" class="form-control border-start-0 br-9" formControlName="vatnum" />
+                  </div>
+                </div>
+                <div class="col-sm-12 col-lg-6 col-xl-6">
+                  <div class="input-group">
+                    <span class="input-group-text leftform_lbl font500 text-dark1 font12">Party TIN No</span>
+                    <input type="text" class="form-control border-start-0 br-9" formControlName="tinnum" />
+                  </div>
+                </div>
+                <div class="col-sm-12 col-lg-6 col-xl-6">
+                  <div class="input-group">
+                    <span class="input-group-text leftform_lbl font500 text-dark1 font12">Party STax No</span>
+                    <input type="text" class="form-control border-start-0 br-9" formControlName="servicetaxnum" />
+                  </div>
+                </div>
+                <div class="col-sm-12 col-lg-6 col-xl-4">
+                  <div class="input-group">
+                    <span class="input-group-text leftform_lbl font500 text-dark1 font12">Address1</span>
+                    <input type="text" class="form-control border-start-0 br-9" formControlName="adline1" />
+                  </div>
+                </div>
+                <div class="col-sm-12 col-lg-6 col-xl-4">
+                  <div class="input-group">
+                    <span class="input-group-text leftform_lbl font500 text-dark1 font12">Address2</span>
+                    <input type="text" class="form-control border-start-0 br-9" formControlName="adline2" />
+                  </div>
+                </div>
+                <div class="col-sm-12 col-lg-6 col-xl-4">
+                  <div class="input-group">
+                    <span class="input-group-text leftform_lbl font500 text-dark1 font12">Address3</span>
+                    <input type="text" class="form-control border-start-0 br-9" formControlName="adline3" />
+                  </div>
+                </div>
+                <div class="col-sm-12 col-lg-6 col-xl-4">
+                  <div class="input-group">
+                    <span class="input-group-text leftform_lbl font500 text-dark1 font12">Address4</span>
+                    <input type="text" class="form-control border-start-0 br-9" formControlName="adline4" />
+                  </div>
+                </div>
+                <div class="col-sm-12 col-lg-6 col-xl-4">
+                  <div class="input-group">
+                    <span class="input-group-text leftform_lbl font500 text-dark1 font12">Address5</span>
+                    <input type="text" class="form-control border-start-0 br-9" formControlName="adline5" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </form>
+  </div>
+</section>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner bg-white br-10 d-flex justify-content-center">
+      <button type="submit" class="bg_common_red common_action_btn br-10" [attr.accesskey]="loaderToggle ? '' : 'a'"
+        (click)="add()" [disabled]="actionbtn[0]">
+        Add
+      </button>
+      <button type="submit" class="bg_common_red common_action_btn br-10" [attr.accesskey]="loaderToggle ? '' : 'r'"
+        (click)="retrieve()" [disabled]="actionbtn[1]">
+        Retrieve
+      </button>
+      <button type="submit" class="bg_common_red common_action_btn br-10" [attr.accesskey]="loaderToggle ? '' : 's'"
+        (click)="save()" [disabled]="actionbtn[2]">
+        Save
+      </button>
+
+      <button type="button" class="bg_common_red common_action_btn br-10 first_letter_textdecorationone" accesskey="t"
+        [disabled]="actionbtn[3]">
+        Rese<u>t</u>
+      </button>
+      <button type="submit" class="bg_common_red common_action_btn br-10" [attr.accesskey]="loaderToggle ? '' : 'b'"
+        [disabled]="actionbtn[4]" (click)="back()">
+        Back
+      </button>
+      <a class="bg_common_red common_action_btn border-0 text-white br-10 text-decoration-none" accesskey="c"
+        routerLink="/shared/codehelp" *ngIf="!actionbtn[5]">
+        Code Help
+      </a>
+      <a class="bg_common_red border-0 common_action_btn text-white br-10 first_letter_textdecorationone text-decoration-none"
+        accesskey="x" routerLink="/dashboard" *ngIf="!actionbtn[5]">
+        E<u>x</u>it
+      </a>
+    </div>
+  </div>
+</section>
+<app-loader *ngIf="loaderToggle"></app-loader>

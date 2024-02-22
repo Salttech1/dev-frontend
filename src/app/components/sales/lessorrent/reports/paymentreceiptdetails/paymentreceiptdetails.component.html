@@ -1,0 +1,324 @@
+<!-- 
+// Developed By  - 	vikram.p
+// Developed on - 20-10-23
+// Mode  - Report
+// Purpose - Lessor Rent payment receipt details report
+// Modification Details
+// =======================================================================================================================================================
+// Date		Coder  Version User    Reason              
+// =======================================================================================================================================================
+ -->
+<section>
+  <div class="row">
+    <div class="col-md-12">
+      <form [formGroup]="queryForm">
+        <div class="row g-3">
+          <div class="col-md-4">
+            <div class="row g-3">
+              <div class="col-md-12">
+                <div class="br-10 group_panel p-3 position-relative">
+                  <p
+                    class="bg-white font600 group_title mb-0 position-absolute"
+                  >
+                    <ng-container
+                      >Lessor Payment Receipt Details Report</ng-container
+                    >
+                  </p>
+                  <div class="col-md-12">
+                    <div class="form-check">
+                      <input
+                        formControlName="checkAll"
+                        class="form-check-input"
+                        type="checkbox"
+                      />
+                      <label class="form-check-label" for="flexCheckDefault">
+                        All
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3 col-xxl-3">
+                    <div class="form-check">
+                      <input
+                        formControlName="checkLocation"
+                        class="form-check-input"
+                        type="checkbox"
+                      />
+                      <label class="form-check-label" for="flexCheckDefault">
+                        Location
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-check">
+                      <input
+                        formControlName="checkUnitGroup"
+                        class="form-check-input"
+                        type="checkbox"
+                      />
+                      <label class="form-check-label" for="flexCheckDefault">
+                        Unit Group
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-check">
+                      <input
+                        formControlName="checkExcludingCoy"
+                        class="form-check-input"
+                        type="checkbox"
+                      />
+                      <label class="form-check-label" for="flexCheckDefault">
+                        Excluding Company
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-check">
+                      <input
+                        formControlName="checkSelectiveCoy"
+                        class="form-check-input"
+                        type="checkbox"
+                      />
+                      <label class="form-check-label" for="flexCheckDefault">
+                        Selective Company
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-check">
+                      <input
+                        formControlName="checkProprietor"
+                        class="form-check-input"
+                        type="checkbox"
+                      />
+                      <label class="form-check-label" for="flexCheckDefault">
+                        Proprietor
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="row g-3 h-100">
+              <div class="col-md-12 h-100">
+                <div class="br-10 group_panel p-3 position-relative h-100">
+                  <p
+                    class="bg-white font600 group_title mb-0 position-absolute"
+                  >
+                    Other Input
+                  </p>
+                  <div class="row g-2 h-100">
+                    <div class="col-md-12">
+                      <div
+                        class="input-group has-validation"
+                      >
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          x
+                          >Company Code</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0"
+                          formControlName="coyCode"
+                          [f1]="{
+                            id: 'PARTYCODE',
+                            multi: true,
+                            subId: coyCodeFilter
+                          }"
+                        />
+                       
+                      </div>
+                      <span class="small text-danger"    *ngIf="
+                      queryForm
+                        .get('coyCode')
+                        ?.hasError('isCompanyCodeRequired')
+                    ">Please enter company.</span>
+                    </div>
+                    <div class="col-md-12">
+                      <div
+                        class="input-group has-validation"
+                      >
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          x
+                          >Party Code</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0"
+                          formControlName="partyCode"
+                          [f1]="{ id: 'LESSORPARTY', multi: false }"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div
+                        class="input-group has-validation"
+                      >
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          x
+                          >Tran Type</span
+                        >
+
+                        <select
+                          class="form-select form-select-sm w-auto font12"
+                          formControlName="tranType"
+                        >
+                          <option value="Payment">P</option>
+                          <option value="Receipt">R</option>
+                          <option value="Both">B</option>
+                        </select>
+
+                        <td></td>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div
+                        class="input-group has-validation"
+                      >
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          x
+                          >Location</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0"
+                          formControlName="location"
+                          [f1]="{ id: 'LESSORLOCATION', multi: false }"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div
+                        class="input-group has-validation"
+                      >
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          x
+                          >Unit Group</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0"
+                          formControlName="unitGroup"
+                          [f1]="{ id: 'LESSORGROUPUNITDETAILS', multi: false }"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div
+                        class="input-group has-validation"
+                      >
+                        <span
+                          class="input-group-text leftform_lbl font500 text-dark1 font12"
+                          x
+                          >Pay Cycle</span
+                        >
+                        <input
+                          type="text"
+                          class="form-control border-start-0"
+                          formControlName="payCycle"
+                          [f1]="{ id: 'LESERPAYCYL', multi: false }"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12" *ngIf="_service.getAccess('Export')">
+                      <p class="bg-white font600 group_title mb-1">
+                        Export Type
+                      </p>
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input position-relative"
+                          type="radio"
+                          name="exportType"
+                          id="exTy1"
+                          value="PDF"
+                          formControlName="exportType"
+                        />
+                        <label class="form-check-label" for="exTy1">
+                          PDF
+                        </label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input position-relative"
+                          type="radio"
+                          name="exportType"
+                          id="exTy2"
+                          value="EXCEL_REPORT_DATA_FORMAT"
+                          formControlName="exportType"
+                        />
+                        <label class="form-check-label" for="exTy2">
+                          Excel (Report - Data Format)
+                        </label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input position-relative"
+                          type="radio"
+                          name="exportType"
+                          id="exTy3"
+                          value="EXCEL_TEMPLATE_FORMAT"
+                          formControlName="exportType"
+                        />
+                        <label class="form-check-label" for="exTy3">
+                          Excel (Template Format)
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner bg-white br-10 d-flex justify-content-center">
+      <button
+        *ngIf="_service.getAccess('Export')"
+        type="submit"
+        class="bg_common_red common_action_btn br-10 first_letter_textdecorationone"
+        [attr.accesskey]="loaderToggle == true ? '' : 'w'"
+        (click)="getReport(false)"
+      >
+        Do<u>w</u>nload
+      </button>
+      <button
+        *ngIf="_service.getAccess('Print')"
+        type="submit"
+        class="bg_common_red common_action_btn br-10"
+        (click)="getReport(true)"
+        [attr.accesskey]="loaderToggle == true ? '' : 'p'"
+      >
+        Print
+      </button>
+      <button
+        type="submit"
+        (click)="resetForm()"
+        class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone"
+        accesskey="t"
+      >
+        Rese<span class="text-decoration-underline">t</span>
+      </button>
+      <a
+        class="bg_common_red border-0 common_action_btn text-white br-10 first_letter_textdecorationone text-decoration-none"
+        [attr.accesskey]="loaderToggle == true ? '' : 'x'"
+        routerLink="/dashboard"
+      >
+        E<u>x</u>it
+      </a>
+    </div>
+  </div>
+</section>
+<app-loader *ngIf="loaderToggle"></app-loader>

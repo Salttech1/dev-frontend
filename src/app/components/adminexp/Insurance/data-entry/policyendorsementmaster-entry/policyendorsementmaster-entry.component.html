@@ -1,0 +1,1293 @@
+<!-- 
+// Developed By  - 	nilesh.g
+// Developed on - 16-03-23
+// Mode  - Data Entry
+// Purpose - Inspolendorsement Entry / Edit
+// Modification Details
+// =======================================================================================================================================================
+// Date		Coder  Version User    Reason              
+// =======================================================================================================================================================
+ -->
+
+<section>
+  <div class="row mb-3">
+    <form [formGroup]="policyEndorsementMasterForm">
+      <div class="row mb-3">
+        <div class="col-md-8 col-lg-6">
+          <div
+            class="input-group"
+            [class.is-invalid]="
+              policyEndorsementMasterForm.controls['polendorseid'].invalid &&
+              policyEndorsementMasterForm.controls['polendorseid'].touched
+            "
+          >
+            <span class="input-group-text leftform_lbl font500 font12 req"
+              ><b>*</b>Policy Endorsement ID :
+            </span>
+            <input
+              type="text"
+              class="form-control border-start-0 post_input_field font500 font12"
+              formControlName="polendorseid"
+              [f1]="{ id: 'POLICYENDORSEID', des: 2 }"
+            />
+          </div>
+        </div>
+        <div
+          *ngIf="
+            policyEndorsementMasterForm.controls['polendorseid'].invalid &&
+            policyEndorsementMasterForm.controls['polendorseid'].touched
+          "
+        >
+          <div
+            class="errorField common_color_txt font12 font500"
+            *ngIf="policyEndorsementMasterForm.controls['polendorseid'].errors?.['required']"
+          >
+            * Policy Endorsement Id Is Required
+          </div>
+          <div
+            class="errorField common_color_txt font12 font500"
+            *ngIf="policyEndorsementMasterForm.controls['polendorseid'].errors?.['maxlength']"
+          >
+            Max 50 Character allowed. Current is{{policyEndorsementMasterForm.controls['polendorseid'].errors?.['maxlength']?.actualLength}}
+            characters.
+          </div>
+        </div>
+      </div>
+      <div class="row g-3" *ngIf="initialMode">
+        <div class="col-md-12">
+          <div class="group_panel br-10 form_common_bg p-3 position-relative">
+            <p class="bg-white font600 group_title mb-0 position-absolute">
+              Inspolicy Details
+            </p>
+            <!-- <p class="bg-white font500"></p> -->
+            <div class="row">
+              <div class="col-md-12">
+                <div class="row g-2">
+                  <!-- INPE_POLICYNO -- Start  -->
+                  <div class="col-md-3">
+                    <div
+                      class="input-group has-validation"
+                      [class.is-invalid]="
+                        policyEndorsementMasterForm.controls['policyno']
+                          .invalid &&
+                        policyEndorsementMasterForm.controls['policyno'].touched
+                      "
+                    >
+                      <span
+                        class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                        ><b>*</b>Policy#
+                      </span>
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        formControlName="policyno"
+                        [f1]="{ id: 'POLICYID1' }"
+                        (blur)="loadinsPolicynoData()"
+                      />
+                    </div>
+                    <div
+                      *ngIf="
+                        policyEndorsementMasterForm.controls['policyno']
+                          .invalid &&
+                        policyEndorsementMasterForm.controls['policyno'].touched
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="policyEndorsementMasterForm.controls['policyno'].errors && policyEndorsementMasterForm.controls['policyno'].errors?.['required']"
+                      >
+                        policynumber Is Required press f1
+                      </div>
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="policyEndorsementMasterForm.controls['policyno'].errors?.['maxlength']"
+                      >
+                        Max 50 Character allowed. Current is{{policyEndorsementMasterForm.controls['policyno'].errors?.['maxlength']?.actualLength}}
+                        characters.
+                      </div>
+                    </div>
+                  </div>
+                  <!-- INPE_POLICYNO -- End   -->
+
+                  <!-- INPE_status -- Start  -->
+                  <div class="col-md-4">
+                    <div class="input-group has-validation">
+                      <span
+                        class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                        >Status</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12 rounded-0"
+                        formControlName="status"
+                        style="text-transform: uppercase"
+                      />
+                      <input
+                        type="text"
+                        name="statusName"
+                        class="form-control w-50 border-start-0 post_input_field font500 font12"
+                        formControlName="statusName"
+                      />
+                    </div>
+                  </div>
+                  <!-- INPE_status-- End   -->
+
+                  <!-- INPE_POLICYTYPE -- Start  -->
+                  <div class="col-md-5">
+                    <div class="input-group has-validation">
+                      <span
+                        class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                        >Policy Type :</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12 rounded-0"
+                        formControlName="policytype"
+                      />
+                      <input
+                        type="text"
+                        class="form-control w-50 border-start-0 post_input_field font500 font12"
+                        formControlName="polTypeName"
+                      />
+                    </div>
+                  </div>
+                  <!-- INPE_POLICYTYPE-- End   -->
+
+                  <!-- InpPolicySubType -- Start  -->
+                  <div class="col-md-6">
+                    <div class="input-group has-validation">
+                      <span
+                        class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                        >Policy Sub Type</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12 rounded-0"
+                        formControlName="policysubtype"
+                      />
+                      <input
+                        type="text"
+                        class="form-control w-50 border-start-0 post_input_field font500 font12"
+                        formControlName="polSubTypeName"
+                      />
+                    </div>
+                  </div>
+                  <!-- InpPolicySubType-- End   -->
+
+                  <!-- InpInsCompany -- Start  -->
+                  <div class="col-md-6">
+                    <div class="input-group has-validation">
+                      <span
+                        class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                        >Ins.Coy</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12 rounded-0"
+                        formControlName="inscoy"
+                      />
+                      <input
+                        type="text"
+                        class="form-control w-50 border-start-0 post_input_field font500 font12"
+                        formControlName="insCompanyName"
+                      />
+                    </div>
+                  </div>
+                  <!-- InpInsCompany-- End   -->
+
+                  <!-- InpAgent -- Start  -->
+                  <div class="col-md-6">
+                    <div class="input-group has-validation">
+                      <span
+                        class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                        ><b>*</b>Agent</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12 rounded-0"
+                        formControlName="agent"
+                      />
+                      <input
+                        type="text"
+                        class="form-control w-50 border-start-0 post_input_field font500 font12"
+                        formControlName="agentName"
+                      />
+                    </div>
+                  </div>
+                  <!-- InpAgent-- End   -->
+
+                  <!-- InpCompany -- Start  -->
+                  <div class="col-md-6">
+                    <div class="input-group has-validation">
+                      <span
+                        class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                        >Company</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12 rounded-0"
+                        formControlName="coycode"
+                      />
+                      <input
+                        type="text"
+                        class="form-control w-50 border-start-0 post_input_field font500 font12"
+                        formControlName="companyName"
+                      />
+                    </div>
+                  </div>
+                  <!-- InpCompany-- End   -->
+
+                  <!-- InpBuilding -- Start  -->
+                  <div class="col-md-5">
+                    <div class="input-group has-validation">
+                      <span
+                        class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                        ><b>*</b>Building</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12 rounded-0"
+                        formControlName="bldgcode"
+                      />
+                      <input
+                        type="text"
+                        class="form-control w-50 border-start-0 post_input_field font500 font12"
+                        formControlName="buildingName"
+                      />
+                    </div>
+                  </div>
+                  <!-- InpBuilding-- End   -->
+
+                  <!-- INPE_ENDRFRDT -- Start  -->
+                  <div class="col-md-4">
+                    <div class="input-group" appDate1>
+                      <span
+                        class="input-group-text leftform_lbl font500 font12 req"
+                        >Period Fr.</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        matInput
+                        [matDatepicker]="fromdate"
+                        formControlName="fromdate"
+                      />
+                      <div
+                        class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                      >
+                        <span class="input-group-addon">
+                          <mat-datepicker-toggle
+                            matSuffix
+                            [for]="fromdate"
+                            tabindex="-1"
+                          ></mat-datepicker-toggle>
+                          <mat-datepicker
+                            #fromdate
+                            tabindex="-1"
+                          ></mat-datepicker>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- INPE_ENDRFRDT -- End   -->
+
+                  <!-- INPE_ENDRUPTODT -- Start  -->
+                  <div class="col-md-3">
+                    <div class="input-group" appDate1>
+                      <span
+                        class="input-group-text leftform_lbl font500 font12 req"
+                        >To</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        matInput
+                        [matDatepicker]="maturitydate"
+                        formControlName="maturitydate"
+                      />
+                      <div
+                        class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                      >
+                        <span class="input-group-addon">
+                          <mat-datepicker-toggle
+                            matSuffix
+                            [for]="maturitydate"
+                            tabindex="-1"
+                          ></mat-datepicker-toggle>
+                          <mat-datepicker
+                            #maturitydate
+                            tabindex="-1"
+                          ></mat-datepicker>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- INPE_ENDRUPTODT -- End   -->
+
+                  <!-- InpPolicyValue -- Start  -->
+                  <div class="col-md-4">
+                    <div class="input-group has-validation">
+                      <span
+                        class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                        >Policy Value</span
+                      >
+                      <input
+                        type="number"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        formControlName="insuredval"
+                        id="policyValue"
+                      />
+                    </div>
+                  </div>
+                  <!-- InpPolicyValue-- End   -->
+
+                  <!-- InpPrevPolicy -- Start  -->
+                  <div class="col-md-5">
+                    <div class="input-group has-validation">
+                      <span
+                        class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                        >Prv.Policy#</span
+                      >
+                      <input
+                        type="text"
+                        id="id_prevPolicyNum"
+                        name="txtPrevPolicyNum"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        formControlName="prevpolicynumber"
+                      />
+                    </div>
+                  </div>
+                  <!-- InpPrevPolicy-- End   -->
+
+                  <!-- Asset Location -->
+                  <div class="col-md-3">
+                    <div class="input-group has-validation">
+                      <span
+                        class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                        >Location</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        formControlName="assetlocation"
+                        id="Location"
+                      />
+                    </div>
+                  </div>
+                  <!-- InpAssetLocation-- End   -->
+
+                  <!-- INPE_POLICYID -- Start  -->
+                  <div class="col-md-4">
+                    <div class="input-group has-validation">
+                      <span
+                        class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                        >Policy ID</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        formControlName="policyid"
+                      />
+                    </div>
+                  </div>
+                  <!-- INPE_POLICYID -- End   -->
+
+                  <!-- InpDeductible -- Start  -->
+                  <div class="col-md-3">
+                    <div class="input-group">
+                      <span
+                        class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                        >Deductible :</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        formControlName="deductible"
+                        id="deductible"
+                      />
+                    </div>
+                  </div>
+                  <!-- InpDeductible-- End   -->
+
+                  <!-- InpPaidBy -- Start  -->
+                  <div class="col-md-5">
+                    <div class="input-group has-validation">
+                      <span
+                        class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                        >Paid By</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12 rounded-0"
+                        formControlName="payby"
+                      />
+                      <input
+                        type="text"
+                        class="form-control w-50 border-start-0 post_input_field font500 font12"
+                        formControlName="paidByName"
+                      />
+                    </div>
+                  </div>
+                  <!-- InpPaidBy-- End   -->
+
+                  <!-- Inpstaff1-- Start  -->
+                  <div class="col-md-2">
+                    <div class="input-group has-validation">
+                      <span
+                        class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                        >Our Staff 1</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        formControlName="staff1"
+                      />
+                    </div>
+                  </div>
+                  <!-- Inpstaff1-- End   -->
+
+                  <!-- Inpstaff2-- Start  -->
+                  <div class="col-md-2">
+                    <div class="input-group has-validation">
+                      <span
+                        class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                      >
+                        Our Staff 2
+                      </span>
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        formControlName="staff2"
+                      />
+                    </div>
+                  </div>
+                  <!-- Inpstaff2-- End   -->
+
+                  <!-- Named Insured -->
+                  <div class="col-md-4">
+                    <div class="input-group has-validation">
+                      <span
+                        class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                        >Named Insured</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        formControlName="personinsured"
+                        id="personinsured"
+                      />
+                    </div>
+                  </div>
+                  <!-- InpNamed Insured-- End   -->
+
+                  <!-- Nomination Details -->
+                  <div class="col-md-4">
+                    <div class="input-group has-validation">
+                      <span
+                        class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                        >Nomination Details</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        formControlName="nominationdetails"
+                        id="nominationdetails"
+                      />
+                    </div>
+                  </div>
+                  <!-- InpNomination Details-- End   -->
+
+                  <!-- Bank -->
+                  <div class="col-md-4">
+                    <div class="input-group has-validation">
+                      <span
+                        class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                        >Bank</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        formControlName="bank"
+                        id="bank"
+                      />
+                    </div>
+                  </div>
+                  <!-- InpBank-- End   -->
+
+                  <!-- Branch -->
+                  <div class="col-md-3">
+                    <div class="input-group has-validation">
+                      <span
+                        class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                        >Branch</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        formControlName="branch"
+                        id="branch"
+                      />
+                    </div>
+                  </div>
+                  <!-- InpBranch-- End   -->
+
+                  <!-- IFSC -->
+                  <div class="col-md-3">
+                    <div class="input-group has-validation">
+                      <span
+                        class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                        >IFSC</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        formControlName="ifsc"
+                        id="ifsc"
+                      />
+                    </div>
+                  </div>
+                  <!-- InpIfsc-- End   -->
+
+                  <!-- AccountNo -->
+                  <div class="col-md-3">
+                    <div class="input-group has-validation">
+                      <span
+                        class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                        >Acc.No</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        formControlName="accountNo"
+                        id="accountNo"
+                        [decimalPoint]="{ decPlaces: '0' }"
+                      />
+                    </div>
+                  </div>
+                  <!-- InpAccountNo-- End   -->
+
+                  <!-- AccountName -->
+                  <div class="col-md-3">
+                    <div class="input-group has-validation">
+                      <span
+                        class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                        >Acc Name</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        formControlName="accountName"
+                        id="accountName"
+                      />
+                    </div>
+                  </div>
+                  <!-- InpAccountName-- End   -->
+
+                  <!-- CoverUnder -->
+                  <div class="col-md-3">
+                    <div class="input-group has-validation">
+                      <span
+                        class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                        >Cover Under</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        formControlName="coverUnder"
+                        id="coverUnder"
+                      />
+                    </div>
+                  </div>
+                  <!-- InpCoverUnder-- End   -->
+
+                  <!-- ITSection -->
+                  <div class="col-md-3">
+                    <div class="input-group has-validation">
+                      <span
+                        class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                        >ITSection</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        formControlName="itsection"
+                        id="itsection"
+                      />
+                    </div>
+                  </div>
+                  <!-- InpITSection-- End   -->
+
+                  <!-- Premiumfreq -- Start  -->
+                  <div class="col-md-5">
+                    <div class="input-group has-validation">
+                      <span
+                        class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                        >Prem.Freq</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12 rounded-0"
+                        formControlName="premiumfreq"
+                      />
+                      <input
+                        type="text"
+                        class="form-control w-50 border-start-0 post_input_field font500 font12"
+                        formControlName="premiumfreqName"
+                      />
+                    </div>
+                  </div>
+                  <!-- Premiumfreq-- End   -->
+
+                  <!-- INP_PAYMODE -- Start  -->
+                  <div class="col-md-5">
+                    <div class="input-group has-validation">
+                      <span
+                        class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                        >Prem.Pay Mode</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12 rounded-0"
+                        formControlName="paymode"
+                      />
+                      <input
+                        type="text"
+                        class="form-control w-50 border-start-0 post_input_field font500 font12"
+                        formControlName="paymodeName"
+                      />
+                    </div>
+                  </div>
+                  <!-- INP_PAYMODE-- End   -->
+
+                  <!-- <p class="bg-white font500"></p> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="group_panel br-10 form_common_bg p-3 position-relative">
+            <p class="bg-white font600 group_title mb-0 position-absolute">
+              Endorsement Details
+            </p>
+            <div class="row g-2">
+              <!-- INPE_POLENDORSENUM -- Start  -->
+              <div class="col-md-6">
+                <div
+                  class="input-group has-validation"
+                  [class.is-invalid]="
+                    policyEndorsementMasterForm.controls['polendorsenum']
+                      .invalid &&
+                    policyEndorsementMasterForm.controls['polendorsenum']
+                      .touched
+                  "
+                >
+                  <span
+                    class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                    ><b>*</b>Endorsement#</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0 post_input_field font500 font12"
+                    formControlName="polendorsenum"
+                  />
+                </div>
+                <div
+                  *ngIf="
+                    policyEndorsementMasterForm.controls['polendorsenum']
+                      .invalid &&
+                    policyEndorsementMasterForm.controls['polendorsenum']
+                      .touched
+                  "
+                >
+                  <div
+                    class="errorField common_color_txt font12 font500"
+                    *ngIf="policyEndorsementMasterForm.controls['polendorsenum'].errors && policyEndorsementMasterForm.controls['polendorsenum'].errors?.['required']"
+                  >
+                    Policy Endorsement Number Is Required
+                  </div>
+                  <div
+                    class="errorField common_color_txt font12 font500"
+                    *ngIf="policyEndorsementMasterForm.controls['polendorsenum'].errors?.['maxlength']?.actualLength"
+                  >
+                    Max 50 Character allowed. Current is{{policyEndorsementMasterForm.controls['polendorsenum'].errors?.['maxlength']?.actualLength}}
+                    characters.
+                  </div>
+                </div>
+              </div>
+              <!-- INPE_POLENDORSENUM -- End   -->
+
+              <!-- INPE_ENDORSETP -- Start  -->
+              <div class="col-md-6">
+                <div
+                  class="input-group has-validation"
+                  [class.is-invalid]="
+                    policyEndorsementMasterForm.controls['endorsetp'].invalid &&
+                    policyEndorsementMasterForm.controls['endorsetp'].touched
+                  "
+                >
+                  <span
+                    class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                    ><b>*</b>Endorsement Type</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0 post_input_field font500 font12"
+                    formControlName="endorsetp"
+                    [f1]="{ id: 'POLICYENDOSETYPE' }"
+                  />
+                </div>
+                <div
+                  *ngIf="
+                    policyEndorsementMasterForm.controls['endorsetp'].invalid &&
+                    policyEndorsementMasterForm.controls['endorsetp'].touched
+                  "
+                >
+                  <div
+                    class="errorField common_color_txt font12 font500"
+                    *ngIf="policyEndorsementMasterForm.controls['endorsetp'].errors && policyEndorsementMasterForm.controls['endorsetp'].errors?.['required']"
+                  >
+                    Endorsement Type Is Required
+                  </div>
+                  <div
+                    class="errorField common_color_txt font12 font500"
+                    *ngIf="policyEndorsementMasterForm.controls['endorsetp'].errors?.['maxlength']?.actualLength"
+                  >
+                    Max 1 Character allowed. Current is{{policyEndorsementMasterForm.controls['endorsetp'].errors?.['maxlength']?.actualLength}}
+                    characters.
+                  </div>
+                </div>
+              </div>
+              <!-- INPE_ENDORSETP -- End   -->
+
+              <!-- INPE_POLENDORSEDT -- Start  -->
+              <!-- <div class="col-md-4">
+                <div class="input-group" appDate1>
+                  <span class="input-group-text leftform_lbl font500 font12 req"
+                    ><b>*</b>Endorse Dt</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0 post_input_field font500 font12"
+                    matInput
+                    [max]="maxDate"
+                    [matDatepicker]="polendorsedt"
+                    formControlName="polendorsedt"
+                  />
+                  <div
+                    class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                  >
+                    <span class="input-group-addon">
+                      <mat-datepicker-toggle
+                        matSuffix
+                        [for]="polendorsedt"
+                        tabindex="-1"
+                      ></mat-datepicker-toggle>
+                      <mat-datepicker
+                        #polendorsedt
+                        tabindex="-1"
+                      ></mat-datepicker>
+                    </span>
+                  </div>
+                  <div>
+                    <mat-error
+                      class="errorField common_color_txt font12 font500 invalid-feedback d-block"
+                      *ngIf="
+                        policyEndorsementMasterForm.get('polendorsedt')?.errors
+                      "
+                      >Please provide a valid polendorsedt</mat-error
+                    >
+                  </div>
+                </div>
+              </div> -->
+              <div class="col-md-6 col-lg-4">
+                <div
+                  class="input-group"
+                  [class.is-invalid]="
+                    policyEndorsementMasterForm.get('polendorsedt')?.touched &&
+                    policyEndorsementMasterForm.get('polendorsedt')?.invalid
+                  "
+                  appDate1
+                >
+                  <span class="input-group-text leftform_lbl font500 font12 req"
+                    ><b>*</b>Endorse Dt</span
+                  >
+                  <input
+                    type="text"
+                    [autocomplete]="'off'"
+                    class="form-control border-start-0 rounded-0 post_input_field font500 text-dark1 font12"
+                    matInput
+                    [max]="maxDate"
+                    [matDatepicker]="polendorsedt"
+                    formControlName="polendorsedt"
+                  />
+                  <div
+                    class="input-group-append bg-white post_input_field datepicker_field border-start-0"
+                    [class.is-invalid]="
+                      policyEndorsementMasterForm.get('polendorsedt')
+                        ?.touched &&
+                      policyEndorsementMasterForm.get('polendorsedt')?.errors
+                    "
+                  >
+                    <span class="input-group-addon">
+                      <mat-datepicker-toggle
+                        matSuffix
+                        [for]="polendorsedt"
+                      ></mat-datepicker-toggle>
+                      <mat-datepicker #polendorsedt></mat-datepicker>
+                    </span>
+                  </div>
+                </div>
+                <div
+                  class="invalid-feedback"
+                  [class.d-block]="
+                    policyEndorsementMasterForm.get('polendorsedt')?.touched &&
+                    policyEndorsementMasterForm.get('polendorsedt')?.invalid
+                  "
+                >
+                  <div
+                    *ngIf="policyEndorsementMasterForm.get('polendorsedt')?.errors?.['required']"
+                  >
+                    This is required
+                  </div>
+                  <div
+                    *ngIf="
+                      policyEndorsementMasterForm
+                        .get('polendorsedt')
+                        ?.hasError('matDatepickerMax')
+                    "
+                  >
+                    Furture policy endorsement date not excepted
+                  </div>
+                </div>
+              </div>
+              <!-- INPE_POLENDORSEDT -- End   -->
+
+              <!-- INPE_ENDRFRDT -- Start  -->
+              <div class="col-md-4">
+                <div class="input-group has-validation" appDate1>
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12 req"
+                    ><b>*</b>Endorse effective From</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0 rounded-0 post_input_field font500 text-dark1 font12"
+                    matInput
+                    [matDatepicker]="endrfrdt"
+                    formControlName="endrfrdt"
+                  />
+                  <div
+                    class="input-group-append bg-white post_input_field datepicker_field border-start-0"
+                  >
+                    <span class="input-group-addon">
+                      <mat-datepicker-toggle
+                        matSuffix
+                        [for]="endrfrdt"
+                        tabindex="-1"
+                      ></mat-datepicker-toggle>
+                      <mat-datepicker #endrfrdt tabindex="-1"></mat-datepicker>
+                    </span>
+                  </div>
+
+                  <div>
+                    <mat-error
+                      class="errorField common_color_txt font12 font500 invalid-feedback d-block"
+                      *ngIf="
+                        policyEndorsementMasterForm.get('endrfrdt')?.errors
+                      "
+                      >Policy Endorse Effective From Date can't be
+                      blank</mat-error
+                    >
+                  </div>
+                </div>
+              </div>
+              <!-- INPE_ENDRFRDT -- End   -->
+
+              <!-- INPE_ENDRUPTODT -- Start  -->
+              <div class="col-md-4 col-lg-4">
+                <div class="input-group has-validation" appDate1>
+                  <span
+                    class="input-group-text leftform_lbl border-end-0 font500 font12 req"
+                    ><b>*</b>To</span
+                  >
+                  <input
+                    type="text"
+                    autocapitalize="off"
+                    autocorrect="off"
+                    autocomplete="off"
+                    spellcheck="false"
+                    class="form-control border-start-0 post_input_field font500 font12"
+                    matInput
+                    [matDatepicker]="endruptodt"
+                    formControlName="endruptodt"
+                  />
+                  <div
+                    class="input-group-append bg-white post_input_field datepicker_field border-start-0"
+                  >
+                    <span class="input-group-addon">
+                      <mat-datepicker-toggle
+                        matSuffix
+                        [for]="endruptodt"
+                        tabindex="-1"
+                      ></mat-datepicker-toggle>
+                      <mat-datepicker
+                        #endruptodt
+                        tabindex="-1"
+                      ></mat-datepicker>
+                    </span>
+                  </div>
+                  <div>
+                    <mat-error
+                      class="errorField common_color_txt font12 font500 invalid-feedback d-block"
+                      *ngIf="
+                        policyEndorsementMasterForm.get('endruptodt')?.errors
+                      "
+                      >Enter Policy Endorsement Effective upto Date</mat-error
+                    >
+                  </div>
+                </div>
+              </div>
+              <!-- INPE_ENDRUPTODT -- End   -->
+
+              <!-- INPE_ENDRINSVAL -- Start  -->
+              <div class="col-md-6">
+                <div
+                  class="input-group has-validation"
+                  [class.is-invalid]="
+                    policyEndorsementMasterForm.controls['endrinsval']
+                      .invalid &&
+                    policyEndorsementMasterForm.controls['endrinsval'].touched
+                  "
+                >
+                  <span
+                    class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                    ><b>*</b>Endorsement Value</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0 post_input_field font500 font12 text-end"
+                    formControlName="endrinsval"
+                    [decimalPoint]="{ decPlaces: '0' }"
+                  />
+                </div>
+                <div
+                  *ngIf="
+                    policyEndorsementMasterForm.controls['endrinsval']
+                      .invalid &&
+                    policyEndorsementMasterForm.controls['endrinsval'].touched
+                  "
+                >
+                  <div
+                    class="errorField common_color_txt font12 font500"
+                    *ngIf="policyEndorsementMasterForm.controls['endrinsval'].errors && policyEndorsementMasterForm.controls['endrinsval'].errors?.['required']"
+                  >
+                    Invalid Policy Endorsement Value
+                  </div>
+                  <div
+                    class="errorField common_color_txt font12 font500"
+                    *ngIf="policyEndorsementMasterForm.controls['endrinsval'].errors?.['maxlength']?.actualLength"
+                  >
+                    Max 22 Character allowed. Current is{{policyEndorsementMasterForm.controls['endrinsval'].errors?.['maxlength']?.actualLength}}
+                    characters.
+                  </div>
+                </div>
+              </div>
+              <!-- INPE_ENDRINSVAL -- End   -->
+
+              <!-- INPE_ENDRPREMIUM -- Start  -->
+              <div class="col-md-6">
+                <div
+                  class="input-group has-validation"
+                  [class.is-invalid]="
+                    policyEndorsementMasterForm.controls['endrpremium']
+                      .invalid &&
+                    policyEndorsementMasterForm.controls['endrpremium'].touched
+                  "
+                >
+                  <span
+                    class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                    ><b>*</b>Endorsement Premium</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0 post_input_field font500 font12 text-end"
+                    formControlName="endrpremium"
+                    [decimalPoint]="{ decPlaces: '0' }"
+                  />
+                </div>
+                <div
+                  *ngIf="
+                    policyEndorsementMasterForm.controls['endrpremium']
+                      .invalid &&
+                    policyEndorsementMasterForm.controls['endrpremium'].touched
+                  "
+                >
+                  <div
+                    class="errorField common_color_txt font12 font500"
+                    *ngIf="policyEndorsementMasterForm.controls['endrpremium'].errors && policyEndorsementMasterForm.controls['endrpremium'].errors?.['required']"
+                  >
+                    Invalid Policy Endorsement Premium
+                  </div>
+                  <div
+                    class="errorField common_color_txt font12 font500"
+                    *ngIf="policyEndorsementMasterForm.controls['endrpremium'].errors?.['maxlength']?.actualLength"
+                  >
+                    Max 22 Character allowed. Current is{{policyEndorsementMasterForm.controls['endrpremium'].errors?.['maxlength']?.actualLength}}
+                    characters.
+                  </div>
+                </div>
+              </div>
+              <!-- INPE_ENDRPREMIUM -- End   -->
+
+              <!-- INPE_ENDRDETAIL -- Start  -->
+              <div class="col-md-12">
+                <div
+                  class="input-group has-validation"
+                  [class.is-invalid]="
+                    policyEndorsementMasterForm.controls['endrdetail']
+                      .invalid &&
+                    policyEndorsementMasterForm.controls['endrdetail'].touched
+                  "
+                >
+                  <span
+                    class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                    ><b>*</b>Endorsement Details</span
+                  >
+                  <textarea
+                    type="text"
+                    class="form-control border-start-0 post_input_field font500 font12"
+                    rows="3"
+                    formControlName="endrdetail"
+                  ></textarea>
+                </div>
+                <div
+                  *ngIf="
+                    policyEndorsementMasterForm.controls['endrdetail']
+                      .invalid &&
+                    policyEndorsementMasterForm.controls['endrdetail'].touched
+                  "
+                >
+                  <div
+                    class="errorField common_color_txt font12 font500 req"
+                    *ngIf="policyEndorsementMasterForm.controls['endrdetail'].errors && policyEndorsementMasterForm.controls['endrdetail'].errors?.['required']"
+                  >
+                    Endorsement Detail Is Required
+                  </div>
+                  <div
+                    class="errorField common_color_txt font12 font500"
+                    *ngIf="policyEndorsementMasterForm.controls['endrdetail'].errors?.['maxlength']?.actualLength"
+                  >
+                    Max 1000 Character allowed. Current is{{policyEndorsementMasterForm.controls['endrdetail'].errors?.['maxlength']?.actualLength}}
+                    characters.
+                  </div>
+                </div>
+              </div>
+              <!-- INPE_ENDRDETAIL -- End   -->
+
+              <!-- INPE_CERTNUM -- Start  -->
+              <div class="col-md-2">
+                <div class="input-group">
+                  <span
+                    class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                    >Certnum</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0 post_input_field font500 font12"
+                    formControlName="certnum"
+                  />
+                </div>
+                <div
+                  class="errorField common_color_txt font12 font500"
+                  *ngIf="policyEndorsementMasterForm.controls['certnum'].errors && policyEndorsementMasterForm.controls['certnum'].errors?.['required']"
+                >
+                  Certnum Is Required
+                </div>
+                <div
+                  class="errorField common_color_txt font12 font500"
+                  *ngIf="policyEndorsementMasterForm.controls['certnum'].errors?.['maxlength']?.actualLength"
+                >
+                  Max 10 Character allowed. Current is{{policyEndorsementMasterForm.controls['certnum'].errors?.['maxlength']?.actualLength}}
+                  characters.
+                </div>
+              </div>
+              <!-- INPE_CERTNUM -- End   -->
+
+              <!-- INPE_TRANSER -- Start  -->
+              <div class="col-md-2">
+                <div class="input-group">
+                  <span
+                    class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                    >Transer</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0 post_input_field font500 font12"
+                    formControlName="transer"
+                  />
+                </div>
+                <div
+                  class="errorField common_color_txt font12 font500"
+                  *ngIf="policyEndorsementMasterForm.controls['transer'].errors && policyEndorsementMasterForm.controls['transer'].errors?.['required']"
+                >
+                  Transer Is Required
+                </div>
+                <div
+                  class="errorField common_color_txt font12 font500"
+                  *ngIf="policyEndorsementMasterForm.controls['transer'].errors?.['maxlength']?.actualLength"
+                >
+                  Max 10 Character allowed. Current is{{policyEndorsementMasterForm.controls['transer'].errors?.['maxlength']?.actualLength}}
+                  characters.
+                </div>
+              </div>
+              <!-- INPE_TRANSER -- End   -->
+
+              <!-- INPE_ENDRPAYMODE -- Start  -->
+              <div class="col-md-4">
+                <div
+                  class="input-group has-validation"
+                  [class.is-invalid]="
+                    policyEndorsementMasterForm.controls['endrpaymode']
+                      .invalid &&
+                    policyEndorsementMasterForm.controls['endrpaymode'].touched
+                  "
+                >
+                  <span
+                    class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                    ><b>*</b>Endr Pay Mode</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control border-start-0 post_input_field font500 font12"
+                    formControlName="endrpaymode"
+                    [f1]="{ id: 'PAYMODES' }"
+                  />
+                  <!-- <input
+                    type="text"
+                    class="form-control w-50 border-start-0 post_input_field font500 font12"
+                    formControlName="endrpaymodeName"
+                  /> -->
+                </div>
+                <div
+                  *ngIf="
+                    policyEndorsementMasterForm.controls['endrpaymode']
+                      .invalid &&
+                    policyEndorsementMasterForm.controls['endrpaymode'].touched
+                  "
+                >
+                  <div
+                    class="errorField common_color_txt font12 font500"
+                    *ngIf="policyEndorsementMasterForm.controls['endrpaymode'].errors && policyEndorsementMasterForm.controls['endrpaymode'].errors?.['required']"
+                  >
+                    Endorsement Paymode Is Required
+                  </div>
+                  <div
+                    class="errorField common_color_txt font12 font500"
+                    *ngIf="policyEndorsementMasterForm.controls['endrpaymode'].errors?.['maxlength']?.actualLength"
+                  >
+                    Max 1 Character allowed. Current is{{policyEndorsementMasterForm.controls['endrpaymode'].errors?.['maxlength']?.actualLength}}
+                    characters.
+                  </div>
+                </div>
+              </div>
+              <!-- INPE_ENDRPAYMODE -- End   -->
+
+              <!-- endrpayby -- Start  -->
+              <div class="col-md-4">
+                <div
+                  class="input-group has-validation"
+                  [class.is-invalid]="
+                    policyEndorsementMasterForm.controls['endrpayby'].invalid &&
+                    policyEndorsementMasterForm.controls['endrpayby'].touched
+                  "
+                >
+                  <span
+                    class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                    ><b>*</b>Endrpayby By
+                  </span>
+                  <input
+                    type="text"
+                    class="form-control border-start-0 post_input_field font500 font12"
+                    formControlName="endrpayby"
+                    [f1]="{ id: 'POLICYPREMPDBY' }"
+                  />
+                  <!-- <input
+                    type="text"
+                    class="form-control w-50 border-start-0 post_input_field font500 font12"
+                    formControlName="endrpaybyName"
+                  /> -->
+                </div>
+                <div
+                  *ngIf="
+                    policyEndorsementMasterForm.controls['endrpayby'].invalid &&
+                    policyEndorsementMasterForm.controls['endrpayby'].touched
+                  "
+                >
+                  <div
+                    class="errorField common_color_txt font12 font500"
+                    *ngIf="policyEndorsementMasterForm.controls['endrpayby'].errors && policyEndorsementMasterForm.controls['endrpayby'].errors?.['required']"
+                  >
+                    Paid By Is Required
+                  </div>
+                  <div
+                    class="errorField common_color_txt font12 font500"
+                    *ngIf="policyEndorsementMasterForm.controls['endrpayby'].errors?.['maxlength']?.actualLength"
+                  >
+                    Max 5 Character allowed. Current is{{policyEndorsementMasterForm.controls['endrpayby'].errors?.['maxlength']?.actualLength}}
+                    characters.
+                  </div>
+                </div>
+              </div>
+              <!-- endrpayby-- End   -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner text-center bg-white br-10">
+      <div class="flex justify-content-between">
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="a"
+          (click)="addInspolendorsementDetails()"
+          [disabled]="initialMode || disabledAdd"
+        >
+          Add
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="r"
+          (click)="retrieveInspolendorsementDetails()"
+          [disabled]="initialMode"
+        >
+          Retrieve
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="s"
+          (click)="saveInspolendorsement()"
+          [disabled]="!initialMode"
+        >
+          Save
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="b"
+          (click)="handleBackClick()"
+          [disabled]="!initialMode"
+        >
+          Back
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

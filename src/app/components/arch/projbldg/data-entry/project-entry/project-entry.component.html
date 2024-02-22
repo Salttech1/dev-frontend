@@ -1,0 +1,489 @@
+<!--HTML for Project Entry-->
+<section>
+  <div class="container">
+    <div class="row mb-3">
+      <div class="col-md-12">
+        <form [formGroup]="projectSelectionsForm">
+          <div class="row">
+            <div class="col-md-6">
+              <div
+                class="input-group"
+                [class.is-invalid]="
+                  projectSelectionsForm.controls['code'].invalid &&
+                  projectSelectionsForm.controls['code'].touched
+                "
+              >
+                <span class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                  ><b>*</b>Project Code</span
+                >
+                <app-f1
+                  id="projectCode"
+                  [formControlName]="'code'"
+                  name="prjCode"
+                  class="form-control post_input_field border-end-0 border-start-0 d-flex"
+                  titleValue="{{ projectIDF1List?.mainheader }}"
+                  [tableData]="projectIDF1List?.dataSet"
+                  [colHeader]="projectIDColHeadings"
+                  [inputBBC]="projectIDF1Bbc"
+                  (updatedSelectedValue)="getProjectID($event)"
+                  [dynaPopId]="'PROJECTS'"
+                  [queryConditon]="''"
+                  [errorMessage]="'Invalid Project Code'"
+                >
+                </app-f1>
+                <input
+                  type="text"
+                  formControlName="projectName"
+                  class="form-control w-50 border-start-0 post_input_field font500 font12"
+                />
+              </div>
+            </div>
+            <div
+              *ngIf="
+                projectSelectionsForm.controls['code'].invalid &&
+                projectSelectionsForm.controls['code'].touched
+              "
+            >
+              <div
+                class="errorField common_color_txt font12 font500"
+                *ngIf="projectSelectionsForm.controls['code'].errors?.['required']"
+              >
+                * Project Code is required
+              </div>
+              <div
+                class="errorField common_color_txt font12 font500"
+                *ngIf="projectSelectionsForm.controls['code'].errors?.['maxlength']?.actualLength"
+              >
+                Max 4 Character allowed. Current is
+                {{projectSelectionsForm.controls['code'].errors?.['maxlength']?.actualLength}}
+                characters.
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="row" *ngIf="initialMode">
+      <div class="col-md-12">
+        <div
+          class="group_panel br-10 form_common_bg p-3 pt-4 position-relative"
+        >
+          <p class="bg-white font600 group_title mb-0 position-absolute">
+            Project Details
+          </p>
+          <div class="row">
+            <div class="col-md-12">
+              <form [formGroup]="projectForm">
+                <div class="row">
+                  <div class="col-md-6 mb-2">
+                    <!--Project Name START-->
+                    <div
+                      class="input-group has-validation"
+                      [class.is-invalid]="
+                        projectForm.controls['name'].invalid &&
+                        projectForm.controls['name'].touched
+                      "
+                    >
+                      <span
+                        class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                        ><b>*</b>Project Name</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        formControlName="name"
+                        id="Name2"
+                      />
+                    </div>
+                    <div
+                      *ngIf="
+                        projectForm.controls['name'].invalid &&
+                        projectForm.controls['name'].touched
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="projectForm.controls['name'].errors && projectForm.controls['name'].errors?.['required']"
+                      >
+                        Project Name is required
+                      </div>
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="projectForm.controls['name'].errors?.['maxlength']?.actualLength"
+                      >
+                        Max 50 Character allowed. Current is
+                        {{projectForm.controls['name'].errors?.['maxlength']?.actualLength}}
+                        characters.
+                      </div>
+                    </div>
+                  </div>
+                  <!--Project Name END-->
+                  <div class="col-md-6 mb-2">
+                    <!--Project details START-->
+                    <div
+                      class="input-group has-validation"
+                      [class.is-invalid]="
+                        projectForm.controls['details'].invalid &&
+                        projectForm.controls['details'].touched
+                      "
+                    >
+                      <span
+                        class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                        ><b>*</b>Project Details</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                        formControlName="details"
+                      />
+                    </div>
+                    <div
+                      *ngIf="
+                        projectForm.controls['details'].invalid &&
+                        projectForm.controls['details'].touched
+                      "
+                    >
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="projectForm.controls['details'].errors && projectForm.controls['details'].errors?.['required']"
+                      >
+                        Project Name is required
+                      </div>
+                      <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="projectForm.controls['details'].errors?.['maxlength']?.actualLength"
+                      >
+                        Max 50 Character allowed. Current is
+                        {{projectForm.controls['details'].errors?.['maxlength']?.actualLength}}
+                        characters.
+                      </div>
+                    </div>
+                  </div>
+                  <!--Project details END-->
+                  <div class="col-md-6 mb-2">
+                    <!--Proprietor START-->
+                    <div class="input-group">
+                      <span
+                        class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                        ><b>*</b>Proprietor</span
+                      >
+                      <app-f1
+                        id="proprietorId"
+                        [formControlName]="'proprietor'"
+                        name="ProprietorCode"
+                        class="form-control post_input_field border-end-0 border-start-0 d-flex"
+                        titleValue="{{ proprietorIDF1List?.mainheader }}"
+                        [tableData]="proprietorIDF1List?.dataSet"
+                        [colHeader]="proprietorIDColHeadings"
+                        [inputBBC]="proprietorIDF1Bbc"
+                        (updatedSelectedValue)="getProprietorID($event)"
+                        [dynaPopId]="'PROPRIETOR'"
+                        [queryConditon]="''"
+                        [errorMessage]="'Invalid proprietor Code'"
+                      >
+                      </app-f1>
+                      <input
+                        type="text"
+                        formControlName="proprietorName"
+                        class="form-control w-50 border-start-0 post_input_field font500 font12"
+                      />
+                    </div>
+                  </div>
+                  <!--Proprietor END-->
+                  <div class="col-md-6 mb-2">
+                    <!--Company START-->
+                    <div class="input-group">
+                      <span
+                        class="input-group-text border-end-0 leftform_lbl font500 font12 req"
+                        ><b>*</b>Company</span
+                      >
+                      <app-f1
+                        id="companyId"
+                        [formControlName]="'company'"
+                        name="CompanyCode"
+                        class="form-control post_input_field border-end-0 border-start-0 d-flex"
+                        titleValue="{{ companyIDF1List?.mainheader }}"
+                        [tableData]="companyIDF1List?.dataSet"
+                        [colHeader]="companyIDColHeadings"
+                        [inputBBC]="companyIDF1Bbc"
+                        (updatedSelectedValue)="getCompanyID($event)"
+                        [dynaPopId]="'COMPANY'"
+                        [queryConditon]=""
+                        [errorMessage]="'Invalid company Code'"
+                        (click)="createF1DataForCompany()"
+                      >
+                      </app-f1>
+                      <input
+                        type="text"
+                        formControlName="companyName"
+                        class="form-control w-50 border-start-0 post_input_field font500 font12"
+                      />
+                    </div>
+                  </div>
+                  <!--Company END-->
+
+                  <div class="col-md-6 mb-2">
+                    <!--Total buildings START-->
+                    <div class="input-group">
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >Total Buildings</span
+                      >
+                      <input
+                        type="number"
+                        formControlName="bldgcount"
+                        class="form-control border-start-0 post_input_field font500 font12"
+                      />
+                    </div>
+                  </div>
+                  <!--Total buildings END -->
+                  <div class="col-md-6 mb-2">
+                    <!--this is to display blank space on UI-->
+                  </div>
+                  <div class="col-md-6">
+                    <!--Land Tenure START-->
+                    <div class="input-group pb-2">
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >Land Tenure</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control w-50 border-start-0 post_input_field font500 font12"
+                        id="landTenure"
+                        formControlName="tenure"
+                      />
+                    </div>
+                  </div>
+                  <!--Land Tenure END-->
+                  <div class="col-md-6">
+                    <!--Project Carpet Area START-->
+                    <div class="input-group pb-2">
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >Project Carpet Area</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control w-50 border-start-0 post_input_field font500 font12"
+                        id="carpetArea"
+                        formControlName="areaarch"
+                      />
+                    </div>
+                  </div>
+                  <!--Project Carpet Area END-->
+                  <div class="col-md-6">
+                    <!--Project Contract Area START-->
+                    <div class="input-group pb-2">
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >Project Contract Area</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control w-50 border-start-0 post_input_field font500 font12"
+                        id="contractArea"
+                        formControlName="areaengg"
+                      />
+                    </div>
+                  </div>
+                  <!--Project Contract Area END-->
+                  <div class="col-md-6">
+                    <!--Project Sales Area START-->
+                    <div class="input-group pb-2">
+                      <span class="input-group-text leftform_lbl font500 font12"
+                        >Project Sales Area</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control w-50 border-start-0 post_input_field font500 font12"
+                        id="salesArea"
+                        formControlName="areasales"
+                      />
+                    </div>
+                  </div>
+                  <!--Project Sales Area END-->
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="tabs_container pt-4">
+                      <div class="tabs_inner_container">
+                        <ul class="nav nav-tabs">
+                          <li class="nav-item">
+                            <a
+                              class="nav-link lh-20 active text-decoration-none font14 text-dark1 font500"
+                              data-bs-toggle="tab"
+                              href="#projDescription"
+                              accesskey="d"
+                              >Project
+                              <span class="text-decoration-underline">D</span
+                              >escription</a
+                            >
+                          </li>
+                          <li class="nav-item">
+                            <a
+                              class="nav-link lh-20 text-decoration-none font14 text-dark1 font500"
+                              data-bs-toggle="tab"
+                              href="#projAddress"
+                              accesskey="a"
+                              >Project
+                              <span class="text-decoration-underline">A</span
+                              >ddress</a
+                            >
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="tab-content">
+                        <div
+                          class="tab-pane container active p-0"
+                          id="projDescription"
+                        >
+                          <div class="row">
+                            <div class="col-md-6 mb-2">
+                              <div class="input-group">
+                                <span
+                                  class="input-group-text leftform_lbl font500 font12"
+                                  >1</span
+                                >
+                                <input
+                                  type="text"
+                                  class="form-control border-start-0 post_input_field font500 font12"
+                                  formControlName="desc1"
+                                  id="projectDesc1"
+                                />
+                              </div>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                              <div class="input-group">
+                                <span
+                                  class="input-group-text leftform_lbl font500 font12"
+                                  >2</span
+                                >
+                                <input
+                                  type="text"
+                                  class="form-control border-start-0 post_input_field font500 font12"
+                                  formControlName="desc2"
+                                  id="projectDesc2"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6 mb-2">
+                              <div class="input-group">
+                                <span
+                                  class="input-group-text leftform_lbl font500 font12"
+                                  >3</span
+                                >
+                                <input
+                                  type="text"
+                                  class="form-control border-start-0 post_input_field font500 font12"
+                                  formControlName="desc3"
+                                  id="projectDesc3"
+                                />
+                              </div>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                              <div class="input-group">
+                                <span
+                                  class="input-group-text leftform_lbl font500 font12"
+                                  >4</span
+                                >
+                                <input
+                                  type="text"
+                                  class="form-control border-start-0 post_input_field font500 font12"
+                                  formControlName="desc4"
+                                  id="projectDesc4"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6 mb-2">
+                              <div class="input-group">
+                                <span
+                                  class="input-group-text leftform_lbl font500 font12"
+                                  >5</span
+                                >
+                                <input
+                                  type="text"
+                                  class="form-control border-start-0 post_input_field font500 font12"
+                                  formControlName="desc5"
+                                  id="projectDesc5"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="tab-pane container fade p-0"
+                          id="projAddress"
+                        >
+                          <app-address
+                            [addressListFlag]="true"
+                            (passAddressData)="getReceiveAddressData($event)"
+                            [addressFetchData]="addressData"
+                            [classesResponsive]="'col-md-6 col-xl-4'"
+                          ></app-address>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner text-center bg-white br-10">
+      <div class="flex justify-content-between">
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="a"
+          (click)="addProjectDetails()"
+          [disabled]="initialMode"
+        >
+          Add
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="r"
+          (click)="retrieveProjectDetails()"
+          [disabled]="initialMode"
+        >
+          Retrieve
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="d"
+          disabled="true"
+          (click)="('')"
+        >
+          Delete
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="s"
+          [disabled]="!initialMode"
+          (click)="saveProject()"
+        >
+          Save
+        </button>
+        <button
+          type="submit"
+          class="bg_common_red border-0 common_action_btn text-white br-10 ms-1"
+          accesskey="b"
+          [disabled]="!initialMode"
+          (click)="handleBackClick()"
+        >
+          Back
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

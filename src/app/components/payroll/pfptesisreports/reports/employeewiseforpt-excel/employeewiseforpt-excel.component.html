@@ -1,0 +1,233 @@
+<section class="container">
+  <form [formGroup]="employeewiseforptexcel">
+    <div class="d-flex justify-content-center">
+      <div formGroupName="reportParameters">
+        <div class="row g-2 mb-3">
+          <div class="col-lg-12">
+            <div
+              class="group_panel br-10 form_common_bg p-3 pt-3 position-relative"
+            >
+              <p
+                class="bg-white font600 group_title mb-0 position-absolute"
+              ></p>
+              <div class="row mb-2 mt-2">
+                <div class="col-lg-12">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Company Code</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0 post_input_field"
+                      formControlName="PCompany"
+                      [f1]="{ id: 'SALARYCOY' }"
+                      id="SALARYCOY"
+                      autocomplete="off"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-2 mt-2">
+                <div class="col-lg-12">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Department</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0 post_input_field"
+                      formControlName="PDept"
+                      [f1]="{ id: 'DEPARTMENT', multi: true }"
+                      id="DEPARTMENT"
+                      autocomplete="off"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-2 mt-2">
+                <div class="col-lg-12">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Emp Code</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0 post_input_field"
+                      formControlName="PEmpCode"
+                      [f1]="{ id: 'EMPPERS', multi: true }"
+                      id="EMPPERS"
+                      autocomplete="off"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-lg-12">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Salary Type</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0 post_input_field"
+                      formControlName="PSalType"
+                      [f1]="{ id: 'SALARYTYPES', multi: true }"
+                      id="SALARYTYPES"
+                      autocomplete="off"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="mb-2">
+                <div
+                  class="input-group"
+                  appYearmonthformatdirective
+                  [class.is-invalid]="
+                    employeewiseforptexcel.controls['reportParameters']
+                      .controls['PPayMonth'].invalid &&
+                    employeewiseforptexcel.controls['reportParameters']
+                      .controls['PPayMonth'].touched
+                  "
+                >
+                  <span
+                    class="input-group-text leftform_lbl font500 text-dark1 font12"
+                    >Month</span
+                  >
+                  <input
+                    type="text"
+                    [matDatepicker]="pickerYearSelection"
+                    class="form-control border-start-0 post_input_field"
+                    formControlName="PPayMonth"
+                    id="PPayMonth"
+                  />
+                  <div
+                    class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                  >
+                    <span class="input-group-addon">
+                      <mat-datepicker-toggle
+                        matSuffix
+                        [for]="pickerYearSelection"
+                      ></mat-datepicker-toggle>
+                      <mat-datepicker
+                        #pickerYearSelection
+                        startView="multi-year"
+                        (monthSelected)="
+                          chosenMonthHandler(
+                            $event,
+                            pickerYearSelection,
+                            employeewiseforptexcel.get(
+                              'reportParameters.fromDate'
+                            )
+                          )
+                        "
+                      ></mat-datepicker>
+                    </span>
+                  </div>
+                </div>
+                <div
+                  class="disInl me-2"
+                  *ngIf="
+                    employeewiseforptexcel.controls['reportParameters']
+                      .controls['PPayMonth'].invalid &&
+                    (employeewiseforptexcel.controls['reportParameters']
+                      .controls['PPayMonth'].touched ||
+                      employeewiseforptexcel.controls['reportParameters']
+                        .controls['PPayMonth'].dirty)
+                  "
+                >
+                  <div
+                    class="errorField common_color_txt font12 font500 disInl"
+                    *ngIf="employeewiseforptexcel.controls['reportParameters'].controls['PPayMonth'].errors && employeewiseforptexcel.controls['reportParameters'].controls['PPayMonth'].errors?.['required']"
+                  >
+                    Month is required
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-2 mb-2">
+                <div class="col-lg-12">
+                  <div class="input-group" appDate1>
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      >Payment Date</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0 post_input_field font500 font12 squareinput-radius d-flex"
+                      formControlName="PPayDate"
+                      matInput
+                      autocomplete="off"
+                      [matDatepicker]="PPayDate"
+                      id="PPayDate"
+                    />
+                    <div
+                      class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0 d-flex"
+                    >
+                      <span class="input-group-addon">
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="PPayDate"
+                          tabindex="-1"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #PPayDate></mat-datepicker>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mb-2">
+                <div class="col-lg-12">
+                  <div *ngIf="empTypeVisible" class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Employee Type</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control border-start-0 post_input_field"
+                      formControlName="PEmpType"
+                      [f1]="{ id: 'EMPTY', multi: false }"
+                      id="EMPTY"
+                      autocomplete="off"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</section>
+
+<app-loader *ngIf="loaderToggle"></app-loader>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner text-center bg-white br-10 w-100">
+      <div class="flex justify-content-between">
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+          accesskey="w"
+          (click)="exportReport()"
+        >
+          Do<span class="text-decoration-underline">w</span>nload
+        </button>
+        <!-- <button type="submit" class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white" [disabled]="true" accesskey="p" >Preview</button> -->
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+          accesskey="x"
+          (click)="handleExitClick()"
+        >
+          E<span class="text-decoration-underline">x</span>it
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

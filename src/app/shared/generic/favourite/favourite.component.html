@@ -1,0 +1,205 @@
+<div class="container mst_res">
+  <section class="res_menu_section pt-2">
+    <div class="br-10 group_panel p-3 position-relative">
+      <p class="bg-white font600 group_title mb-0 position-absolute">
+        Favourites
+      </p>
+      <ul class="p-0 fav_menu_ul">
+        <li
+          class="menu_li list-unstyled"
+          *ngFor="let i of resMenu; let c = index"
+        >
+          <a
+            class="d-flex text-dark1 d-flex text-decoration-none font600"
+            path="{{ i.description | trimwhitespace }}"
+            *ngIf="!i.sub_menu?.length"
+          >
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="{{ i.description | trimwhitespace }}_{{ i.code }}"
+                [checked]="i?.favourite == 'Y' ? true : false"
+                (change)="favChkTrigger(i.code, $event, !!i?.favourite)"
+              />
+              <label
+                class="font500 menu_text position-relative"
+                for="{{ i.description | trimwhitespace }}_{{ i.code }}"
+                >{{ i.description }}</label
+              >
+            </div>
+          </a>
+          <a
+            class="d-flex justify-content-between text-black text-decoration-none"
+            *ngIf="i.sub_menu?.length"
+          >
+            <span class="font600 menu_text position-relative d-flex">{{
+              i.description
+            }}</span>
+          </a>
+          <ul class="menu_list_ul_item ps-0 mb-0" *ngIf="i.sub_menu?.length">
+            <li
+              class="menu_list_li_items list-unstyled"
+              *ngFor="let l1 of i.sub_menu; let j = index"
+            >
+              <a
+                class="menu_list_li_items_a text-black text-decoration-none position-relative d-flex"
+                path="{{ i.description | trimwhitespace }}/{{
+                  l1.description | trimwhitespace
+                }}"
+                *ngIf="!l1?.sub_menu?.length"
+              >
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="{{ l1.description | trimwhitespace }}_{{ l1.code }}"
+                    [checked]="l1?.favourite == 'Y' ? true : false"
+                    (change)="favChkTrigger(l1.code, $event, !!l1?.favourite)"
+                  />
+                  <span
+                    class="font500 menu_list_txt font12 d-flex"
+                    for="{{ l1.description | trimwhitespace }}_{{ l1.code }}"
+                    >{{ l1.description }}</span
+                  >
+                </div>
+              </a>
+
+              <a
+                type="button"
+                class="d-flex menu_list_li_items_a text-black text-decoration-none position-relative justify-content-between ps-1"
+                *ngIf="l1?.sub_menu?.length"
+              >
+                <span class="menu_list_txt font500 font12 d-flex">
+                  <img src="assets/images/rightarr.svg" class="me-2" />
+                  {{ l1.description }}
+                </span>
+              </a>
+              <ul
+                class="menu_list_ul_item ps-0 mb-0"
+                *ngIf="l1.sub_menu?.length"
+              >
+                <li
+                  class="menu_list_li_items list-unstyled"
+                  *ngFor="let l2 of l1.sub_menu; let t = index"
+                >
+                  <a
+                    class="menu_list_li_items_a text-black text-decoration-none position-relative d-flex"
+                    path="{{ i.description | trimwhitespace }}/{{
+                      l1.description | trimwhitespace
+                    }}/{{ l2.description | trimwhitespace }}"
+                    *ngIf="!l2?.sub_menu?.length"
+                  >
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id="{{ l2.description | trimwhitespace }}_{{ l2.code }}"
+                        [checked]="l2?.favourite == 'Y' ? true : false"
+                        (change)="
+                          favChkTrigger(l2.code, $event, !!l2?.favourite)
+                        "
+                      />
+                      <label
+                        class="menu_list_txt font500 font12"
+                        for="{{ l2.description | trimwhitespace }}_{{
+                          l2.code
+                        }}"
+                        >{{ l2.description }}</label
+                      >
+                    </div>
+                  </a>
+
+                  <a
+                    class="menu_list_li_items_a text-black text-decoration-none position-relative d-flex justify-content-between"
+                    [class.border-0]="level3"
+                    *ngIf="l2?.sub_menu?.length"
+                  >
+                    <span class="menu_list_txt font500 font12 ps-4">{{
+                      l2.description
+                    }}</span>
+                  </a>
+                  <ul
+                    class="menu_list_ul_item ps-0 mb-0 lastlevel_ul"
+                    *ngIf="l2.sub_menu?.length"
+                  >
+                    <li
+                      class="menu_list_li_items list-unstyled"
+                      *ngFor="let l3 of l2.sub_menu; let t = index"
+                    >
+                      <a
+                        class="border-0 menu_list_li_items_a text-black text-decoration-none position-relative d-flex justify-content-between"
+                        path="{{ i.description | trimwhitespace }}/{{
+                          l1.description | trimwhitespace
+                        }}/{{ l2.description | trimwhitespace }}/{{
+                          l3.description | trimwhitespace
+                        }}"
+                        *ngIf="!l3?.sub_menu?.length"
+                      >
+                        <div class="form-check form-check-inline">
+                          <input
+                            class="form-check-input"
+                            type="checkbox"
+                            id="{{ l3.description | trimwhitespace }}_{{
+                              l3.code
+                            }}"
+                            [checked]="l3?.favourite == 'Y' ? true : false"
+                            (change)="
+                              favChkTrigger(l3.code, $event, !!l3?.favourite)
+                            "
+                          />
+                          <label
+                            class="font500 menu_text position-relative"
+                            for="{{ l3.description | trimwhitespace }}_{{
+                              l3.code
+                            }}"
+                            >{{ l3.description }}</label
+                          >
+                        </div>
+                      </a>
+
+                      <a
+                        class="border-0 menu_list_li_items_a text-black text-decoration-none position-relative"
+                        *ngIf="l3?.sub_menu?.length"
+                      >
+                        <span class="menu_list_txt font500 font12">{{
+                          l3.description
+                        }}</span>
+                        <img
+                          src="assets/images/d_arrow.svg"
+                          alt
+                          style="transform: rotate(-90deg)"
+                        />
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </section>
+</div>
+<app-loader *ngIf="loader"></app-loader>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner bg-white br-10 d-flex justify-content-center">
+      <button
+        class="bg_common_red common_action_btn br-10"
+        accesskey="s"
+        (click)="save()"
+      >
+        Save
+      </button>
+      <a
+        class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone text-decoration-none"
+        accesskey="x"
+        routerLink="/dashboard"
+      >
+        E<u>x</u>it
+      </a>
+    </div>
+  </div>
+</section>

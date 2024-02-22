@@ -1,0 +1,49 @@
+.input-group-text {
+  border-radius: 9px 0px 0px 9px;
+}
+
+.input-group input {
+  text-transform: uppercase;
+}
+
+.input-group-text.req > b {
+  color: red;
+}
+
+.disInl {
+  display: inline-block;
+}
+
+.is-invalid,
+.is-invalid > .input-group-text,
+.is-invalid > .form-control,
+.is-invalid > app-f1 {
+  border-color: red;
+}
+
+.form-control {
+  border-radius: 0.6rem;
+}
+
+/* tab structure */
+.tabs_container .nav-item .nav-link {
+  padding: 10px 20px;
+  background: #fdfdfd !important;
+}
+.tabs_container .nav-tabs .nav-link:hover {
+  border-color: transparent;
+}
+.tabs_container .nav-link.active {
+  border-radius: 10px 10px 0px 0px;
+  border-color: #d9dce0 !important;
+  border-bottom-color: transparent !important;
+  font-weight: 600 !important;
+}
+.tabs_container .tab-content {
+  border: 1px solid #d9dce0;
+  border-top: unset;
+  background: rgba(251, 251, 251, 0.4);
+  border-radius: 0px 10px 10px 10px;
+  padding: 20px 30px;
+  /* padding: 30px 45px; */
+}

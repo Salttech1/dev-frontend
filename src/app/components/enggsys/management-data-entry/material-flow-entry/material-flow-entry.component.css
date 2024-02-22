@@ -1,0 +1,12 @@
+.form-check-input[type="radio"]:after {
+  display: none;
+}
+
+.form-check-input:checked[type="radio"] {
+  border-width: 4px;
+}
+.customeSize{
+  height: 1rem;
+  width: 1rem;
+  margin-left: 1rem;
+}

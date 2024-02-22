@@ -1,0 +1,100 @@
+  .datalistinput {
+    border-radius: 0px 9px 9px 0px !important;
+  }
+
+  table > tbody{
+    vertical-align: middle;
+}
+.btn.action_btn {
+    padding: 3px;
+}
+
+.view th:last-child,
+.view td:last-child {
+   position: sticky;
+   background-color: #fff;
+   width: 50px;
+   min-width: 50px;
+   max-width: 50px;
+   right: 0px;
+}
+
+.tableTbl tbody td{
+  padding: 0;
+}
+
+.empl_img{
+  width: 96px;
+  height: 120px;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.form-check-grbox{
+  min-height : 0 !important;
+  margin-bottom : 0 !important;
+} 
+
+.jobinfotbody {
+  border-style: none;
+  display: table ;
+  width:100%;
+}
+
+.mytabs_container{
+  padding: 5px 10px;
+}
+
+.myaction_btn img {
+  width: 18px;
+  height: 18px;
+  border-radius: 3px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-right: 0px;
+  padding-left: 0px;
+  border-top-width: 0px;
+  border-bottom-width: 0px;
+  border-right-width: 0px;
+  border-left-width: 0px;
+}
+
+.mybtn {
+  margin: 0;
+  padding: 0;
+  border-style: none;
+  display: table ;
+}
+
+.tabs_container .nav-link.active {
+  border-radius: 10px 10px 0px 0px;
+  border-color: #d9dce0 !important;
+  border-bottom-color: transparent !important;
+  font-weight: 600 !important;
+  opacity: 1 !important;
+}
+.tabs_container .tab-content {
+  border: 1px solid #d9dce0;
+  border-top: unset;
+  background: rgba(251, 251, 251, 0.4);
+  border-radius: 0px 10px 10px 10px;
+  padding: 10px 15px;
+}
+.tabs_container .nav-item .nav-link {
+  padding: 5px 10px;
+  opacity: 0.6;
+  background: #fdfdfd !important;
+}
+
+.tabs_container .tab-content, .form-container {
+  padding: 10px 8px !important;
+}
+
+/* .table_height {
+  overflow-x: auto;
+} */
+
+.saltable-responsive {
+  height: 300px;
+}

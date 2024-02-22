@@ -1,0 +1,91 @@
+<section>
+  <div class="row">
+    <div class="col-sm-12">
+      <form [formGroup]="queryForm">
+        <div class="row g-3">
+          <div class="col-md-5">
+            <div
+              class="input-group has-validation"
+              [class.is-invalid]="
+                queryForm.controls['coy'].invalid &&
+                queryForm.controls['coy'].touched
+              "
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Company</span
+              >
+              <app-f1
+                id="company7"
+                [formControlName]="'coy'"
+                name="coy"
+                class="form-control post_input_field border-start-0 d-flex border-end-0"
+                [titleValue]="company?.mainheader"
+                [tableData]="company?.dataSet"
+                [colHeader]="companyColumns"
+                [inputBBC]="company?.bringBackColumn"
+                (updatedSelectedValue)="getSelectedCompany($event)"
+                [dynaPopId]="'COMPANY'"
+                [queryConditon]="coy_condition"
+                [errorMessage]="'Invalid Company Code'"
+              ></app-f1>
+              <span class="position-relative span_divider"></span>
+              <input
+                type="text"
+                class="form-control bg-white w-50 border-start-0 post_input_field font500 text-dark1 font12"
+                [class.is-invalid]="
+                  queryForm.controls['coy'].invalid &&
+                  queryForm.controls['coy'].touched
+                "
+                formControlName="companyName"
+                tabindex="-1"
+              />
+              <div
+                *ngIf="
+                  queryForm.controls['coy'].invalid &&
+                  queryForm.controls['coy'].touched
+                "
+              >
+                <div
+                  class="invalid-feedback d-block"
+                  *ngIf="queryForm.controls['coy'].errors?.['required']"
+                >
+                  Company Code is required
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner bg-white br-10 d-flex justify-content-center">
+      <button
+        type="submit"
+        class="bg_common_red common_action_btn br-10 first_letter_textdecorationone"
+        accesskey="w"
+        (click)="getReport(false)"
+      >
+      Do<span class="text-decoration-underline">w</span>nload</button>
+      <button
+        type="submit"
+        class="bg_common_red common_action_btn br-10"
+        (click)="getReport(true)"
+        accesskey="p"
+      >
+        Print
+      </button>
+      <a
+        class="bg_common_red border-0 common_action_btn text-white br-10 ms-1 first_letter_textdecorationone text-decoration-none"
+        accesskey="x"
+        routerLink="/dashboard"
+      >
+        E<span class="text-decoration-underline">x</span>it
+      </a>
+    </div>
+  </div>
+</section>
+<app-loader *ngIf="loaderToggle"></app-loader>

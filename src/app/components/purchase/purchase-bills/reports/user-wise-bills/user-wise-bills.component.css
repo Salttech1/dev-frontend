@@ -1,0 +1,30 @@
+.is-invalid,
+.is-invalid > .input-group-text,
+.is-invalid > .form-control,
+.is-invalid > app-f1 {
+  border-color: red;
+}
+
+.input-group .form-control.is-invalid {
+  z-index: 0;
+}
+
+.common_action_btn {
+  margin: 0 0.2rem;
+  color: #fff;
+  border: 0;
+}
+
+.matForm {
+  display: flex;
+  align-items: center;
+  padding-left: 0.5rem;
+}
+
+.form-check-input:checked[type="radio"] {
+  border-width: 4px;
+}
+
+.form-check-input:after {
+  display: none;
+}

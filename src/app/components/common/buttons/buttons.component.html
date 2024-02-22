@@ -1,0 +1,21 @@
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner text-center bg-white br-10">
+      <div class="flex justify-content-between">
+        <div>
+          <button
+            *ngFor="let item of buttonsList; let i = index"
+            id="custome_{{ i }}"
+            type="submit'"
+            [disabled]="item.isDisabled"
+            class="bg_common_red border-0 common_action_btn-inner text-white br-10 ms-1"
+            (click)="onBtnClick(item.key)"
+          >
+           {{ item.name }}
+          </button>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

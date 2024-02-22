@@ -1,0 +1,56 @@
+.depositrenewal_container {
+    padding: 20px 40px;
+    box-shadow: 0px 2px 14px rgb(207 207 207 / 25%);
+}
+
+.input-group .form-control {
+    padding: 4px 0.75rem;
+    font-size: 12px;
+}
+
+/* actions footer */
+.disabled_btn,button.common_action_btn:disabled{
+    background: #F6F7F8;   
+    color:#CFD0D1 !important;
+}
+.common_action_btn{
+    padding: 6px 20px;
+    font-size: 14px;
+}
+.action_conatiner{
+    padding: 15px 0;
+    box-shadow: 0px -1px 7px rgba(218, 218, 218, 0.25);    
+}
+.action_section{
+    bottom: 0;left:0
+}
+.common_action_btn:first-letter{
+    text-decoration: underline;
+}
+
+.form_common_bg {
+    background: rgba(251, 251, 251, 0.4);
+}
+.deposits_title {
+    font-size: 12px !important;
+}
+.deposits_title {
+    top: -10px;
+}
+.lh-24 {
+    line-height: 24px;
+}
+.font600 {
+    font-weight: 600;
+}
+
+.deposits_panel {
+    border: 1px solid #CFD4E4;
+}
+
+.br-10 {
+    border-radius: 10px;
+}
+.first_letter_textdecorationone::first-letter{
+    text-decoration: none;
+}

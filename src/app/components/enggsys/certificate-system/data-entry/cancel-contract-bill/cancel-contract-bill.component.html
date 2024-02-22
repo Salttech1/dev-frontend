@@ -1,0 +1,465 @@
+<form [formGroup]="cancelContractBillForm">
+    <!-- first section -->
+    <section formGroupName="headersForm">
+        <div class="row g-3">
+            <div class="col-md-12">
+                <div class="row g-2">
+                    <!-- rec id -->
+                    <div class="col">
+                        <div class="input-group" [class.is-invalid]="
+                          (cancelContractBillForm?.controls.headersForm.get('recId')?.hasError('required') &&
+                            cancelContractBillForm?.controls.headersForm.get('recId')?.touched) || cancelContractBillForm?.controls.headersForm.get('recId')?.errors?.['notFound']
+                        ">
+                            <span class="input-group-text leftform_lbl font500 text-dark1 font12"><b
+                                    class="text-danger">*</b>Rec ID</span>
+                            <input appCommonAutoFocus type="text" upperCase id="id_recId"
+                                class="form-control border-start-0 post_input_field font500 font12"
+                                formControlName="recId"
+                                [f1]="{ id: 'CONTRACTID', subId: 'contt_closedate is null', isSingleValue: true }" />
+                            <div class="invalid-feedback d-block" *ngIf="
+                           ( cancelContractBillForm.get('headersForm.recId')?.touched &&
+                            cancelContractBillForm.get('headersForm.recId')?.invalid) && !cancelContractBillForm.get('headersForm.recId')?.errors?.['notFound']
+                          ">
+                                Rec ID is required.
+                            </div>
+                            <div class="invalid-feedback d-block"
+                                *ngIf="cancelContractBillForm.get('headersForm.recId')?.errors?.['notFound']">
+                                Rec ID is not valid.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- work code with work name -->
+                    <div class="col-md-2">
+                        <div class="input-group" [class.is-invalid]="
+                          (cancelContractBillForm.get('headersForm.workCode')?.hasError('required') &&
+                            cancelContractBillForm.get('headersForm.workCode')?.touched) || cancelContractBillForm.get('headersForm.workCode')?.errors?.['notFound']
+                        ">
+                            <span class="input-group-text leftform_lbl font500 text-dark1 font12"><b
+                                    class="text-danger">*</b>work</span>
+                            <input type="text" upperCase id="id_workCode"
+                                class="form-control border-start-0 post_input_field font500 font12"
+                                formControlName="workCode"
+                                [f1]="{ id: 'WORKCODES', isSingleValue: true , formData: cancelContractBillForm.get('headersForm.workName') }" />
+                            <!-- <span class="position-relative span_divider"></span>
+                            <input type="text" formControlName="workName"
+                                class="form-control w-50 border-start-0 post_input_field font500 font12" /> -->
+
+                        </div>
+                        <div class="invalid-feedback d-block" *ngIf="
+                        ( cancelContractBillForm.get('headersForm.workCode')?.touched &&
+                         cancelContractBillForm.get('headersForm.workCode')?.invalid) && !cancelContractBillForm.get('headersForm.workCode')?.errors?.['notFound']
+                       ">
+                            work code is required.
+                        </div>
+                        <div class="invalid-feedback d-block"
+                            *ngIf="cancelContractBillForm.get('headersForm.workCode')?.errors?.['notFound']">
+                            work code is not valid.
+                        </div>
+                    </div>
+                    <!-- party code with party name -->
+                    <div class="col-md-2">
+                        <div class="input-group" [class.is-invalid]="
+                          (cancelContractBillForm.get('headersForm.partyCode')?.hasError('required') &&
+                            cancelContractBillForm.get('headersForm.partyCode')?.touched) || cancelContractBillForm.get('headersForm.partyCode')?.errors?.['notFound']
+                        ">
+                            <span class="input-group-text leftform_lbl font500 text-dark1 font12"><b
+                                    class="text-danger">*</b>Party</span>
+                            <input type="text" upperCase id="id_partyCode"
+                                class="form-control border-start-0 post_input_field font500 font12"
+                                formControlName="partyCode"
+                                [f1]="{ id: 'CONTRACTORS', subId:subIdQuery.getConttor, isSingleValue: true , formData: cancelContractBillForm.get('headersForm.partyName') }" />
+                            <!-- <span class="position-relative span_divider"></span>
+                            <input type="text" formControlName="partyName"
+                                class="form-control w-50 border-start-0 post_input_field font500 font12" /> -->
+
+                        </div>
+                        <div class="invalid-feedback d-block" *ngIf="
+                        ( cancelContractBillForm.get('headersForm.partyCode')?.touched &&
+                         cancelContractBillForm.get('headersForm.partyCode')?.invalid) && !cancelContractBillForm.get('headersForm.partyCode')?.errors?.['notFound']
+                       ">
+                            Party code is required.
+                        </div>
+                        <div class="invalid-feedback d-block"
+                            *ngIf="cancelContractBillForm.get('headersForm.partyCode')?.errors?.['notFound']">
+                            Party code is not valid.
+                        </div>
+                    </div>
+                    <!-- building code -->
+                    <div class="col">
+                        <div class="input-group" [class.is-invalid]="
+                          (cancelContractBillForm.get('headersForm.bldgCode')?.hasError('required') &&
+                            cancelContractBillForm.get('headersForm.bldgCode')?.touched) || cancelContractBillForm.get('headersForm.bldgCode')?.errors?.['notFound']
+                        ">
+                            <span class="input-group-text leftform_lbl font500 text-dark1 font12"><b
+                                    class="text-danger">*</b>Building</span>
+                            <input type="text" upperCase id="id_bldgCode"
+                                class="form-control border-start-0 post_input_field font500 font12"
+                                formControlName="bldgCode"
+                                [f1]="{ id: 'ENGGBUILDINGS', subId: subIdQuery.getBldg, isSingleValue: true }" />
+                            <div class="invalid-feedback d-block" *ngIf="
+                           ( cancelContractBillForm.get('headersForm.bldgCode')?.touched &&
+                            cancelContractBillForm.get('headersForm.bldgCode')?.invalid) && !cancelContractBillForm.get('headersForm.bldgCode')?.errors?.['notFound']
+                          ">
+                                Bldg code is required.
+                            </div>
+                            <div class="invalid-feedback d-block"
+                                *ngIf="cancelContractBillForm.get('headersForm.bldgCode')?.errors?.['notFound']">
+                                Bldg code is not valid.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ser id -->
+                    <div class="col">
+                        <div class="input-group" [class.is-invalid]="
+                          (cancelContractBillForm?.controls.headersForm.get('partyBillNo')?.hasError('required') &&
+                            cancelContractBillForm?.controls.headersForm.get('partyBillNo')?.touched) || cancelContractBillForm?.controls.headersForm.get('partyBillNo')?.errors?.['notFound']
+                        ">
+                            <span class="input-group-text leftform_lbl font500 text-dark1 font12"><b
+                                    class="text-danger">*</b>Party Bill No.</span>
+                            <input type="text" upperCase id="id_partyBillNo"
+                                class="form-control border-start-0 post_input_field font500 font12"
+                                formControlName="partyBillNo" [f1]="{ id: 'CONTRACTBILLS',  isSingleValue: true }" />
+                            <div class="invalid-feedback d-block" *ngIf="
+                           ( cancelContractBillForm.get('headersForm.partyBillNo')?.touched &&
+                            cancelContractBillForm.get('headersForm.partyBillNo')?.invalid) && !cancelContractBillForm.get('headersForm.partyBillNo')?.errors?.['notFound']
+                          ">
+                                Party Bill No is required.
+                            </div>
+                            <div class="invalid-feedback d-block"
+                                *ngIf="cancelContractBillForm.get('headersForm.partyBillNo')?.errors?.['notFound']">
+                                Party Bill No is not valid.
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- secound section -->
+    <section *ngIf="config.isRetrive" formGroupName="detailForm">
+        <div class="row mt-4">
+            <div class="col-2"></div>
+            <div class="col-8">
+                <div class="row">
+
+                    <!-- property code and property name -->
+                    <div class="col-lg-12 mt-2">
+                        <div class="input-group">
+                            <span class="input-group-text leftform_lbl font500 text-dark1 font12">Proprietor</span>
+                            <input type="text" id="id_state" name="txtState"
+                                class="form-control post_input_field border-start-0" formControlName="propCode" />
+                            <span class="position-relative span_divider"></span>
+                            <input type="text" formControlName="propName"
+                                class="form-control w-50 border-start-0 post_input_field font500 font12" />
+                        </div>
+                    </div>
+                    <!-- company code and company name -->
+                    <div class="col-lg-12 mt-2">
+                        <div class="input-group">
+                            <span class="input-group-text leftform_lbl font500 text-dark1 font12">Company</span>
+                            <input type="text" id="id_state" name="txtState"
+                                class="form-control post_input_field border-start-0" formControlName="companyCode" />
+                            <span class="position-relative span_divider"></span>
+                            <input type="text" formControlName="companyName"
+                                class="form-control w-50 border-start-0 post_input_field font500 font12" />
+                        </div>
+                    </div>
+                    <!-- Project code and Project name -->
+                    <div class="col-lg-12 mt-2">
+                        <div class="input-group">
+                            <span class="input-group-text leftform_lbl font500 text-dark1 font12">Project</span>
+                            <input type="text" id="id_state" name="txtState"
+                                class="form-control post_input_field border-start-0" formControlName="projectCode" />
+                            <span class="position-relative span_divider"></span>
+                            <input type="text" formControlName="projectName"
+                                class="form-control w-50 border-start-0 post_input_field font500 font12" />
+                        </div>
+                    </div>
+
+                    <!-- Bill Date -->
+                    <div class="col-lg-6 mt-2">
+                        <div class="input-group" appDate1>
+                            <span class="input-group-text leftform_lbl font500 text-dark1 font12">Bill
+                                Date</span>
+                            <input type="text" id="billDate" [autocomplete]="'off'"
+                                class="form-control border-start-0 rounded-0 post_input_field font500 text-dark1 font12"
+                                matInput [matDatepicker]="billDate" formControlName="billDate" />
+                            <div class="input-group-append bg-white post_input_field datepicker_field border-start-0">
+                                <span class="input-group-addon">
+                                    <mat-datepicker-toggle matSuffix [for]="billDate"></mat-datepicker-toggle>
+                                    <mat-datepicker #billDate></mat-datepicker>
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Bill Amount -->
+                    <div class="col-lg-6 mt-2">
+                        <div class="input-group">
+                            <span class="input-group-text leftform_lbl font500 text-dark1 font12">Bill Amount</span>
+                            <input type="text"
+                                oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                                id="id_detailForm.amount" maxlength="15" name="billAmount"
+                                class="form-control post_input_field border-start-0" formControlName="billAmount" />
+                        </div>
+
+                    </div>
+                    <!-- TDS % -->
+                    <div class="col-lg-6 mt-2">
+                        <div class="input-group">
+                            <span class="input-group-text leftform_lbl font500 text-dark1 font12">TDS %</span>
+                            <input type="text"
+                                oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\.\d{2})\d+/, '$1');"
+                                id="id_detailFormtds" name="txtdetailFormtds"
+                                class="form-control post_input_field border-start-0" formControlName="tds" />
+                        </div>
+
+                    </div>
+                    <!-- TDS Amount -->
+                    <div class="col-lg-6 mt-2">
+                        <div class="input-group">
+                            <span class="input-group-text leftform_lbl font500 text-dark1 font12">TDS Amount</span>
+                            <input type="text" id="id_tdsAmount" name="tdsAmount"
+                                class="form-control post_input_field border-start-0" formControlName="tdsAmount" />
+                        </div>
+                    </div>
+
+                    <!-- Duration from Date -->
+                    <div class="col-lg-6 mt-2">
+                        <div class="input-group" appDate1>
+                            <span class="input-group-text leftform_lbl font500 text-dark1 font12">Duration- From
+                                Date</span>
+                            <input type="text" id="fromDate" [autocomplete]="'off'"
+                                class="form-control border-start-0 rounded-0 post_input_field font500 text-dark1 font12"
+                                matInput [matDatepicker]="fromDate" formControlName="durationFrom" />
+                            <div class="input-group-append bg-white post_input_field datepicker_field border-start-0">
+                                <span class="input-group-addon">
+                                    <mat-datepicker-toggle matSuffix [for]="fromDate"></mat-datepicker-toggle>
+                                    <mat-datepicker #fromDate></mat-datepicker>
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- Duration to Date -->
+                    <div class="col-lg-6 mt-2">
+                        <div class="input-group" appDate1>
+                            <span class="input-group-text leftform_lbl font500 text-dark1 font12"><b
+                                    class="text-danger">*</b>Duration To
+                                Date</span>
+                            <input type="text" id="toDate" [autocomplete]="'off'"
+                                class="form-control border-start-0 rounded-0 post_input_field font500 text-dark1 font12"
+                                matInput [matDatepicker]="toDate" formControlName="durationTo" />
+                            <div class="input-group-append bg-white post_input_field datepicker_field border-start-0">
+                                <span class="input-group-addon">
+                                    <mat-datepicker-toggle matSuffix [for]="toDate"></mat-datepicker-toggle>
+                                    <mat-datepicker #toDate></mat-datepicker>
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- Tran ser -->
+                    <div class="col-lg-6 mt-2">
+                        <div class="input-group">
+                            <span class="input-group-text leftform_lbl font500 text-dark1 font12">Tran Ser</span>
+                            <input type="text" id="id_freight" name="freight"
+                                class="form-control post_input_field border-start-0" formControlName="tranSer" />
+                        </div>
+                    </div>
+                    <!-- retention -->
+                    <div class="col-lg-6 mt-2">
+                        <div class="input-group">
+                            <span class="input-group-text leftform_lbl font500 text-dark1 font12">Retention</span>
+                            <input type="text" id="id_retention" name="retention"
+                                class="form-control post_input_field border-start-0" formControlName="retention" />
+                        </div>
+                    </div>
+
+                    <!-- narration  -->
+                    <div class="col-lg-12 mt-2">
+                        <div class="input-group">
+                            <span class="input-group-text leftform_lbl font500 text-dark1 font12">Narration</span>
+                            <input type="text" id="id_narration" name="narration" maxlength="50"
+                                class="form-control post_input_field border-start-0" formControlName="narration" />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-2"></div>
+        </div>
+    </section>
+    <!-- third section -->
+    <section *ngIf="config.isRetrive">
+
+        <div class="row">
+            <!-- <div class="col-md-1"></div> -->
+            <div class="col-md-12 mt-4" formArrayName="billDetailsList">
+
+                <div class="group_panel br-10 p-3 pt-4 position-relative form_common_bg">
+                    <p class="bg-white font600 group_title mb-0 position-absolute">
+                        Contract Bill Details
+                    </p>
+
+                    <div class="col-md-12">
+                        <div class="table-responsive group_panel form_common_bg stylishScroll">
+                            <table class="table table-bordered table-sm mb-0 custom-table-width">
+                                <thead class="table_head_position_sticky">
+                                    <tr tabindex="-1">
+                                        <th class="fontBold font12 fonttxt_black">SAC Code</th>
+                                        <th class="fontBold font12 fonttxt_black">Item Desc</th>
+                                        <th class="fontBold font12 fonttxt_black">UOM</th>
+                                        <th class="fontBold font12 fonttxt_black">Quantity</th>
+                                        <th class="fontBold font12 fonttxt_black">Item Rate</th>
+                                        <th class="fontBold font12 fonttxt_black">Item Amount</th>
+                                        <th class="fontBold font12 fonttxt_black">Discount Amt</th>
+                                        <th class="fontBold font12 fonttxt_black">Taxable Amt</th>
+                                        <th class="fontBold font12 fonttxt_black">CGST%</th>
+                                        <th class="fontBold font12 fonttxt_black">CGST Amt</th>
+                                        <th class="fontBold font12 fonttxt_black">SGST%</th>
+                                        <th class="fontBold font12 fonttxt_black">SGST Amt</th>
+                                        <th class="fontBold font12 fonttxt_black">IGST%</th>
+                                        <th class="fontBold font12 fonttxt_black">IGST Amt</th>
+                                        <th class="fontBold font12 fonttxt_black">UGST%</th>
+                                        <th class="fontBold font12 fonttxt_black">UGST Amt</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of cancelContractBillForm.controls?.['billDetailsList'].controls let index=index"
+                                        [formGroupName]="index">
+                                        <td>
+                                            <div class="input-group">
+                                                <input
+                                                    class="form-control input_control form-control font500 text-dark1 font12 "
+                                                    type="text" maxlength="50" formControlName="sacCode" />
+                                            </div>
+
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="text"
+                                                    class="form-control input_control font500 fonttxt_black font12"
+                                                    formControlName="itemDesc" />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input
+                                                    class="form-control input_control form-control font500 text-dark1 font12 text-end"
+                                                    type="text" maxlength="50" formControlName="uom" />
+                                            </div>
+
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="text"
+                                                    class="form-control input_control font500 fonttxt_black font12"
+                                                    formControlName="qty" />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="text"
+                                                    class="form-control input_control font500 fonttxt_black font12"
+                                                    formControlName="rate" />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group input-group">
+                                                <input type="text"
+                                                    class="form-control input_control font500 fonttxt_black font12"
+                                                    formControlName="amount" />
+                                            </div>
+
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="text"
+                                                    class="form-control input_control font500 fonttxt_black font12"
+                                                    formControlName="discountAmt" />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="text"
+                                                    class="form-control input_control font500 fonttxt_black font12"
+                                                    formControlName="taxableAmt" />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="text"
+                                                    class="form-control input_control font500 fonttxt_black font12"
+                                                    formControlName="cgstPerc" />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="text"
+                                                    class="form-control input_control font500 fonttxt_black font12"
+                                                    formControlName="cgstAmt" />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="text"
+                                                    class="form-control input_control font500 fonttxt_black font12"
+                                                    formControlName="sgstPerc" />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="text"
+                                                    class="form-control input_control font500 fonttxt_black font12"
+                                                    formControlName="sgstAmt" />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="text"
+                                                    class="form-control input_control font500 fonttxt_black font12"
+                                                    formControlName="igstPerc" />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="text"
+                                                    class="form-control input_control font500 fonttxt_black font12"
+                                                    formControlName="igstAmt" />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="text"
+                                                    class="form-control input_control font500 fonttxt_black font12"
+                                                    formControlName="ugstPerc" />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="text"
+                                                    class="form-control input_control font500 fonttxt_black font12"
+                                                    formControlName="ugstAmt" />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- <div class="col-md-1"></div> -->
+        </div>
+    </section>
+</form>
+
+<!-- Bottom button start -->
+<app-buttons [buttonsList]="buttonsList" (eventTrigger)="buttonAction($event)"></app-buttons>
+<!-- Bottom button end -->
+
+<app-loader *ngIf="config.isLoading"></app-loader>

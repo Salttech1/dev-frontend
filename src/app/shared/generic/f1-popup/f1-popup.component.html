@@ -1,0 +1,63 @@
+<div class="card" cdkDrag cdkDragRootElement=".cdk-overlay-pane">
+  <div class="card-header d-flex align-items-center justify-content-between">
+    <div class="align-items-center d-flex">
+      <strong class="me-2">{{
+        loader ? "Loading..." : items.mainheader ?? "Select Item"
+      }}</strong>
+      <div
+        *ngIf="loader"
+        class="spinner-border spinner-border-sm ms-auto"
+        role="status"
+        aria-hidden="true"
+      ></div>
+    </div>
+    <button class="border-0 btn-light d-flex" [mat-dialog-close]="sendData">
+      <span class="material-icons"> close </span>
+    </button>
+  </div>
+  <div class="card-body">
+    <div class="row g-2">
+      <div class="col-md-12">
+        <div class="input-group">
+          <span class="input-group-text">Search</span>
+          <input type="text" class="form-control" id="globalSearch" />
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="input-group">
+          <span class="input-group-text">Code</span>
+          <input
+            type="text"
+            class="form-control"
+            id="codeSearch"
+            cdkFocusInitial
+          />
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="input-group">
+          <span class="input-group-text">Name</span>
+          <input type="text" class="form-control" id="nameSearch" />
+        </div>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table
+        datatable
+        [dtOptions]="dtOptions"
+        [dtTrigger]="dtTrigger"
+        class="table w-100 hover f1Table"
+      ></table>
+    </div>
+  </div>
+  <div class="card-footer text-end" *ngIf="this.data?.multi">
+    <button
+      type="button"
+      class="btn btn-theme"
+      accesskey="k"
+      (click)="emitData()"
+    >
+      O<u>k</u>
+    </button>
+  </div>
+</div>

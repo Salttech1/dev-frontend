@@ -1,0 +1,125 @@
+<form [formGroup]="tdsProvisionForm">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="justify-content-center">
+                    <div class="input-group">
+                        <span class="input-group-text font500 text-dark1 font12">Financial Year :-</span>
+                        <input type="text" maxlength="9"
+                            oninput="this.value = this.value.replace(/[^0-9.]/g, '');  this.value = this.value.replace(/^(.{4})/, '$1-');"
+                            class="form-control border-start-0" formControlName="financialYear" name="financialYear" />
+                        &nbsp; &nbsp;<p class="mt-1">eg. 2004-2005</p>
+                    </div>
+                    <h2 class="text-center mt-4">
+                        T.D.S. PROVISION FOR YEAR END PAYMENTS </h2>
+                </div>
+            </div>
+            <div class="col-md-12" formArrayName="tdsProvisionList">
+
+                <div class="group_panel br-10 form_common_bg p-3 pt-4 position-relative">
+                    <div class="table-responsive group_panel default-table-height stylishScroll">
+                        <table class="table table-bordered table-sm">
+                            <thead>
+                                <tr>
+                                    <th>REC-ID</th>
+                                    <th>Type</th>
+                                    <th>RUn Srf.</th>
+                                    <th>Party Name</th>
+                                    <th>Provision Amt.</th>
+                                    <th>TDS Amt.</th>
+                                    <th>Surchg</th>
+                                    <th>W.C. Tax</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of tdsProvisionForm.controls?.['tdsProvisionList'].controls let index=index"
+                                    [formGroupName]="index">
+
+                                    <td>
+                                        <div class="input-group">
+                                            <input
+                                                class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                                                type="text" maxlength="50" formControlName="recId" />
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <input
+                                                class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                                                type="text" maxlength="50" formControlName="type" />
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <input
+                                                class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                                                type="text" maxlength="50" formControlName="runSrf" />
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <input
+                                                class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                                                type="text" maxlength="50" formControlName="partyName" />
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <input
+                                                class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                                                type="text" maxlength="50" formControlName="provisionAmt" />
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <input
+                                                class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                                                type="text" maxlength="50" formControlName="tdsAmt" />
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <input
+                                                class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                                                type="text" maxlength="50" formControlName="surchg" />
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <input
+                                                class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                                                type="text" maxlength="50" formControlName="wcTax" />
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <div class="action_panel d-flex justify-content-center">
+                                            <button type="button" [disabled]="
+                                          tdsProvisionForm.controls?.tdsProvisionList
+                                                ?.invalid 
+                                            " (click)="addDetails()"
+                                                class="border-0 bg-transparent ms-1 btn p-0 m-0 lh_0 p-1">
+                                                <img src="assets/images/plus.png" alt="add" />
+                                            </button>
+                                            <button type="button" [disabled]="index==0" (click)="removeDetails(index)"
+                                                class="border-0 bg-transparent ms-1 btn p-0 m-0 lh_0 p-1">
+                                                <img src="assets/images/delete.svg" alt="remove" class="delete_img" />
+                                            </button>
+                                        </div>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<!-- Bottom form section -->
+<app-buttons [buttonsList]="buttonsList" (eventTrigger)="buttonAction($event)"></app-buttons>
+
+<app-loader *ngIf="config.isLoading"></app-loader>

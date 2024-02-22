@@ -1,0 +1,2348 @@
+<form [formGroup]="purchaseBillEntryForm">
+  <div class="form_container">
+    <div class="row g-2">
+      <div class="col-12 col-sm-12 col-md-10 col-lg-7 col-xl-6 col-xxl-5">
+        <div
+          class="input-group"
+          [class.is-invalid]="
+            purchaseBillEntryForm.controls['partyFilter'].invalid &&
+            purchaseBillEntryForm.controls['partyFilter'].touched
+          "
+        >
+          <span class="input-group-text leftform_lbl font500 text-dark1 font12"
+            >Party Code</span
+          >
+          <app-f1
+            [formControlName]="'partyFilter'"
+            placeholder
+            class="form-control post_input_field border-end-0 border-start-0 d-flex"
+            titleValue="{{ partyTableData?.mainheader }}"
+            [tableData]="partyTableData?.dataSet"
+            [colHeader]="[
+              partyTableData?.colhead1,
+              partyTableData?.colhead2,
+              partyTableData?.colhead3,
+              partyTableData?.colhead4,
+              partyTableData?.colhead5
+            ]"
+            [inputBBC]="partyTableData?.bringBackColumn"
+            (updatedSelectedValue)="
+              updatePartyFilter(
+                $event,
+                purchaseBillEntryForm?.get('partyFilterName'),
+                partyTableData?.bringBackColumn
+              )
+            "
+            [dynaPopId]="'PARTYCODE'"
+            [queryConditon]="party_condition"
+            [errorMessage]="'Invalid Party Code'"
+            (change)="
+              searchTextDataBind(
+                'PARTYCODE',
+                party_condition,
+                purchaseBillEntryForm?.get('partyFilter'),
+                'Invalid Party',
+                purchaseBillEntryForm?.get('partyFilterName'),
+                'errMsgPartFilter'
+              );
+              $event.target.value && getEntry($event.target.value)
+            "
+            [errModalShow]="false"
+          ></app-f1>
+          <span class="position-relative span_divider"></span>
+          <input
+            type="text"
+            class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+            id
+            formControlName="partyFilterName"
+            tabindex="-1"
+          />
+        </div>
+        <!-- <div *ngIf="purchaseBillEntryForm.controls['partyFilter'].invalid && purchaseBillEntryForm.controls['partyFilter'].touched">
+                    <div
+                        class="errorField common_color_txt font12 font500"
+                        *ngIf="purchaseBillEntryForm.controls['partyFilter'].errors && purchaseBillEntryForm.controls['partyFilter'].errors?.['required']"
+                    >
+                        *partyFilter is required
+                    </div>
+                </div> -->
+        <!-- <div
+                    id="errMsgPartFilter"
+                    class="d-none errorField common_color_txt font12 font500"
+                >
+                    Invalid Party Code
+                </div> -->
+      </div>
+      <div class="col-12 col-sm-6 col-md-5 col-lg-5 col-xl-5 col-xxl-4">
+        <div
+          class="input-group"
+          [class.is-invalid]="
+            purchaseBillEntryForm.controls['entry'].invalid &&
+            purchaseBillEntryForm.controls['entry'].touched
+          "
+        >
+          <span class="input-group-text leftform_lbl font500 text-dark1 font12"
+            ><span class="text-danger font500 font12">*</span>Entry #</span
+          >
+          <!-- <input
+                    type="text"
+                    class="form-control border-start-0"
+                    formControlName="entry"
+                    [f1]="{ id: 'BILLENTNO' }"
+                > -->
+          <!-- <app-f1-popup [formControlName]="'entry'"></app-f1-popup> -->
+          <app-f1
+            [formControlName]="'entry'"
+            placeholder
+            class="form-control post_input_field border-start-0 d-flex textCapitalizecls"
+            titleValue="{{ entryTableData?.mainheader }}"
+            [tableData]="entryTableData?.dataSet"
+            [colHeader]="[
+              entryTableData?.colhead1,
+              entryTableData?.colhead2,
+              entryTableData?.colhead3,
+              entryTableData?.colhead4,
+              entryTableData?.colhead5
+            ]"
+            [inputBBC]="entryTableData?.bringBackColumn"
+            [dynaPopId]="'BILLENTNO'"
+            [queryConditon]="entryQueryCondition"
+            [searchDynaPopList]="false"
+            [queryConditon]=""
+            maxlength="10"
+            type="text"
+            [triggerUpperCase]="false"
+          ></app-f1>
+        </div>
+        <div
+          *ngIf="
+            purchaseBillEntryForm.controls['entry'].invalid &&
+            purchaseBillEntryForm.controls['entry'].touched
+          "
+        >
+          <div
+            class="errorField common_color_txt font12 font500"
+            *ngIf="purchaseBillEntryForm.controls['entry'].errors && purchaseBillEntryForm.controls['entry'].errors?.['required']"
+          >
+            *Entry Code is required
+          </div>
+          <div
+            class="errorField common_color_txt font12 font500"
+            *ngIf="purchaseBillEntryForm.controls['entry'].errors?.['maxlength'] ||purchaseBillEntryForm.controls['entry'].errors?.['minlength']"
+          >
+            *Entry code. should be 10 Character. Current is
+            {{ purchaseBillEntryForm.controls['entry'].errors?.['maxlength']?.actualLength || purchaseBillEntryForm.controls['entry'].errors?.['minlength']?.actualLength }}
+            characters.
+          </div>
+        </div>
+        <!-- <div
+                    id="errMsgEntry"
+                    class="d-none errorField common_color_txt font12 font500"
+                ></div> -->
+      </div>
+    </div>
+    <div *ngIf="purchaseBillDetailsContainer" class="pt-2">
+      <div class="row g-2 custom">
+        <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6">
+          <div
+            class="input-group"
+            [class.is-invalid]="
+              purchaseBillEntryForm.controls['company'].invalid &&
+              purchaseBillEntryForm.controls['company'].touched
+            "
+          >
+            <span
+              class="input-group-text leftform_lbl font500 text-dark1 font12"
+              ><span class="text-danger font500 font12">*</span>Company</span
+            >
+            <app-f1
+              #companyCode
+              [formControlName]="'company'"
+              placeholder
+              class="form-control post_input_field border-end-0 border-start-0 d-flex"
+              titleValue="{{ tableData?.mainheader }}"
+              [tableData]="tableData?.dataSet"
+              [colHeader]="[
+                tableData?.colhead1,
+                tableData?.colhead2,
+                tableData?.colhead3,
+                tableData?.colhead4,
+                tableData?.colhead5
+              ]"
+              [inputBBC]="tableData?.bringBackColumn"
+              (updatedSelectedValue)="
+                updateCompanyList($event, tableData?.bringBackColumn)
+              "
+              [dynaPopId]="'COMPANY'"
+              [queryConditon]="coyQuery"
+              [errorMessage]="'Invalid Company Code'"
+              (change)="
+                searchTextDataBind(
+                  'COMPANY',
+                  '',
+                  purchaseBillEntryForm.controls['company'],
+                  'Invalid Company Code',
+                  purchaseBillEntryForm?.get('companyName'),
+                  'errMsgcompany'
+                );
+                $event.target.value &&
+                  this.getBuildingList($event.target.value);
+                $event.target.value && calculateTDS()
+              "
+              [errModalShow]="false"
+            ></app-f1>
+            <span class="position-relative span_divider"></span>
+            <input
+              type="text"
+              class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+              id
+              formControlName="companyName"
+              tabindex="-1"
+            />
+          </div>
+          <div
+            *ngIf="
+              purchaseBillEntryForm.controls['company'].invalid &&
+              purchaseBillEntryForm.controls['company'].touched
+            "
+          >
+            <div
+              class="errorField common_color_txt font12 font500"
+              *ngIf="purchaseBillEntryForm.controls['company'].errors && purchaseBillEntryForm.controls['company'].errors?.['required']"
+            >
+              Company Code is required
+            </div>
+            <div
+              class="errorField common_color_txt font12 font500"
+              *ngIf="purchaseBillEntryForm.controls['company'].errors?.['maxlength']"
+            >
+              *Company should be 5 Character. Current is
+              {{ purchaseBillEntryForm.controls['company'].errors?.['maxlength']?.actualLength  }}
+              characters.
+            </div>
+          </div>
+          <!-- <div
+                        id="errMsgcompany"
+                        class="d-none errorField common_color_txt font12 font500"
+                    ></div> -->
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6">
+          <div
+            class="input-group"
+            [class.is-invalid]="
+              purchaseBillEntryForm.controls['building'].invalid &&
+              purchaseBillEntryForm.controls['building'].touched
+            "
+          >
+            <span
+              class="input-group-text leftform_lbl font500 text-dark1 font12"
+              ><span class="text-danger font500 font12">*</span>Building</span
+            >
+            <app-f1
+              [formControlName]="'building'"
+              placeholder
+              class="form-control post_input_field border-end-0 border-start-0 d-flex"
+              titleValue="{{ buildingTableData?.mainheader }}"
+              [tableData]="buildingTableData?.dataSet"
+              [colHeader]="[
+                buildingTableData?.colhead1,
+                buildingTableData?.colhead2,
+                buildingTableData?.colhead3,
+                buildingTableData?.colhead4,
+                buildingTableData?.colhead5
+              ]"
+              [inputBBC]="buildingTableData?.bringBackColumn"
+              (updatedSelectedValue)="
+                updateListControl(
+                  $event,
+                  purchaseBillEntryForm.get('buildingName'),
+                  buildingTableData?.bringBackColumn
+                )
+              "
+              [dynaPopId]="'BUILDINGS'"
+              [queryConditon]="bldg_condition"
+              id="building"
+              [errorMessage]="'Invalid Building Code'"
+              (change)="
+                searchTextDataBind(
+                  'BUILDINGS',
+                  bldg_condition,
+                  purchaseBillEntryForm.controls['building'],
+                  'invalid Building Code',
+                  purchaseBillEntryForm?.get('buildingName'),
+                  'errMsgbuilding'
+                );
+                resetDebit()
+              "
+              (sendFieldValueChange)="$event.length && resetDebit()"
+              [errModalShow]="false"
+            ></app-f1>
+            <span class="position-relative span_divider"></span>
+            <input
+              type="text"
+              class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+              id
+              formControlName="buildingName"
+              tabindex="-1"
+            />
+          </div>
+          <div
+            *ngIf="
+              purchaseBillEntryForm.controls['building'].invalid &&
+              purchaseBillEntryForm.controls['building'].touched
+            "
+          >
+            <div
+              class="errorField common_color_txt font12 font500"
+              *ngIf="purchaseBillEntryForm.controls['building'].errors && purchaseBillEntryForm.controls['building'].errors?.['required']"
+            >
+              Building Code is required
+            </div>
+            <div
+              class="errorField common_color_txt font12 font500"
+              *ngIf="purchaseBillEntryForm.controls['building'].errors?.['maxlength'] "
+            >
+              Building Code. should be 4 Character. Current is
+              {{ purchaseBillEntryForm.controls['building'].errors?.['maxlength']?.actualLength }}
+              characters.
+            </div>
+          </div>
+          <!-- <div
+                        id="errMsgbuilding"
+                        class="d-none errorField common_color_txt font12 font500"
+                    ></div> -->
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6">
+          <div
+            class="input-group"
+            [class.is-invalid]="
+              purchaseBillEntryForm.controls['party'].invalid &&
+              purchaseBillEntryForm.controls['party'].touched
+            "
+          >
+            <span
+              class="input-group-text leftform_lbl font500 text-dark1 font12"
+              ><span class="text-danger font500 font12">*</span>Party</span
+            >
+            <app-f1
+              [formControlName]="'party'"
+              placeholder
+              class="form-control post_input_field border-end-0 border-start-0 d-flex"
+              titleValue="{{ partyTableData?.mainheader }}"
+              [tableData]="partyTableData?.dataSet"
+              [colHeader]="[
+                partyTableData?.colhead1,
+                partyTableData?.colhead2,
+                partyTableData?.colhead3,
+                partyTableData?.colhead4,
+                partyTableData?.colhead5
+              ]"
+              [inputBBC]="partyTableData?.bringBackColumn"
+              (updatedSelectedValue)="
+                updatePartyList($event, partyTableData?.bringBackColumn)
+              "
+              [dynaPopId]="'PARTYCODE'"
+              [queryConditon]="party_condition"
+              id="party"
+              [errorMessage]="'Invalid Party Code'"
+              #partyId
+              (change)="
+                searchTextDataBind(
+                  'PARTYCODE',
+                  party_condition,
+                  purchaseBillEntryForm.controls['party'],
+                  'invalid Party Code',
+                  purchaseBillEntryForm?.get('partyName'),
+                  'errMsgParty'
+                );
+                ChangePartyCode($event)
+              "
+              (sendFieldValueChange)="
+                $event.length && fetchPartyList($event[0]?.trim(), true)
+              "
+              (focusTrigger)="setParyCode()"
+              [errModalShow]="false"
+            ></app-f1>
+            <span class="position-relative span_divider"></span>
+            <input
+              type="text"
+              class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+              id
+              formControlName="partyName"
+              tabindex="-1"
+            />
+          </div>
+          <div
+            *ngIf="
+              purchaseBillEntryForm.controls['party'].invalid &&
+              purchaseBillEntryForm.controls['party'].touched
+            "
+          >
+            <div
+              class="errorField common_color_txt font12 font500"
+              *ngIf="purchaseBillEntryForm.controls['party'].errors && purchaseBillEntryForm.controls['party'].errors?.['required']"
+            >
+              Party Code is required
+            </div>
+            <div
+              class="errorField common_color_txt font12 font500"
+              *ngIf="purchaseBillEntryForm.controls['party'].errors?.['maxlength'] "
+            >
+              Party Code. should be 12 Character. Current is
+              {{ purchaseBillEntryForm.controls['party'].errors?.['maxlength']?.actualLength }}
+              characters.
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3 col-xxl-3">
+          <div
+            class="input-group"
+            [class.is-invalid]="
+              purchaseBillEntryForm.controls['billType'].invalid &&
+              purchaseBillEntryForm.controls['billType'].touched
+            "
+          >
+            <span
+              class="input-group-text leftform_lbl font500 text-dark1 font12"
+              ><span class="text-danger font500 font12">*</span>Bill Type</span
+            >
+            <select
+              class="form-select form-control post_input_field border-start-0"
+              formControlName="billType"
+              #billTypeSelect
+              (change)="changeBillType($event)"
+            >
+              <option
+                *ngFor="let i of this.billTypeDataList"
+                value="{{ i.id.trim() }}"
+                id="billTypeSelect_{{ i.id.trim() }}"
+              >
+                {{ i.name }}
+              </option>
+            </select>
+          </div>
+          <div *ngIf="purchaseBillEntryForm.controls['billType'].invalid">
+            <div
+              class="errorField common_color_txt font12 font500"
+              *ngIf="purchaseBillEntryForm.controls['billType'].errors?.['billTypeValid']"
+            >
+              Incorrect bill type for this Supplier.
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3 col-xxl-3">
+          <div
+            class="input-group"
+            [class.is-invalid]="
+              purchaseBillEntryForm.controls['suppbill'].invalid &&
+              purchaseBillEntryForm.controls['suppbill'].touched
+            "
+          >
+            <span
+              class="input-group-text leftform_lbl font500 text-dark1 font12"
+              ><span class="text-danger font500 font12">*</span>Supp Bill</span
+            >
+            <input
+              upperCase
+              type="text"
+              class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+              id="suppBill"
+              formControlName="suppbill"
+              (change)="supplierBillExist($event)"
+            />
+          </div>
+          <div
+            *ngIf="
+              purchaseBillEntryForm.controls['suppbill'].invalid &&
+              purchaseBillEntryForm.controls['suppbill'].touched
+            "
+          >
+            <div
+              class="errorField common_color_txt font12 font500"
+              *ngIf="purchaseBillEntryForm.controls['suppbill'].errors && purchaseBillEntryForm.controls['suppbill'].errors?.['required']"
+            >
+              Supp Bill is required
+            </div>
+            <div
+              class="errorField common_color_txt font12 font500"
+              *ngIf="purchaseBillEntryForm.controls['suppbill'].errors?.['maxlength']"
+            >
+              Supp Bill should be 16 Character. Current is
+              {{ purchaseBillEntryForm.controls['suppbill'].errors?.['maxlength']?.actualLength  }}
+              characters.
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3 col-xxl-3">
+          <div
+            class="input-group"
+            [class.is-invalid]="
+              purchaseBillEntryForm.controls['suppBillDate'].invalid &&
+              purchaseBillEntryForm.controls['suppBillDate'].touched
+            "
+            appDate1
+          >
+            <span
+              class="input-group-text leftform_lbl font500 text-dark1 font12"
+              ><span class="text-danger font500 font12">*</span>Date</span
+            >
+            <input
+              class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+              id="formDateField"
+              formControlName="suppBillDate"
+              matInput
+              [matDatepicker]="pickerFrom"
+              (dateChange)="calculateTDS()"
+            />
+            <div
+              class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+            >
+              <span class="input-group-addon">
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="pickerFrom"
+                  tabindex="-1"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #pickerFrom></mat-datepicker>
+              </span>
+            </div>
+          </div>
+          <div
+            *ngIf="
+              purchaseBillEntryForm.controls['suppBillDate'].invalid &&
+              purchaseBillEntryForm.controls['suppBillDate'].touched
+            "
+          >
+            <div
+              class="errorField common_color_txt font12 font500"
+              *ngIf="purchaseBillEntryForm.controls['suppBillDate'].errors && purchaseBillEntryForm.controls['suppBillDate'].errors?.['required']"
+            >
+              Date is required
+            </div>
+          </div>
+          <div
+            *ngIf="purchaseBillEntryForm.controls['suppBillDate'].errors?.['dateValidation']"
+            class="errorField common_color_txt font12 font500"
+          >
+            Future supplier Bill Date not accepted
+          </div>
+          <div
+            *ngIf="purchaseBillEntryForm.controls['suppBillDate'].errors?.['validateSuppbillDt']"
+            class="errorField common_color_txt font12 font500"
+          >
+            {{purchaseBillEntryForm.controls['suppBillDate'].errors?.['validateSuppbillMsg']}}
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 col-xxl-3">
+          <div
+            class="input-group"
+            [class.is-invalid]="
+              purchaseBillEntryForm.controls['amount'].invalid &&
+              purchaseBillEntryForm.controls['amount'].touched
+            "
+          >
+            <span
+              class="input-group-text leftform_lbl font500 text-dark1 font12"
+              ><span class="text-danger font500 font12">*</span>Amount</span
+            >
+            <input
+              type="text"
+              class="text-end form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+              id="amountVal"
+              formControlName="amount"
+              oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+              (blur)="setItemQuantity()"
+            />
+          </div>
+          <div
+            *ngIf="
+              purchaseBillEntryForm.controls['amount'].invalid &&
+              purchaseBillEntryForm.controls['amount'].touched
+            "
+          >
+            <div
+              class="errorField common_color_txt font12 font500"
+              *ngIf="purchaseBillEntryForm.controls['amount'].errors && purchaseBillEntryForm.controls['amount'].errors?.['required']"
+            >
+              Amount is required
+            </div>
+            <div
+              class="errorField common_color_txt font12 font500"
+              *ngIf="purchaseBillEntryForm.controls['amount'].errors?.['maxlength'] "
+            >
+              Amount. should be 12 Character. Current is
+              {{ purchaseBillEntryForm.controls['amount'].errors?.['maxlength']?.actualLength }}
+              characters.
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 col-xxl-3">
+          <div
+            class="input-group"
+            [class.is-invalid]="
+              purchaseBillEntryForm.controls['retention'].invalid &&
+              purchaseBillEntryForm.controls['retention'].touched
+            "
+          >
+            <span
+              class="input-group-text leftform_lbl font500 text-dark1 font12"
+              >Retention</span
+            >
+            <input
+              type="text"
+              class="form-control text-end border-start-0 post_input_field w-50 text-dark1 font12 font500"
+              id
+              formControlName="retention"
+              oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+            />
+          </div>
+          <div
+            *ngIf="
+              purchaseBillEntryForm.controls['retention'].invalid &&
+              purchaseBillEntryForm.controls['retention'].touched
+            "
+          >
+            <div
+              class="errorField common_color_txt font12 font500"
+              *ngIf="purchaseBillEntryForm.controls['retention'].errors && purchaseBillEntryForm.controls['retention'].errors?.['required']"
+            >
+              Retention is required
+            </div>
+          </div>
+          <div
+            *ngIf="purchaseBillEntryForm.controls['retention'].errors?.['retentionValidation']"
+            class="errorField common_color_txt font12 font500"
+          >
+            Retention cannot be greater than Amount
+          </div>
+          <div
+            class="errorField common_color_txt font12 font500"
+            *ngIf="purchaseBillEntryForm.controls['retention'].errors?.['maxlength']"
+          >
+            Retention should be 15 Character. Current is
+            {{ purchaseBillEntryForm.controls['retention'].errors?.['maxlength']?.actualLength  }}
+            characters.
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 col-xxl-3">
+          <div
+            class="input-group"
+            [class.is-invalid]="
+              purchaseBillEntryForm.controls['tdsperc'].invalid &&
+              purchaseBillEntryForm.controls['tdsperc'].touched
+            "
+          >
+            <span
+              class="input-group-text leftform_lbl font500 text-dark1 font12"
+              >TDS %</span
+            >
+            <input
+              type="text"
+              class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+              id
+              formControlName="tdsperc"
+            />
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-3 col-xxl-3">
+          <div
+            class="input-group"
+            [class.is-invalid]="
+              purchaseBillEntryForm.controls['tdsamt'].invalid &&
+              purchaseBillEntryForm.controls['tdsamt'].touched
+            "
+          >
+            <span
+              class="input-group-text leftform_lbl font500 text-dark1 font12"
+              >TDS Amt</span
+            >
+            <input
+              type="text"
+              class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+              id
+              formControlName="tdsamt"
+            />
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-8 col-lg-8 col-xl-6 col-xxl-6">
+          <div
+            class="input-group"
+            [class.is-invalid]="
+              purchaseBillEntryForm.controls['naration'].invalid &&
+              purchaseBillEntryForm.controls['naration'].touched
+            "
+          >
+            <span
+              class="input-group-text leftform_lbl font500 text-dark1 font12"
+              >Narration</span
+            >
+            <input
+              type="text"
+              class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+              id
+              formControlName="naration"
+            />
+          </div>
+          <div
+            *ngIf="
+              purchaseBillEntryForm.controls['naration'].invalid &&
+              purchaseBillEntryForm.controls['naration'].touched
+            "
+          >
+            <div
+              class="errorField common_color_txt font12 font500"
+              *ngIf="purchaseBillEntryForm.controls['naration'].errors && purchaseBillEntryForm.controls['naration'].errors?.['required']"
+            >
+              naration is required
+            </div>
+            <div
+              class="errorField common_color_txt font12 font500"
+              *ngIf="purchaseBillEntryForm.controls['naration'].errors?.['maxlength']"
+            >
+              Naration should be 50 Character. Current is
+              {{ purchaseBillEntryForm.controls['naration'].errors?.['maxlength']?.actualLength  }}
+              characters.
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-5 col-lg-6 col-xl-3 col-xxl-3">
+          <div
+            class="input-group"
+            [class.is-invalid]="
+              purchaseBillEntryForm.controls['partyGst'].invalid &&
+              purchaseBillEntryForm.controls['partyGst'].touched
+            "
+          >
+            <span
+              class="input-group-text leftform_lbl font500 text-dark1 font12"
+              >Party GST</span
+            >
+            <input
+              type="text"
+              class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+              id
+              formControlName="partyGst"
+              [(ngModel)]="partyPurchaseBillFormGroup.get('gstno').value"
+            />
+          </div>
+          <div
+            *ngIf="
+              purchaseBillEntryForm.controls['partyGst'].invalid &&
+              purchaseBillEntryForm.controls['partyGst'].touched
+            "
+          >
+            <div
+              class="errorField common_color_txt font12 font500"
+              *ngIf="purchaseBillEntryForm.controls['partyGst'].errors && purchaseBillEntryForm.controls['partyGst'].errors?.['required']"
+            >
+              Party Gst is required
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-7 col-lg-6 col-xl-5 col-xxl-4">
+          <div
+            class="input-group"
+            [class.is-invalid]="
+              purchaseBillEntryForm.controls['state'].invalid &&
+              purchaseBillEntryForm.controls['state'].touched
+            "
+          >
+            <span
+              class="input-group-text leftform_lbl font500 text-dark1 font12"
+              >State</span
+            >
+            <input
+              type="text"
+              class="form-control post_input_field border-end-0 border-start-0 d-flex"
+              id
+              formControlName="state"
+              tabindex="-1"
+            />
+            <!-- <app-f1
+                            [formControlName]="'state'"
+                            placeholder
+                            class="form-control post_input_field border-end-0 border-start-0 d-flex"
+                            titleValue="{{tableData}}"
+                            [tableData]="tableData"
+                            [colHeader]="columnHeader"
+                            [inputBBC]="bringBackColumn"
+                            (updatedSelectedValue)="updateBuildingList($event)"
+                            [dynaPopId]="'COMPANY'"
+                            [queryConditon]=coy_condition
+                            id="state"
+                            [errorMessage]="'Invalid state Code'"
+                        ></app-f1> -->
+            <span class="position-relative span_divider"></span>
+            <input
+              type="text"
+              class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+              id
+              formControlName="stateName"
+              tabindex="-1"
+            />
+          </div>
+          <!-- <div *ngIf="purchaseBillEntryForm.controls['state'].invalid && purchaseBillEntryForm.controls['state'].touched">
+                        <div
+                            class="errorField common_color_txt font12 font500"
+                            *ngIf="purchaseBillEntryForm.controls['state'].errors && purchaseBillEntryForm.controls['state'].errors?.['required']"
+                        >
+                            * Retention is required
+                        </div>
+                    </div> -->
+        </div>
+        <div class="col-sm-12 col-md-7 col-lg-6 col-xl-4 col-xxl-4">
+          <div
+            class="input-group"
+            [class.is-invalid]="
+              purchaseBillEntryForm.controls['debitType'].invalid &&
+              purchaseBillEntryForm.controls['debitType'].touched
+            "
+          >
+            <span
+              class="input-group-text leftform_lbl font500 text-dark1 font12"
+              >Debit Type</span
+            >
+            <app-f1
+              [formControlName]="'debitType'"
+              placeholder
+              class="form-control post_input_field border-end-0 border-start-0 d-flex"
+              titleValue="{{ debitTypeTableData?.mainheader }}"
+              [tableData]="debitTypeTableData?.dataSet"
+              [colHeader]="[
+                debitTypeTableData?.colhead1,
+                debitTypeTableData?.colhead2,
+                debitTypeTableData?.colhead3,
+                debitTypeTableData?.colhead4,
+                debitTypeTableData?.colhead5
+              ]"
+              [inputBBC]="debitTypeTableData?.bringBackColumn"
+              (updatedSelectedValue)="
+                updateListControl(
+                  $event,
+                  purchaseBillEntryForm.get('debitName'),
+                  debitTypeTableData?.bringBackColumn
+                )
+              "
+              [dynaPopId]="'DEBITTO'"
+              [queryConditon]="debito_condition"
+              id="debitType"
+              [errorMessage]="'Invalid Debit Type Code'"
+              (change)="
+                searchTextDataBind(
+                  'DEBITTO',
+                  debito_condition,
+                  purchaseBillEntryForm.controls['debitType'],
+                  'Invalid Debit Type code',
+                  purchaseBillEntryForm?.get('debitName'),
+                  'errMsgdebiType'
+                )
+              "
+              [errModalShow]="false"
+            ></app-f1>
+            <span class="position-relative span_divider"></span>
+            <input
+              type="text"
+              class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+              id
+              formControlName="debitName"
+              tabindex="-1"
+            />
+          </div>
+          <div *ngIf="purchaseBillEntryForm.controls['debitType'].invalid">
+            <div
+              class="errorField common_color_txt font12 font500"
+              *ngIf="purchaseBillEntryForm.controls['debitType'].errors?.['debitTypeValid']"
+            >
+              This Expense type is blocked ...Can't proceed.
+            </div>
+            <div
+              class="errorField common_color_txt font12 font500"
+              *ngIf="purchaseBillEntryForm.controls['debitType'].errors?.['maxlength']"
+            >
+              DebitType should be 8 Character. Current is
+              {{ purchaseBillEntryForm.controls['debitType'].errors?.['maxlength']?.actualLength  }}
+              characters.
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-5 col-lg-6 col-xl-3 col-xxl-4">
+          <div
+            class="input-group"
+            [class.is-invalid]="
+              purchaseBillEntryForm.controls['ceIndent'].invalid &&
+              purchaseBillEntryForm.controls['ceIndent'].touched
+            "
+          >
+            <span
+              class="input-group-text leftform_lbl font500 text-dark1 font12"
+              >CE Indent</span
+            >
+            <input upperCase
+              type="text"
+              class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500 text-uppercase"
+              id
+              formControlName="ceIndent"
+            />
+          </div>
+          <div
+            *ngIf="
+              purchaseBillEntryForm.controls['ceIndent'].invalid &&
+              purchaseBillEntryForm.controls['ceIndent'].touched
+            "
+          >
+            <div
+              class="errorField common_color_txt font12 font500"
+              *ngIf="purchaseBillEntryForm.controls['ceIndent'].errors?.['maxlength']"
+            >
+              CE Inent should be 17 Character. Current is
+              {{ purchaseBillEntryForm.controls['ceIndent'].errors?.['maxlength']?.actualLength  }}
+              characters.
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-6 col-xl-5 col-xxl-5">
+          <div
+            class="input-group"
+            [class.is-invalid]="
+              purchaseBillEntryForm.controls['material'].invalid &&
+              purchaseBillEntryForm.controls['material'].touched
+            "
+          >
+            <span
+              class="input-group-text leftform_lbl font500 text-dark1 font12"
+              ><span class="text-danger font500 font12">*</span>Material</span
+            >
+            <app-f1
+              [formControlName]="'material'"
+              placeholder
+              class="form-control post_input_field border-end-0 border-start-0 d-flex"
+              titleValue="{{ materialTableData?.mainheader }}"
+              [tableData]="materialTableData?.dataSet"
+              [colHeader]="[
+                materialTableData?.colhead1,
+                materialTableData?.colhead2,
+                materialTableData?.colhead3,
+                materialTableData?.colhead4,
+                materialTableData?.colhead5
+              ]"
+              [inputBBC]="materialTableData?.bringBackColumn"
+              (updatedSelectedValue)="
+                updateMaterial(
+                  $event,
+                  materialTableData?.bringBackColumn,
+                  purchaseBillEntryForm.get('materialName'),
+                  'errMsgMaterial',
+                  false
+                )
+              "
+              (sendFieldValueChange)="$event.length && setUomByMat($event?.[0].trim())"
+              [dynaPopId]="'MATGROUPS'"
+              [queryConditon]="matGroups_condition"
+              id="material"
+              [errorMessage]="'Invalid Material Code'"
+              (change)="
+                searchTextDataBind(
+                  'MATGROUPS',
+                  matGroups_condition,
+                  purchaseBillEntryForm.controls['material'],
+                  'Invalid Material Code',
+                  purchaseBillEntryForm.controls['materialName'],
+                  'errMsgMaterial'
+                );
+                this.getLevel2($event.target.value);
+                getUOM($event.target.value.trim());
+                setUomByMat($event.target.value.trim())
+              "
+              [errModalShow]="false"
+            ></app-f1>
+            <span class="position-relative span_divider"></span>
+            <input
+              type="text"
+              class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+              id
+              formControlName="materialName"
+              tabindex="-1"
+            />
+          </div>
+          <div
+            *ngIf="
+              purchaseBillEntryForm.controls['material'].invalid &&
+              purchaseBillEntryForm.controls['material'].touched
+            "
+          >
+            <div
+              class="errorField common_color_txt font12 font500"
+              *ngIf="purchaseBillEntryForm.controls['material'].errors && purchaseBillEntryForm.controls['material'].errors?.['required']"
+            >
+              Material is required
+            </div>
+            <div
+              class="errorField common_color_txt font12 font500"
+              *ngIf="purchaseBillEntryForm.controls['material'].errors?.['maxlength']"
+            >
+              material should be 5 Character. Current is
+              {{ purchaseBillEntryForm.controls['material'].errors?.['maxlength']?.actualLength  }}
+              characters.
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-6 col-xl-4 col-xxl-5">
+          <div
+            class="input-group"
+            [class.is-invalid]="
+              purchaseBillEntryForm.controls['level2'].invalid &&
+              purchaseBillEntryForm.controls['level2'].touched
+            "
+          >
+            <span
+              class="input-group-text leftform_lbl font500 text-dark1 font12"
+              >Level2</span
+            >
+            <app-f1
+              [formControlName]="'level2'"
+              placeholder
+              class="form-control post_input_field border-end-0 border-start-0 d-flex"
+              titleValue="{{ level2TableData?.mainheader }}"
+              [tableData]="level2TableData?.dataSet"
+              [colHeader]="[
+                level2TableData?.colhead1,
+                level2TableData?.colhead2,
+                level2TableData?.colhead3,
+                level2TableData?.colhead4,
+                level2TableData?.colhead5
+              ]"
+              [inputBBC]="level2TableData?.bringBackColumn"
+              (updatedSelectedValue)="
+                updateListControl(
+                  $event,
+                  purchaseBillEntryForm.get('level2Name'),
+                  level2TableData?.bringBackColumn
+                )
+              "
+              [dynaPopId]="'MATCODES'"
+              [queryConditon]="level2_condition"
+              id="level2"
+              [errorMessage]="'Invalid Level2 Code'"
+              (change)="
+                searchTextDataBind(
+                  'MATCODES',
+                  level2_condition,
+                  purchaseBillEntryForm.controls['level2'],
+                  'Invalid Level2 Code',
+                  purchaseBillEntryForm.controls['level2Name'],
+                  'errMsgMaterial'
+                )
+              "
+              [errModalShow]="false"
+            ></app-f1>
+            <span class="position-relative span_divider"></span>
+            <input
+              type="text"
+              class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+              id
+              formControlName="level2Name"
+              tabindex="-1"
+            />
+          </div>
+          <div
+            *ngIf="
+              purchaseBillEntryForm.controls['level2'].invalid &&
+              purchaseBillEntryForm.controls['level2'].touched
+            "
+          >
+            <div
+              class="errorField common_color_txt font12 font500"
+              *ngIf="purchaseBillEntryForm.controls['level2'].errors && purchaseBillEntryForm.controls['level2'].errors?.['required']"
+            >
+              level2 is required
+            </div>
+          </div>
+          <div
+            class="errorField common_color_txt font12 font500"
+            *ngIf="purchaseBillEntryForm.controls['level2'].errors?.['maxlength']"
+          >
+            level2 should be 5 Character. Current is
+            {{ purchaseBillEntryForm.controls['level2'].errors?.['maxlength']?.actualLength  }}
+            characters.
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 col-xxl-2">
+          <div
+            class="input-group"
+            [class.is-invalid]="
+              purchaseBillEntryForm.controls['uom'].invalid &&
+              purchaseBillEntryForm.controls['uom'].touched
+            "
+          >
+            <span
+              class="input-group-text leftform_lbl font500 text-dark1 font12"
+              >U O M</span
+            >
+            <app-f1
+              [formControlName]="'uom'"
+              placeholder
+              class="form-control post_input_field border-start-0 d-flex"
+              titleValue="{{ uomTableData?.mainheader }}"
+              [tableData]="uomTableData?.dataSet"
+              [colHeader]="[
+                uomTableData?.colhead1,
+                uomTableData?.colhead2,
+                uomTableData?.colhead3,
+                uomTableData?.colhead4,
+                uomTableData?.colhead5
+              ]"
+              [inputBBC]="uomTableData?.bringBackColumn"
+              [searchDynaPopList]="false"
+              id="uom"
+              [errorMessage]="'Invalid UOM Code'"
+            ></app-f1>
+          </div>
+          <div
+            *ngIf="
+              purchaseBillEntryForm.controls['uom'].invalid &&
+              purchaseBillEntryForm.controls['uom'].touched
+            "
+          >
+            <div
+              *ngIf="purchaseBillEntryForm.controls['uom'].errors?.['validateUom']"
+              class="errorField common_color_txt font12 font500"
+            >
+              {{purchaseBillEntryForm.controls['uom'].errors?.['validateUomMsg']}}
+            </div>
+            <div
+              class="errorField common_color_txt font12 font500"
+              *ngIf="purchaseBillEntryForm.controls['uom'].errors?.['maxlength']"
+            >
+              UOM should be 10 Character. Current is
+              {{ purchaseBillEntryForm.controls['uom'].errors?.['maxlength']?.actualLength  }}
+              characters.
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 col-xxl-3">
+          <div
+            class="input-group"
+            [class.is-invalid]="
+              purchaseBillEntryForm.controls['quantity'].invalid &&
+              purchaseBillEntryForm.controls['quantity'].touched
+            "
+          >
+            <span
+              class="input-group-text leftform_lbl font500 text-dark1 font12"
+              >Quantity</span
+            >
+            <input
+              type="text"
+              class="form-control text-end border-start-0 post_input_field w-50 text-dark1 font12 font500"
+              oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+              formControlName="quantity"
+              (blur)="setItemQuantity()"
+            />
+          </div>
+          <div
+            *ngIf="
+              purchaseBillEntryForm.controls['quantity'].invalid &&
+              purchaseBillEntryForm.controls['quantity'].touched
+            "
+          >
+            <div
+              class="errorField common_color_txt font12 font500"
+              *ngIf="purchaseBillEntryForm.controls['quantity'].errors?.['maxlength']"
+            >
+              Quantity should be 16 Character. Current is
+              {{ purchaseBillEntryForm.controls['quantity'].errors?.['maxlength']?.actualLength  }}
+              characters.
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 col-xxl-3">
+          <div
+            class="input-group"
+            [class.is-invalid]="
+              purchaseBillEntryForm.controls['itemRate'].invalid &&
+              purchaseBillEntryForm.controls['itemRate'].touched
+            "
+          >
+            <span
+              class="input-group-text leftform_lbl font500 text-dark1 font12"
+              >Item Rate</span
+            >
+            <input
+              type="text"
+              class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500 text-end"
+              oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+              formControlName="itemRate"
+            />
+          </div>
+          <div
+            *ngIf="
+              purchaseBillEntryForm.controls['itemRate'].invalid &&
+              purchaseBillEntryForm.controls['itemRate'].touched
+            "
+          >
+            <div
+              class="errorField common_color_txt font12 font500"
+              *ngIf="purchaseBillEntryForm.controls['itemRate'].errors && purchaseBillEntryForm.controls['itemRate'].errors?.['required']"
+            >
+              item Rate is required
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 col-xxl-3">
+          <div
+            class="input-group"
+            [class.is-invalid]="
+              purchaseBillEntryForm.controls['value'].invalid &&
+              purchaseBillEntryForm.controls['value'].touched
+            "
+          >
+            <span
+              class="input-group-text leftform_lbl font500 text-dark1 font12"
+              >Value</span
+            >
+            <input
+              type="text"
+              class="form-control text-end border-start-0 post_input_field w-50 text-dark1 font12 font500"
+              formControlName="value"
+              [(ngModel)]="purchaseBillEntryForm.get('amount').value"
+            />
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 col-xxl-3">
+          <div
+            class="input-group"
+            [class.is-invalid]="
+              purchaseBillEntryForm.controls['tcsAmt'].invalid &&
+              purchaseBillEntryForm.controls['tcsAmt'].touched
+            "
+          >
+            <span
+              class="input-group-text leftform_lbl font500 text-dark1 font12"
+              >TCS Amt</span
+            >
+            <input
+              type="text"
+              class="form-control text-end border-start-0 post_input_field w-50 text-dark1 font12 font500"
+              oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+              formControlName="tcsAmt"
+            />
+          </div>
+          <div
+            *ngIf="
+              purchaseBillEntryForm.controls['tcsAmt'].invalid &&
+              purchaseBillEntryForm.controls['tcsAmt'].touched
+            "
+          >
+            <div
+              *ngIf="purchaseBillEntryForm.controls['tcsAmt'].errors?.['tcsAmtValidation']"
+              class="errorField common_color_txt font12 font500"
+            >
+              TCSAmt cannot be greater than Amount
+            </div>
+            <div
+              class="errorField common_color_txt font12 font500"
+              *ngIf="purchaseBillEntryForm.controls['tcsAmt'].errors?.['maxlength']"
+            >
+              TCS Amt should be 12 Character. Current is
+              {{ purchaseBillEntryForm.controls['tcsAmt'].errors?.['maxlength']?.actualLength  }}
+              characters.
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- tab -->
+      <div class="tabs_container pt-2">
+        <div class="tabs_inner_container">
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a
+                class="nav-link lh-20 active text-decoration-none font14 text-dark1 font500 first_letter_textdecorationone"
+                data-bs-toggle="tab"
+                href="#itemGSTBreakUpDetails"
+                accesskey="g"
+                (click)="itemGstBreakUpTab()"
+              >
+                Item / <span class="text-decoration-underline">G</span>ST
+                BreakUp
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link lh-20 text-decoration-none font14 text-dark1 font500 first_letter_textdecorationone"
+                data-bs-toggle="tab"
+                href="#challandetails"
+                accesskey="c"
+                id="challanDetailTab"
+                (click)="challanDetailTab()"
+              >
+                <span class="text-decoration-underline">c</span>hallan Details
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="tab-content">
+          <div class="tab-pane container active p-0" id="itemGSTBreakUpDetails">
+            <div class="gstBreakup_section">
+              <div class="table-responsive">
+                <div class="view" formArrayName="itemDetailBreakUp">
+                  <div class="wrapper">
+                    <table
+                      class="table table-bordered datatable table w-100 mb-0"
+                      [cellNavi]="'cell'"
+                    >
+                      <thead class="table_head_position_sticky">
+                        <tr tabindex="0">
+                          <th tabindex="-1">#</th>
+                          <th class="fontBold font12 text-dark1">HSN</th>
+                          <th class="fontBold font12 text-dark1">item Desc</th>
+                          <th class="fontBold font12 text-dark1 text-end">
+                            Item Amt
+                          </th>
+                          <th class="fontBold font12 text-dark1">Discount</th>
+                          <th class="fontBold font12 text-dark1 max_wid_120">
+                            FOTO Amt
+                          </th>
+                          <th class="fontBold font12 text-dark1 max_wid_120">
+                            Taxable Amt
+                          </th>
+                          <th class="fontBold font12 text-dark1 max_wid_150">
+                            CGST%
+                          </th>
+                          <th class="fontBold font12 text-dark1">Amt</th>
+                          <th class="fontBold font12 text-dark1 max_wid_150">
+                            SGST%
+                          </th>
+                          <th class="fontBold font12 text-dark1">Amt</th>
+                          <th class="fontBold font12 text-dark1 max_wid_150">
+                            IGST %
+                          </th>
+                          <th class="fontBold font12 text-dark1">Amt</th>
+                          <th class="fontBold font12 text-dark1 max_wid_150">
+                            UGST %
+                          </th>
+                          <th class="fontBold font12 text-dark1">Amt</th>
+                          <th class="fontBold font12 text-dark1">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr
+                          *ngFor="
+                            let item of purchaseBillEntryForm.controls
+                              .itemDetailBreakUp.controls;
+                            let index = index
+                          "
+                          [formGroupName]="index"
+                        >
+                          <td>{{ index + 1 }}</td>
+                          <td>
+                            <div class="input-group">
+                              <app-f1
+                                formControlName="hsncode"
+                                id="hsncode_{{ index }}"
+                                (keyup)="navigate($event, index)"
+                                placeholder
+                                class="font12 input_control form-control br-9 d-flex border-0"
+                                titleValue="{{ hsnTableData?.mainheader }}"
+                                [tableData]="hsnTableData.dataSet"
+                                [colHeader]="[
+                                  hsnTableData.colhead1,
+                                  hsnTableData.colhead2,
+                                  hsnTableData.colhead3,
+                                  hsnTableData.colhead4,
+                                  hsnTableData.colhead5
+                                ]"
+                                [inputBBC]="hsnTableData.bringBackColumn"
+                                [dynaPopId]="'HSNSAC'"
+                                [errorMessage]="'Invalid HSN Code'"
+                                tabindex="0"
+                                (sendFieldValueChange)="
+                                  $event.length && fetchGstPerc(index)
+                                "
+                                (input)="fetchGstPerc(index)"
+                                [searchDynaPopList]="true"
+                                [tabIndex]="-1"
+                              ></app-f1>
+                            </div>
+                            <div
+                              *ngIf="purchaseBillEntryForm.controls.itemDetailBreakUp.controls[index].controls['hsncode'].errors?.['hsncodeRequired']"
+                              class="errorField common_color_txt font12 font500"
+                            >
+                              HSN
+                              <br />
+                              required
+                            </div>
+                            <div
+                              class="errorField common_color_txt font12 font500"
+                              *ngIf="purchaseBillEntryForm.controls.itemDetailBreakUp.controls[index].controls['hsncode'].errors?.['maxlength']"
+                            >
+                              HSN should be 15 Character. Current is
+                              {{purchaseBillEntryForm.controls.itemDetailBreakUp.controls[index].controls['hsncode'].errors?.['maxlength']?.actualLength  }}
+                              characters.
+                            </div>
+                          </td>
+                          <td>
+                            <div>
+                              <input
+                                class="border-0 form-control input_control form-control font500 text-dark1 font12 itemDesc_input disabled_cls"
+                                type="text"
+                                name
+                                formControlName="hsndesc"
+                                readonly
+                                tabindex="-1"
+                                title="{{
+                                  purchaseBillEntryForm.controls.itemDetailBreakUp.controls[
+                                    index
+                                  ].get('hsndesc')?.value
+                                }}"
+                              />
+                            </div>
+                          </td>
+                          <td>
+                            <input
+                              class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                              type="text"
+                              value="0"
+                              [id]="'cell' + index + '-3'"
+                              oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                              formControlName="amount"
+                              (change)="
+                                calcTaxableAmt(
+                                  index,
+                                  purchaseBillEntryForm.controls.itemDetailBreakUp.controls[
+                                    index
+                                  ].get('amount')?.value,
+                                  purchaseBillEntryForm.controls.itemDetailBreakUp.controls[
+                                    index
+                                  ].get('discountamt')?.value
+                                )
+                              "
+                              (input)="calculateTDS()"
+                              tabindex="0"
+                              (focus)="
+                                el.nativeElement
+                                  .querySelector('.wrapper')
+                                  ?.scrollTo({ left: 0 })
+                              "
+                            />
+                            <div
+                              *ngIf="
+                                purchaseBillEntryForm.controls.itemDetailBreakUp
+                                  .controls[index].controls['amount'].invalid &&
+                                purchaseBillEntryForm.controls.itemDetailBreakUp
+                                  .controls[index].controls['amount'].touched
+                              "
+                            >
+                              <div
+                                class="errorField common_color_txt font12 font500"
+                                *ngIf="purchaseBillEntryForm.controls.itemDetailBreakUp.controls[index].controls['amount'].errors?.['maxlength']"
+                              >
+                                ItemAmt should be 15 Character.
+                                <br />
+                                Current is
+                                {{purchaseBillEntryForm.controls.itemDetailBreakUp.controls[index].controls['amount'].errors?.['maxlength']?.actualLength  }}
+                                characters.
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <input
+                              class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                              type="text"
+                              value="0"
+                              [id]="'cell' + index + '-4'"
+                              oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                              formControlName="discountamt"
+                              (change)="
+                                calcTaxableAmt(
+                                  index,
+                                  purchaseBillEntryForm.controls.itemDetailBreakUp.controls[
+                                    index
+                                  ].get('amount')?.value,
+                                  purchaseBillEntryForm.controls.itemDetailBreakUp.controls[
+                                    index
+                                  ].get('discountamt')?.value
+                                )
+                              "
+                            />
+                            <div
+                              *ngIf="
+                                purchaseBillEntryForm.controls.itemDetailBreakUp
+                                  .controls[index].controls['discountamt']
+                                  .invalid &&
+                                purchaseBillEntryForm.controls.itemDetailBreakUp
+                                  .controls[index].controls['amount'].touched
+                              "
+                            >
+                              <div
+                                class="errorField common_color_txt font12 font500"
+                                *ngIf="purchaseBillEntryForm.controls.itemDetailBreakUp.controls[index].controls['discountamt'].errors?.['maxlength']"
+                              >
+                                Discount should be 12 Character.
+                                <br />
+                                Current is
+                                {{purchaseBillEntryForm.controls.itemDetailBreakUp.controls[index].controls['discountamt'].errors?.['maxlength']?.actualLength  }}
+                                characters.
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <input
+                              class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                              type="text"
+                              value="0"
+                              [id]="'cell' + index + '-5'"
+                              oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                              formControlName="fotoamt"
+                              (input)="calculateTDS()"
+                            />
+                            <div
+                              *ngIf="
+                                purchaseBillEntryForm.controls.itemDetailBreakUp
+                                  .controls[index].controls['fotoamt']
+                                  .invalid &&
+                                purchaseBillEntryForm.controls.itemDetailBreakUp
+                                  .controls[index].controls['amount'].touched
+                              "
+                            >
+                              <div
+                                class="errorField common_color_txt font12 font500"
+                                *ngIf="purchaseBillEntryForm.controls.itemDetailBreakUp.controls[index].controls['fotoamt'].errors?.['maxlength']"
+                              >
+                                Fotoamt should be 12 Character.
+                                <br />
+                                Current is
+                                {{purchaseBillEntryForm.controls.itemDetailBreakUp.controls[index].controls['fotoamt'].errors?.['maxlength']?.actualLength  }}
+                                characters.
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="input-group">
+                              <input
+                                class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                                type="text"
+                                value="0"
+                                [id]="'cell' + index + '-14'"
+                                oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                                formControlName="taxableamt"
+                              />
+                            </div>
+                            <div
+                              *ngIf="
+                                purchaseBillEntryForm.controls.itemDetailBreakUp
+                                  .controls[index].controls['taxableamt']
+                                  .invalid &&
+                                purchaseBillEntryForm.controls.itemDetailBreakUp
+                                  .controls[index].controls['taxableamt']
+                                  .touched
+                              "
+                            >
+                              <div
+                                class="errorField common_color_txt font12 font500"
+                                *ngIf="purchaseBillEntryForm.controls.itemDetailBreakUp.controls[index].controls['taxableamt'].errors?.['maxlength']"
+                              >
+                                *Taxableamt should be 15 Character.
+                                <br />
+                                Current is
+                                {{purchaseBillEntryForm.controls.itemDetailBreakUp.controls[index].controls['taxableamt'].errors?.['maxlength']?.actualLength  }}
+                                characters.
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <input
+                              class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                              type="text"
+                              value="0"
+                              [id]="'cell' + index + '-6'"
+                              id="cgstpercId"
+                              formControlName="cgstperc"
+                              oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                              (change)="
+                                calcGST(
+                                  'CGST',
+                                  purchaseBillEntryForm.controls.itemDetailBreakUp.controls[
+                                    index
+                                  ].get('cgstperc'),
+                                  purchaseBillEntryForm.controls.itemDetailBreakUp.controls[
+                                    index
+                                  ].get('taxableamt')?.value,
+                                  purchaseBillEntryForm.controls.itemDetailBreakUp.controls[
+                                    index
+                                  ].get('cgstamt'),
+                                  $event.target.id
+                                )
+                              "
+                              [(ngModel)]="
+                                purchaseBillEntryForm.controls.itemDetailBreakUp.controls[
+                                  index
+                                ].get('sgstperc').value
+                              "
+                            />
+                            <div
+                              *ngIf="
+                                purchaseBillEntryForm.controls.itemDetailBreakUp
+                                  .controls[index].controls['cgstperc']
+                                  .invalid &&
+                                purchaseBillEntryForm.controls.itemDetailBreakUp
+                                  .controls[index].controls['cgstperc'].touched
+                              "
+                            >
+                              <div
+                                class="errorField common_color_txt font12 font500"
+                                *ngIf="purchaseBillEntryForm.controls.itemDetailBreakUp.controls[index].controls['cgstperc'].errors?.['maxlength']"
+                              >
+                                cgst should be 6 Character.
+                                <br />
+                                Current is
+                                {{purchaseBillEntryForm.controls.itemDetailBreakUp.controls[index].controls['cgstperc'].errors?.['maxlength']?.actualLength  }}
+                                characters.
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <input
+                              class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                              type="text"
+                              value="0"
+                              [id]="'cell' + index + '-7'"
+                              oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                              formControlName="cgstamt"
+                              [(ngModel)]="
+                                purchaseBillEntryForm.controls.itemDetailBreakUp.controls[
+                                  index
+                                ].get('sgstamt').value
+                              "
+                            />
+                            <div
+                              *ngIf="
+                                purchaseBillEntryForm.controls.itemDetailBreakUp
+                                  .controls[index].controls['cgstamt']
+                                  .invalid &&
+                                purchaseBillEntryForm.controls.itemDetailBreakUp
+                                  .controls[index].controls['cgstamt'].touched
+                              "
+                            >
+                              <div
+                                class="errorField common_color_txt font12 font500"
+                                *ngIf="purchaseBillEntryForm.controls.itemDetailBreakUp.controls[index].controls['cgstamt'].errors?.['maxlength']"
+                              >
+                                CgstAmt should be 12 Character.
+                                <br />
+                                Current is
+                                {{purchaseBillEntryForm.controls.itemDetailBreakUp.controls[index].controls['cgstamt'].errors?.['maxlength']?.actualLength  }}
+                                characters.
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <input
+                              class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                              type="text"
+                              value="0"
+                              [id]="'cell' + index + '-8'"
+                              oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                              formControlName="sgstperc"
+                              (change)="
+                                calcGST(
+                                  'SGST',
+                                  purchaseBillEntryForm.controls.itemDetailBreakUp.controls[
+                                    index
+                                  ].get('sgstperc'),
+                                  purchaseBillEntryForm.controls.itemDetailBreakUp.controls[
+                                    index
+                                  ].get('taxableamt')?.value,
+                                  purchaseBillEntryForm.controls.itemDetailBreakUp.controls[
+                                    index
+                                  ].get('sgstamt'),
+                                  $event.target.id
+                                )
+                              "
+                              [(ngModel)]="
+                                purchaseBillEntryForm.controls.itemDetailBreakUp.controls[
+                                  index
+                                ].get('cgstperc').value
+                              "
+                            />
+                            <div
+                              *ngIf="
+                                purchaseBillEntryForm.controls.itemDetailBreakUp
+                                  .controls[index].controls['sgstperc']
+                                  .invalid &&
+                                purchaseBillEntryForm.controls.itemDetailBreakUp
+                                  .controls[index].controls['sgstperc'].touched
+                              "
+                            >
+                              <div
+                                class="errorField common_color_txt font12 font500"
+                                *ngIf="purchaseBillEntryForm.controls.itemDetailBreakUp.controls[index].controls['sgstperc'].errors?.['maxlength']"
+                              >
+                                sgst should be 6 Character.
+                                <br />
+                                Current is
+                                {{purchaseBillEntryForm.controls.itemDetailBreakUp.controls[index].controls['sgstperc'].errors?.['maxlength']?.actualLength  }}
+                                characters.
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <input
+                              class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                              type="text"
+                              value="0"
+                              [id]="'cell' + index + '-9'"
+                              oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                              formControlName="sgstamt"
+                              [(ngModel)]="
+                                purchaseBillEntryForm.controls.itemDetailBreakUp.controls[
+                                  index
+                                ].get('cgstamt').value
+                              "
+                            />
+                            <div
+                              *ngIf="
+                                purchaseBillEntryForm.controls.itemDetailBreakUp
+                                  .controls[index].controls['sgstamt']
+                                  .invalid &&
+                                purchaseBillEntryForm.controls.itemDetailBreakUp
+                                  .controls[index].controls['sgstamt'].touched
+                              "
+                            >
+                              <div
+                                class="errorField common_color_txt font12 font500"
+                                *ngIf="purchaseBillEntryForm.controls.itemDetailBreakUp.controls[index].controls['sgstamt'].errors?.['maxlength']"
+                              >
+                                sgstamt should be 12 Character.
+                                <br />
+                                Current is
+                                {{purchaseBillEntryForm.controls.itemDetailBreakUp.controls[index].controls['cgstamt'].errors?.['maxlength']?.actualLength  }}
+                                characters.
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <input
+                              class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                              type="text"
+                              value="0"
+                              [id]="'cell' + index + '-10'"
+                              oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                              formControlName="igstperc"
+                              (change)="
+                                calcGST(
+                                  'IGST',
+                                  purchaseBillEntryForm.controls.itemDetailBreakUp.controls[
+                                    index
+                                  ].get('igstperc'),
+                                  purchaseBillEntryForm.controls.itemDetailBreakUp.controls[
+                                    index
+                                  ].get('taxableamt')?.value,
+                                  purchaseBillEntryForm.controls.itemDetailBreakUp.controls[
+                                    index
+                                  ].get('igstamt'),
+                                  $event.target.id
+                                )
+                              "
+                            />
+                            <div
+                              *ngIf="
+                                purchaseBillEntryForm.controls.itemDetailBreakUp
+                                  .controls[index].controls['igstperc']
+                                  .invalid &&
+                                purchaseBillEntryForm.controls.itemDetailBreakUp
+                                  .controls[index].controls['igstperc'].touched
+                              "
+                            >
+                              <div
+                                class="errorField common_color_txt font12 font500"
+                                *ngIf="purchaseBillEntryForm.controls.itemDetailBreakUp.controls[index].controls['igstperc'].errors?.['maxlength']"
+                              >
+                                igst should be 6 Character.
+                                <br />
+                                Current is
+                                {{purchaseBillEntryForm.controls.itemDetailBreakUp.controls[index].controls['igstperc'].errors?.['maxlength']?.actualLength  }}
+                                characters.
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <input
+                              class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                              type="text"
+                              value="0"
+                              [id]="'cell' + index + '-11'"
+                              oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                              formControlName="igstamt"
+                            />
+                            <div
+                              *ngIf="
+                                purchaseBillEntryForm.controls.itemDetailBreakUp
+                                  .controls[index].controls['igstamt']
+                                  .invalid &&
+                                purchaseBillEntryForm.controls.itemDetailBreakUp
+                                  .controls[index].controls['igstamt'].touched
+                              "
+                            >
+                              <div
+                                class="errorField common_color_txt font12 font500"
+                                *ngIf="purchaseBillEntryForm.controls.itemDetailBreakUp.controls[index].controls['igstamt'].errors?.['maxlength']"
+                              >
+                                igstamt should be 12 Character.
+                                <br />
+                                Current is
+                                {{purchaseBillEntryForm.controls.itemDetailBreakUp.controls[index].controls['igstamt'].errors?.['maxlength']?.actualLength  }}
+                                characters.
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <input
+                              class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                              type="text"
+                              value="0"
+                              [id]="'cell' + index + '-12'"
+                              oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                              formControlName="ugstperc"
+                              (change)="
+                                calcGST(
+                                  'UGST',
+                                  purchaseBillEntryForm.controls.itemDetailBreakUp.controls[
+                                    index
+                                  ].get('ugstperc'),
+                                  purchaseBillEntryForm.controls.itemDetailBreakUp.controls[
+                                    index
+                                  ].get('taxableamt')?.value,
+                                  purchaseBillEntryForm.controls.itemDetailBreakUp.controls[
+                                    index
+                                  ].get('ugstamt'),
+                                  $event.target.id
+                                )
+                              "
+                            />
+                            <div
+                              *ngIf="
+                                purchaseBillEntryForm.controls.itemDetailBreakUp
+                                  .controls[index].controls['ugstperc']
+                                  .invalid &&
+                                purchaseBillEntryForm.controls.itemDetailBreakUp
+                                  .controls[index].controls['ugstperc'].touched
+                              "
+                            >
+                              <div
+                                class="errorField common_color_txt font12 font500"
+                                *ngIf="purchaseBillEntryForm.controls.itemDetailBreakUp.controls[index].controls['ugstperc'].errors?.['maxlength']"
+                              >
+                                ugst should be 6 Character.
+                                <br />
+                                Current is
+                                {{purchaseBillEntryForm.controls.itemDetailBreakUp.controls[index].controls['ugstperc'].errors?.['maxlength']?.actualLength  }}
+                                characters.
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <input
+                              class="border-0 form-control input_control form-control font500 text-dark1 font12 text-end"
+                              type="text"
+                              value="0"
+                              [id]="'cell' + index + '-13'"
+                              oninput="this.value=this.value.replace(/[^0-9\.]/g,'');"
+                              formControlName="ugstamt"
+                            />
+                            <div
+                              *ngIf="
+                                purchaseBillEntryForm.controls.itemDetailBreakUp
+                                  .controls[index].controls['ugstamt']
+                                  .invalid &&
+                                purchaseBillEntryForm.controls.itemDetailBreakUp
+                                  .controls[index].controls['ugstamt'].touched
+                              "
+                            >
+                              <div
+                                class="errorField common_color_txt font12 font500"
+                                *ngIf="purchaseBillEntryForm.controls.itemDetailBreakUp.controls[index].controls['ugstamt'].errors?.['maxlength']"
+                              >
+                                ugstamt should be 12 Character.
+                                <br />
+                                Current is
+                                {{purchaseBillEntryForm.controls.itemDetailBreakUp.controls[index].controls['ugstamt'].errors?.['maxlength']?.actualLength  }}
+                                characters.
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <div
+                              class="action_panel d-flex justify-content-center"
+                            >
+                              <button
+                                type="button"
+                                class="border-0 bg-transparent ms-1 btn p-0 m-0 lh_0"
+                                (click)="
+                                  deleteRow(
+                                    index,
+                                    purchaseBillEntryForm.controls.itemDetailBreakUp.controls[
+                                      index
+                                    ].get('lineno').value
+                                  )
+                                "
+                                (blur)="
+                                  index ==
+                                    purchaseBillEntryForm.controls
+                                      .itemDetailBreakUp.controls.length -
+                                      1 && focusChanllanTab()
+                                "
+                              >
+                                <img
+                                  src="assets/images/delete.svg"
+                                  alt="remove"
+                                  class="delete_img"
+                                />
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane container fade p-0" id="challandetails">
+            <div class="challan_section" formArrayName="challan">
+              <div class="row">
+                <div class="col-xl-6">
+                  <div class="table-responsive table_wrapper">
+                    <table
+                      class="table table-bordered datatable table"
+                      style="width: 100%"
+                      [cellNavi]="'cell1'"
+                    >
+                      <thead>
+                        <tr tabindex="0">
+                          <th>#</th>
+                          <th class="fontBold font12 text-dark1">challan #</th>
+                          <th class="fontBold font12 text-dark1">challan Dt</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr
+                          *ngFor="
+                            let item of purchaseBillEntryForm.controls.challan
+                              .controls;
+                            let index = index
+                          "
+                          [formGroupName]="index"
+                        >
+                          <td>{{ index + 1 }}</td>
+
+                          <td>
+                            <div
+                              class="input-group border border-light"
+                              [class.is-invalid]="
+                                purchaseBillEntryForm.controls.challan.controls[
+                                  index
+                                ].controls['dcno'].invalid &&
+                                purchaseBillEntryForm.controls.challan.controls[
+                                  index
+                                ].controls['dcno'].touched
+                              "
+                            >
+                              <input
+                                upperCase
+                                class="border-0 text-uppercase form-control input_control form-control font500 text-dark1 font12"
+                                type="text"
+                                [id]="'cell1' + index + '-1'"
+                                formControlName="dcno"
+                                (focusout)="setChallanDt(index)"
+                              />
+                            </div>
+                            <div
+                              *ngIf="purchaseBillEntryForm.controls.challan.controls[index].controls['dcno'].errors?.['dcnoRequired']"
+                              class="errorField common_color_txt font12 font500"
+                            >
+                              challan is required
+                            </div>
+                            <div
+                              *ngIf="purchaseBillEntryForm.controls.challan.controls[index].controls['dcno'].errors?.['validateChallanDetail']"
+                              class="errorField common_color_txt font12 font500"
+                            >
+                              {{purchaseBillEntryForm.controls.challan.controls[index].controls['dcno'].errors?.['errMsg']}}
+                            </div>
+                            <div
+                              class="errorField common_color_txt font12 font500"
+                              *ngIf="purchaseBillEntryForm.controls.challan.controls[index].controls['dcno'].errors?.['maxlength']"
+                            >
+                              Challan should be 16 Character. Current is
+                              {{purchaseBillEntryForm.controls.challan.controls[index].controls['dcno'].errors?.['maxlength']?.actualLength  }}
+                              characters.
+                            </div>
+                          </td>
+                          <td>
+                            <div
+                              class="input-group tbl_datepicker custom_picker border border-light"
+                              appDate1
+                              [class.is-invalid]="
+                                purchaseBillEntryForm.controls.challan.controls[
+                                  index
+                                ].controls['challanDate'].invalid &&
+                                purchaseBillEntryForm.controls.challan.controls[
+                                  index
+                                ].controls['challanDate'].touched
+                              "
+                            >
+                              <input
+                                class="form-control input_control border-0 form-control pre_input_field font500 text-dark1 font12"
+                                id="challanDate_{{ index }}"
+                                matInput
+                                [id]="'cell1' + index + '-2'"
+                                [max]="maxDate"
+                                [matDatepicker]="pickerChallanDate"
+                                formControlName="challanDate"
+                                (dateChange)="formatChk($event, index)"
+                              />
+                              <div
+                                class="datepicker_input_cutsom_icon border-0 input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                              >
+                                <span class="input-group-addon">
+                                  <mat-datepicker-toggle
+                                    matSuffix
+                                    [for]="pickerChallanDate"
+                                    tabindex="-1"
+                                  ></mat-datepicker-toggle>
+                                  <mat-datepicker
+                                    #pickerChallanDate
+                                  ></mat-datepicker>
+                                </span>
+                              </div>
+                            </div>
+                            <div
+                              *ngIf="purchaseBillEntryForm.controls.challan.controls[index].controls['challanDate'].errors?.['challanDtValFn']"
+                              class="errorField common_color_txt font12 font500"
+                            >
+                              challan Date cannot be greater than bill Date
+                            </div>
+                            <div
+                              *ngIf="purchaseBillEntryForm.controls.challan.controls[index].controls['challanDate'].errors?.['challanDtRequired']"
+                              class="errorField common_color_txt font12 font500"
+                            >
+                              challan Date is required
+                            </div>
+                          </td>
+                          <td>
+                            <div
+                              class="action_panel d-flex justify-content-center"
+                            >
+                              <button
+                                type="button"
+                                class="border-0 bg-transparent ms-1 btn p-0 m-0 lh_0"
+                                (click)="deleteRow(index, '')"
+                              >
+                                <img
+                                  src="assets/images/delete.svg"
+                                  alt="remove"
+                                  class="delete_img"
+                                />
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- table -->
+    </div>
+  </div>
+</form>
+<app-loader *ngIf="loaderToggle"></app-loader>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div
+      class="action_conatiner text-center bg-white br-10 d-flex justify-content-center"
+    >
+      <button
+        type="submit"
+        class="bg_common_red border-0 common_action_btn text-white br-10"
+        accesskey="a"
+        (click)="add()"
+        [disabled]="disabledFlagAdd"
+      >
+        Add
+      </button>
+      <button
+        type="submit"
+        class="bg_common_red border-0 common_action_btn text-white br-10"
+        accesskey="r"
+        (click)="retrieve()"
+        [disabled]="disabledFlagRetrieve"
+      >
+        Retrieve
+      </button>
+      <button
+        type="submit"
+        class="bg_common_red border-0 common_action_btn text-white br-10 first_letter_textdecorationone"
+        accesskey="o"
+        (click)="addRow()"
+        [disabled]="disabledFlagAddRow"
+      >
+        Add R<u>o</u>w
+      </button>
+      <button
+        type="submit"
+        class="bg_common_red border-0 common_action_btn text-white br-10"
+        accesskey="b"
+        (click)="back()"
+        [disabled]="disabledFlagBack"
+      >
+        Back
+      </button>
+      <button
+        type="submit"
+        class="bg_common_red border-0 common_action_btn text-white br-10 first_letter_textdecorationone"
+        accesskey="x"
+        (click)="router.navigateByUrl('/dashboard')"
+      >
+        E<u>x</u>it
+      </button>
+      <button
+        type="submit"
+        class="bg_common_red border-0 common_action_btn text-white br-10"
+        accesskey="s"
+        (click)="save()"
+        [disabled]="disabledFlagSave"
+      >
+        Save
+      </button>
+    </div>
+  </div>
+</section>
+<ng-template #GstDetailsPopup>
+  <p class="font14 font500 text-dark1 mb-0 p-4">
+    <span *ngIf="!isPartyGst; else retrieveMessage">
+      Gst Details are blank.Do You wish to enter now?
+    </span>
+    <ng-template #retrieveMessage
+      >Do you wish to change Party Address?</ng-template
+    >
+  </p>
+  <div class="d-flex justify-content-center p-3">
+    <button
+      type="button"
+      class="btn del_act_btn font14 font600 br-10 text-white bg_common_red me-3 px-4 firstletter_underline"
+      (click)="gstEnterYes()"
+      accesskey="y"
+    >
+      Yes
+    </button>
+    <button
+      type="button"
+      class="px-3 btn del_act_btn modal_close_btn br-10 font14 font600 text-dark1 px-4 firstletter_underline"
+      cdkFocusInitial
+      (click)="dialogRef.close(); billTypeFocus()"
+      accesskey="n"
+    >
+      No
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #GstAddressDetails>
+  <ng-container *ngIf="fetchPartyAdd">
+    <div class="fetch_party_model">
+      <form [formGroup]="partyPurchaseBillFormGroup">
+        <div class="row">
+          <div class="col-md-6 pb-2">
+            <div
+              class="input-group"
+              [class.is-invalid]="
+                partyPurchaseBillFormGroup.controls['gstno'].invalid &&
+                partyPurchaseBillFormGroup.controls['gstno'].touched
+              "
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >GST Num</span
+              >
+              <input
+                upperCase
+                type="text"
+                class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+                id
+                formControlName="gstno"
+                (change)="updateToday()"
+              />
+            </div>
+            <div
+              *ngIf="
+                partyPurchaseBillFormGroup.controls['gstno'].invalid &&
+                partyPurchaseBillFormGroup.controls['gstno'].touched
+              "
+            >
+              <div
+                class="errorField common_color_txt font12 font500"
+                *ngIf="partyPurchaseBillFormGroup.controls['gstno'].errors?.['maxlength'] || partyPurchaseBillFormGroup.controls['gstno'].errors?.['minlength']"
+              >
+                *GST no. should be 15 Character. Current is
+                {{partyPurchaseBillFormGroup.controls['gstno'].errors?.['maxlength']?.actualLength ||partyPurchaseBillFormGroup.controls['gstno'].errors?.['minlength']?.actualLength }}
+                characters.
+              </div>
+              <div
+                *ngIf="partyPurchaseBillFormGroup.controls['gstno'].errors && partyPurchaseBillFormGroup.controls['gstno'].errors?.['pattern']"
+                class="errorField common_color_txt font12 font500"
+              >
+                * Invalid GST
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 pb-2">
+            <div
+              class="input-group"
+              [class.is-invalid]="
+                partyPurchaseBillFormGroup.controls['vatnum'].invalid &&
+                partyPurchaseBillFormGroup.controls['vatnum'].touched
+              "
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Vat Num</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+                id
+                formControlName="vatnum"
+                (change)="updateToday()"
+              />
+            </div>
+          </div>
+          <div class="col-md-6 pb-2">
+            <div
+              class="input-group"
+              [class.is-invalid]="
+                partyPurchaseBillFormGroup.controls['tinnum'].invalid &&
+                partyPurchaseBillFormGroup.controls['tinnum'].touched
+              "
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >Tin Num</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+                id
+                formControlName="tinnum"
+                (change)="updateToday()"
+              />
+            </div>
+          </div>
+          <div class="col-md-6 pb-2">
+            <div
+              class="input-group"
+              [class.is-invalid]="
+                partyPurchaseBillFormGroup.controls['rcnum'].invalid &&
+                partyPurchaseBillFormGroup.controls['rcnum'].touched
+              "
+            >
+              <span
+                class="input-group-text leftform_lbl font500 text-dark1 font12"
+                >RC#</span
+              >
+              <input
+                type="text"
+                class="form-control border-start-0 post_input_field w-50 text-dark1 font12 font500"
+                id
+                formControlName="rcnum"
+                (change)="updateToday()"
+              />
+            </div>
+          </div>
+        </div>
+      </form>
+      <app-address
+        [classesResponsive]="'col-md-6'"
+        [addressFetchData]="addressFetchData"
+        (passAddressData)="getReceiveAddressData($event)"
+        (cityFieldValueChange)="updateCityFieldValueChange($event)"
+      ></app-address>
+      <div class="d-flex p-3 justify-content-center">
+        <button
+          class="btn del_act_btn font14 font600 br-10 text-white bg_common_red me-3 px-4 first_letter_textdecorationone"
+          (click)="savePartyAdress()"
+          accesskey="v"
+        >
+          Sa<u>v</u>e
+        </button>
+        <button
+          class="px-3 btn del_act_btn modal_close_btn br-10 font14 font600 text-dark1 px-4 firstletter_underline"
+          (click)="dialogRef.close(); billTypeFocus()"
+          accesskey="c"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!fetchPartyAdd">
+    <p class="font14 font500 text-dark1 mb-0 p-4 text-center">{{noDataStr}}</p>
+    <div class="d-flex justify-content-center p-3">
+        <button
+          class="btn del_act_btn font14 font600 br-10 text-white bg_common_red px-4 first_letter_textdecorationone"
+          (click)="dialogRef.close()"
+        >
+          Ok
+        </button>
+      </div>
+  </ng-container>
+</ng-template>
+
+<ng-template #saveValidationPopUp>
+  <div class="font500 text-dark1 mb-0 px-0 py-2">
+    <p class="font600 font13 txt_black">
+      Invoice Amount in header and Itemwise Total Amount not matching...
+    </p>
+    <p class="font500 font12 txt_black mb-1">
+      Header Amount =>
+      <span class="font600 txt_black ps-2">{{ headerAmt }}</span>
+    </p>
+    <p class="font500 font12 txt_black mb-1">
+      Itemwise Total Amount =>
+      <span class="font600 txt_black ps-2">{{ total }}</span>
+    </p>
+    <p class="font500 font12 txt_black mb-1">
+      Total Foto Amount =>
+      <span class="font600 txt_black ps-2">{{ totalFoto }}</span>
+    </p>
+    <p class="font500 font12 txt_black mb-1">
+      Total CGST Amount =>
+      <span class="font600 txt_black ps-2">{{ totalCgst.toFixed(2) }}</span>
+    </p>
+    <p class="font500 font12 txt_black mb-1">
+      Total SGST Amount =>
+      <span class="font600 txt_black ps-2">{{ totalSgst.toFixed(2) }}</span>
+    </p>
+    <p class="font500 font12 txt_black mb-1">
+      Total IGST Amount =>
+      <span class="font600 txt_black ps-2">{{ totalIgst.toFixed(2) }}</span>
+    </p>
+    <p class="font500 font12 txt_black mb-1">
+      Total UGST Amount =>
+      <span class="font600 txt_black ps-2">{{ totalUgst.toFixed(2) }}</span>
+    </p>
+  </div>
+  <div class="d-flex justify-content-center p-3">
+    <button
+      class="btn del_act_btn font14 font600 br-10 text-white bg_common_red me-3 px-4 first_letter_textdecorationone"
+      (click)="dialogRef.close()"
+    >
+      Ok
+    </button>
+  </div>
+</ng-template>

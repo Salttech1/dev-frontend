@@ -1,0 +1,23 @@
+.d-block-formcheck .form-check {
+    display: block;
+    width: 100%;
+    padding-bottom:5px;
+}
+.first_letter_underline::first-letter{
+    text-decoration: underline;
+}
+.matForm {
+    display: flex;
+    align-items: center;
+    padding-left: 0.5rem;
+  }
+
+
+  
+.form-check-input:checked[type="radio"] {
+    border-width: 4px;
+  }
+
+  .form-check-input:after {
+    display: none;
+  }

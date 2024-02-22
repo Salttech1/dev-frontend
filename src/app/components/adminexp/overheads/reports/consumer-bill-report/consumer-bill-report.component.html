@@ -1,0 +1,460 @@
+<section class="ReportDisplaysection">
+  <div class="container">
+    <div class="row mb-3 justify-content-center">
+      <div class="col-md-8">
+        <div class="br-10 group_panel p-3 position-relative pt-9">
+          <p class="bg-white font600 group_title mb-0 position-absolute">
+            Report Display Option
+          </p>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="input-group">
+                <form [formGroup]="reportSelection">
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input font12 font500 position-relative"
+                      type="radio"
+                      name="inlineRadioOptions"
+                      id="inlineRadio1"
+                      formControlName="inlineRadioOptions"
+                      value="option1"
+                      (click)="setEnabledisableControl()"
+                    />
+                    <label class="form-check-label" for="inlineRadio1"
+                      >Date Wise</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input font12 font500 position-relative"
+                      type="radio"
+                      name="inlineRadioOptions"
+                      id="inlineRadio2"
+                      formControlName="inlineRadioOptions"
+                      value="option2"
+                    />
+                    <label class="form-check-label" for="inlineRadio2"
+                      >Year wise</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input font12 font500 position-relative"
+                      type="radio"
+                      name="inlineRadioOptions"
+                      id="inlineRadio3"
+                      formControlName="inlineRadioOptions"
+                      value="option3"
+                    />
+                    <label class="form-check-label" for="inlineRadio3"
+                      >Summary</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input font12 font500 position-relative"
+                      type="radio"
+                      name="inlineRadioOptions"
+                      id="inlineRadio4"
+                      formControlName="inlineRadioOptions"
+                      value="option4"
+                    />
+                    <label class="form-check-label" for="inlineRadio4"
+                      >Deposite</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input font12 font500 position-relative"
+                      type="radio"
+                      name="inlineRadioOptions"
+                      id="inlineRadio5"
+                      formControlName="inlineRadioOptions"
+                      value="option5"
+                    />
+                    <label class="form-check-label" for="inlineRadio5"
+                      >ConsumerWise Bill</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input font12 font500 position-relative"
+                      type="radio"
+                      name="inlineRadioOptions"
+                      id="inlineRadio6"
+                      formControlName="inlineRadioOptions"
+                      value="option6"
+                    />
+                    <label class="form-check-label" for="inlineRadio6"
+                      >Location wise Bill Detail</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input font12 font500 position-relative"
+                      type="checkbox"
+                      name="inlineRadioOptionschkbox"
+                      formControlName="inlineRadioOptionschkbox"
+                      id="checkbox1"
+                      value="checkbox1"
+                    />
+                    <label class="form-check-label" for="checkbox1"
+                      >Vacant Flat</label
+                    >
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-md-12">
+        <div
+          class="br-10 form_common_bg group_panel p-3 position-relative pt-9"
+        >
+          <p class="bg-white font600 group_title mb-0 position-absolute">
+            Selection Details
+          </p>
+          <form [formGroup]="selectiondetails">
+            <div formGroupName="reportParameters">
+              <div class="row g-3">
+                <div class="col-md-3">
+                  <div class="input-group">
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      >billType</span
+                    >
+                    <app-f1
+                      id="billType"
+                      [formControlName]="'billType'"
+                      name="Bill Type"
+                      class="form-control post_input_field border-start-0 d-flex"
+                      titleValue="{{ billTypeF1List?.mainheader }}"
+                      [tableData]="billTypeF1List?.dataSet"
+                      [colHeader]="billTypeColHeadings"
+                      [inputBBC]="billTypeF1abc"
+                      (updatedSelectedValue)="displayBillType($event)"
+                      [dynaPopId]="'OVERHEADS'"
+                      [queryConditon]="''"
+                      [errorMessage]="'Invalid Bill Type'"
+                    >
+                    </app-f1>
+                  </div>
+                </div>
+                <div class="col-md-3" *ngIf="disableDateFlag">
+                  <div class="input-group">
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Date</span
+                    >
+                    <input
+                      class="form-control border-start-0 post_input_field font500 text-dark1 font12"
+                      id="date"
+                      formControlName="bilentdateField"
+                      matInput
+                      [matDatepicker]="pickerFrom"
+                    />
+                    <div
+                      class="datepicker_input_cutsom_icon input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                    >
+                      <span class="input-group-addon">
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="pickerFrom"
+                          tabindex="-1"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #pickerFrom></mat-datepicker>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-3" *ngIf="disableYearMonthFlag">
+                  <div
+                    class="input-group"
+                    [class.is-invalid]="
+                      selectiondetails.controls['reportParameters'].controls[
+                        'billperiod'
+                      ].invalid &&
+                      selectiondetails.controls['reportParameters'].controls[
+                        'billperiod'
+                      ].touched
+                    "
+                    appYearmonthformatdirective
+                  >
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >Year Month(YYYYMM)</span
+                    >
+                    <input
+                      type="text"
+                      [matDatepicker]="pickerYearSelection"
+                      class="form-control border-start-0 post_input_field"
+                      formControlName="billperiod"
+                      id="matDateField"
+                      
+                    />
+                    <div
+                      class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                    >
+                      <span class="input-group-addon">
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="pickerYearSelection"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker
+                          #pickerYearSelection
+                          startView="multi-year"
+                          (monthSelected)="
+                            chosenMonthHandler(
+                              $event,
+                              pickerYearSelection,
+                              selectiondetails.get(
+                                'reportParameters.billperiod'
+                              )
+                            )
+                          "
+                        ></mat-datepicker>
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    *ngIf="
+                      selectiondetails.controls['reportParameters'].controls[
+                        'billperiod'
+                      ].invalid &&
+                      selectiondetails.controls['reportParameters'].controls[
+                        'billperiod'
+                      ].touched
+                    "
+                  >
+                    <div
+                      class="errorField common_color_txt font12 font500"
+                      *ngIf="selectiondetails.controls['reportParameters'].controls['billperiod'].errors && selectiondetails.controls['reportParameters'].controls['billperiod'].errors?.['required']"
+                    >
+                      *Month is required
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3" *ngIf="disableLocationFlag">
+                  <div class="input-group">
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      >location</span
+                    >
+                    <app-f1
+                      id="location"
+                      [formControlName]="'location'"
+                      name="location"
+                      class="form-control post_input_field border-start-0 d-flex"
+                      titleValue="{{ locationF1List?.mainheader }}"
+                      [tableData]="locationF1List?.dataSet"
+                      [colHeader]="locationColHeadings"
+                      [inputBBC]="locationF1abc"
+                      [dynaPopId]="'CONSITE'"
+                      [queryConditon]="''"
+                      [errorMessage]="'Invalid Location'"
+                      [disabled]="disableLocationFlag"
+                    >
+                    </app-f1>
+                  </div>
+                </div>
+              </div>
+              <div class="row g-3 mt-0" *ngIf="disableConsumerNoFlag">
+                <div class="col-md-3">
+                  <div class="input-group">
+                    <span class="input-group-text leftform_lbl font500 font12"
+                      >consumerNO</span
+                    >
+                    <app-f1
+                      id="connectionNo"
+                      [formControlName]="'connectionNo'"
+                      name="connection No"
+                      class="form-control post_input_field border-start-0 d-flex"
+                      titleValue="{{ billTypeF1List?.mainheader }}"
+                      [tableData]="ConnTableDataList?.dataSet"
+                      [colHeader]="ConnColumnHeader"
+                      [inputBBC]="ConnnoF1abc"
+                      (updatedSelectedValue)="displayConncode($event)"
+                      [dynaPopId]="'CONSUMERNO'"
+                      [queryConditon]="''"
+                      [errorMessage]="'Invalid Connection No'"
+                      
+                    >
+                    </app-f1>
+                  </div>
+                </div>
+                <div class="col-md-3" *ngIf="disableFromFlag">
+                  <div
+                    class="input-group"
+                    [class.is-invalid]="
+                      selectiondetails.controls['reportParameters'].controls[
+                        'fromYear'
+                      ].invalid &&
+                      selectiondetails.controls['reportParameters'].controls[
+                        'fromYear'
+                      ].touched
+                    "
+                    appYear
+                  >
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >From(YYYY)</span
+                    >
+                    <input
+                      type="text"
+                      [matDatepicker]="pickerFromYearSelection"
+                      class="form-control border-start-0 post_input_field"
+                      formControlName="fromYear"
+                      id="fromYear"
+                      (dateChange)="validateInvalidFormat($event,'fromYear')"
+                      
+                    />
+                    <div
+                      class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                    >
+                      <span class="input-group-addon">
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="pickerFromYearSelection"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker
+                          #pickerFromYearSelection
+                          startView="multi-year"
+                          (yearSelected)="
+                            chosenMonthHandler(
+                              $event,
+                              pickerFromYearSelection,
+                              selectiondetails.get('reportParameters.fromYear')
+                            )
+                          "
+                        ></mat-datepicker>
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    *ngIf="
+                      selectiondetails.controls['reportParameters'].controls[
+                        'fromYear'
+                      ].invalid &&
+                      selectiondetails.controls['reportParameters'].controls[
+                        'fromYear'
+                      ].touched
+                    "
+                  >
+                    <div
+                      class="errorField common_color_txt font12 font500"
+                      *ngIf="selectiondetails.controls['reportParameters'].controls['fromYear'].errors && selectiondetails.controls['reportParameters'].controls['fromYear'].errors?.['required']"
+                    >
+                      *Month is required
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3" *ngIf="disableToflag">
+                  <div
+                    class="input-group"
+                    [class.is-invalid]="
+                      selectiondetails.controls['reportParameters'].controls[
+                        'toYear'
+                      ].invalid &&
+                      selectiondetails.controls['reportParameters'].controls[
+                        'toYear'
+                      ].touched
+                    "
+                    appYear
+                  >
+                    <span
+                      class="input-group-text leftform_lbl font500 text-dark1 font12"
+                      >To(YYYY)</span
+                    >
+                    <input
+                      type="text"
+                      [matDatepicker]="pickerToYearSelection"
+                      class="form-control border-start-0 post_input_field"
+                      formControlName="toYear"
+                      id="toYear2312"
+                      (dateChange)="validateInvalidFormat($event,'toYear2312')"
+                    />
+                    <div
+                      class="input-group-append bg-white border-1 post_input_field datepicker_field border-start-0"
+                    >
+                      <span class="input-group-addon">
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="pickerToYearSelection"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker
+                          #pickerToYearSelection
+                          startView="multi-year"
+                          (yearSelected)="
+                            chosenMonthHandler(
+                              $event,
+                              pickerToYearSelection,
+                              selectiondetails.get('reportParameters.toYear')
+                            )
+                          "
+                        ></mat-datepicker>
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    *ngIf="
+                      selectiondetails.controls['reportParameters'].controls[
+                        'toYear'
+                      ].invalid &&
+                      selectiondetails.controls['reportParameters'].controls[
+                        'toYear'
+                      ].touched
+                    "
+                  >
+                    <div
+                      class="errorField common_color_txt font12 font500"
+                      *ngIf="selectiondetails.controls['reportParameters'].controls['toYear'].errors && selectiondetails.controls['reportParameters'].controls['toYear'].errors?.['required']"
+                    >
+                      *Month is required
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<app-loader *ngIf="loaderToggle"></app-loader>
+<section class="action_section position-fixed w-100">
+  <div class="container">
+    <div class="action_conatiner text-center bg-white br-10 w-100">
+      <div class="flex justify-content-between">
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+          accesskey="w"
+          (click)="getReport(false)"
+        >
+          Do<span class="text-decoration-underline">w</span>nload
+        </button>
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white"
+          (click)="getReport(true)"
+          accesskey="p"
+        >
+          Print
+        </button>
+        <!-- <button type="submit" class="common_action_btn  br-10 border-0 ms-1 bg_common_red text-white" [disabled]="true">File</button> -->
+        <button
+          type="submit"
+          class="common_action_btn br-10 border-0 ms-1 bg_common_red text-white first_letter_textdecorationone"
+          accesskey="x"
+          (click)="handleExitClick()"
+        >
+          E<span class="text-decoration-underline">x</span>it
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
